@@ -1,5 +1,5 @@
 name: repairservices
-description: A new Flutter project.
+description: RepairService for Flutter
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -11,18 +11,42 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.14+14
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.4.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  #  flutter_cupertino_localizations: ^1.0.1
   cupertino_icons: ^0.1.2
+  kiwi: ^0.2.0
+  rxdart: 0.22.6
+  sqflite: ^1.0.0
+  path_provider: ^1.5.1
+  shared_preferences: ^0.5.6
+  image_picker: ^0.6.1+4
+  http: ^0.12.0+2
+  #  flutter_crashlytics: ^1.0.0
+  dio: ^3.0.2
+  modal_progress_hud: ^0.1.3
+  intl: ^0.16.0
+  file_picker: ^1.4.3+2
+  flutter_html_to_pdf: ^0.5.2
+  flutter_full_pdf_viewer: ^1.0.6
+  flutter_mailer: ^0.4.2
+  flutter_slidable: ^0.5.4
+  device_info: ^0.4.1+4
+  webview_flutter: ^0.3.17
+  url_launcher: 5.2.7
+  material_design_icons_flutter: ^3.0.3392
+  devicelocale: ^0.2.1
+  #  package_info: ^0.4.0+13
+  flutter_i18n: ^0.8.2
 
 dev_dependencies:
   flutter_test:
@@ -44,7 +68,115 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
-
+  assets:
+    - assets/schuco.png
+    - assets/hamburgerGreen.png
+    - assets/shopping-cart.png
+    - assets/user-icon.png
+    - assets/article-identification.png
+    - assets/qrCodeGrey.png
+    - assets/document-list-green.png
+    - assets/documentGrey.png
+    - assets/docucenter.png
+    - assets/buildingGreenHome.png
+    - assets/informationGreen.png
+    - assets/homeGreen.png
+    - assets/articleIdentificationGreen1.png
+    - assets/documentListGreen1.png
+    - assets/docucenter1.png
+    - assets/phoneGreen.png
+    - assets/gearGreen1.png
+    - assets/headSetGreen.png
+    - assets/logOnGreen.png
+    - assets/productImage.png
+    - assets/gearWhite.png
+    - assets/articleLookUpWhite.png
+    - assets/exportWhite.png
+    - assets/cameraGreen.png
+    - assets/notesGreen.png
+    - assets/questionMarkGreen.png
+    - assets/plusGreen.png
+    - assets/buildingGreen.png
+    - assets/checkGreen.png
+    - assets/checkGrey.png
+    - assets/bookmarkWhite.png
+    - assets/cart.png
+    - assets/unselectedSquare.png
+    - assets/Minus.png
+    - assets/Plus.png
+    - assets/options-icon.png
+    - assets/check_empty.png
+    - assets/check_filled.png
+    - assets/trashRed.png
+    - assets/upCarrotGreen.png
+    - assets/windowsFitting.png
+    - assets/doorFitting.png
+    - assets/slidingFitting.png
+    - assets/otherFitting.png
+    - assets/sunShaddingFitting.png
+    - assets/whiteSquare.png
+    - assets/pdf.png
+    - assets/doorType.png
+    - assets/hingeType.png
+    - assets/lockDimensionPage1.png
+    - assets/lockDimensionPage2.png
+    - assets/lockDimensionPage3.png
+    - assets/lockType1.png
+    - assets/lockType2.png
+    - assets/lockType3.png
+    - assets/lockType4.png
+    - assets/selectedSquare.png
+    - assets/facePlateType1.png
+    - assets/facePlateType2.png
+    - assets/facePlateType3.png
+    - assets/facePlateType4.png
+    - assets/facePlateFixing1.png
+    - assets/facePlateFixing2.png
+    - assets/multipointLocking1.png
+    - assets/multipointLocking2.png
+    - assets/multipointLocking3.png
+    - assets/multipointLocking4.png
+    - assets/multipointLocking5.png
+    - assets/multipointLocking6.png
+    - assets/multipointLocking7.png
+    - assets/multipointLocking8.png
+    - assets/multipointLocking9.png
+    - assets/multipointLocking10.png
+    - assets/multipointLocking11.png
+    - assets/hingeDimension.png
+    - assets/hingeDimensionBarril.png
+    - assets/surfaceType1.png
+    - assets/surfaceType2.png
+    - assets/surfaceType3.png
+    - assets/surfaceType4.png
+    - assets/surfaceType5.png
+    - assets/whiteSurfaceDetailsIm.png
+    - assets/slidingDirectionOpening1.png
+    - assets/slidingDirectionOpening2.png
+    - assets/slidingDirectionOpening3.png
+    - assets/slidingDirectionOpening4.png
+    - assets/slidingDimension.png
+    - assets/articleDoorLock.html
+    - assets/articleDoorHinge.html
+    - assets/articleSliding.html
+    - assets/article3.html
+    - assets/articleWindows.html
+    - assets/repairService.png
+    - assets/articleBookmarkList.png
+    - assets/articleIdentificationService.png
+    - assets/companyProfile.png
+    - assets/FAQ.png
+    - assets/projectDocumentation.png
+    - assets/lettersWhite.png
+    - assets/drawingWhite.png
+    - assets/notebookWhite.png
+    - assets/folderWhite.png
+    - assets/arrowWhite.png
+    - assets/doubleArrowWhite.png
+    - assets/protractorGreyBlock.png
+    - assets/htmlArrow.html
+    - assets/htmlArrow1.html
+    - assets/flutter_i18n/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

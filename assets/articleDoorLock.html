@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="content-type">
+            <title>Article Details</title>
+            <style>
+                .invoice-box{
+                    max-width:800px;
+                    margin:auto;
+                    padding:30px;
+                    /*border:1px solid #eee;*/
+                    /*box-shadow:0 0 10px rgba(0, 0, 0, .15); */
+                    font-size:16px;
+                    line-height:24px;
+                    font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+                    color:#555;
+                }
+            
+            .invoice-box table{
+                width:100%;
+                line-height:inherit;
+                text-align:left;
+            }
+            
+            .invoice-box table td{
+                padding:5px;
+                vertical-align:top;
+            }
+            
+            .invoice-box table tr td:nth-child(2){
+                text-align:right;
+            }
+            
+            .invoice-box table tr.top table td{
+                padding-bottom:20px;
+            }
+            
+            .invoice-box table tr.top table td.title{
+                font-size:45px;
+                line-height:45px;
+                color:#333;
+            }
+            
+            .invoice-box table tr.information table td{
+                padding-bottom:40px;
+            }
+            
+            .invoice-box table tr.heading td{
+                background:#eee;
+                border-bottom:1px solid #ddd;
+                font-weight:bold;
+            }
+            .invoice-box table tr td a{
+                font-weight:bold;
+            }
+            .invoice-box table tr.details td{
+                padding-bottom:5px;
+            }
+            .invoice-box table tr.detailsc td{
+                font-size: 12px;
+                padding: 0px;
+            }
+            .invoice-box table tr.item td{
+                border-bottom:1px solid #eee;
+            }
+            
+            .invoice-box table tr.item.last td{
+                border-bottom:none;
+            }
+            
+            .invoice-box table tr.total td:nth-child(2){
+                border-top:2px solid #eee;
+                font-weight:bold;
+            }
+            
+            @media only screen and (max-width: 600px) {
+                .invoice-box table tr.top table td{
+                    width:100%;
+                    display:block;
+                    text-align:center;
+                }
+                
+                .invoice-box table tr.information table td{
+                    width:100%;
+                    display:block;
+                    text-align:center;
+                }
+            }
+            div, img {
+                display: block;
+                position: relative;
+            }
+            
+            div p {
+                display: block;
+                position: relative;
+                font-size: small;
+                color:#555;
+            }
+            @page {
+              size: A4;
+              margin: 11mm 17mm 17mm 17mm;
+            }
+
+            @media print {
+              footer {
+                position: fixed;
+                bottom: 0;
+              }
+
+              .content-block, p {
+                page-break-inside: avoid;
+              }
+
+              html, body {
+                width: 210mm;
+                height: 320mm;
+              }
+            }
+            </style>
+            </head>
+    <body>
+        <div class="invoice-box">
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr class="top">
+                        <td colspan="2">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="title"> <img src="#LOGO_IMAGE#" style="width:100%; max-width:100px;">
+                                            </td>
+                                        <td>
+<!--                                            <h4> #NAME#</h4>-->
+                                            <h5>#CREATED#</h5>
+                                        </td>
+                                    </tr>
+                                    #COMPANYPROFILE#
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="information">
+                        <td colspan="2">
+                            <h4 style="color: #c5571f;">General data:</h4>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td> Schüco logo visible on face plate</td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr class="details">
+                        <td> #logoVisible# </td>
+                    </tr>
+                    <tr class="heading"><td> Year of manufacturing </td><td> <br></td></tr><tr class="details"><td> #year# </td></tr>
+                    <tr class="heading">
+                        <td> Profile insulation </td>
+                        <td> <br></td>
+                    </tr>
+                    <tr class="details">
+                        <td> #profile# </td>
+                    </tr>
+                    <tr class="heading">
+                        <td> Protection </td>
+                        <td> <br></td>
+                    </tr>
+                    <tr class="details">
+                        <td> #protection# </td>
+                    </tr>
+                    <tr class="heading"><td> Basic depth of door profile (mm) </td><td> <br></td></tr><tr class="details"><td> #basicDepthDoor# </td></tr>
+                    <tr class="heading">
+                        <td> Opening direction </td>
+                        <td> <br></td>
+                    </tr>
+                    <tr class="details">
+                        <td> #openingDirection# </td>
+                    </tr>
+                    <tr class="heading">
+                        <td> Leaf </td>
+                        <td> <br></td>
+                    </tr>
+                    <tr class="details">
+                        <td> #leafDoor# </td>
+                    </tr>
+                    <tr class="heading"><td> Bolt </td><td> <br></td></tr><tr class="details"><td> #bolt# </td></tr>
+                    <tr class="information">
+                        <td colspan="2">
+                            <h4 style="color: #c5571f;">Lock data:</h4>
+                        </td>
+                    </tr>
+                    <tr class="heading">
+                        <td> DIN direction</td>
+                        <td> <br> </td>
+                    </tr>
+                    <tr class="details">
+                        <td> #dinDirection# </td>
+                    </tr>
+                    <tr class="heading">
+                        <td> Type </td>
+                        <td> <br></td>
+                    </tr>
+                    <tr class="details">
+                        <td> #type# </td>
+                    </tr>
+                    <tr class="heading">
+                        <td> Panic function </td>
+                        <td> <br></td>
+                    </tr>
+                    <tr class="details">
+                        <td> #panicFunction# </td>
+                    </tr>
+<!--                    <tr class="heading"><td> Handle </td><td> <br></td></tr><tr class="details"><td> #handle# </td></tr>-->
+                    <tr class="heading"><td> Self-Locking </td><td> <br></td></tr><tr class="details"><td> #selfLocking# </td></tr>
+                    <tr class="heading"><td> Secure latch bolt stop </td><td> <br></td></tr><tr class="details"><td> #secureLatchBoltStop#</td></tr>
+                    <tr class="heading"><td> Monitoring </td><td> <br></td></tr><tr class="details"><td> #monitoring# </td></tr>
+                    <tr class="heading"><td> Electric strike </td><td> <br></td></tr><tr class="details"><td> #electricStrike# </td></tr>
+                    <tr class="heading"><td> Daytime setting </td><td> <br></td></tr><tr class="details"><td> #daytime# </td></tr>
+                    <tr class="heading">
+                        <td> Lock with top locking </td>
+                        <td> <br></td>
+                    </tr>
+                    <tr class="details">
+                        <td> #lockWithTopLocking# </td>
+                    </tr>
+                    <tr class="heading"><td> Shoot bolt lock </td><td> <br></td></tr><tr class="details"><td> #shootBoltLock# </td></tr>
+                    <tr class="heading"><td> Handle height </td><td> <br></td></tr><tr class="details"><td> #handleHeight# </td></tr>
+                    <tr class="heading"><td> Door leaf height </td><td> <br></td></tr><tr class="details"><td> #doorLeafHight# </td></tr>
+                    <tr class="heading"><td> Restrictor </td><td> <br></td></tr><tr class="details"><td> #restrictor# </td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <table>
+                                <tbody>
+                                    <tr class="heading">
+                                        <td style="text-align: center;"> Lock type </td>
+                                        <td style="text-align: center;"> Face plate type </td>
+                                        <td style="text-align: center;"> Face plate fixing </td>
+                                        <td style="text-align: center;"> Multi-point locking </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;"> 
+                                            <img src="#lockType#" style="width:100%; max-width:40px;">
+                                        </td>
+                                        <td style="text-align: center;"> 
+                                            <img src="#facePlateType#" style="width:100%; max-width:50px;">
+                                        </td>
+                                        <td style="text-align: center;"> 
+                                            <img src="#facePlateFixing#" style="width:100%; max-width:50px;">
+                                        </td>
+                                        <td style="text-align: center;"> <img src="#multipointLocking#" style="width:100%; max-width:30px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="information">
+                        <td colspan="2">
+                            <h4 style="color: #c5571f;">Lock Dimensions:</h4>
+                        </td>
+                    </tr>
+                    <tr><td class="title"><div><img src="#DIMENSIONIMAGE1#" style="width:300%; max-width:300px;position: relative;"></div><td></tr>
+                    <tr><td class="title"><div><img src="#DIMENSIONIMAGE2#" style="width:300%; max-width:300px;position: relative;"></div><td></tr>
+                    <tr><td class="title"><div><img src="#DIMENSIONIMAGE3#" style="width:300%; max-width:300px;position: relative;"></div><td></tr>
+                    
+                    <h3 style="color: #4a880c;">RepairService@Connect Mobile</h3> 
+                </tbody>
+            </table>
+        </div>
+        <footer>
+<!--            This is the text that goes at the bottom of every page.-->
+        </footer>
+    </body>
+</html>

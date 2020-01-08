@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "8071548320",
+    "firebase_url": "https://connectapp-90270.firebaseio.com",
+    "project_id": "connectapp-90270",
+    "storage_bucket": "connectapp-90270.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8071548320:android:d978e5471e300018c628c5",
+        "android_client_info": {
+          "package_name": "com.schueco.repairflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8071548320-mgjr3rtm8is1gc1bm21aghq3qfk05017.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeFCD3XDzT7Yja9RKPKPgl4tFWcLTIc4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8071548320-mgjr3rtm8is1gc1bm21aghq3qfk05017.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8071548320:android:6417d99f3a5d38bcc628c5",
+        "android_client_info": {
+          "package_name": "com.schueco.repairservices"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8071548320-mgjr3rtm8is1gc1bm21aghq3qfk05017.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeFCD3XDzT7Yja9RKPKPgl4tFWcLTIc4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8071548320-mgjr3rtm8is1gc1bm21aghq3qfk05017.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

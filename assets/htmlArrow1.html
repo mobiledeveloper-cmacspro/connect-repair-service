@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TEST DRAW</title>
+
+	<!-- <script type="text/javascript" src="jquery-1.9.1.js"></script> -->
+
+	<script type="text/javascript">
+		window.onload = function() {
+
+			//Canvas
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+			//Variables
+			var canvasx = canvas.offsetLeft;
+			var canvasy = canvas.offsetTop;
+			var last_mousex = last_mousey = 0;
+			var mousex = mousey = 0;
+			var mousedown = false;
+			var edit_mode = false;
+			var line = [];
+			var circles = [];
+			var focused_circle = undefined, lastX, lastY;
+			var color = 'rgba(120, 185, 40, 1.0)';
+			var twoHead = false;
+			var arrow_drawed = false;
+			// draw circles
+			function drawCircle(data) {
+			    ctx.beginPath();
+				ctx.arc(data.x, data.y, data.r, 0, Math.PI * 2);
+			    ctx.fill();
+				ctx.fillStyle = "rgba(120, 185, 40, 0.7)";
+				// 120, 185, 40, 1.0
+			}
+
+			function drawLine(from, to) {
+			    ctx.beginPath();
+			    ctx.moveTo(from.x, from.y);
+			    ctx.lineTo(to.x, to.y);
+			    ctx.stroke();
+			}
+
+
+			//Mousedown
+			canvas.onmousedown = function(e) {
+				edit_mode = (circles.length > 0) ? true : false
+				console.log("editMode:",edit_mode)
+				if (!edit_mode) {
+					last_mousex = parseInt(e.clientX-canvasx);
+					last_mousey = parseInt(e.clientY-canvasy);
+				    mousedown = true;
+				} else {
+					editMode(true)
+					lastX = e.pageX - canvas.offsetLeft;
+				    lastY = e.pageY - canvas.offsetTop;
+
+				    circles.forEach((el, i) => {
+				    	test_distance(i, el)
+				    })
+				    // $.each( circles, test_distance );
+				}
+
+			};
+
+			//Mouseup
+			canvas.onmouseup =  function(e) {
+				if (!edit_mode) {
+					mousedown = false;
+			    	line = [{x0: last_mousex, y0: last_mousey, x1: mousex, y1: mousey }]
+			    	circles = [
+			    		{ x: last_mousex, y: last_mousey, r: 25 },
+			    		{ x: mousex, y: mousey, r: 25 }
+			    	];
+			    	editMode(true)
+				} else {
+
+				}
+
+			};
+			// canvas.onclick = function(e){
+			// 	if(edit_mode){
+			// 		ctx.clearRect(0,0,canvas.width,canvas.height); //clear canvas
+			// 	}
+			// };
+			//Draw line from for Arrow
+			function DrawArrow(fromX,fromY,toX,toY){
+				ctx.beginPath();
+			        ctx.moveTo(fromX,fromY);
+			        ctx.lineTo(toX,toY);
+			        ctx.strokeStyle = color;
+			        ctx.lineWidth = 5;
+			        ctx.lineJoin = ctx.lineCap = 'round';
+			        ctx.stroke();
+			        canvas_arrow(ctx, last_mousex, last_mousey, mousex, mousey)
+			        ctx.stroke();
+			};
+			//Draw Head for Arrow
+			function canvas_arrow(context, fromx, fromy, tox, toy) {
+			  var headlen = 15; // length of head in pixels
+			  var dx = tox - fromx;
+			  var dy = toy - fromy;
+			  var angle = Math.atan2(dy, dx);
+			  context.moveTo(fromx, fromy);
+			  context.lineTo(tox, toy);
+			  context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+			  context.moveTo(tox, toy);
+			  context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+			  if(twoHead){
+				context.moveTo(fromx,fromy);
+				context.lineTo(fromx + headlen * Math.cos(angle - Math.PI / 6), fromy + headlen * Math.sin(angle - Math.PI / 6));
+				context.moveTo(fromx,fromy);
+				context.lineTo(fromx + headlen * Math.cos(angle + Math.PI / 6), fromy + headlen * Math.sin(angle + Math.PI / 6));
+			  }
+			}
+
+			//Mousemove
+			canvas.onmousemove = function(e) {
+			    mousex = parseInt(e.clientX-canvasx);
+				mousey = parseInt(e.clientY-canvasy);
+			    if(mousedown) {
+			        ctx.clearRect(0,0,canvas.width,canvas.height); //clear canvas
+			        DrawArrow(last_mousex,last_mousey,mousex,mousey);
+			    }
+			    //Output
+			    // $('#output').html('current: '+mousex+', '+mousey+'<br/>last: '+last_mousex+', '+last_mousey+'<br/>mousedown: '+mousedown);
+			};
+
+			function editMode(v) {
+				if (v) {
+					drawCircle(circles[1])
+
+					drawCircle(circles[0])
+
+					drawLine(circles[1], circles[0])
+
+					if (circles.length > 2) {
+						drawCircle(circles[2])
+						drawLine(circles[1], circles[2])
+					}
+				} else {
+					line = line[0]
+					ctx.clearRect(0,0,canvas.width,canvas.height); //clear canvas
+			        ctx.beginPath();
+			        ctx.moveTo(line.x0,line.y0);
+			        ctx.lineTo(line.x1,line.y1);
+			        ctx.strokeStyle = 'black';
+			        ctx.lineWidth = 5;
+			        ctx.lineJoin = ctx.lineCap = 'round';
+			        ctx.stroke();
+
+			        canvas_arrow(ctx, lline.x0,line.y0 ,line.x1,line.y1)
+			        ctx.stroke();
+				}
+
+			}
+
+
+			function test_distance( n, test_circle ){
+
+				if( focused_circle ) return false;
+
+			    var dx = lastX - test_circle.x,
+			    dy = lastY - test_circle.y;
+
+			    if( dx * dx + dy * dy < test_circle.r * test_circle.r  ){
+			        focused_circle = n;
+
+
+			        document.addEventListener( 'mousemove' , drag_circle, false );
+			        document.addEventListener( 'mouseup' , clear_bindings, false);
+			        return false;
+			    }
+			}
+
+			function drag_circle( e ){
+
+			    var
+			    	newX = e.pageX - canvas.offsetLeft,
+			        newY = e.pageY - canvas.offsetTop;
+
+
+			    circles[ focused_circle ].x += newX - lastX;
+			    circles[ focused_circle ].y += newY - lastY;
+
+			    console.log(focused_circle)
+			    lastX = newX, lastY = newY;
+
+			    ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+			    drawCircle(circles[1]);
+
+			    drawCircle(circles[0]);
+
+			    drawLine(circles[1], circles[0]);
+
+			     if(circles[2] !== undefined) {
+			     	drawCircle(circles[0]);
+					drawLine(circles[1], circles[2]);
+			     }
+			}
+
+			function clear_bindings( e ){
+			    document.removeEventListener( 'mouseup',clear_bindings  );
+			    document.removeEventListener( 'mousemove', drag_circle );
+			    focused_circle=undefined;
+			}
+
+
+			var resize  = () => {
+				resizeCanvas()
+			},
+
+			resizeCanvas  = () => {
+				canvas.width  = window.innerWidth
+				canvas.height = window.innerHeight
+			};
+
+			window.addEventListener('resize', resize(), false)
+			window.ac = drag_circle
+
+		}
+
+	</script>
+
+	<style type="text/css">
+		* {
+			overflow: hidden;
+		}
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			border: 0;
+			overflow: hidden;
+			display: block;
+		}
+
+
+		canvas {
+    		position: fixed;
+    		left: 0px;
+    		top: 0px;
+    		right: 0px;
+    		bottom: 0px;
+    		overflow: hidden;
+    		display: block
+		}
+	</style>
+</head>
+<body>
+
+<canvas id="canvas" style="background"></canvas>
+</body>
+</html>
