@@ -151,7 +151,7 @@ class ISClientO {
     prefs.remove("dateToken");
   }
 
-  Future<bool> loginUser(String username, String password) async {
+  Future<int> loginUser(String username, String password) async {
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (HttpClient client) {
       client.badCertificateCallback =
@@ -176,23 +176,26 @@ class ISClientO {
         options: Options(contentType:Headers.formUrlEncodedContentType )
     );
     debugPrint('StatusCode: ${response.statusCode}');
-    if (response.statusCode == 401) {
-      throw 'Bad credentials';
-    }
-    else if (response.statusCode == 200){
+//    if (response.statusCode == 401) {
+//      throw 'Bad credentials';
+//    }
+//    else
+    if (response.statusCode == 200){
       final js = response.data;
       debugPrint("Login Response $js");
       final prefs = await SharedPreferences.getInstance();
       prefs.setString("access_token", js["access_token"].toString());
       prefs.setString("expires_in", js["expires_in"].toString());
       prefs.setString("dateToken", DateTime.now().toString());
-      return true;
+      return response.statusCode;
     }
-    else {
-      debugPrint(response.data);
-      debugPrint('StatusCode: ${response.statusCode}');
-      throw 'Failed to Login';
-    }
+    throw response;
+//    return response.statusCode;
+//    else {
+//      debugPrint(response.data);
+//      debugPrint('StatusCode: ${response.statusCode}');
+//      throw 'Failed to Login';
+//    }
   }
 
   Future<bool> getUserInformation() async {
