@@ -35,7 +35,7 @@ class LoginState extends State<LoginV> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(left: 8, right: 8),
-                  child: Text(b2bUnit.name + " " + b2bUnit.seePrices.toString(),
+                  child: Text(b2bUnit.name,
                       style: TextStyle(
                           color: Theme.of(context).primaryColor, fontSize: 17),
                       overflow: TextOverflow.clip),
