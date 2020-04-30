@@ -252,5 +252,10 @@
   "We have connection problems" : "Wir haben Verbindungsprobleme",
   "Bad credentials" : "Zugangsdaten nicht korrekt",
   "Article Gallery" : "Artikelgalerie",
-  "Imprint" : "Impressum"
+  "Imprint" : "Impressum",
+  "Identification Type": "Identifikationstyp",
+  "Record Product": "Produktdaten aufzeichnen",
+  "Save it and send by email": "Speichern Sie es und senden Sie es per E-Mail",
+  "Just save it": "Speichern Sie es einfach",
+  "Send this article": "Möchten Sie diesen Artikel senden, nachdem Sie die Messungen hinzugefügt und gespeichert haben?"
 }

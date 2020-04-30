@@ -250,5 +250,10 @@
   "We have connection problems" : "We have connection problems",
   "Bad credentials" : "Bad credentials",
   "Article Gallery" : "Article Gallery",
-  "Imprint" : "Imprint"
+  "Imprint" : "Imprint",
+  "Identification Type": "Identification Type",
+  "Record Product": "Record Product \n Data",
+  "Save it and send by email": "Save it and send by email",
+  "Just save it": "Just save it",
+  "Send this article": "Do you want to send this article after adding the measurements and saving it?"
 }
