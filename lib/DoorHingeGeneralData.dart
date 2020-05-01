@@ -240,45 +240,42 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
   }
 
   Widget _getSurface(){
-    if(hingeTypeCtr.text == FlutterI18n.translate(context, 'Surface-mounted door hinge')){
-      return Column(
-        children: <Widget>[
-          InkWell(
-            child: Container(
-                height: 50,
-                margin: EdgeInsets.only(left: 16),
-                child: Row(
-                  children: <Widget>[
-                    Text(FlutterI18n.translate(context, 'Surface-mounted door hinge details'),style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
-                    Expanded(
-                      child: _getMandatory(true),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 8),
-                      child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
-                    )
-                  ],
-                )
-            ),
-            onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeSurfaceDetails(
-                  this.doorHinge.doorHingeDetailsIm != null ? this.doorHinge.doorHingeDetailsIm : ''
-              ))).then((imageStr){
-                setState(() {
-                  this.doorHinge.doorHingeDetailsIm = imageStr;
-                  debugPrint('Surface details: ${doorHinge.doorHingeDetailsIm}');
-                });
-              });
-            },
+    return Column(
+      children: <Widget>[
+        InkWell(
+          child: Container(
+              height: 50,
+              margin: EdgeInsets.only(left: 16),
+              child: Row(
+                children: <Widget>[
+                  Text(FlutterI18n.translate(context, 'Surface-mounted door hinge details'),style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
+                  Expanded(
+                    child: _getMandatory(true),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
+                  )
+                ],
+              )
           ),
-          Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Cover caps of the door hinge'), true, [FlutterI18n.translate(context, 'Circular (generation 1 & 3)'),
-            FlutterI18n.translate(context, 'Oval (generation 2)')], coverCapsCtr, FlutterI18n.translate(context, 'Circular (generation 1 & 3)')),
-          Divider(height: 1),
-        ],
-      );
-    }
-    else return Container();
+          onTap: (){
+            Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeSurfaceDetails(
+                this.doorHinge.doorHingeDetailsIm != null ? this.doorHinge.doorHingeDetailsIm : ''
+            ))).then((imageStr){
+              setState(() {
+                this.doorHinge.doorHingeDetailsIm = imageStr;
+                debugPrint('Surface details: ${doorHinge.doorHingeDetailsIm}');
+              });
+            });
+          },
+        ),
+        Divider(height: 1),
+        _constructGenericOption(FlutterI18n.translate(context, 'Cover caps of the door hinge'), true, [FlutterI18n.translate(context, 'Circular (generation 1 & 3)'),
+          FlutterI18n.translate(context, 'Oval (generation 2)')], coverCapsCtr, FlutterI18n.translate(context, 'Circular (generation 1 & 3)')),
+        Divider(height: 1),
+      ],
+    );
   }
 
   Widget _getBarrel(){
