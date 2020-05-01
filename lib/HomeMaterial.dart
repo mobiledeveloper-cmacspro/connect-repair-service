@@ -184,7 +184,7 @@ class HomeState extends State<HomeM> {
     final MailOptions mailOptions = MailOptions(
       body: '<h3>Details</h3><br>V.$version</br><br>$deviceType</br><br>$systemVersion</br><br>$locale</br>',
       subject: 'App feedback',
-      recipients: ['ersatzteile@schueco.com'],
+      recipients: ['lepuchenavarro@gmail.com'],
       isHTML: true,
 //      bccRecipients: ['other@example.com'],
 //      ccRecipients: ['third@example.com'],

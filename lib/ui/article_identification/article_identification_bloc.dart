@@ -95,7 +95,7 @@ class ArticleIdentificationBloC extends BaseBloC {
       subject: (articleBase is Fitting)
           ? articleBase.name
           : (articleBase as ArticleLocalModel).displayName,
-      recipients: ['ersatzteile@schueco.com'],
+      recipients: ['lepuchenavarro@gmail.com'],
       isHTML: true,
 //      bccRecipients: ['other@example.com'],
 //      ccRecipients: ['third@example.com'],

@@ -121,7 +121,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
     final MailOptions mailOptions = MailOptions(
       body: 'Article fitting',
       subject: article.name,
-      recipients: ['ersatzteile@schueco.com'],
+      recipients: ['lepuchenavarro@gmail.com'],
       isHTML: true,
 //      bccRecipients: ['other@example.com'],
 //      ccRecipients: ['third@example.com'],

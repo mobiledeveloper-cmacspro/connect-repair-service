@@ -40,7 +40,7 @@ class _ArticleIdentificationState
     final MailOptions mailOptions = MailOptions(
       body: 'Article fitting',
       subject: name,
-      recipients: ['ersatzteile@schueco.com'],
+      recipients: ['lepuchenavarro@gmail.com'],
       isHTML: true,
 //      bccRecipients: ['other@example.com'],
 //      ccRecipients: ['third@example.com'],
