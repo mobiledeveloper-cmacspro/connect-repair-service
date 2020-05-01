@@ -27,6 +27,7 @@ class Fitting extends ArticleBase{
   int id;
   String name;
   DateTime created;
+
   String year;
   String pdfPath;
 }

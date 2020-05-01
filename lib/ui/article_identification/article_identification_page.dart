@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/ArticleWebPreview.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
@@ -14,6 +15,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/article_detail/article_detail_page.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
+import 'package:repairservices/ui/article_identification/article_identification_gallery_page.dart';
 import 'package:repairservices/ui/widgets/cnt_loading_fullscreen.dart';
 import '../../database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
@@ -126,7 +128,15 @@ class _ArticleIdentificationState
               ),
               actions: <Widget>[
                 IconButton(
-                  onPressed: () => null,
+                  onPressed: () async{
+                    final list = await bloc.articlesResult.first;
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) =>
+                              ArticleIdentificationGalleryPage(articles: list,)),
+                    );
+                  },
                   icon: Icon(Icons.image),
                 ),
               ],
