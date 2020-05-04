@@ -1,6 +1,8 @@
+//import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GlobalSettings extends StatelessWidget {
@@ -11,7 +13,8 @@ class GlobalSettings extends StatelessWidget {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Setting'),style: Theme.of(context).textTheme.body1),
+        title: Text(FlutterI18n.translate(context, 'Setting'),
+            style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -25,7 +28,7 @@ class GlobalSettings extends StatelessWidget {
               'assets/questionMarkGreen.png',
               height: 25,
             ),
-            onTap: (){
+            onTap: () {
               debugPrint('Help');
             },
           )
@@ -34,49 +37,54 @@ class GlobalSettings extends StatelessWidget {
       body: Column(
         children: <Widget>[
           ListTile(
-            title: Text(FlutterI18n.translate(context, 'Legal Information'),style: Theme.of(context).textTheme.body1),
-            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-            trailing: Icon(CupertinoIcons.forward),
-            onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context)=>LegalInformation()));
-            }
-          ),
+              title: Text(FlutterI18n.translate(context, 'Legal Information'),
+                  style: Theme.of(context).textTheme.body1),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+              trailing: Icon(CupertinoIcons.forward),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => LegalInformation()));
+              }),
           Divider(height: 1),
           ListTile(
-              title: Text(FlutterI18n.translate(context, 'Signature'),style: Theme.of(context).textTheme.body1),
-              contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+              title: Text(FlutterI18n.translate(context, 'Signature'),
+                  style: Theme.of(context).textTheme.body1),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
-              onTap: (){
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Signature()));
-              }
-          ),
+              onTap: () {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Signature()));
+              }),
           Divider(height: 1),
           ListTile(
-              title: Text('Impressum',style: Theme.of(context).textTheme.body1),
-              contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+              title: Text(FlutterI18n.translate(context, 'Imprint'),
+                  style: Theme.of(context).textTheme.body1),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
-              onTap: (){
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Impressum()));
-              }
-          ),
+              onTap: () {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Impressum()));
+              }),
           Divider(height: 1),
           ListTile(
-              title: Text(FlutterI18n.translate(context, 'Language'),style: Theme.of(context).textTheme.body1),
-              contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+              title: Text(FlutterI18n.translate(context, 'Language'),
+                  style: Theme.of(context).textTheme.body1),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
-              onTap: (){
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Language()));
-              }
-          ),
+              onTap: () {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Language()));
+              }),
           Divider(height: 1)
         ],
       ),
     );
   }
-
 }
 
-class LegalInformation extends StatelessWidget{
+class LegalInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +92,8 @@ class LegalInformation extends StatelessWidget{
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Legal Information'),style: Theme.of(context).textTheme.body1),
+        title: Text(FlutterI18n.translate(context, 'Legal Information'),
+            style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -98,7 +107,11 @@ class LegalInformation extends StatelessWidget{
           Padding(
             padding: EdgeInsets.only(top: 52),
             child: Center(
-              child: Text(FlutterI18n.translate(context, 'Legal Information Details'),style: Theme.of(context).textTheme.body1,textAlign: TextAlign.center,),
+              child: Text(
+                FlutterI18n.translate(context, 'Legal Information Details'),
+                style: Theme.of(context).textTheme.body1,
+                textAlign: TextAlign.center,
+              ),
             ),
           )
         ],
@@ -106,22 +119,22 @@ class LegalInformation extends StatelessWidget{
     );
   }
 }
-class Signature extends StatefulWidget{
+
+class Signature extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return SignatureState();
   }
-
 }
 
 class SignatureState extends State<Signature> {
-
   final emailText = TextEditingController();
+
   _read() async {
     final prefs = await SharedPreferences.getInstance();
     final key = 'standard_text_email';
     final value = prefs.getString(key) ?? '';
-    if(value != null){
+    if (value != null) {
       setState(() {
         emailText.text = value;
       });
@@ -134,8 +147,9 @@ class SignatureState extends State<Signature> {
     prefs.setString(key, emailText.text);
     Navigator.pop(context);
   }
+
   @override
-  initState(){
+  initState() {
     super.initState();
     _read();
   }
@@ -147,7 +161,8 @@ class SignatureState extends State<Signature> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Signature'),style: Theme.of(context).textTheme.body1),
+        title: Text(FlutterI18n.translate(context, 'Signature'),
+            style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -161,7 +176,7 @@ class SignatureState extends State<Signature> {
               'assets/checkGreen.png',
               height: 25,
             ),
-            onTap: (){
+            onTap: () {
               _save();
             },
           )
@@ -170,10 +185,10 @@ class SignatureState extends State<Signature> {
       body: Column(
         children: <Widget>[
           Container(
-              margin: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
+              margin: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               color: Color.fromRGBO(241, 241, 241, 1.0),
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 0,horizontal: 8),
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                 child: TextField(
                   textAlign: TextAlign.left,
                   minLines: 10,
@@ -182,152 +197,199 @@ class SignatureState extends State<Signature> {
                   style: Theme.of(context).textTheme.body1,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: FlutterI18n.translate(context, 'Enter the standard text here for the export by e-mail'),
-                      hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-                  ),
+                      hintText: FlutterI18n.translate(context,
+                          'Enter the standard text here for the export by e-mail'),
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
                 ),
-              )
-          ),
+              )),
         ],
       ),
     );
   }
 }
 
-class Impressum extends StatelessWidget{
+class Impressum extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        backgroundColor: Colors.white,
-        actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text("Impressum",style: Theme.of(context).textTheme.body1),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Theme.of(context).primaryColor,
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+          backgroundColor: Colors.white,
+          actionsIconTheme:
+              IconThemeData(color: Theme.of(context).primaryColor),
+          title: Text(FlutterI18n.translate(context, 'Imprint'),
+              style: Theme.of(context).textTheme.body1),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            color: Theme.of(context).primaryColor,
+          ),
         ),
-      ),
-      body: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 16,left: 16,right: 16),
-            child: Text(FlutterI18n.translate(context, 'The Schüco service app is provided by:'),style: Theme.of(context).textTheme.display2),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Schüco International KG',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Karolinenstrasse 1-15',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('33609 Bielefeld',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Germany',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 22,left: 16,right: 16),
-            child: Text('Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV '
-                '(German Interstate Broadcasting Treaty).',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 22,left: 16,right: 16),
-            child: Text('Executive Management Board:',style: Theme.of(context).textTheme.display2),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Andreas Engelhardt, CEO and Managing',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Partner',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Philip Neuhaus, CFO',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Dr Walter Stadlbauer, COO and CTO',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 22,left: 16,right: 16),
-            child: Row(
-              children: <Widget>[
-                Text('Tel:',style: Theme.of(context).textTheme.body1),
-                Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Text('+49 (0)521 78 30',style: TextStyle(color: Colors.lightGreen[500],fontSize: 17)),
-                )
-              ],
+        body: ListView(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+              child: Text(
+                  FlutterI18n.translate(
+                      context, 'The Schüco service app is provided by:'),
+                  style: Theme.of(context).textTheme.display2),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Row(
-              children: <Widget>[
-                Text('Fax:',style: Theme.of(context).textTheme.body1),
-                Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Text('+49 (0)521 78 34 51',style: TextStyle(color: Colors.lightGreen[500],fontSize: 17)),
-                )
-              ],
+            Padding(
+              padding: EdgeInsets.only(top: 12, left: 16, right: 16),
+              child: Text('Schüco International KG',
+                  style: Theme.of(context).textTheme.body1),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 22,left: 16,right: 16),
-            child: Row(
-              children: <Widget>[
-                Text('E-mail:',style: Theme.of(context).textTheme.body1),
-                Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Text('info@schueco.com',style: TextStyle(color: Colors.lightGreen[500],fontSize: 17)),
-                )
-              ],
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text('Karolinenstrasse 1-15',
+                  style: Theme.of(context).textTheme.body1),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 22,left: 16,right: 16),
-            child: Text('www.schueco.com',style: TextStyle(color: Colors.lightGreen[500],fontSize: 17)),
-          ),
-
-
-          Padding(
-            padding: EdgeInsets.only(top: 22,left: 16,right: 16),
-            child: Text('VAT ID No.: DE 124001363',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text(FlutterI18n.translate(context, 'Registered office and court of record:'),style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text(FlutterI18n.translate(context, 'Limited partnership'),style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text('Bielefeld',style: Theme.of(context).textTheme.body1),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8,left: 16,right: 16),
-            child: Text(FlutterI18n.translate(context, 'Commercial register: HRA 8135'),style: Theme.of(context).textTheme.body1),
-          ),
-        ],
-      )
-    );
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text('33609 Bielefeld',
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text('Germany', style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 22, left: 16, right: 16),
+              child: Text(
+                  'Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV '
+                  '(German Interstate Broadcasting Treaty).',
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 22, left: 16, right: 16),
+              child: Text('Executive Management Board:',
+                  style: Theme.of(context).textTheme.display2),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 12, left: 16, right: 16),
+              child: Text('Andreas Engelhardt, CEO and Managing',
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text('Partner', style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text('Philip Neuhaus, CFO',
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text('Dr Walter Stadlbauer, COO and CTO',
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 22, left: 16, right: 16),
+              child: Row(
+                children: <Widget>[
+                  Text('Tel:', style: Theme.of(context).textTheme.body1),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text('+49 (0)521 78 30',
+                        style: TextStyle(
+                            color: Colors.lightGreen[500], fontSize: 17)),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Row(
+                children: <Widget>[
+                  Text('Fax:', style: Theme.of(context).textTheme.body1),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text('+49 (0)521 78 34 51',
+                        style: TextStyle(
+                            color: Colors.lightGreen[500], fontSize: 17)),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 22, left: 16, right: 16),
+              child: Row(
+                children: <Widget>[
+                  Text('E-mail:', style: Theme.of(context).textTheme.body1),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text('info@schueco.com',
+                        style: TextStyle(
+                            color: Colors.lightGreen[500], fontSize: 17)),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 22, left: 16, right: 16),
+              child: Text('www.schueco.com',
+                  style:
+                      TextStyle(color: Colors.lightGreen[500], fontSize: 17)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 22, left: 16, right: 16),
+              child: Text('VAT ID No.: DE 124001363',
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text(
+                  FlutterI18n.translate(
+                      context, 'Registered office and court of record:'),
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text(FlutterI18n.translate(context, 'Limited partnership'),
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child:
+                  Text('Bielefeld', style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 8,
+                left: 16,
+                right: 16,
+              ),
+              child: Text(
+                  FlutterI18n.translate(
+                      context, 'Commercial register: HRA 8135'),
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            SizedBox(
+              height: 20,
+            )
+          ],
+        ));
   }
 }
 
-class Language extends StatelessWidget{
+class Language extends StatefulWidget {
+  @override
+  _LanguageState createState() => _LanguageState();
+}
 
+class _LanguageState extends State<Language> {
+  final _sharedPreferences = SharedPreferencesManager();
+  String _currentLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentLanguage = "";
+    _getLocate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -336,7 +398,8 @@ class Language extends StatelessWidget{
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Language'),style: Theme.of(context).textTheme.body1),
+        title: Text(FlutterI18n.translate(context, 'Language'),
+            style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -347,22 +410,58 @@ class Language extends StatelessWidget{
       ),
       body: Column(
         children: <Widget>[
-          ListTile(
-              title: Text('English',style: Theme.of(context).textTheme.body1),
-              contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-              onTap: () async{
-                await FlutterI18n.refresh(context, Locale('en'));
-                Navigator.pop(context);
-              }
+          InkWell(
+            child: Container(
+              height: 50,
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: 15, right: 15),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text('English',
+                        style: Theme.of(context).textTheme.body1),
+                  ),
+                  _currentLanguage == 'en'
+                      ? Icon(
+                          Icons.check,
+                          color: Theme.of(context).primaryColor,
+                        )
+                      : Container()
+                ],
+              ),
+            ),
+            onTap: () async {
+              await FlutterI18n.refresh(context, Locale('en'));
+              await _sharedPreferences.setLanguage('en');
+              Navigator.pop(context);
+            },
           ),
           Divider(height: 1),
-          ListTile(
-              title: Text('Deutsch',style: Theme.of(context).textTheme.body1),
-              contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 16),
-              onTap: () async {
-                await FlutterI18n.refresh(context, Locale('de'));
-                Navigator.pop(context);
-              }
+          InkWell(
+            child: Container(
+              height: 50,
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: 15, right: 15),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text('Deutsch',
+                        style: Theme.of(context).textTheme.body1),
+                  ),
+                  _currentLanguage == 'de'
+                      ? Icon(
+                          Icons.check,
+                          color: Theme.of(context).primaryColor,
+                        )
+                      : Container()
+                ],
+              ),
+            ),
+            onTap: () async {
+              await FlutterI18n.refresh(context, Locale('de'));
+              await _sharedPreferences.setLanguage('de');
+              Navigator.pop(context);
+            },
           ),
           Divider(height: 1),
         ],
@@ -370,4 +469,10 @@ class Language extends StatelessWidget{
     );
   }
 
+  _getLocate() async {
+    String res = await _sharedPreferences.getLanguage();
+    setState(() {
+      _currentLanguage = res;
+    });
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/EditPicture.dart';
@@ -61,19 +62,19 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-              title: new Text('Send by Email',
+              title: new Text(FlutterI18n.translate(context, "Send by Email"),
                   style: Theme.of(context).textTheme.subhead),
               content: Padding(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 child: Text(
-                  'Do you want to send this article after adding the measurements and saving it?',
+                  FlutterI18n.translate(context, "Send this article"),
                   style: TextStyle(fontSize: 16),
                   textAlign: TextAlign.justify,
                 ),
               ),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: new Text('Just save it',
+                  child: new Text(FlutterI18n.translate(context, "Just save it"),
                       style: TextStyle(color: Theme.of(context).primaryColor)),
                   isDefaultAction: true,
                   onPressed: () {
@@ -86,7 +87,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                   },
                 ),
                 CupertinoDialogAction(
-                  child: new Text('Save it and send by email',
+                  child: new Text(FlutterI18n.translate(context, "Save it and send by email"),
                       style: TextStyle(color: Theme.of(context).primaryColor)),
                   isDefaultAction: true,
                   onPressed: () {
@@ -109,7 +110,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text("Identification Type",
+        title: Text(FlutterI18n.translate(context, "Identification Type"),
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -137,7 +138,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                         'assets/cameraGreen.png',
                       ),
                       new Container(
-                        child: new Text('Camera',
+                        child: new Text(FlutterI18n.translate(context, "Camera"),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.body1),
                         margin: EdgeInsets.only(top: 26),
@@ -166,7 +167,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                         'assets/notesGreen.png',
                       ),
                       new Container(
-                        child: new Text('Record Product \n Data',
+                        child: new Text(FlutterI18n.translate(context, "Record Product"),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.body1),
                         margin: EdgeInsets.only(top: 26),

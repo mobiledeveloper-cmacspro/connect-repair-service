@@ -13,6 +13,7 @@ import 'package:repairservices/FAQ.dart';
 import 'package:repairservices/GlobalSetting.dart';
 import 'package:repairservices/ProfileV.dart';
 import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
 //import 'package:repairservices/translations.dart';
@@ -39,10 +40,12 @@ class HomeState extends State<HomeM> {
   DatabaseHelper helper = DatabaseHelper.instance;
   bool loggued = false;
   int cantProductsInCart = 0;
+  final _sharedPreferences = SharedPreferencesManager();
 
   @override
   void initState() {
     super.initState();
+    _sharedPreferences.setLanguage('de');
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
       setState(() {});
