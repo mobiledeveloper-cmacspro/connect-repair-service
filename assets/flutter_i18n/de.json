@@ -251,5 +251,8 @@
   "Edit Picture":"Bild bearbeiten",
   "We have connection problems" : "Wir haben Verbindungsprobleme",
   "Bad credentials" : "Zugangsdaten nicht korrekt",
-  "Article Gallery" : "Artikelgalerie"
+  "Article Gallery" : "Artikelgalerie",
+  "Select all" : "Alle markieren",
+  "Deselect all" : "Alle entmarkieren",
+  "Remove selected ones" : "Markierte entfernen"
 }
