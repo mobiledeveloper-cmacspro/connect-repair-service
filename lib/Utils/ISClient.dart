@@ -108,7 +108,7 @@ class ISClientO {
       debugPrint(deliveryDate);
       data = {
         "language": "EN",
-        "b2bUnit": "1844_0001_KU",
+        "b2bUnit": b2bUnit,
         "products": {
           "articleNr": number,
           "deliveryDate" : deliveryDate,
