@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 //import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
@@ -18,7 +19,9 @@ import 'package:repairservices/models/Windows.dart';
 
 class ArticleWebPreview extends StatefulWidget {
   final Fitting article;
+
   ArticleWebPreview(this.article);
+
   @override
   State<StatefulWidget> createState() {
     return ArticleWebPreviewState(this.article);
@@ -28,38 +31,39 @@ class ArticleWebPreview extends StatefulWidget {
 class ArticleWebPreviewState extends State<ArticleWebPreview> {
   Fitting article;
   String generatedPdfFilePath;
+
   ArticleWebPreviewState(this.article);
+
   bool loading = true;
   DatabaseHelper helper = DatabaseHelper.instance;
+
   @override
-  initState(){
+  initState() {
     super.initState();
     generateExampleDocument();
   }
 
-  Widget _getTitle(){
+  Widget _getTitle() {
 //    _loadHtmlFromAssets();
-    return Text(FlutterI18n.translate(context, 'Article Preview'),style: Theme.of(context).textTheme.body1);
+    return Text(FlutterI18n.translate(context, 'Article Preview'),
+        style: Theme.of(context).textTheme.body1);
   }
 
   _loadHtmlFromAssets() async {
     String fileText = '';
-    if(article is Windows){
+    if (article is Windows) {
       debugPrint('isWindows');
       fileText = await rootBundle.loadString('assets/articleWindows.html');
       fileText = await (article as Windows).getHtmlString(fileText);
-    }
-    else if(article is DoorLock){
+    } else if (article is DoorLock) {
       debugPrint('isDoorLock');
       fileText = await rootBundle.loadString('assets/articleDoorLock.html');
       fileText = await (article as DoorLock).getHtmlString(fileText);
-    }
-    else if(article is DoorHinge){
+    } else if (article is DoorHinge) {
       debugPrint('isDoorHinge');
       fileText = await rootBundle.loadString('assets/articleDoorHinge.html');
       fileText = await (article as DoorHinge).getHtmlString(fileText);
-    }
-    else if(article is Sliding){
+    } else if (article is Sliding) {
       debugPrint('isSliding');
       fileText = await rootBundle.loadString('assets/articleSliding.html');
       fileText = await (article as Sliding).getHtmlString(fileText);
@@ -69,16 +73,13 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
   }
 
   void _savePDFPath() async {
-    if(article is Windows){
+    if (article is Windows) {
       await helper.updateWindows(article as Windows);
-    }
-    else if(article is DoorLock){
+    } else if (article is DoorLock) {
       await helper.updateDoorLock(article as DoorLock);
-    }
-    else if(article is DoorHinge){
+    } else if (article is DoorHinge) {
       await helper.updateDoorHinge(article as DoorHinge);
-    }
-    else if(article is Sliding){
+    } else if (article is Sliding) {
       await helper.updateSliding(article as Sliding);
     }
   }
@@ -94,23 +95,28 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
     var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
         htmlContent, targetPath, targetFileName);
     generatedPdfFilePath = generatedPdfFile.path;
-    article.pdfPath = generatedPdfFilePath;
+//    article.pdfPath = generatedPdfFilePath;
     _savePDFPath();
-    Navigator.push(context, CupertinoPageRoute(builder: (context) => PDFViewerScaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          backgroundColor: Colors.white,
-          actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: Theme.of(context).primaryColor,
-            ),
-          title: Text(FlutterI18n.translate(context, 'Generated PDF Document'))
-        ),
-        path: generatedPdfFilePath)));
+    Navigator.push(
+        context,
+        CupertinoPageRoute(
+            builder: (context) => PDFViewerScaffold(
+                appBar: AppBar(
+                    iconTheme:
+                        IconThemeData(color: Theme.of(context).primaryColor),
+                    backgroundColor: Colors.white,
+                    actionsIconTheme:
+                        IconThemeData(color: Theme.of(context).primaryColor),
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    title: Text(FlutterI18n.translate(
+                        context, 'Generated PDF Document'))),
+                path: article.pdfPath)));
     setState(() {
       loading = false;
     });
@@ -125,7 +131,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
       isHTML: true,
 //      bccRecipients: ['other@example.com'],
 //      ccRecipients: ['third@example.com'],
-      attachments: [article.pdfPath],
+//      attachments: [article.pdfPath],
     );
 
     await FlutterMailer.send(mailOptions);
@@ -141,12 +147,14 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
           appBar: AppBar(
             iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
             backgroundColor: Colors.white,
-            actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+            actionsIconTheme:
+                IconThemeData(color: Theme.of(context).primaryColor),
             title: _getTitle(),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {
-                Navigator.of(context).popUntil((route) => route.settings.name == "ArticleIdentificationV");
+                Navigator.of(context).popUntil(
+                    (route) => route.settings.name == "ArticleIdentificationV");
               },
               color: Theme.of(context).primaryColor,
             ),
@@ -155,7 +163,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
                 padding: EdgeInsets.only(right: 8),
                 child: InkWell(
                   child: Icon(Icons.picture_as_pdf),
-                  onTap: ()=>generateExampleDocument(),
+                  onTap: () => generateExampleDocument(),
                 ),
               )
             ],
@@ -164,7 +172,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
             color: Colors.white,
             child: Center(
               child: Padding(
-                  padding: EdgeInsets.only(left: 16,right: 16),
+                  padding: EdgeInsets.only(left: 16, right: 16),
                   child: GestureDetector(
                     child: Container(
                         height: 30,
@@ -175,20 +183,13 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
                         child: Center(
                           child: Text(
                             FlutterI18n.translate(context, 'Send by Email'),
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.white
-                            ),
+                            style: TextStyle(fontSize: 17, color: Colors.white),
                           ),
-                        )
-                    ),
+                        )),
                     onTap: () => _sendPdfByEmail(),
-                  )
-              ),
+                  )),
             ),
-          )
-      ),
+          )),
     );
   }
-
 }

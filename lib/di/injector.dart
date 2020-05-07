@@ -16,6 +16,7 @@ import 'package:repairservices/ui/article_local_detail/article_local_detail_bloc
 import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
 
 ///Part dependency injector engine and Part service locator.
 ///The main purpose of [Injector] is to provide bloCs instances and initialize the app components depending the current scope.
@@ -89,6 +90,7 @@ class Injector {
     container.registerFactory((c) => ArticleIdentificationBloC(container.resolve()));
     container.registerFactory((c) => ArticleLocalDetailBloC());
     container.registerFactory((c) => ArticleDetailBloC());
+    container.registerFactory((c) => PDFViewerBloC());
   }
 
   _registerModelConverters() {

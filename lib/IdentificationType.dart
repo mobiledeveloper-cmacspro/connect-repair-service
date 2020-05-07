@@ -9,6 +9,7 @@ import 'package:repairservices/EditPicture.dart';
 import 'package:repairservices/FittingSelection.dart';
 import 'package:repairservices/Utils/DeviceInfo.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_page.dart';
 
 class IdentificationTypeV extends StatefulWidget {
@@ -30,9 +31,10 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
 
   Future _getImageFromSource(ImageSource source) async {
     final File image = await ImagePicker.pickImage(source: source);
-    final directory = await getApplicationDocumentsDirectory();
+    final directory = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
     final File newImage = await image.copy(
-        '${directory.path}/${CalendarUtils.getTimeIdBasedSeconds()}.png');
+        '$directory/$fileName.png');
     imagePath = newImage.path;
     _showAlertDialog(context);
   }

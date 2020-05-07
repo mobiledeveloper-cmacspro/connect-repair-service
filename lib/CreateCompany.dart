@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/Company.dart';
 import 'CompanyData.dart';
 import 'package:image_picker/image_picker.dart';
@@ -132,8 +134,9 @@ class CreateCompanyState extends State<CreateCompanyV> {
 
   Future getImageFromGallery() async {
     final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    final directory = await getApplicationDocumentsDirectory();
-    final File newImage = await image.copy('${directory.path}/${DateTime.now().toUtc().toIso8601String()}.png');
+    final directory = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
+    final File newImage = await image.copy('$directory/$fileName.png');
     debugPrint(newImage.path);
     company.logoPath = newImage.path;
     setState(() {
@@ -150,10 +153,11 @@ class CreateCompanyState extends State<CreateCompanyV> {
 
   Future _downloadImage() async {
     var response = await http.get(weblinkController.text);
-    var documentDirectory = await getApplicationDocumentsDirectory();
+    final directory = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
 
     File file = new File(
-        join(documentDirectory.path, '${DateTime.now().toUtc().toIso8601String()}.png')
+        join(directory, '$fileName.png')
     );
     file.writeAsBytes(response.bodyBytes);
     company.logoPath = file.path;

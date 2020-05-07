@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/Company.dart';
 import 'package:repairservices/models/Windows.dart';
 import 'package:path/path.dart';
@@ -14,7 +16,7 @@ final String columnSlidingYear = 'year';
 final String columnSlidingCreated = 'created';
 final String columnSlidingManufacturer = 'manufacturer';
 final String columnSlidingDirectionOpening = 'directionOpening';
-final String columnSlidingMaterial  = 'material';
+final String columnSlidingMaterial = 'material';
 final String columnSlidingSystem = 'system';
 final String columnSlidingVentOverlap = 'ventOverlap';
 final String columnSlidingTiltSlide = 'tiltSlide';
@@ -27,12 +29,32 @@ final String columnSlidingDimensionImagePath1 = 'dimensionImage1Path';
 final String columnSlidingPDFPath = 'pdfPath';
 
 class Sliding extends Fitting {
-  String manufacturer,directionOpening,material,system,ventOverlap,tiltSlide,components,dimensionA,dimensionB,dimensionC,dimensionD,dimensionImage1Path;
+  String manufacturer,
+      directionOpening,
+      material,
+      system,
+      ventOverlap,
+      tiltSlide,
+      components,
+      dimensionA,
+      dimensionB,
+      dimensionC,
+      dimensionD,
+      dimensionImage1Path;
 
   Sliding();
 
-  Sliding.withData(String name, DateTime created, String year,String manufacturer,String directionOpening,String material,String system,String ventOverlap,
-      String tiltSlide,String components){
+  Sliding.withData(
+      String name,
+      DateTime created,
+      String year,
+      String manufacturer,
+      String directionOpening,
+      String material,
+      String system,
+      String ventOverlap,
+      String tiltSlide,
+      String components) {
     this.name = name;
     this.created = created;
     this.year = year;
@@ -44,6 +66,7 @@ class Sliding extends Fitting {
     this.tiltSlide = tiltSlide;
     this.components = components;
   }
+
   Sliding.fromMap(Map<String, dynamic> map) {
     this.id = map[columnSlidingId];
     this.name = map[columnSlidingName];
@@ -96,62 +119,85 @@ class Sliding extends Fitting {
 //    Directory directory = await getApplicationDocumentsDirectory();
 //    var dbPath = join(directory.path, "logoImage.png");
     ByteData data = await rootBundle.load("assets/repairService.png");
-    List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 
 //    await File(dbPath).writeAsBytes(bytes);
     String logoBase64Image = base64Encode(bytes);
-    htmlStr = htmlStr.replaceAll('#LOGO_IMAGE#', 'data:image/png;base64, $logoBase64Image');
-    htmlStr = htmlStr.replaceAll("#CREATED#", created.month.toString() + '/' + created.day.toString() + '/' + created.year.toString());
-    if (Company.currentCompany != null){
-      htmlStr = htmlStr.replaceAll('#COMPANYPROFILE#', Company.currentCompany.htmlLayoutPreview());
-    }
-    else {
+    htmlStr = htmlStr.replaceAll(
+        '#LOGO_IMAGE#', 'data:image/png;base64, $logoBase64Image');
+    htmlStr = htmlStr.replaceAll(
+        "#CREATED#",
+        created.month.toString() +
+            '/' +
+            created.day.toString() +
+            '/' +
+            created.year.toString());
+    if (Company.currentCompany != null) {
+      htmlStr = htmlStr.replaceAll(
+          '#COMPANYPROFILE#', Company.currentCompany.htmlLayoutPreview());
+    } else {
       htmlStr = htmlStr.replaceAll('#COMPANYPROFILE#', '');
     }
-    if(year != null && year !=''){
+    if (year != null && year != '') {
       htmlStr = htmlStr.replaceAll('#year#', year);
+    } else {
+      htmlStr = htmlStr.replaceAll(
+          '<tr class="heading"><td> Year of contruction </td><td> <br></td></tr><tr class="details"><td> #year# </td></tr>',
+          '');
     }
-    else {
-      htmlStr = htmlStr.replaceAll('<tr class="heading"><td> Year of contruction </td><td> <br></td></tr><tr class="details"><td> #year# </td></tr>', '');
-    }
-    if(manufacturer != null && manufacturer != ''){
+    if (manufacturer != null && manufacturer != '') {
       htmlStr = htmlStr.replaceAll('#fittingsManufacturer#', manufacturer);
-    }else {
-      htmlStr = htmlStr.replaceAll('<tr class="heading"><td> Fittings manufacturer </td><td> <br></td></tr><tr class="details"><td> #fittingsManufacturer# </td></tr>', '');
+    } else {
+      htmlStr = htmlStr.replaceAll(
+          '<tr class="heading"><td> Fittings manufacturer </td><td> <br></td></tr><tr class="details"><td> #fittingsManufacturer# </td></tr>',
+          '');
     }
 
-    String directionOpeningBase64 = base64Encode(File(await pathDirectionOpening()).readAsBytesSync());
-    htmlStr = htmlStr.replaceAll('#directionOfOpeningIm#', 'data:image/png;base64, $directionOpeningBase64');
+    String directionOpeningBase64 =
+        base64Encode(File(await pathDirectionOpening()).readAsBytesSync());
+    htmlStr = htmlStr.replaceAll('#directionOfOpeningIm#',
+        'data:image/png;base64, $directionOpeningBase64');
 
     htmlStr = htmlStr.replaceAll('#material#', material);
-    if(system != null && system != ''){
+    if (system != null && system != '') {
       htmlStr = htmlStr.replaceAll('#system#', system);
-    }
-    else {
-      htmlStr = htmlStr.replaceAll('<tr class="heading"><td> System </td><td> <br></td></tr><tr class="details"><td> #system# </td></tr>', '');
+    } else {
+      htmlStr = htmlStr.replaceAll(
+          '<tr class="heading"><td> System </td><td> <br></td></tr><tr class="details"><td> #system# </td></tr>',
+          '');
     }
     htmlStr = htmlStr.replaceAll('#ventOverlap#', ventOverlap);
     htmlStr = htmlStr.replaceAll('#tiltSlideFittings#', tiltSlide);
-    if(components != null && components !=''){
+    if (components != null && components != '') {
       htmlStr = htmlStr.replaceAll('#componentsToBeReplace#', components);
+    } else {
+      htmlStr = htmlStr.replaceAll(
+          '<tr class="heading"><td> Fittings components to be replaced </td><td> <br></td></tr><tr class="details"><td> #componentsToBeReplace# </td></tr>',
+          '');
     }
-    else {
-      htmlStr = htmlStr.replaceAll('<tr class="heading"><td> Fittings components to be replaced </td><td> <br></td></tr><tr class="details"><td> #componentsToBeReplace# </td></tr>', '');
-    }
-    if(dimensionImage1Path != null && dimensionImage1Path != ''){
-      String dimensionBase64 = base64Encode(File(dimensionImage1Path).readAsBytesSync());
-      htmlStr = htmlStr.replaceAll('#dimensionImage#', 'data:image/png;base64, $dimensionBase64');
-    }
-    else {
-      htmlStr = htmlStr.replaceAll('<tr class="details"><td> <img src="#dimensionImage#" style="width:200%; max-width:400px;"></td></tr>', '');
+    if (dimensionImage1Path != null && dimensionImage1Path != '') {
+      String dimensionBase64 =
+          base64Encode(File(dimensionImage1Path).readAsBytesSync());
+      htmlStr = htmlStr.replaceAll(
+          '#dimensionImage#', 'data:image/png;base64, $dimensionBase64');
+    } else {
+      htmlStr = htmlStr.replaceAll(
+          '<tr class="details"><td> <img src="#dimensionImage#" style="width:200%; max-width:400px;"></td></tr>',
+          '');
     }
     return htmlStr;
   }
+
   Future<String> pathDirectionOpening() async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    String dbPath = join(directory.path, "slidingDirection${DateTime.now()}.png");
-    ByteData data = await rootBundle.load('assets/slidingDirectionOpening${directionOpening.replaceAll('type', '')}.png');
-    List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    final directory = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
+    String dbPath =
+        join(directory, "slidingDirection$fileName.png");
+    ByteData data = await rootBundle.load(
+        'assets/slidingDirectionOpening${directionOpening.replaceAll('type', '')}.png');
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await File(dbPath).writeAsBytes(bytes);
     return dbPath;
   }

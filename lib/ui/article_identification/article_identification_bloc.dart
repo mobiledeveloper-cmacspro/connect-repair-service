@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
@@ -13,7 +16,11 @@ import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/models/Windows.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:image/image.dart' as im;
 
 class ArticleIdentificationBloC extends BaseBloC {
   final IArticleLocalRepository _iArticleLocalRepository;
@@ -28,6 +35,7 @@ class ArticleIdentificationBloC extends BaseBloC {
       _articleLocalController.stream;
 
   BehaviorSubject<bool> _loadingController = new BehaviorSubject();
+
   Stream<bool> get showLoading => _loadingController.stream;
 
   void loadArticles() async {
@@ -70,6 +78,7 @@ class ArticleIdentificationBloC extends BaseBloC {
   Future<void> _deleteArticleFitting(Fitting fitting) async {
     if (fitting is Windows) {
       await helper.deleteWindows(fitting.id);
+      PDFManagerWindow.removePDF(fitting);
     } else if (fitting is Sliding) {
       await helper.deleteSliding(fitting.id);
     } else if (fitting is DoorLock) {
@@ -79,16 +88,20 @@ class ArticleIdentificationBloC extends BaseBloC {
     }
   }
 
+  Future<String> getPDFPath(Fitting model) async {
+
+  }
+
   void sendPdfByEmail(ArticleBase articleBase) async {
     _loadingController.sink.add(true);
     var htmlContent = await _loadHtmlFromAssets(articleBase);
 
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    var targetPath = appDocDir.path;
+    final appRootFiles = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
     var targetFileName = "example-pdf";
 
     var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
-        htmlContent, targetPath, targetFileName);
+        htmlContent, appRootFiles, targetFileName);
 
     final MailOptions mailOptions = MailOptions(
       body: 'Article fitting',

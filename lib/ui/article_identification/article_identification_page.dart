@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/ArticleWebPreview.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
+import 'package:repairservices/domain/common_model.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/cnt_loading_fullscreen.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:repairservices/ui/article_detail/article_detail_page.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_gallery_page.dart';
+import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 import '../../database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
 import '../../IdentificationType.dart';
@@ -123,13 +128,15 @@ class _ArticleIdentificationState
               ),
               actions: <Widget>[
                 IconButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     final list = await bloc.articlesResult.first;
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
                           builder: (context) =>
-                              ArticleIdentificationGalleryPage(articles: list,)),
+                              ArticleIdentificationGalleryPage(
+                                articles: list,
+                              )),
                     );
                   },
                   icon: Icon(Icons.image),
@@ -279,13 +286,26 @@ class _ArticleIdentificationState
                     fitting.created.year.toString(),
                 style: Theme.of(context).textTheme.body2),
             trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => ArticleWebPreview(fitting),
-                ),
-              );
+            onTap: () async {
+              if (fitting is Windows)
+                NavigationUtils.push(
+                  context,
+                  FittingPDFViewerPage(
+                    model: fitting,
+                  ),
+                );
+              else {
+                Fluttertoast.showToast(
+                    msg: "Under construction", toastLength: Toast.LENGTH_LONG);
+//                fitting.pdfPath =
+//                    await PDFManagerWindow.getPDFPathFitting(fitting);
+//                Navigator.push(
+//                  context,
+//                  CupertinoPageRoute(
+//                    builder: (context) => ArticleWebPreview(fitting),
+//                  ),
+//                );
+              }
             },
           ),
           secondaryActions: <Widget>[

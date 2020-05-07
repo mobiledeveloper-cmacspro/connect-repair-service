@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 
 Future<String> takeScreenShot({
   GlobalKey previewContainer,
@@ -21,7 +22,7 @@ Future<String> takeScreenShot({
   );
   ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   Uint8List pngBytes = byteData.buffer.asUint8List();
-  final directory = (await getApplicationDocumentsDirectory()).path;
+  final directory = FileUtils.getRootFilesDir();
   File imgFile = new File('$directory/$fileName');
   imgFile.writeAsBytes(pngBytes);
 

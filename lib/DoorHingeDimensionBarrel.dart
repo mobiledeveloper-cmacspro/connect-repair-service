@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 
 class DoorHingeDimensionBarrel extends StatefulWidget {
@@ -155,8 +157,9 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
       var image = await boundary.toImage();
       var byteData = await image.toByteData(format: prefix0.ImageByteFormat.png);
       final buffer = byteData.buffer;
-      final directory = await getApplicationDocumentsDirectory();
-      final path = '${directory.path}/${DateTime.now().toUtc().toIso8601String()}.png';
+      final directory = await FileUtils.getRootFilesDir();
+      final fileName = CalendarUtils.getTimeIdBasedSeconds();
+      final path = '$directory/$fileName.png';
 
       File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
       imagePath1 = path;

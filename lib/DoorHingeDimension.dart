@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/DoorHingeGeneralData.dart';
 import 'package:repairservices/DoorLockData.dart';
 import 'package:repairservices/GenericSelection.dart';
+import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 
 class DoorHingeDimension extends StatefulWidget {
@@ -144,8 +146,9 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
       var image = await boundary.toImage();
       var byteData = await image.toByteData(format: ImageByteFormat.png);
       final buffer = byteData.buffer;
-      final directory = await getApplicationDocumentsDirectory();
-      final path = '${directory.path}/${DateTime.now().toUtc().toIso8601String()}.png';
+      final directory = await FileUtils.getRootFilesDir();
+      final fileName = CalendarUtils.getTimeIdBasedSeconds();
+      final path = '$directory/$fileName.png';
 
       File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
       imagePath1 = path;
