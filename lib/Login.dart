@@ -5,10 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/FAQ.dart';
 import 'package:repairservices/Utils/ISClient.dart';
 import 'package:repairservices/models/User.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginV extends StatefulWidget {
   @override
@@ -267,8 +269,8 @@ class LoginState extends State<LoginV> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    onPressed: () {
-                      //Redirect to recover password
+                    onPressed: () async {
+                        await _launchURL();
                     },
                   ),
                   Container(
@@ -289,7 +291,7 @@ class LoginState extends State<LoginV> {
                       textAlign: TextAlign.center,
                     ),
                     onPressed: () {
-                      //Redirect to register
+                      Navigator.push(context, CupertinoPageRoute(builder: (context) => FAQ()));
                     },
                   )
                 ],
@@ -301,5 +303,14 @@ class LoginState extends State<LoginV> {
       opacity: 0.5,
       progressIndicator: CupertinoActivityIndicator(radius: 20),
     );
+  }
+
+  _launchURL() async {
+    const url = 'https://www.schueco.com/web2/us/fabricators/password_forgotten';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

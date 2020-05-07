@@ -339,11 +339,12 @@ class FAQState extends State<FAQ> {
           Padding(
             padding: EdgeInsets.only(top: 4,left: 16,bottom: 4),
             child: Text(
-              "cst@schueco.com",
+              "technische-hotline@schueco.com",
               style: Theme.of(context).textTheme.body1,
             ),
           ),
           Divider(height: 1),
+          SizedBox(height: 20,)
         ],
       ),
     );
