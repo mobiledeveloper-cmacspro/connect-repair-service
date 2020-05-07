@@ -7,109 +7,53 @@ import 'package:repairservices/models/Windows.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:image/image.dart' as im;
-
-class PdfCellWindows {
-  String title;
-  String value;
-
-  PdfCellWindows({this.title, this.value});
-}
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager.dart';
 
 class PDFManagerWindow {
-  static List<PdfCellWindows> _getListFromFitting(Windows model) {
-    List<PdfCellWindows> list = [
-      PdfCellWindows(
+  static List<PDFCell> _getListCells(Windows model) {
+    List<PDFCell> list = [
+      PDFCell(
           title: "Part number of defective component",
           value: "${model.number}"),
-      PdfCellWindows(title: "Year of construction", value: "${model.year}"),
-      PdfCellWindows(title: "Systen depth (mm)", value: "${model.systemDepth}"),
-      PdfCellWindows(
-          title: "Profile system / -serie", value: "${model.profileSystem}"),
-      PdfCellWindows(title: "Description", value: "${model.description}"),
+      PDFCell(title: "Year of construction", value: model.year),
+      PDFCell(title: "Systen depth (mm)", value: model.systemDepth),
+      PDFCell(title: "Profile system / -serie", value: model.profileSystem),
+      PDFCell(title: "Description", value: model.description),
     ];
     return list;
   }
 
-  static Future<String> getPDFPathWindows(Windows windows) async {
+  static Future<String> getPDFPath(Windows model) async {
     try {
-      final cells = _getListFromFitting(windows);
-
-      if (windows.pdfPath?.isNotEmpty == true) {
-        final File previousFile = File(windows.pdfPath);
-        if (await previousFile.exists() && windows.pdfPath.endsWith('.pdf')) {
-          return windows.pdfPath;
+      if (model.pdfPath?.isNotEmpty == true) {
+        final File previousFile = File(model.pdfPath);
+        if (await previousFile.exists() && model.pdfPath.endsWith('.pdf')) {
+          return model.pdfPath;
         }
       }
 
-      final appRootFiles = await FileUtils.getRootFilesDir();
-      final fileName = CalendarUtils.getTimeIdBasedSeconds();
-
-      File fileLogo = File('$appRootFiles/logo.png');
-      if (!await fileLogo.exists()) {
-        ByteData bd = await rootBundle.load(R.image.logo);
-        await fileLogo.writeAsBytes(bd.buffer.asUint8List(), flush: true);
-      }
-
+      ///Root
       final pdf = pw.Document();
+      PdfImage logo = await PDFManager.getLogo(pdf);
+      final ttfBold = await PDFManager.getTTFBold();
+      final ttfRegular = await PDFManager.getTTFRegular();
 
-      final pdfLogoImg = PdfImage.file(
-        pdf.document,
-        bytes: fileLogo.readAsBytesSync(),
-      );
+      ///List of rows
+      final cells = _getListCells(model);
+      List<pw.Column> rows = PDFManager.getRows(cells, ttfRegular);
 
-      final textFontSize = 18.0;
+      ///List of associates images
+      List<pw.Image> associatedImages =
+          await PDFManager.getAttachedImages(pdf, [model.filePath]);
 
-      ByteData bdBold =
-          await rootBundle.load('lib/res/assets/fonts/montserrat_bold.ttf');
-      ByteData bdRegular =
-          await rootBundle.load('lib/res/assets/fonts/montserrat_regular.ttf');
-      final ttfBold = pw.Font.ttf(bdBold);
-      final ttfRegular = pw.Font.ttf(bdRegular);
-
-      List<pw.Column> rows = [];
-      cells.forEach((cell) {
-        final w = pw.Column(
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              pw.Container(
-                  child: pw.Text(cell.title,
-                      style: pw.TextStyle(
-                          fontSize: textFontSize,
-                          font: ttfRegular,
-                          color: PdfColors.black)),
-                  width: double.infinity,
-                  padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  color: PdfColors.grey200),
-              pw.Container(
-                  child: pw.Text(cell.value,
-                      style: pw.TextStyle(
-                          fontSize: textFontSize,
-                          font: ttfRegular,
-                          color: PdfColors.grey600)),
-                  padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  width: double.infinity)
-            ]);
-        rows.add(w);
-      });
-
-      List<pw.Image> associatedImages = [];
-      if (windows.filePath?.isNotEmpty == true) {
-        File f = File(windows.filePath);
-        if (await f.exists()) {
-          PdfImage pdfImage = PdfImage.file(
-            pdf.document,
-            bytes: f.readAsBytesSync(),
-          );
-          associatedImages.add(pw.Image(pdfImage));
-        }
-      }
-
+      ///Adding all views together in a column
       List<pw.Widget> children = [];
       children.add(
         pw.Text("Article details:",
             style: pw.TextStyle(
-                fontSize: textFontSize, font: ttfBold, color: PdfColors.red)),
+                fontSize: PDFManager.textFontSize,
+                font: ttfBold,
+                color: PdfColors.red)),
       );
       children.add(
         pw.SizedBox(height: 10),
@@ -117,55 +61,19 @@ class PDFManagerWindow {
       children.addAll(rows);
       children.addAll(associatedImages);
 
+      ///Creating pdf pages
       pdf.addPage(pw.MultiPage(
           pageFormat: PdfPageFormat.a4,
-          header: (pw.Context context) {
-            return pw.Container(
-                width: double.infinity,
-                color: PdfColors.grey50,
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("RepairService@Connect Mobile",
-                          style: pw.TextStyle(
-                              color: PdfColors.green,
-                              fontSize: textFontSize,
-                              font: ttfBold)),
-                      pw.SizedBox(height: 15),
-                      pw.Row(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Image(pdfLogoImg, width: 70, height: 70),
-                            pw.Expanded(child: pw.Container()),
-                            pw.Text(
-                                CalendarUtils.showInFormat(
-                                    'dd/MM/yyyy', DateTime.now()),
-                                style: pw.TextStyle(
-                                    color: PdfColors.black,
-                                    fontSize: textFontSize)),
-                          ]),
-                      pw.SizedBox(height: 30),
-                    ]));
-          },
-          footer: (pw.Context context) {
-            return pw.Container(
-                color: PdfColors.grey50,
-                width: double.infinity,
-                child: pw.Column(children: [
-                  pw.SizedBox(height: 30),
-                  pw.Text('${context.pageNumber}/${context.pagesCount}',
-                      style: pw.TextStyle(fontSize: textFontSize))
-                ]));
-          },
+          header: (pw.Context context) => PDFManager.getHeader(ttfBold, logo),
+          footer: (pw.Context context) => PDFManager.getFooter(context),
           build: (pw.Context context) => <pw.Widget>[
                 pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: children),
               ]));
 
-      final File file = File('$appRootFiles/$fileName.pdf');
-      file.writeAsBytesSync(pdf.save());
-      return file.path;
+      final String filePath = await PDFManager.savePDFFile(pdf);
+      return filePath;
     } catch (ex) {
       return '';
     }

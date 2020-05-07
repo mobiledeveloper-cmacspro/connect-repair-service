@@ -16,6 +16,7 @@ import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/models/Windows.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:pdf/pdf.dart';
@@ -78,9 +79,10 @@ class ArticleIdentificationBloC extends BaseBloC {
   Future<void> _deleteArticleFitting(Fitting fitting) async {
     if (fitting is Windows) {
       await helper.deleteWindows(fitting.id);
-      PDFManagerWindow.removePDF(fitting);
+      await PDFManagerWindow.removePDF(fitting);
     } else if (fitting is Sliding) {
       await helper.deleteSliding(fitting.id);
+      await PDFManagerSliding.removePDF(fitting);
     } else if (fitting is DoorLock) {
       await helper.deleteDoorLock(fitting.id);
     } else if (fitting is DoorHinge) {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -7,15 +6,15 @@ import 'package:repairservices/GenericSelection.dart';
 import 'package:repairservices/SlidingComponents.dart';
 import 'package:repairservices/SlidingDimension.dart';
 import 'package:repairservices/SlidingDirectionOpening.dart';
+
 //import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Sliding.dart';
 
-class SlidingGeneralData extends StatefulWidget{
+class SlidingGeneralData extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return SlidingGeneralDataState();
   }
-
 }
 
 class SlidingGeneralDataState extends State<SlidingGeneralData> {
@@ -28,12 +27,12 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
   final tiltSlideCtr = TextEditingController();
   String components = '';
 
-  FocusNode yearNode,systemNode;
+  FocusNode yearNode, systemNode;
   bool filled = false;
   String directionOpeningImPath = '';
 
   @override
-  initState(){
+  initState() {
     super.initState();
     yearNode = FocusNode();
     systemNode = FocusNode();
@@ -46,52 +45,68 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
     super.dispose();
   }
 
-  Widget _getMandatory(bool mandatory){
-    if(mandatory) {
+  Widget _getMandatory(bool mandatory) {
+    if (mandatory) {
       return Padding(
           padding: EdgeInsets.only(left: 4),
-          child: Text('*',style: TextStyle(color: Colors.red,fontSize: 17))
-      );
-    }
-    else return Container();
+          child: Text('*', style: TextStyle(color: Colors.red, fontSize: 17)));
+    } else
+      return Container();
   }
 
-  _yearChange(){
+  _yearChange() {
     if (yearCtr.text.length == 1) {
       final s = yearCtr.text;
-      if (s == "0" || s == "3" || s == "4" || s == "5" || s == "6" || s == "7" || s == "8" || s == "9") {
+      if (s == "0" ||
+          s == "3" ||
+          s == "4" ||
+          s == "5" ||
+          s == "6" ||
+          s == "7" ||
+          s == "8" ||
+          s == "9") {
         setState(() {
           yearCtr.text = '';
         });
       }
-    }
-    else if(yearCtr.text.length > 4) {
+    } else if (yearCtr.text.length > 4) {
       setState(() {
-        yearCtr.text = yearCtr.text.substring(0, yearCtr.text.length -1);
+        yearCtr.text = yearCtr.text.substring(0, yearCtr.text.length - 1);
       });
-    }
-    else {
+    } else {
       setState(() {});
     }
   }
 
   _goNextData() async {
-    if (filled){
-      final sliding = Sliding.withData('Sliding system fittings', DateTime.now(), yearCtr.text, materialCtr.text, directionOpeningImPath, materialCtr.text, systemCtr.text, ventOverlapCtr.text,
-          tiltSlideCtr.text, components);
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => SlidingDimension(sliding)));
+    if (filled) {
+      final sliding = Sliding.withData(
+          'Sliding system fittings',
+          DateTime.now(),
+          yearCtr.text,
+          materialCtr.text,
+          directionOpeningImPath,
+          materialCtr.text,
+          systemCtr.text,
+          ventOverlapCtr.text,
+          tiltSlideCtr.text,
+          components);
+      Navigator.push(context,
+          CupertinoPageRoute(builder: (context) => SlidingDimension(sliding)));
     }
   }
 
   Widget _checkImage() {
-    if (directionOpeningImPath != '' && materialCtr.text != "" && ventOverlapCtr.text != "" && tiltSlideCtr.text != '') {
+    if (directionOpeningImPath != '' &&
+        materialCtr.text != "" &&
+        ventOverlapCtr.text != "" &&
+        tiltSlideCtr.text != '') {
       filled = true;
       return Image.asset(
         'assets/checkGreen.png',
         height: 25,
       );
-    }
-    else {
+    } else {
       filled = false;
       return Image.asset(
         'assets/checkGrey.png',
@@ -99,54 +114,60 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
       );
     }
   }
-  Widget _constructGenericOption(String title, bool mandatory, List<String> options, TextEditingController controller, String hintText) {
+
+  Widget _constructGenericOption(String title, bool mandatory,
+      List<String> options, TextEditingController controller, String hintText) {
     return InkWell(
       child: Row(
         children: <Widget>[
           Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.only(left: 16,top: 8,right: 4),
-                      child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(left: 16, top: 8, right: 4),
+                  child: Row(
 //                      mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Text(title,style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
-                          _getMandatory(mandatory)
-                        ],
-                      )
-                  ),
-                  new Padding(
-                    padding: EdgeInsets.only(left: 16,right: 16,top: 0,bottom: 4),
-                    child: new TextField(
-                      focusNode: AlwaysDisabledFocusNode(),
-                      enableInteractiveSelection: false,
-                      enabled: false,
-                      textAlign: TextAlign.left,
-                      expands: false,
-                      style: Theme.of(context).textTheme.body1,
-                      maxLines: 1,
-                      controller: controller,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration.collapsed(
-                          border: InputBorder.none,
-                          hintText: hintText,
-                          hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-                      ),
-                    ),
-                  ),
-                ],
-              )
-          ),
+                    children: <Widget>[
+                      Text(title,
+                          style: Theme.of(context).textTheme.body1,
+                          textAlign: TextAlign.left),
+                      _getMandatory(mandatory)
+                    ],
+                  )),
+              new Padding(
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
+                child: new TextField(
+                  focusNode: AlwaysDisabledFocusNode(),
+                  enableInteractiveSelection: false,
+                  enabled: false,
+                  textAlign: TextAlign.left,
+                  expands: false,
+                  style: Theme.of(context).textTheme.body1,
+                  maxLines: 1,
+                  controller: controller,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration.collapsed(
+                      border: InputBorder.none,
+                      hintText: hintText,
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                ),
+              ),
+            ],
+          )),
           Padding(
             padding: EdgeInsets.only(right: 8),
             child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
           )
         ],
       ),
-      onTap: (){
-        Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(title, options))).then((selectedOption){
+      onTap: () {
+        Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => GenericSelection(title, options)))
+            .then((selectedOption) {
           setState(() {
             controller.text = selectedOption;
           });
@@ -162,7 +183,8 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'General data'),style: Theme.of(context).textTheme.body1),
+        title: Text(FlutterI18n.translate(context, 'General data'),
+            style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -177,23 +199,23 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
                 systemNode.unfocus();
                 _goNextData();
               },
-              child: _checkImage()
-          ),
+              child: _checkImage()),
         ],
       ),
       body: ListView(
         children: <Widget>[
           Padding(
-              padding: EdgeInsets.only(left: 16,top: 8),
+              padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Year of construction'),style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
+                  Text(FlutterI18n.translate(context, 'Year of construction'),
+                      style: Theme.of(context).textTheme.body1,
+                      textAlign: TextAlign.left),
                   _getMandatory(false)
                 ],
-              )
-          ),
+              )),
           Padding(
-            padding: EdgeInsets.only(left: 16,right: 16,top: 0,bottom: 4),
+            padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
             child: new TextField(
               focusNode: yearNode,
               textAlign: TextAlign.left,
@@ -205,13 +227,17 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
               decoration: InputDecoration.collapsed(
                   border: InputBorder.none,
                   hintText: 'YYYY',
-                  hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-              ),
-              onChanged: (value)=>_yearChange(),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+              onChanged: (value) => _yearChange(),
             ),
           ),
           Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Fitting manufacturer'), false, ['GU','HAUTAU'], manufacturerCtr, ''),
+          _constructGenericOption(
+              FlutterI18n.translate(context, 'Fitting manufacturer'),
+              false,
+              ['GU', 'HAUTAU'],
+              manufacturerCtr,
+              ''),
           Divider(height: 1),
           InkWell(
             child: Container(
@@ -219,19 +245,26 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
                 margin: EdgeInsets.only(left: 16),
                 child: Row(
                   children: <Widget>[
-                    Text(FlutterI18n.translate(context, 'Opening direction'),style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
+                    Text(FlutterI18n.translate(context, 'Opening direction'),
+                        style: Theme.of(context).textTheme.body1,
+                        textAlign: TextAlign.left),
                     Expanded(
                       child: _getMandatory(true),
                     ),
                     Padding(
                       padding: EdgeInsets.only(right: 8),
-                      child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
+                      child: Icon(Icons.arrow_forward_ios,
+                          color: Colors.grey, size: 20),
                     )
                   ],
-                )
-            ),
-            onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => SlidingDirectionOpening(directionOpeningImPath))).then((imageStr){
+                )),
+            onTap: () {
+              Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) =>
+                              SlidingDirectionOpening(directionOpeningImPath)))
+                  .then((imageStr) {
                 setState(() {
                   directionOpeningImPath = imageStr;
                 });
@@ -239,19 +272,28 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
             },
           ),
           Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Material'), true, [FlutterI18n.translate(context, 'Aluminum'),FlutterI18n.translate(context, 'PVC-U')], materialCtr, ''),
+          _constructGenericOption(
+              FlutterI18n.translate(context, 'Material'),
+              true,
+              [
+                FlutterI18n.translate(context, 'Aluminum'),
+                FlutterI18n.translate(context, 'PVC-U')
+              ],
+              materialCtr,
+              ''),
           Divider(height: 1),
           Padding(
-              padding: EdgeInsets.only(left: 16,top: 8),
+              padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text('System',style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
+                  Text('System',
+                      style: Theme.of(context).textTheme.body1,
+                      textAlign: TextAlign.left),
                   _getMandatory(false)
                 ],
-              )
-          ),
+              )),
           Padding(
-            padding: EdgeInsets.only(left: 16,right: 16,top: 0,bottom: 4),
+            padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
             child: new TextField(
               focusNode: systemNode,
               textAlign: TextAlign.left,
@@ -262,8 +304,7 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
               decoration: InputDecoration.collapsed(
                   border: InputBorder.none,
                   hintText: 'system',
-                  hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-              ),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
             ),
           ),
           Divider(height: 1),
@@ -276,11 +317,18 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
                 FlutterI18n.translate(context, 'System royal S 17mm'),
                 FlutterI18n.translate(context, 'System royal')
               ],
-              ventOverlapCtr, ''
-          ),
+              ventOverlapCtr,
+              ''),
           Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Tilt / slide fittings'), true, [FlutterI18n.translate(context, 'With engagement mechanism'),FlutterI18n.translate(context, 'Without engagement mechanism')],
-              tiltSlideCtr, ''),
+          _constructGenericOption(
+              FlutterI18n.translate(context, 'Tilt / slide fittings'),
+              true,
+              [
+                FlutterI18n.translate(context, 'With engagement mechanism'),
+                FlutterI18n.translate(context, 'Without engagement mechanism')
+              ],
+              tiltSlideCtr,
+              ''),
           Divider(height: 1),
           InkWell(
             child: Container(
@@ -288,19 +336,28 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
                 margin: EdgeInsets.only(left: 16),
                 child: Row(
                   children: <Widget>[
-                    Text(FlutterI18n.translate(context, 'Fittings components to be replaced'),style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
+                    Text(
+                        FlutterI18n.translate(
+                            context, 'Fittings components to be replaced'),
+                        style: Theme.of(context).textTheme.body1,
+                        textAlign: TextAlign.left),
                     Expanded(
                       child: _getMandatory(false),
                     ),
                     Padding(
                       padding: EdgeInsets.only(right: 8),
-                      child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
+                      child: Icon(Icons.arrow_forward_ios,
+                          color: Colors.grey, size: 20),
                     )
                   ],
-                )
-            ),
-            onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => SlidingComponents(this.components))).then((components){
+                )),
+            onTap: () {
+              Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) =>
+                              SlidingComponents(this.components)))
+                  .then((components) {
                 setState(() {
                   this.components = components;
                 });

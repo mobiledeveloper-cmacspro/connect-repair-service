@@ -9,6 +9,7 @@ import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/domain/common_model.dart';
+import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/cnt_loading_fullscreen.dart';
@@ -287,7 +288,7 @@ class _ArticleIdentificationState
                 style: Theme.of(context).textTheme.body2),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () async {
-              if (fitting is Windows)
+              if (fitting is Windows || fitting is Sliding)
                 NavigationUtils.push(
                   context,
                   FittingPDFViewerPage(
