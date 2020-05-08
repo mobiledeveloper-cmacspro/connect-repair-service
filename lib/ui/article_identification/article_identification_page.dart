@@ -215,14 +215,10 @@ class _ArticleIdentificationState
                           )
                         ],
                       ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) => IdentificationTypeV()),
-                        ).then((_) {
-                          bloc.loadArticles();
-                        });
+                      onTap: () async {
+                        await NavigationUtils.pushCupertino(
+                            context, IdentificationTypeV());
+                        bloc.loadArticles();
                       },
                     ),
                     new InkWell(
@@ -292,7 +288,7 @@ class _ArticleIdentificationState
                 ),
                 onSubmitted: (value) async {
                   if (fitting is Windows) {
-                    final res = await NavigationUtils.push(
+                    final res = await NavigationUtils.pushCupertino(
                       context,
                       FittingWindowsDetail(
                         model: fitting,
@@ -303,7 +299,7 @@ class _ArticleIdentificationState
                     );
                     bloc.loadArticles();
                   } else {
-                    NavigationUtils.push(
+                    NavigationUtils.pushCupertino(
                       context,
                       FittingPDFViewerPage(
                         model: fitting,
@@ -357,7 +353,7 @@ class _ArticleIdentificationState
                   width: 50,
                 ),
                 onSubmitted: (value) async {
-                  NavigationUtils.push(
+                  NavigationUtils.pushCupertino(
                     context,
                     ArticleDetailPage(
                       articleLocalModel: articleLocalModel,

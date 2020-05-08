@@ -307,7 +307,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
     int id = await helper.insert(windows);
     print('inserted row: $id');
     if (id != null) {
-      NavigationUtils.push(
+      NavigationUtils.pushCupertino(
         context,
         FittingPDFViewerPage(
           model: windows,

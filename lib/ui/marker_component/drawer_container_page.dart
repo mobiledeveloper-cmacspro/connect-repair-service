@@ -381,7 +381,7 @@ class _DrawerContainerPageState
     bloc.screenShotFile = screenShotFileName;
     bloc.savingScreenShot = false;
 
-    NavigationUtils.push(
+    NavigationUtils.pushCupertino(
         context,
         ArticleLocalDetailPage(
           filePath: screenShotFileName,

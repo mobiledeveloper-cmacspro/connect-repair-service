@@ -2,40 +2,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NavigationUtils {
-  static final HomeRoute = 'Home';
+  static final ArticleIdentificationPage = 'ArticleIdentificationPage';
 
-  static Future<dynamic> pushWithRouteAndMaterial(
-      BuildContext context, Widget page, String widgetName) {
-    final Route route = MaterialPageRoute(
-        builder: (context) => page, settings: RouteSettings(name: widgetName));
-    return Navigator.push(context, route);
-  }
-
-  static Future<dynamic> pushReplacementWithRouteAndMaterial(
-      BuildContext context, Widget page, String widgetName) {
-    final Route route = MaterialPageRoute(
-        builder: (context) => page, settings: RouteSettings(name: widgetName));
-    return Navigator.pushReplacement(context, route);
-  }
-
-  static popUntilWithRouteAndMaterial(BuildContext context, String widgetName) {
+  static popUntilWithRoute(BuildContext context, String widgetName) {
     Navigator.of(context)
         .popUntil((route) => route.settings.name == widgetName);
-  }
-
-  static Future<dynamic> push(BuildContext context, Widget page) {
-    return Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => page,
-      ),
-    );
   }
 
   static Future<dynamic> pushCupertino(BuildContext context, Widget page) {
     return Navigator.push(
       context,
       CupertinoPageRoute(
+        builder: (context) => page,
+      ),
+    );
+  }
+
+  static Future<dynamic> pushCupertinoWithRoute(BuildContext context, Widget page, String widgetName) {
+    final Route route = CupertinoPageRoute(
+        builder: (context) => page, settings: RouteSettings(name: widgetName));
+    return Navigator.push(context, route);
+  }
+
+  static Future<dynamic> push(BuildContext context, Widget page) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
         builder: (context) => page,
       ),
     );
@@ -74,5 +66,19 @@ class NavigationUtils {
         MaterialPageRoute(builder: (context) => page1),
         ModalRoute.withName(
             MaterialPageRoute(builder: (context) => page2).toString()));
+  }
+
+  static Future<dynamic> pushWithRouteAndMaterial(
+      BuildContext context, Widget page, String widgetName) {
+    final Route route = MaterialPageRoute(
+        builder: (context) => page, settings: RouteSettings(name: widgetName));
+    return Navigator.push(context, route);
+  }
+
+  static Future<dynamic> pushReplacementWithRouteAndMaterial(
+      BuildContext context, Widget page, String widgetName) {
+    final Route route = MaterialPageRoute(
+        builder: (context) => page, settings: RouteSettings(name: widgetName));
+    return Navigator.pushReplacement(context, route);
   }
 }

@@ -214,7 +214,7 @@ class DoorLockDataState extends State<DoorLockData> {
     int id = await helper.insertDoorLock(doorLock);
     print('inserted row: $id');
     if (id != null) {
-      NavigationUtils.push(context, FittingPDFViewerPage(model: doorLock,));
+      NavigationUtils.pushCupertino(context, FittingPDFViewerPage(model: doorLock,));
 //      Navigator.push(
 //          context,
 //          CupertinoPageRoute(

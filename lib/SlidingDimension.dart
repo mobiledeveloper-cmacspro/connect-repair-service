@@ -194,7 +194,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
     int id = await helper.insertSliding(sliding);
     print('inserted row: $id');
     if (id != null) {
-      NavigationUtils.push(context, FittingPDFViewerPage(model: sliding,));
+      NavigationUtils.pushCupertino(context, FittingPDFViewerPage(model: sliding,));
     }
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+
 //import 'package:package_info/package_info.dart';
 import 'package:repairservices/ArticleBookMarkV.dart';
 import 'package:repairservices/ArticleInCart.dart';
@@ -16,6 +17,8 @@ import 'package:repairservices/Utils/ISClient.dart';
 import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
+
 //import 'package:repairservices/translations.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 import 'Login.dart';
@@ -23,6 +26,7 @@ import 'ui/article_identification/article_identification_page.dart';
 import 'CompanyProfile.dart';
 import 'ArticleList.dart';
 import 'package:repairservices/Utils/DeviceInfo.dart';
+
 //import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' as Platt;
@@ -36,6 +40,7 @@ class HomeM extends StatefulWidget {
   }
 
 }
+
 class HomeState extends State<HomeM> {
   DatabaseHelper helper = DatabaseHelper.instance;
   bool loggued = false;
@@ -58,7 +63,7 @@ class HomeState extends State<HomeM> {
   _readAllProductsInCart() async {
     final productList = await helper.queryAllProducts(true);
     debugPrint('Cant products in Cart: ${productList.length}');
-    this.setState((){
+    this.setState(() {
       this.cantProductsInCart = productList.length;
     });
   }
@@ -92,33 +97,36 @@ class HomeState extends State<HomeM> {
     );
   }
 
-  Widget _profileButton(){
-      if (loggued) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(context, CupertinoPageRoute(builder: (context) => Profile()));
-          },
-          child: Image.asset(
-            'assets/user-icon.png',
-            height: 25,
-          ),
-        );
-      }
-      else {
-        return Container();
-      }
+  Widget _profileButton() {
+    if (loggued) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, CupertinoPageRoute(builder: (context) => Profile()));
+        },
+        child: Image.asset(
+          'assets/user-icon.png',
+          height: 25,
+        ),
+      );
+    }
+    else {
+      return Container();
+    }
   }
 
   Widget _loginBt() {
     if (!loggued) {
       return Padding(
-          padding: EdgeInsets.only(left: 16,right: 16,top: 12,bottom: 26),
+          padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 26),
           child: GestureDetector(
             child: Container(
                 height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),
-                  color: Theme.of(context).primaryColor,
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
                 ),
                 child: Center(
                   child: Text(
@@ -130,8 +138,10 @@ class HomeState extends State<HomeM> {
                   ),
                 )
             ),
-            onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => LoginV())).then((value){
+            onTap: () {
+              Navigator.push(
+                  context, CupertinoPageRoute(builder: (context) => LoginV()))
+                  .then((value) {
                 ISClientO.instance.isTokenAvailable().then((bool loggued) {
                   this.loggued = loggued;
                   setState(() {});
@@ -149,12 +159,13 @@ class HomeState extends State<HomeM> {
 
   _readCompanys() async {
     List<Company> companyList = await helper.queryAllCompany();
-    for(Company company in companyList){
-      if(company.defaultC){
+    for (Company company in companyList) {
+      if (company.defaultC) {
         Company.currentCompany = company;
       }
     }
   }
+
   final deviceData = DeviceInfo();
 
   _isPhysicalDevice() async {
@@ -164,6 +175,7 @@ class HomeState extends State<HomeM> {
 
     debugPrint('DeviceType: ${deviceData.getData()['model']}, \n DeviceIdent');
   }
+
   _sendFeedBackByEmail() async {
 //    debugPrint('Device Data ${deviceData.getData()}');
     debugPrint('Sending pdf by Email');
@@ -173,11 +185,13 @@ class HomeState extends State<HomeM> {
 //    languages = await Devicelocale.preferredLanguages;
 
     bool isIphone = false;
-    if(data['systemVersion'] != null) {
+    if (data['systemVersion'] != null) {
       isIphone = true;
     }
-    String deviceType = isIphone ? data['model'] : data['brand'] + ' ' + data['model'];
-    String systemVersion = isIphone ? data['systemName'] + ' ' + data['systemVersion'] : 'Android ' + data['version.release'];
+    String deviceType = isIphone ? data['model'] : data['brand'] + ' ' +
+        data['model'];
+    String systemVersion = isIphone ? data['systemName'] + ' ' +
+        data['systemVersion'] : 'Android ' + data['version.release'];
 
 //    PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
@@ -199,8 +213,14 @@ class HomeState extends State<HomeM> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    final screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     final topButtonPadding = screenHeight * 0.020;
     final bottomButtonPadding = screenHeight * 0.010;
 
@@ -215,11 +235,13 @@ class HomeState extends State<HomeM> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(14.0)
-                ) ,
+                ),
                 child: GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleListV())).then((value){
-                      ISClientO.instance.isTokenAvailable().then((bool loggued){
+                  onTap: () {
+                    Navigator.push(context, CupertinoPageRoute(
+                        builder: (context) => ArticleListV())).then((value) {
+                      ISClientO.instance.isTokenAvailable().then((
+                          bool loggued) {
                         this.loggued = loggued;
                         _readAllProductsInCart();
                         setState(() {});
@@ -251,7 +273,7 @@ class HomeState extends State<HomeM> {
                           child: Image.asset(
                             'assets/qrCodeGrey.png',
                           ),
-                          onTap: (){
+                          onTap: () {
                             debugPrint('QRCode Pressed');
                           },
                         ),
@@ -267,7 +289,7 @@ class HomeState extends State<HomeM> {
     final divider = Container(
       color: Color.fromRGBO(0, 0, 0, 0.3),
       height: 1,
-      margin: EdgeInsets.only(left: 0,right: 0),
+      margin: EdgeInsets.only(left: 0, right: 0),
     );
 
     return Scaffold(
@@ -282,60 +304,62 @@ class HomeState extends State<HomeM> {
               ),
             ),
           ),
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+          iconTheme: IconThemeData(color: Theme
+              .of(context)
+              .primaryColor),
           actions: <Widget>[
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => ArticleInCart())
-                ).then((value){
-                  ISClientO.instance.isTokenAvailable().then((bool loggued) {
-                    this.loggued = loggued;
-                    setState(() {});
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(builder: (context) => ArticleInCart())
+                  ).then((value) {
+                    ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                      this.loggued = loggued;
+                      setState(() {});
+                    });
                   });
-                });
-              },
+                },
                 child: Container(
-                  margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
-                  child: Center(
-                    child: new Stack(
-                        children: <Widget>[
-                          Container(
-                            height: 40,
-                            child: Image.asset(
-                              'assets/shopping-cart.png',
-                              height: 25,
+                    margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
+                    child: Center(
+                      child: new Stack(
+                          children: <Widget>[
+                            Container(
+                              height: 40,
+                              child: Image.asset(
+                                'assets/shopping-cart.png',
+                                height: 25,
+                              ),
                             ),
-                          ),
 
-                          new Positioned(
-                            right: 0,
-                            child: new Container(
-                                padding: EdgeInsets.all(1),
-                                decoration: new BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(9),
-                                ),
-                                constraints: BoxConstraints(
-                                  minWidth: 18,
-                                  minHeight: 18,
-                                ),
-                                child: Center(
-                                  child: new Text(
-                                    '$cantProductsInCart',
-                                    style: new TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
-                                    textAlign: TextAlign.center,
+                            new Positioned(
+                              right: 0,
+                              child: new Container(
+                                  padding: EdgeInsets.all(1),
+                                  decoration: new BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(9),
                                   ),
-                                )
-                            ),
-                          )
-                        ]
-                    ),
-                  )
+                                  constraints: BoxConstraints(
+                                    minWidth: 18,
+                                    minHeight: 18,
+                                  ),
+                                  child: Center(
+                                    child: new Text(
+                                      '$cantProductsInCart',
+                                      style: new TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                              ),
+                            )
+                          ]
+                      ),
+                    )
                 )
             ),
             _profileButton()
@@ -395,10 +419,9 @@ class HomeState extends State<HomeM> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => ArticleIdentificationV()),
-                  );
+                  NavigationUtils.pushCupertinoWithRoute(
+                      context, ArticleIdentificationV(),
+                      NavigationUtils.ArticleIdentificationPage);
                 },
               ),
               divider,
@@ -427,7 +450,7 @@ class HomeState extends State<HomeM> {
                   Navigator.push(
                     context,
                     CupertinoPageRoute(builder: (context) => ArticleBookMark()),
-                  ).then((_){
+                  ).then((_) {
                     _readAllProductsInCart();
                   });
                 },
@@ -482,8 +505,10 @@ class HomeState extends State<HomeM> {
                   ],
                 ),
                 onTap: () async {
-                  String url = Platt.Platform.isIOS ?
-                  'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8' :
+                  String url = Platt.Platform.isIOS
+                      ?
+                  'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                      :
                   'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
                   if (await canLaunch(url)) {
                     await launch(url);
@@ -603,7 +628,8 @@ class HomeState extends State<HomeM> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context,prefix0.CupertinoPageRoute(builder: (context)=> GlobalSettings()));
+                  Navigator.push(context, prefix0.CupertinoPageRoute(
+                      builder: (context) => GlobalSettings()));
                 },
               ),
               divider,
@@ -644,7 +670,9 @@ class HomeState extends State<HomeM> {
                     Container(
                       margin: EdgeInsets.only(left: 16),
                       child: Text(
-                          !loggued ? FlutterI18n.translate(context, 'login') : FlutterI18n.translate(context, 'logoff'),
+                          !loggued
+                              ? FlutterI18n.translate(context, 'login')
+                              : FlutterI18n.translate(context, 'logoff'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17
@@ -656,19 +684,22 @@ class HomeState extends State<HomeM> {
                 onTap: () {
                   Navigator.pop(context);
                   if (!loggued) {
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => LoginV())).then((value){
-                      ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                    Navigator.push(context,
+                        CupertinoPageRoute(builder: (context) => LoginV()))
+                        .then((value) {
+                      ISClientO.instance.isTokenAvailable().then((
+                          bool loggued) {
                         this.loggued = loggued;
                         setState(() {});
                       });
                     });
                   }
                   else {
-                      ISClientO.instance.clearToken().then((_){
-                        setState(() {
-                          this.loggued = false;
-                        });
+                    ISClientO.instance.clearToken().then((_) {
+                      setState(() {
+                        this.loggued = false;
                       });
+                    });
                   }
                 },
               ),
@@ -677,10 +708,10 @@ class HomeState extends State<HomeM> {
           ),
         ),
 
-        body: Scaffold (
+        body: Scaffold(
             body: new Container(
               color: Colors.white,
-              child: Column (
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -693,11 +724,15 @@ class HomeState extends State<HomeM> {
                             Expanded(
                                 child: Container(
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                                    child: _displayGridItem(FlutterI18n.translate(context, 'home1'),'assets/articleIdentificationService.png', (){
-                                      final widget = ArticleIdentificationV();
-                                      Route route = CupertinoPageRoute(builder: (context) => widget, settings:RouteSettings(name: widget.toStringShort()));
-                                      Navigator.push(context, route);
+                                    padding: EdgeInsets.only(
+                                        top: topButtonPadding,
+                                        bottom: bottomButtonPadding),
+                                    child: _displayGridItem(
+                                        FlutterI18n.translate(context, 'home1'),
+                                        'assets/articleIdentificationService.png', () {
+                                      NavigationUtils.pushCupertinoWithRoute(
+                                          context, ArticleIdentificationV(),
+                                          NavigationUtils.ArticleIdentificationPage);
                                     }),
                                   ),
                                 )
@@ -705,14 +740,21 @@ class HomeState extends State<HomeM> {
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  border: Border(left: BorderSide(color: Color.fromARGB(100, 191, 191, 191),width: 1)),
+                                  border: Border(left: BorderSide(
+                                      color: Color.fromARGB(100, 191, 191, 191),
+                                      width: 1)),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                                  child: _displayGridItem(FlutterI18n.translate(context, 'home2'),'assets/articleBookmarkList.png',(){
+                                  padding: EdgeInsets.only(
+                                      top: topButtonPadding,
+                                      bottom: bottomButtonPadding),
+                                  child: _displayGridItem(
+                                      FlutterI18n.translate(context, 'home2'),
+                                      'assets/articleBookmarkList.png', () {
                                     Navigator.push(
                                       context,
-                                      CupertinoPageRoute(builder: (context) => ArticleBookMark()),
+                                      CupertinoPageRoute(builder: (context) =>
+                                          ArticleBookMark()),
                                     ).then((_) {
                                       _readAllProductsInCart();
                                     });
@@ -728,28 +770,39 @@ class HomeState extends State<HomeM> {
                             Expanded(
                                 child: Container(
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                                    child: _displayGridItem(FlutterI18n.translate(context, 'home3'),'assets/projectDocumentation.png',(){}),
+                                    padding: EdgeInsets.only(
+                                        top: topButtonPadding,
+                                        bottom: bottomButtonPadding),
+                                    child: _displayGridItem(
+                                        FlutterI18n.translate(context, 'home3'),
+                                        'assets/projectDocumentation.png', () {}),
                                   ),
                                 )
                             ),
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  border: Border(left: BorderSide(color: Color.fromARGB(100, 191, 191, 191),width: 1)),
+                                  border: Border(left: BorderSide(
+                                      color: Color.fromARGB(100, 191, 191, 191),
+                                      width: 1)),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                                  child: _displayGridItem("Docu Center \n",'assets/docucenter.png',() async {
-                                    String url = Platt.Platform.isIOS ?
-                                    'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8' :
-                                    'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                                    if (await canLaunch(url)) {
-                                      await launch(url);
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  }),
+                                  padding: EdgeInsets.only(
+                                      top: topButtonPadding,
+                                      bottom: bottomButtonPadding),
+                                  child: _displayGridItem("Docu Center \n",
+                                      'assets/docucenter.png', () async {
+                                        String url = Platt.Platform.isIOS
+                                            ?
+                                        'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                                            :
+                                        'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                                        if (await canLaunch(url)) {
+                                          await launch(url);
+                                        } else {
+                                          throw 'Could not launch $url';
+                                        }
+                                      }),
                                 ),
                               ),
                               flex: 1,
@@ -762,11 +815,17 @@ class HomeState extends State<HomeM> {
                             Expanded(
                                 child: Container(
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                                    child: _displayGridItem(FlutterI18n.translate(context, 'home4'),'assets/companyProfile.png',() {
+                                    padding: EdgeInsets.only(
+                                        top: topButtonPadding,
+                                        bottom: bottomButtonPadding),
+                                    child: _displayGridItem(
+                                        FlutterI18n.translate(context, 'home4'),
+                                        'assets/companyProfile.png', () {
                                       Navigator.push(
                                           context,
-                                          CupertinoPageRoute(builder: (context) => CompanyProfileV())
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  CompanyProfileV())
                                       );
                                     }),
                                   ),
@@ -775,13 +834,20 @@ class HomeState extends State<HomeM> {
                             Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    border: Border(left: BorderSide(color: Color.fromARGB(100, 191, 191, 191),width: 1)),
+                                    border: Border(left: BorderSide(
+                                        color: Color.fromARGB(
+                                            100, 191, 191, 191), width: 1)),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                                    child: _displayGridItem("Service / FAQ\n",'assets/FAQ.png',(){
-                                      Navigator.push(context, CupertinoPageRoute(builder: (context) => FAQ()));
-                                    }),
+                                    padding: EdgeInsets.only(
+                                        top: topButtonPadding,
+                                        bottom: bottomButtonPadding),
+                                    child: _displayGridItem("Service / FAQ\n",
+                                        'assets/FAQ.png', () {
+                                          Navigator.push(context,
+                                              CupertinoPageRoute(
+                                                  builder: (context) => FAQ()));
+                                        }),
                                   ),
                                 )
                             ),

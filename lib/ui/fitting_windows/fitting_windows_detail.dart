@@ -133,9 +133,10 @@ class _FittingWindowsDetails
                     toastLength: Toast.LENGTH_LONG);
               } else if (action.key == 'Email') {
                 Future.delayed(Duration(milliseconds: 100), () {
-                  NavigationUtils.push(
+                  NavigationUtils.pushCupertino(
                       context,
                       FittingPDFViewerPage(
+                        navigateFromDetail: true,
                         model: widget.model,
                       ));
                 });

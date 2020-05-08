@@ -239,7 +239,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     int id = await helper.insertDoorHinge(doorHinge);
     print('inserted row: $id');
     if(id!=null) {
-      NavigationUtils.push(context, FittingPDFViewerPage(model: doorHinge,));
+      NavigationUtils.pushCupertino(context, FittingPDFViewerPage(model: doorHinge,));
 
 //      Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleWebPreview(doorHinge)));
     }

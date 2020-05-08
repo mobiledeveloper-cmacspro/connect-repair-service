@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.white
+    ));
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

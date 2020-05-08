@@ -15,8 +15,11 @@ import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
 
 class FittingPDFViewerPage extends StatefulWidget {
   final Fitting model;
+  final bool navigateFromDetail;
 
-  const FittingPDFViewerPage({Key key, this.model}) : super(key: key);
+  const FittingPDFViewerPage(
+      {Key key, this.model, this.navigateFromDetail = false})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _FittingPDFViewerState();
@@ -24,6 +27,13 @@ class FittingPDFViewerPage extends StatefulWidget {
 
 class _FittingPDFViewerState
     extends StateWithBloC<FittingPDFViewerPage, PDFViewerBloC> {
+  _navBack() {
+    widget.navigateFromDetail
+        ? NavigationUtils.pop(context)
+        : NavigationUtils.popUntilWithRoute(
+            context, NavigationUtils.ArticleIdentificationPage);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -32,59 +42,66 @@ class _FittingPDFViewerState
 
   @override
   Widget buildWidget(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        StreamBuilder<String>(
-          stream: bloc.pdfPathResult,
-          initialData: null,
-          builder: (ctx, snapshot) {
-            return (snapshot.data == null || snapshot.data.isEmpty)
-                ? TXMainBarWidget(
-                    onLeadingTap: (){
-                      Navigator.pop(context);
-                    },
-                    title: widget.model.name ?? "PDF viewer",
-                    body: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Center(
-                        child: snapshot.data == null
-                            ? Container()
-                            : TXTextWidget(
-                                text: "Failed to load PDF",
-                                size: 18,
-                                color: Colors.black,
-                              ),
-                      ),
-                    ),
-                  )
-                : PDFViewerScaffold(
-                    path: snapshot.data,
-                    appBar: AppBar(
-                      backgroundColor: Colors.white,
-                      leading: TXIconButtonWidget(
-                        icon: Icon(
-                          Icons.arrow_back_ios,
-                          color: R.color.primary_color,
+    return WillPopScope(
+      onWillPop: () async {
+        _navBack();
+        return false;
+      },
+      child: Stack(
+        children: <Widget>[
+          StreamBuilder<String>(
+            stream: bloc.pdfPathResult,
+            initialData: null,
+            builder: (ctx, snapshot) {
+              return (snapshot.data == null || snapshot.data.isEmpty)
+                  ? TXMainBarWidget(
+                      onLeadingTap: () {
+                        _navBack();
+                      },
+                      title: widget.model.name ?? "PDF viewer",
+                      body: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Center(
+                          child: snapshot.data == null
+                              ? Container()
+                              : TXTextWidget(
+                                  text: "Failed to load PDF",
+                                  size: 18,
+                                  color: Colors.black,
+                                ),
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
                       ),
-                      centerTitle: Platform.isIOS,
-                      title: TXTextWidget(
-                        size: 18,
-                        color: Colors.black,
-                        text: widget.model.name ?? "PDF viewer",
+                    )
+                  : PDFViewerScaffold(
+                      path: snapshot.data,
+                      appBar: AppBar(
+                        backgroundColor: Colors.white,
+                        leading: TXIconButtonWidget(
+                          icon: Icon(
+                            Icons.keyboard_arrow_left,
+                            color: R.color.primary_color,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                            _navBack();
+                          },
+                        ),
+                        centerTitle: Platform.isIOS,
+                        title: TXTextWidget(
+                          size: 18,
+                          color: Colors.black,
+                          text: widget.model.name ?? "PDF viewer",
+                        ),
                       ),
-                    ),
-                  );
-          },
-        ),
-        TXLoadingWidget(
-          loadingStream: bloc.isLoadingStream,
-        )
-      ],
+                    );
+            },
+          ),
+          TXLoadingWidget(
+            loadingStream: bloc.isLoadingStream,
+          )
+        ],
+      ),
     );
   }
 }

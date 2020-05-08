@@ -37,6 +37,7 @@ class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerB
       _articleLocalController.stream;
 
   void loadArticles() async {
+    isLoading = true;
     List<ArticleBase> articles = [];
     List<Fitting> fittingList = [];
     final articleWindows = await helper.queryAllWindows();
@@ -63,6 +64,7 @@ class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerB
     articles.addAll(articlesLocal);
 
     _articleLocalController.sink.add(articles);
+    isLoading = false;
   }
 
   void deleteArticle(ArticleBase articleBase) async {
@@ -107,13 +109,11 @@ class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerB
           : (articleBase as ArticleLocalModel).displayName,
       recipients: ['lepuchenavarro@gmail.com'],
       isHTML: true,
-//      bccRecipients: ['other@example.com'],
-//      ccRecipients: ['third@example.com'],
       attachments: [generatedPdfFile.path],
     );
 
+    FlutterMailer.send(mailOptions);
     isLoading = false;
-    await FlutterMailer.send(mailOptions);
   }
 
   Future<String> _loadHtmlFromAssets(ArticleBase article) async {
