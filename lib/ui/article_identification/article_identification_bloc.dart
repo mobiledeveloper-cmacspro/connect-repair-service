@@ -16,16 +16,15 @@ import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/models/Windows.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
+import 'package:repairservices/ui/0_base/bloc_error_handler.dart';
+import 'package:repairservices/ui/0_base/bloc_loading.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:image/image.dart' as im;
 
-class ArticleIdentificationBloC extends BaseBloC {
+class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   final IArticleLocalRepository _iArticleLocalRepository;
   DatabaseHelper helper = DatabaseHelper.instance;
 
@@ -36,10 +35,6 @@ class ArticleIdentificationBloC extends BaseBloC {
 
   Stream<List<ArticleBase>> get articlesResult =>
       _articleLocalController.stream;
-
-  BehaviorSubject<bool> _loadingController = new BehaviorSubject();
-
-  Stream<bool> get showLoading => _loadingController.stream;
 
   void loadArticles() async {
     List<ArticleBase> articles = [];
@@ -95,7 +90,7 @@ class ArticleIdentificationBloC extends BaseBloC {
   }
 
   void sendPdfByEmail(ArticleBase articleBase) async {
-    _loadingController.sink.add(true);
+    isLoading = true;
     var htmlContent = await _loadHtmlFromAssets(articleBase);
 
     final appRootFiles = await FileUtils.getRootFilesDir();
@@ -117,7 +112,7 @@ class ArticleIdentificationBloC extends BaseBloC {
       attachments: [generatedPdfFile.path],
     );
 
-    _loadingController.sink.add(false);
+    isLoading = false;
     await FlutterMailer.send(mailOptions);
   }
 
@@ -141,7 +136,8 @@ class ArticleIdentificationBloC extends BaseBloC {
 
   @override
   void dispose() {
+    disposeLoadingBloC();
+    disposeErrorHandlerBloC();
     _articleLocalController.close();
-    _loadingController.close();
   }
 }

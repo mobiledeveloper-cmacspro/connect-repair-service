@@ -18,6 +18,7 @@ class TXItemCellEditWidget extends StatefulWidget {
   final bool blockedMode;
   final String value;
   final CellEditMode cellEditMode;
+  final Widget leading;
 
   const TXItemCellEditWidget(
       {Key key,
@@ -32,7 +33,8 @@ class TXItemCellEditWidget extends StatefulWidget {
       this.multiLine,
       this.value = "",
       this.blockedMode,
-      this.cellEditMode = CellEditMode.detail})
+      this.cellEditMode = CellEditMode.detail,
+      this.leading})
       : super(key: key);
 
   @override
@@ -46,6 +48,10 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final double leadingW =
+        (widget.leading != null && widget.cellEditMode == CellEditMode.selector)
+            ? 50
+            : 0;
     return InkWell(
       onTap: (widget.cellEditMode == CellEditMode.detail ||
               widget.cellEditMode == CellEditMode.none)
@@ -56,9 +62,15 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
                   : FocusScope.of(context).requestFocus(focusNode);
             },
       child: Container(
-        padding: EdgeInsets.only(top: 5, bottom: 5, left: 15, right: 10),
+        padding: EdgeInsets.only(
+            top: 5, bottom: 5, left: leadingW > 0 ? 0 : 15, right: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Container(
+              width: leadingW,
+              child: widget.leading,
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
