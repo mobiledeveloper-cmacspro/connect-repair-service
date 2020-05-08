@@ -4,9 +4,17 @@ class SelectionModel {
   String key;
   String title;
   String value;
+  bool isMandatory;
   bool isSelected;
+  bool isMultiSelect;
 
-  SelectionModel({this.key, this.title, this.value, this.isSelected});
+  SelectionModel(
+      {this.key,
+      this.title,
+      this.value,
+      this.isMandatory,
+      this.isSelected = false,
+      this.isMultiSelect = false});
 }
 
 class PdfCellModel {
@@ -15,8 +23,4 @@ class PdfCellModel {
   String image;
 
   PdfCellModel({this.title, this.value, this.image});
-
-  static List<PdfCellModel> getListFromFitting(Fitting fitting){
-
-  }
 }

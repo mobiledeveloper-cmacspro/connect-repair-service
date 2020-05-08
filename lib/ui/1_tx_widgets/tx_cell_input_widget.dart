@@ -23,6 +23,8 @@ class TXCellInputWidget extends StatelessWidget {
       children: <Widget>[
         TXTextWidget(
           text: title,
+          maxLines: 1,
+          textOverflow: TextOverflow.ellipsis,
         ),
         TextFormField(
             decoration: InputDecoration(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:repairservices/ArticleWebPreview.dart';
 import 'package:repairservices/GenericSelection.dart';
@@ -13,7 +14,10 @@ import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 
@@ -53,6 +57,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
     yearNode = FocusNode();
     profileSystemNode = FocusNode();
     descriptionNode = FocusNode();
+    systemCtr.text = '50mm';
   }
 
   @override

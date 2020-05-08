@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/ArticleWebPreview.dart';
+import 'package:repairservices/DoorLockData.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
@@ -18,6 +19,7 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:repairservices/ui/article_detail/article_detail_page.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_gallery_page.dart';
+import 'package:repairservices/ui/fitting_windows/fitting_windows_detail.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 import '../../database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
@@ -158,7 +160,7 @@ class _ArticleIdentificationState
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             final articleBaseModel = snapshot.data[index];
-                            return _getItem(articleBaseModel);
+                            return _getItem(context, articleBaseModel);
                           });
                     },
                   ),
@@ -264,14 +266,14 @@ class _ArticleIdentificationState
     );
   }
 
-  Widget _getItem(ArticleBase articleBaseModel) {
+  Widget _getItem(BuildContext context, ArticleBase articleBaseModel) {
     if (articleBaseModel is Fitting)
-      return _getFitting(articleBaseModel);
+      return _getFitting(context, articleBaseModel);
     else
       return _getArticleLocalItem((articleBaseModel as ArticleLocalModel));
   }
 
-  Widget _getFitting(Fitting fitting) {
+  Widget _getFitting(BuildContext context, Fitting fitting) {
     return Container(
         color: Color.fromRGBO(243, 243, 243, 1.0),
         child: Slidable(
@@ -289,12 +291,25 @@ class _ArticleIdentificationState
                 style: Theme.of(context).textTheme.body2),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () async {
-              NavigationUtils.push(
-                context,
-                FittingPDFViewerPage(
-                  model: fitting,
-                ),
-              );
+              if (fitting is Windows) {
+                final res = await NavigationUtils.push(
+                  context,
+                  FittingWindowsDetail(
+                    model: fitting,
+                    typeFitting: fitting.systemDepth?.isNotEmpty == true
+                        ? TypeFitting.windows
+                        : TypeFitting.sunShading,
+                  ),
+                );
+                bloc.loadArticles();
+              } else {
+                NavigationUtils.push(
+                  context,
+                  FittingPDFViewerPage(
+                    model: fitting,
+                  ),
+                );
+              }
             },
           ),
           secondaryActions: <Widget>[

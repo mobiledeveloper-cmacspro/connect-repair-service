@@ -40,15 +40,9 @@ class _FittingPDFViewerState
           builder: (ctx, snapshot) {
             return (snapshot.data == null || snapshot.data.isEmpty)
                 ? TXMainBarWidget(
-                    leading: TXIconButtonWidget(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: R.color.primary_color,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
+                    onLeadingTap: (){
+                      Navigator.pop(context);
+                    },
                     title: widget.model.name ?? "PDF viewer",
                     body: Container(
                       width: double.infinity,

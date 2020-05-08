@@ -13,6 +13,7 @@ import 'package:repairservices/repositories/article_local_repository.dart';
 import 'package:repairservices/ui/article_detail/article_detail_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_bloc.dart';
+import 'package:repairservices/ui/fitting_windows/fitting_windows_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
@@ -91,6 +92,7 @@ class Injector {
     container.registerFactory((c) => ArticleLocalDetailBloC());
     container.registerFactory((c) => ArticleDetailBloC());
     container.registerFactory((c) => PDFViewerBloC());
+    container.registerFactory((c) => FittingWindowsBloC());
   }
 
   _registerModelConverters() {
