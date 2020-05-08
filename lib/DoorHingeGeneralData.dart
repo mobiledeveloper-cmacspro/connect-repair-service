@@ -8,6 +8,9 @@ import 'package:repairservices/DoorLockData.dart';
 import 'package:repairservices/GenericSelection.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/DoorHinge.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
+import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 
 class DoorHingeGeneralData extends StatefulWidget {
   final DoorHinge doorHinge;
@@ -231,10 +234,14 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     doorHinge.systemDoorLeaf = systemDoorLeafCtr.text;
     doorHinge.doorFrame = doorFrameCtr.text;
     doorHinge.systemDoorFrame = systemDoorFrameCtr.text;
+
+    doorHinge.pdfPath = await PDFManagerDoorHinge.getPDFPath(doorHinge);
     int id = await helper.insertDoorHinge(doorHinge);
     print('inserted row: $id');
     if(id!=null) {
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleWebPreview(doorHinge)));
+      NavigationUtils.push(context, FittingPDFViewerPage(model: doorHinge,));
+
+//      Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleWebPreview(doorHinge)));
     }
 
   }

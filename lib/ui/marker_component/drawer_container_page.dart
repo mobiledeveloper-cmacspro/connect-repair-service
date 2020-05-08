@@ -371,18 +371,21 @@ class _DrawerContainerPageState
     final fileName = '${CalendarUtils.getTimeIdBasedSeconds()}.png';
     bloc.savingScreenShot = true;
     final screenShotFileName = await takeScreenShot(
-      context: context,
-      previewContainer: previewContainer,
-      pixelRatio: 2,
-      fileName: fileName
-    );
+        context: context,
+        previewContainer: previewContainer,
+        pixelRatio: 2,
+        fileName: fileName);
 
-    bloc.saveScreeShoot(screenShotFileName);
+    await bloc.saveScreeShoot(screenShotFileName);
 
     bloc.screenShotFile = screenShotFileName;
     bloc.savingScreenShot = false;
 
-    NavigationUtils.push(context, ArticleLocalDetailPage(filePath: screenShotFileName,));
+    NavigationUtils.push(
+        context,
+        ArticleLocalDetailPage(
+          filePath: screenShotFileName,
+        ));
   }
 
 //  saveAndShare(BuildContext context) async {

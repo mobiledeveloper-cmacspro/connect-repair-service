@@ -289,27 +289,12 @@ class _ArticleIdentificationState
                 style: Theme.of(context).textTheme.body2),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () async {
-              if (fitting is Windows ||
-                  fitting is Sliding ||
-                  fitting is DoorLock)
-                NavigationUtils.push(
-                  context,
-                  FittingPDFViewerPage(
-                    model: fitting,
-                  ),
-                );
-              else {
-                Fluttertoast.showToast(
-                    msg: "Under construction", toastLength: Toast.LENGTH_LONG);
-//                fitting.pdfPath =
-//                    await PDFManagerWindow.getPDFPathFitting(fitting);
-//                Navigator.push(
-//                  context,
-//                  CupertinoPageRoute(
-//                    builder: (context) => ArticleWebPreview(fitting),
-//                  ),
-//                );
-              }
+              NavigationUtils.push(
+                context,
+                FittingPDFViewerPage(
+                  model: fitting,
+                ),
+              );
             },
           ),
           secondaryActions: <Widget>[

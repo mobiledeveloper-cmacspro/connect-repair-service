@@ -1,15 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:repairservices/Utils/calendar_utils.dart';
-import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/Sliding.dart';
-import 'package:repairservices/models/Windows.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager.dart';
 
 class PDFManagerSliding {
