@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
@@ -18,6 +19,7 @@ class PDFCell {
 class PDFManager {
   ///For text style
   static double textFontSize = 18.0;
+  static PdfPageFormat pageFormat = PdfPageFormat.a4;
 
   static Future<Font> getTTFBold() async {
     ByteData bdBold =
@@ -69,6 +71,14 @@ class PDFManager {
         ]));
   }
 
+  static pw.Container getRowSection(String title, Font ttfBold) {
+    return pw.Container(
+        padding: pw.EdgeInsets.only(bottom: 10),
+        child: pw.Text("$title:",
+            style: pw.TextStyle(
+                fontSize: textFontSize, font: ttfBold, color: PdfColors.red)));
+  }
+
   static List<pw.Column> getRows(List<PDFCell> pdfCells, Font ttfRegular) {
     List<pw.Column> rows = [];
     pdfCells.forEach((cell) {
@@ -77,7 +87,7 @@ class PDFManager {
         pw.Container(
             child: pw.Text(cell.title,
                 style: pw.TextStyle(
-                    fontSize: PDFManager.textFontSize,
+                    fontSize: textFontSize,
                     font: ttfRegular,
                     color: PdfColors.black)),
             width: double.infinity,
@@ -86,7 +96,7 @@ class PDFManager {
         pw.Container(
             child: pw.Text(cell.value,
                 style: pw.TextStyle(
-                    fontSize: PDFManager.textFontSize,
+                    fontSize: textFontSize,
                     font: ttfRegular,
                     color: PdfColors.grey600)),
             padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -107,9 +117,9 @@ class PDFManager {
         ]));
   }
 
-  static Future<List<pw.Image>> getAttachedImages(
+  static Future<List<pw.Container>> getAttachedImages(
       Document pdf, List<String> filePaths) async {
-    List<pw.Image> images = [];
+    List<pw.Container> images = [];
     await Future.forEach<String>(filePaths, (f) async {
       if (f?.isNotEmpty == true) {
         File file = File(f);
@@ -118,7 +128,13 @@ class PDFManager {
             pdf.document,
             bytes: file.readAsBytesSync(),
           );
-          images.add(pw.Image(pdfImage));
+          images.add(
+            pw.Container(
+              constraints:
+                  pw.BoxConstraints(maxWidth: double.infinity, maxHeight: 400),
+              child: pw.Image(pdfImage, fit: pw.BoxFit.contain),
+            ),
+          );
         }
       }
     });
@@ -126,9 +142,20 @@ class PDFManager {
   }
 
   static Future<String> savePDFFile(Document pdf) async {
+    final rootPath = await getRootFiles();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
-    final File file = File('${await getRootFiles()}/$fileName.pdf');
+    final File file = File('$rootPath/$fileName.pdf');
     file.writeAsBytesSync(pdf.save());
+
+    ///Cleaning unused files starting with prefix temp
+    Directory appDocDir = await FileUtils.getRootFilesDirectory();
+
+    final List<FileSystemEntity> files = appDocDir.listSync();
+    files.forEach((f) {
+      if (f is File && f.path.split("/").last.startsWith("temp"))
+        f.deleteSync();
+    });
+
     return file.path;
   }
 }

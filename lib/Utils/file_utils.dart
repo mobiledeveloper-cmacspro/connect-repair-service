@@ -25,6 +25,13 @@ class FileUtils {
     }
   }
 
+  static Future<Directory> getRootFilesDirectory() async {
+    Directory appDocDir = Platform.isIOS
+        ? await getApplicationDocumentsDirectory()
+        : await getExternalStorageDirectory();
+    return appDocDir;
+  }
+
   static Future<String> getPDFPathFitting(Fitting fitting,
       {List<PdfCellModel> cells, List<String> filePaths}) async {
     try {

@@ -46,7 +46,7 @@ class PDFManagerSliding {
       List<pw.Column> rows = PDFManager.getRows(cells, ttfRegular);
 
       ///List of associates images
-      List<pw.Image> associatedImages =
+      List<pw.Container> associatedImages =
           await PDFManager.getAttachedImages(pdf, [model.dimensionImage1Path]);
 
       final String id = model.directionOpening.replaceAll("type", '');
@@ -58,16 +58,12 @@ class PDFManagerSliding {
       );
 
       ///Adding all views together in a column
+      pw.Container detailsRowSection =
+          PDFManager.getRowSection("Article details", ttfBold);
+
       List<pw.Widget> children = [];
       children.add(
-        pw.Text("Article details:",
-            style: pw.TextStyle(
-                fontSize: PDFManager.textFontSize,
-                font: ttfBold,
-                color: PdfColors.red)),
-      );
-      children.add(
-        pw.SizedBox(height: 10),
+        detailsRowSection,
       );
       children.addAll(rows);
       children.insert(
@@ -78,15 +74,17 @@ class PDFManagerSliding {
       children.addAll(associatedImages);
 
       ///Creating pdf pages
-      pdf.addPage(pw.MultiPage(
-          pageFormat: PdfPageFormat.a4,
-          header: (pw.Context context) => PDFManager.getHeader(ttfBold, logo),
-          footer: (pw.Context context) => PDFManager.getFooter(context),
-          build: (pw.Context context) => <pw.Widget>[
-                pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: children),
-              ]));
+      pdf.addPage(
+        pw.MultiPage(
+            pageFormat: PDFManager.pageFormat,
+            header: (pw.Context context) => PDFManager.getHeader(ttfBold, logo),
+            footer: (pw.Context context) => PDFManager.getFooter(context),
+            build: (pw.Context context) => <pw.Widget>[
+                  pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: children),
+                ]),
+      );
 
       final String filePath = await PDFManager.savePDFFile(pdf);
       return filePath;

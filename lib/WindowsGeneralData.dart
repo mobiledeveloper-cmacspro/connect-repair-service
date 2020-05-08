@@ -190,13 +190,13 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
 
   Future _getImageFromSource(ImageSource source) async {
     final File image = await ImagePicker.pickImage(source: source);
-//    final directory = await FileUtils.getRootFilesDir();
-//    final fileName = CalendarUtils.getTimeIdBasedSeconds();
-//    final File newImage = await image.copy('$directory/$fileName.png');
+    final directory = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
+    final File newImage = await image.copy('$directory/$fileName.png');
     setState(() {
-      this.image = image;
+      this.image = newImage;
       isImage = true;
-      filePath = image.path;
+      filePath = newImage.path;
     });
   }
 

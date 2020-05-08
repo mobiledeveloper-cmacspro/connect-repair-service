@@ -134,7 +134,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
     final buffer = byteData.buffer;
 
     final directory = await FileUtils.getRootFilesDir();
-    final fileName = CalendarUtils.getTimeIdBasedSeconds();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds(withTempPrefix: true);
     final path = '$directory/$fileName.png';
     File(path).writeAsBytesSync(
         buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));

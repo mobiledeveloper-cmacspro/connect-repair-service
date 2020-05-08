@@ -11,6 +11,7 @@ class DoorLockGeneralData extends StatefulWidget {
   final DoorLock doorLock;
 
   DoorLockGeneralData(this.doorLock);
+
   @override
   State<StatefulWidget> createState() {
     return DoorLockGeneralDataState(this.doorLock);
@@ -19,9 +20,17 @@ class DoorLockGeneralData extends StatefulWidget {
 
 class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
   DoorLock doorLock;
+
   DoorLockGeneralDataState(this.doorLock);
 
-  FocusNode logoVisibleNode,yearNode,profileNode,protectionNode,basicDepthNode,openingDirNode,leafNode,boltNode;
+  FocusNode logoVisibleNode,
+      yearNode,
+      profileNode,
+      protectionNode,
+      basicDepthNode,
+      openingDirNode,
+      leafNode,
+      boltNode;
 
   final logoVisibleCtr = TextEditingController();
   final yearCtr = TextEditingController();
@@ -62,80 +71,90 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
     super.dispose();
   }
 
-  _yearChange(){
+  _yearChange() {
     if (yearCtr.text.length == 1) {
       final s = yearCtr.text;
-      if (s == "0" || s == "3" || s == "4" || s == "5" || s == "6" || s == "7" || s == "8" || s == "9") {
+      if (s == "0" ||
+          s == "3" ||
+          s == "4" ||
+          s == "5" ||
+          s == "6" ||
+          s == "7" ||
+          s == "8" ||
+          s == "9") {
         setState(() {
           yearCtr.text = '';
         });
       }
-    }
-    else if(yearCtr.text.length > 4) {
+    } else if (yearCtr.text.length > 4) {
       setState(() {
-        yearCtr.text = yearCtr.text.substring(0, yearCtr.text.length -1);
+        yearCtr.text = yearCtr.text.substring(0, yearCtr.text.length - 1);
       });
     }
   }
 
-  Widget _getMandatory(bool mandatory){
-    if(mandatory) {
+  Widget _getMandatory(bool mandatory) {
+    if (mandatory) {
       return Padding(
-        padding: EdgeInsets.only(left: 4),
-        child: Text('*',style: TextStyle(color: Colors.red,fontSize: 17))
-      );
-    }
-    else return Container();
+          padding: EdgeInsets.only(left: 4),
+          child: Text('*', style: TextStyle(color: Colors.red, fontSize: 17)));
+    } else
+      return Container();
   }
 
-  Widget _constructGenericOption(String title, bool mandatory, List<String> options, TextEditingController controller, String hintText) {
+  Widget _constructGenericOption(String title, bool mandatory,
+      List<String> options, TextEditingController controller, String hintText) {
     return InkWell(
       child: Row(
         children: <Widget>[
           Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 16,top: 8,right: 4),
-                    child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(left: 16, top: 8, right: 4),
+                  child: Row(
 //                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(title,style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
-                        _getMandatory(mandatory)
-                      ],
-                    )
-                  ),
-                  new Padding(
-                    padding: EdgeInsets.only(left: 16,right: 16,top: 0,bottom: 4),
-                    child: new TextField(
-                      focusNode: AlwaysDisabledFocusNode(),
-                      enableInteractiveSelection: false,
-                      enabled: false,
-                      textAlign: TextAlign.left,
-                      expands: false,
-                      style: Theme.of(context).textTheme.body1,
-                      maxLines: 1,
-                      controller: controller,
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration.collapsed(
-                          border: InputBorder.none,
-                          hintText: hintText,
-                          hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-                      ),
-                    ),
-                  ),
-                ],
-              )
-          ),
+                    children: <Widget>[
+                      Text(title,
+                          style: Theme.of(context).textTheme.body1,
+                          textAlign: TextAlign.left),
+                      _getMandatory(mandatory)
+                    ],
+                  )),
+              new Padding(
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
+                child: new TextField(
+                  focusNode: AlwaysDisabledFocusNode(),
+                  enableInteractiveSelection: false,
+                  enabled: false,
+                  textAlign: TextAlign.left,
+                  expands: false,
+                  style: Theme.of(context).textTheme.body1,
+                  maxLines: 1,
+                  controller: controller,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration.collapsed(
+                      border: InputBorder.none,
+                      hintText: hintText,
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                ),
+              ),
+            ],
+          )),
           Padding(
             padding: EdgeInsets.only(right: 8),
             child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
           )
         ],
       ),
-      onTap: (){
-        Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(title, options))).then((selectedOption){
+      onTap: () {
+        Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => GenericSelection(title, options)))
+            .then((selectedOption) {
           setState(() {
             controller.text = selectedOption;
           });
@@ -144,48 +163,54 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
     );
   }
 
-  Widget _getBolt(){
-    if(leafCtr.text == FlutterI18n.translate(context, 'Double-leaf door')){
+  Widget _getBolt() {
+    if (leafCtr.text == FlutterI18n.translate(context, 'Double-leaf door')) {
       return Column(
         children: <Widget>[
-          _constructGenericOption(FlutterI18n.translate(context, 'Bolt'), true,
+          _constructGenericOption(
+              FlutterI18n.translate(context, 'Bolt'),
+              true,
               [
                 FlutterI18n.translate(context, 'Rebate shoot bolt'),
                 FlutterI18n.translate(context, 'Surface-mounted shoot bolt'),
                 FlutterI18n.translate(context, 'Shoot bolt lock1')
-              ], boltCtr, FlutterI18n.translate(context, 'Rebate shoot bolt')),
+              ],
+              boltCtr,
+              FlutterI18n.translate(context, 'Rebate shoot bolt')),
           Divider(height: 1),
         ],
       );
-    }
-    else return Container();
+    } else
+      return Container();
   }
 
-  Widget _checkImage(){
-    if (logoVisibleCtr.text != "" && profileCtr.text != "" && protectionCtr.text != "" && openingDirCtr.text != "" && leafCtr.text != "") {
-      if (leafCtr.text == FlutterI18n.translate(context, 'Double-leaf door') && boltCtr.text != "")  {
+  Widget _checkImage() {
+    if (logoVisibleCtr.text != "" &&
+        profileCtr.text != "" &&
+        protectionCtr.text != "" &&
+        openingDirCtr.text != "" &&
+        leafCtr.text != "") {
+      if (leafCtr.text == FlutterI18n.translate(context, 'Double-leaf door') &&
+          boltCtr.text != "") {
         filled = true;
         return Image.asset(
           'assets/checkGreen.png',
           height: 25,
         );
-      }
-      else if (leafCtr.text == FlutterI18n.translate(context, 'Single')){
+      } else if (leafCtr.text == FlutterI18n.translate(context, 'Single')) {
         filled = true;
         return Image.asset(
           'assets/checkGreen.png',
           height: 25,
         );
-      }else {
+      } else {
         filled = false;
         return Image.asset(
           'assets/checkGrey.png',
           height: 25,
         );
       }
-
-    }
-    else {
+    } else {
       filled = false;
       return Image.asset(
         'assets/checkGrey.png',
@@ -194,18 +219,19 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
     }
   }
 
-  _goNextData(){
+  _goNextData() {
     if (filled) {
       debugPrint('next');
       doorLock.logoVisible = logoVisibleCtr.text;
       doorLock.year = yearCtr.text;
       doorLock.profile = profileCtr.text;
-      doorLock.protection= protectionCtr.text;
+      doorLock.protection = protectionCtr.text;
       doorLock.basicDepthDoor = basicDepthCtr.text;
       doorLock.openingDirection = openingDirCtr.text;
-      doorLock.leafDoor= leafCtr.text;
+      doorLock.leafDoor = leafCtr.text;
       doorLock.bolt = boltCtr.text;
-      Navigator.push(context, CupertinoPageRoute(builder: (context) =>DoorLockData(doorLock)));
+      Navigator.push(context,
+          CupertinoPageRoute(builder: (context) => DoorLockData(doorLock)));
     }
   }
 
@@ -216,7 +242,8 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'General data'),style: Theme.of(context).textTheme.body1),
+        title: Text(FlutterI18n.translate(context, 'General data'),
+            style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -226,24 +253,31 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
         ),
         actions: <Widget>[
           GestureDetector(
-            onTap: () {
-              yearNode.unfocus();
-              _goNextData();
-            },
-            child: _checkImage()
-          ),
+              onTap: () {
+                yearNode.unfocus();
+                _goNextData();
+              },
+              child: _checkImage()),
         ],
       ),
       body: ListView(
         children: <Widget>[
-          _constructGenericOption(FlutterI18n.translate(context, 'Schüco logo visible in face plate'), true, ['Yes','No'], logoVisibleCtr, 'Yes'),
+          _constructGenericOption(
+              FlutterI18n.translate(
+                  context, 'Schüco logo visible in face plate'),
+              true,
+              ['Yes', 'No'],
+              logoVisibleCtr,
+              'Yes'),
           Divider(height: 1),
           Padding(
-            padding: EdgeInsets.only(left: 16,top: 8),
-            child: Text(FlutterI18n.translate(context, 'Year of manufacturing'),style: Theme.of(context).textTheme.body1, textAlign: TextAlign.left),
+            padding: EdgeInsets.only(left: 16, top: 8),
+            child: Text(FlutterI18n.translate(context, 'Year of manufacturing'),
+                style: Theme.of(context).textTheme.body1,
+                textAlign: TextAlign.left),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 16,right: 16,top: 0,bottom: 4),
+            padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
             child: new TextField(
               focusNode: yearNode,
               textAlign: TextAlign.left,
@@ -255,9 +289,8 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
               decoration: InputDecoration.collapsed(
                   border: InputBorder.none,
                   hintText: 'YYYY',
-                  hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-              ),
-              onChanged: (value)=>_yearChange(),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+              onChanged: (value) => _yearChange(),
             ),
           ),
           Divider(height: 1),
@@ -267,8 +300,9 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
               [
                 FlutterI18n.translate(context, 'Thermally insulated profiles'),
                 FlutterI18n.translate(context, 'Non-insulated profiles')
-              ], profileCtr, FlutterI18n.translate(context, 'Thermally insulated profiles')
-          ),
+              ],
+              profileCtr,
+              FlutterI18n.translate(context, 'Thermally insulated profiles')),
           Divider(height: 1),
           _constructGenericOption(
               FlutterI18n.translate(context, 'Protection'),
@@ -279,14 +313,35 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
                 FlutterI18n.translate(context, 'Smoke protection')
               ],
               protectionCtr,
-            FlutterI18n.translate(context, 'None')
-          ),
+              FlutterI18n.translate(context, 'None')),
           Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Basic depth of door profile (mm)'), false, ['50mm','60mm','65mm','70mm','75mm','90mm'], basicDepthCtr, '50mm'),
+          _constructGenericOption(
+              FlutterI18n.translate(
+                  context, 'Basic depth of door profile (mm)'),
+              false,
+              ['50mm', '60mm', '65mm', '70mm', '75mm', '90mm'],
+              basicDepthCtr,
+              '50mm'),
           Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Opening direction'), true, [FlutterI18n.translate(context, 'Inward'),FlutterI18n.translate(context, 'Outward')], openingDirCtr, FlutterI18n.translate(context, 'Inward')),
+          _constructGenericOption(
+              FlutterI18n.translate(context, 'Opening direction'),
+              true,
+              [
+                FlutterI18n.translate(context, 'Inward'),
+                FlutterI18n.translate(context, 'Outward')
+              ],
+              openingDirCtr,
+              FlutterI18n.translate(context, 'Inward')),
           Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Leaf'), true, [FlutterI18n.translate(context, 'Single'),FlutterI18n.translate(context, 'Double-leaf door')], leafCtr, FlutterI18n.translate(context, 'Single')),
+          _constructGenericOption(
+              FlutterI18n.translate(context, 'Leaf'),
+              true,
+              [
+                FlutterI18n.translate(context, 'Single'),
+                FlutterI18n.translate(context, 'Double-leaf door')
+              ],
+              leafCtr,
+              FlutterI18n.translate(context, 'Single')),
           Divider(height: 1),
           _getBolt()
         ],
@@ -299,4 +354,5 @@ class AlwaysDisabledFocusNode extends FocusNode {
   @override
   bool get hasFocus => false;
 }
-enum TypeFitting {windows,sunShading,other}
+
+enum TypeFitting { windows, sunShading, other }
