@@ -23,7 +23,7 @@ Future<String> takeScreenShot({
   ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   Uint8List pngBytes = byteData.buffer.asUint8List();
   final directory = await FileUtils.getRootFilesDir();
-  File imgFile = new File('$directory/$fileName');
+  File imgFile = File('$directory/$fileName');
   imgFile.writeAsBytes(pngBytes);
 
   return imgFile.path;

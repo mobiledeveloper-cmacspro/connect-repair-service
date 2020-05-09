@@ -1,13 +1,25 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:repairservices/domain/article_local_model/article_local_model.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_bloc.dart';
 
 class ArticleLocalDetailPage extends StatefulWidget {
-  final String filePath;
+  final ArticleLocalModel articleLocalModel;
+  final bool navigateFromDetail;
+  final bool isForMail;
 
-  const ArticleLocalDetailPage({Key key, this.filePath = ""}) : super(key: key);
+  ArticleLocalDetailPage(
+      {Key key,
+      this.articleLocalModel,
+      this.navigateFromDetail = false,
+      this.isForMail = false})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ArticleLocalDetailState();
@@ -15,26 +27,55 @@ class ArticleLocalDetailPage extends StatefulWidget {
 
 class _ArticleLocalDetailState
     extends StateWithBloC<ArticleLocalDetailPage, ArticleLocalDetailBloC> {
+  _navBack() {
+    widget.navigateFromDetail
+        ? NavigationUtils.pop(context)
+        : NavigationUtils.popUntilWithRoute(
+            context, NavigationUtils.ArticleIdentificationPage);
+  }
+
   @override
   Widget buildWidget(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        backgroundColor: Colors.white,
-        actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text("Edit Picture", style: Theme.of(context).textTheme.body1),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Theme.of(context).primaryColor,
-        ),
-      ),
-      body: Container(
-        height: 200,
-        width: 100,
-        child: Image.file(File(widget.filePath)),
+    return WillPopScope(
+      onWillPop: () async {
+        _navBack();
+        return false;
+      },
+      child: Stack(
+        children: <Widget>[
+          TXMainBarWidget(
+            title: "Article detail",
+            onLeadingTap: () {
+              _navBack();
+            },
+            actions: <Widget>[
+              widget.isForMail
+                  ? InkWell(
+                      child: Container(
+                        child: TXTextWidget(
+                          text: 'Send',
+                          fontWeight: FontWeight.bold,
+                          color: R.color.primary_color,
+                        ),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 5)
+                            .copyWith(right: 10),
+                      ),
+                      onTap: () {
+                        bloc.sendPdfByEmail(widget.articleLocalModel);
+                      },
+                    )
+                  : Container()
+            ],
+            body: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Image.file(
+                File(widget.articleLocalModel.screenShootFilePath),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -115,9 +115,6 @@ class _FittingPDFViewerState
                                   onTap: () {
                                     if (widget.isForMail) {
                                       bloc.sendPdfByEmail(widget.model);
-                                      setState(() {
-
-                                      });
                                     } else {
                                       Fluttertoast.showToast(
                                           msg: "Under construction",

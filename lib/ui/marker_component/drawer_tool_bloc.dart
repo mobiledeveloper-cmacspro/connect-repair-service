@@ -149,7 +149,7 @@ class DrawerToolBloc extends BaseBloC {
     currentItemToDraw = item;
   }
 
-  String screenShotFile;
+//  String screenShotFile;
 
   //File
   BehaviorSubject<File> _selectedImageController = BehaviorSubject();

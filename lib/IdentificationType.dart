@@ -85,7 +85,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                         context,
                         CupertinoPageRoute(
                             builder: (context) =>
-                                DrawerContainerPage(imagePath: imagePath,)));
+                                DrawerContainerPage(imagePath: imagePath, isForMail: false,)));
                   },
                 ),
                 CupertinoDialogAction(

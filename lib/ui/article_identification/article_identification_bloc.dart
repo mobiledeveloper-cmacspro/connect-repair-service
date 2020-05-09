@@ -54,6 +54,7 @@ class ArticleIdentificationBloC extends BaseBloC
 
   void loadArticles() async {
     isLoading = true;
+    List<ArticleBase> sortedList = [];
     List<ArticleBase> articles = [];
     List<Fitting> fittingList = [];
     final articleWindows = await helper.queryAllWindows();
@@ -78,7 +79,14 @@ class ArticleIdentificationBloC extends BaseBloC
 
     articles.addAll(fittingList);
     articles.addAll(articlesLocal);
-    _articleLocalController.sinkAddSafe(articles);
+
+    articles.sort((a, b) => (a is Fitting
+            ? a.created
+            : (a as ArticleLocalModel).createdOnScreenShoot)
+        .compareTo(b is Fitting
+            ? b.created
+            : (b as ArticleLocalModel).createdOnScreenShoot));
+    _articleLocalController.sinkAddSafe(articles.reversed.toList());
 
     articles.forEach((a) => a.isSelected = false);
     setSelectionMode = false;
@@ -97,15 +105,18 @@ class ArticleIdentificationBloC extends BaseBloC
   }
 
   void deleteArticle() async {
-    List<ArticleBase> articleBaseList =
-        (await articlesResult.first).where((a) => a.isSelected).toList();
+    List<ArticleBase> articleBaseList = await articlesResult.first;
     await Future.forEach(articleBaseList, (articleBase) async {
-      if (articleBase is ArticleLocalModel)
-        await _iArticleLocalRepository.deleteArticleLocal(articleBase);
-      else
-        await _deleteArticleFitting((articleBase as Fitting));
+      if(articleBase.isSelected){
+        if (articleBase is ArticleLocalModel)
+          await _iArticleLocalRepository.deleteArticleLocal(articleBase);
+        else
+          await _deleteArticleFitting((articleBase as Fitting));
+      }
     });
-    loadArticles();
+    articleBaseList.removeWhere((a) => a.isSelected);
+
+    refreshList();
   }
 
   Future<void> _deleteArticleFitting(Fitting fitting) async {

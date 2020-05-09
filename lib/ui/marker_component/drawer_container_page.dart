@@ -20,8 +20,9 @@ import 'package:repairservices/ui/marker_component/utils/take_screenshoot.dart';
 
 class DrawerContainerPage extends StatefulWidget {
   final String imagePath;
+  final bool isForMail;
 
-  const DrawerContainerPage({Key key, @required this.imagePath})
+  const DrawerContainerPage({Key key, @required this.imagePath, this.isForMail = false})
       : super(key: key);
 
   @override
@@ -378,14 +379,16 @@ class _DrawerContainerPageState
 
     await bloc.saveScreeShoot(screenShotFileName);
 
-    bloc.screenShotFile = screenShotFileName;
+//    bloc.screenShotFile = screenShotFileName;
     bloc.savingScreenShot = false;
 
     NavigationUtils.pushCupertino(
-        context,
-        ArticleLocalDetailPage(
-          filePath: screenShotFileName,
-        ));
+      context,
+      ArticleLocalDetailPage(
+        articleLocalModel: bloc.articleModel,
+        isForMail: widget.isForMail,
+      ),
+    );
   }
 
 //  saveAndShare(BuildContext context) async {

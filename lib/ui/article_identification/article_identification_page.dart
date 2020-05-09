@@ -28,6 +28,7 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:repairservices/ui/article_detail/article_detail_page.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_gallery_page.dart';
+import 'package:repairservices/ui/article_local_detail/article_local_detail_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_door_hinge_detail_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_door_lock_detail_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_sliding_detail_page.dart';
@@ -342,8 +343,10 @@ class _ArticleIdentificationState
                     } else {
                       await NavigationUtils.pushCupertino(
                         context,
-                        ArticleDetailPage(
+                        ArticleLocalDetailPage(
                           articleLocalModel: articleBase,
+                          isForMail: true,
+                          navigateFromDetail: true,
                         ),
                       );
                     }
@@ -387,7 +390,7 @@ class _ArticleIdentificationState
             onActionTap: (action) async {
               if (action.key == 'Print' || action.key == 'Email') {
               } else if (action.key == 'Remove') {
-//                bloc.deleteArticle();
+                bloc.deleteArticle();
               }
             },
             actions: [

@@ -20,4 +20,11 @@ class AppImage {
   final facePlateFixing2 = 'lib/res/assets/img/facePlateFixing2.png';
   final checkGreen = 'lib/res/assets/img/checkGreen.png';
   final checkGrey = 'lib/res/assets/img/checkGrey.png';
+  final windows = 'lib/res/assets/img/windows.png';
+  final windowsOther = 'lib/res/assets/img/windowsOther.png';
+  final windowsSunShading = 'lib/res/assets/img/windowsSunShading.png';
+  final sliding = 'lib/res/assets/img/sliding.png';
+  final door = 'lib/res/assets/img/door.png';
+  final doorLock = 'lib/res/assets/img/doorLock.png';
+  final doorHinge = 'lib/res/assets/img/doorHinge.png';
 }
