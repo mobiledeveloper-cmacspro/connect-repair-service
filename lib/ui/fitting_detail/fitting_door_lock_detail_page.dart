@@ -10,6 +10,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
+import 'package:repairservices/ui/fitting_detail/fitting_resource_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 
@@ -101,28 +102,54 @@ class _FittingDoorLockDetailState
               title: "",
               value: "Lock type",
               cellEditMode: CellEditMode.selector,
-              onSubmitted: (value){},
+              onSubmitted: (value) {
+                NavigationUtils.pushCupertino(
+                    context,
+                    FittingResourcePage(
+                      title: "Lock type",
+                      resourceTitle: "",
+                      resource: bloc.getLockType(widget.model.lockType),
+                    ));
+              },
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
               value: "Face plate type",
               cellEditMode: CellEditMode.selector,
-              onSubmitted: (value){},
+              onSubmitted: (value) {
+                NavigationUtils.pushCupertino(
+                    context,
+                    FittingResourcePage(
+                      title: "Face plate type",
+                      resourceTitle: "",
+                      resource:
+                          bloc.getFacePlateType(widget.model.facePlateType),
+                    ));
+              },
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
               value: "Face plate fixing",
               cellEditMode: CellEditMode.selector,
-              onSubmitted: (value){},
+              onSubmitted: (value) {
+                NavigationUtils.pushCupertino(
+                    context,
+                    FittingResourcePage(
+                      title: "Face plate fixing",
+                      resourceTitle: "",
+                      resource:
+                          bloc.getFacePlateMixing(widget.model.facePlateFixing),
+                    ));
+              },
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
               value: "Dimensions",
               cellEditMode: CellEditMode.selector,
-              onSubmitted: (value){},
+              onSubmitted: (value) {},
             ),
             TXDividerWidget(),
           ]),

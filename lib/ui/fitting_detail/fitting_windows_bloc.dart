@@ -3,6 +3,7 @@ import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/models/Windows.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/0_base/bloc_error_handler.dart';
 import 'package:repairservices/ui/0_base/bloc_loading.dart';
@@ -35,6 +36,53 @@ class FittingWindowsBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
     }
     _deleteController.sinkAddSafe(true);
   }
+
+  String getDirectionOpening(String type) {
+    String res = '';
+    if (type.contains("1"))
+      res = R.image.slidingDirectionOpening1;
+    else if (type.contains("2"))
+      res = R.image.slidingDirectionOpening2;
+    else if (type.contains("3"))
+      res = R.image.slidingDirectionOpening3;
+    else if (type.contains("4")) res = R.image.slidingDirectionOpening4;
+    return res;
+  }
+
+  String getLockType(String type) {
+    String res = '';
+    if (type.contains("1"))
+      res = R.image.lockType1;
+    else if (type.contains("2"))
+      res = R.image.lockType2;
+    else if (type.contains("3"))
+      res = R.image.lockType3;
+    else if (type.contains("4")) res = R.image.lockType4;
+    return res;
+  }
+
+  String getFacePlateType(String type) {
+    String res = '';
+    if (type.contains("1"))
+      res = R.image.facePlateType1;
+    else if (type.contains("2"))
+      res = R.image.facePlateType2;
+    else if (type.contains("3"))
+      res = R.image.facePlateType3;
+    else if (type.contains("4")) res = R.image.facePlateType4;
+    return res;
+  }
+
+  String getFacePlateMixing(String type) {
+    String res = '';
+    if (type.contains("1"))
+      res = R.image.facePlateFixing1;
+    else if (type.contains("2"))
+      res = R.image.facePlateFixing2;
+    return res;
+  }
+
+
 
   @override
   void dispose() {
