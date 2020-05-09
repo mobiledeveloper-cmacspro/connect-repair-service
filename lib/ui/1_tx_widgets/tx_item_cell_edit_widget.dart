@@ -75,31 +75,38 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TXTextWidget(
-                    text: widget.title,
-                    size: widget.cellEditMode == CellEditMode.detail
-                        ? smallText
-                        : bigText,
-                    maxLines: 1,
-                    color: widget.cellEditMode == CellEditMode.detail
-                        ? R.color.gray
-                        : Colors.black,
-                    textOverflow: TextOverflow.ellipsis,
-                  ),
+                  widget.title.isNotEmpty
+                      ? TXTextWidget(
+                          text: widget.title,
+                          size: widget.cellEditMode == CellEditMode.detail
+                              ? smallText
+                              : bigText,
+                          maxLines: 1,
+                          color: widget.cellEditMode == CellEditMode.detail
+                              ? R.color.gray
+                              : Colors.black,
+                          textOverflow: TextOverflow.ellipsis,
+                        )
+                      : Container(),
                   (widget.cellEditMode == CellEditMode.detail ||
                           widget.cellEditMode == CellEditMode.selector)
-                      ? TXTextWidget(
-                          text: widget.value.isEmpty
-                              ? widget.placeholder
-                              : widget.value,
-                          color: widget.cellEditMode == CellEditMode.detail
-                              ? Colors.black
-                              : (widget.value.isEmpty
-                                  ? R.color.gray
-                                  : Colors.black),
-                          size: widget.cellEditMode == CellEditMode.detail
-                              ? bigText
-                              : smallText,
+                      ? Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: widget.title.isEmpty ? 8 : 0),
+                          child: TXTextWidget(
+                            text: widget.value.isEmpty
+                                ? widget.placeholder
+                                : widget.value,
+                            color: widget.cellEditMode == CellEditMode.detail
+                                ? Colors.black
+                                : (widget.value.isEmpty
+                                    ? R.color.gray
+                                    : Colors.black),
+                            size: widget.title.isEmpty ||
+                                    widget.cellEditMode == CellEditMode.detail
+                                ? bigText
+                                : smallText,
+                          ),
                         )
                       : TXTextFieldWidget(
                           controller: widget.controller,

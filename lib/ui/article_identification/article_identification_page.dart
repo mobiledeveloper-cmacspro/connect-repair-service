@@ -10,6 +10,7 @@ import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/domain/common_model.dart';
+import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/res/R.dart';
@@ -25,7 +26,10 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:repairservices/ui/article_detail/article_detail_page.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_gallery_page.dart';
-import 'package:repairservices/ui/fitting_windows/fitting_windows_detail.dart';
+import 'package:repairservices/ui/fitting_detail/fitting_door_hinge_detail_page.dart';
+import 'package:repairservices/ui/fitting_detail/fitting_door_lock_detail_page.dart';
+import 'package:repairservices/ui/fitting_detail/fitting_sliding_detail_page.dart';
+import 'package:repairservices/ui/fitting_detail/fitting_windows_detail_page.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 import '../../database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
@@ -280,7 +284,7 @@ class _ArticleIdentificationState
                 cellEditMode: CellEditMode.selector,
                 title: fitting.name,
                 value:
-                    CalendarUtils.showInFormat("dd/MM/YYYY", fitting.created),
+                    CalendarUtils.showInFormat("dd/MM/yyyy", fitting.created),
                 leading: Image.asset(
                   'assets/productImage.png',
                   height: 40,
@@ -290,7 +294,7 @@ class _ArticleIdentificationState
                   if (fitting is Windows) {
                     final res = await NavigationUtils.pushCupertino(
                       context,
-                      FittingWindowsDetail(
+                      FittingWindowsDetailPage(
                         model: fitting,
                         typeFitting: fitting.systemDepth?.isNotEmpty == true
                             ? TypeFitting.windows
@@ -298,13 +302,32 @@ class _ArticleIdentificationState
                       ),
                     );
                     bloc.loadArticles();
-                  } else {
-                    NavigationUtils.pushCupertino(
+                  } else if (fitting is Sliding) {
+                    final res = await NavigationUtils.pushCupertino(
                       context,
-                      FittingPDFViewerPage(
+                      FittingSlidingDetailPage(
                         model: fitting,
                       ),
                     );
+                    bloc.loadArticles();
+                  } else if (fitting is DoorLock) {
+                    final res = await NavigationUtils.pushCupertino(
+                      context,
+                      FittingDoorLockDetailPage(
+                        model: fitting,
+                      ),
+                    );
+                    bloc.loadArticles();
+                  } else if (fitting is DoorHinge) {
+                    final res = await NavigationUtils.pushCupertino(
+                      context,
+                      FittingDoorHingeDetailPage(
+                        model: fitting,
+                      ),
+                    );
+                    bloc.loadArticles();
+                  } else {
+                    Fluttertoast.showToast(msg: "Object not recognized");
                   }
                 },
               ),

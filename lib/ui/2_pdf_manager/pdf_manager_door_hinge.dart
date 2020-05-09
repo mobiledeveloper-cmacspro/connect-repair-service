@@ -9,6 +9,20 @@ class PDFManagerDoorHinge {
   static List<PDFCell> _getListCells(DoorHinge model) {
     List<PDFCell> list = [
       PDFCell(title: "Year of construction", value: model.year),
+      PDFCell(
+          title: "Basic depth of the door leaf (mm)",
+          value: model.basicDepthOfDoorLeaf),
+      PDFCell(title: "Schüco system", value: model.systemHinge),
+      PDFCell(title: "Material", value: model.material),
+      PDFCell(title: "Thermally", value: model.thermally),
+      PDFCell(title: "Door opening", value: model.doorOpening),
+      PDFCell(title: "Fitter", value: model.fitted),
+      PDFCell(title: "Dimension surface", value: ""),
+      PDFCell(title: "Hinge type", value: model.hingeType),
+      PDFCell(title: "Door leaf (mm)", value: model.systemDoorLeaf),
+      PDFCell(title: "Door frame (mm)", value: model.doorFrame),
+      PDFCell(title: "System", value: model.systemHinge),
+      PDFCell(title: "Dimension barrel", value: ""),
     ];
     return list;
   }
@@ -32,16 +46,32 @@ class PDFManagerDoorHinge {
       final cells = _getListCells(model);
       List<pw.Column> rows = PDFManager.getRows(cells, ttfRegular);
 
-
       ///Adding all views together in a column
       pw.Container detailsRowSection =
-      PDFManager.getRowSection("Article details", ttfBold);
+          PDFManager.getRowSection("General Data", ttfBold);
+
+      ///List of associates images
+      List<pw.Container> associatedImages =
+          await PDFManager.getAttachedImages(pdf, [
+        model.dimensionSurfaceIm,
+        model.dimensionBarrelIm,
+      ]);
 
       List<pw.Widget> children = [];
       children.add(
         detailsRowSection,
       );
       children.addAll(rows);
+
+//      children.insert(
+//          9,
+//          pw.Container(
+//              padding: pw.EdgeInsets.symmetric(vertical: 5),
+//              child: associatedImages[0]));
+//
+//      children.add(pw.Container(
+//          padding: pw.EdgeInsets.symmetric(vertical: 5),
+//          child: associatedImages[1]));
 
       ///Creating pdf pages
       pdf.addPage(
@@ -50,16 +80,15 @@ class PDFManagerDoorHinge {
             header: (pw.Context context) => PDFManager.getHeader(ttfBold, logo),
             footer: (pw.Context context) => PDFManager.getFooter(context),
             build: (pw.Context context) => <pw.Widget>[
-              pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: children),
-            ]),
+                  pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: children),
+                ]),
       );
 
       final String filePath = await PDFManager.savePDFFile(pdf);
       return filePath;
-
-    }catch(ex){
+    } catch (ex) {
       return '';
     }
   }
@@ -69,10 +98,5 @@ class PDFManagerDoorHinge {
       final pdfFile = File(model.pdfPath);
       if (await pdfFile.exists()) await pdfFile.delete();
     }
-
-//    if (model?.dimensionImage1Path?.isNotEmpty == true) {
-//      final imagePath = File(model.dimensionImage1Path);
-//      if (await imagePath.exists()) await imagePath.delete();
-//    }
   }
 }

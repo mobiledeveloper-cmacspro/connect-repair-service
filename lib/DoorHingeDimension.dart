@@ -147,10 +147,20 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
       var byteData = await image.toByteData(format: ImageByteFormat.png);
       final buffer = byteData.buffer;
       final directory = await FileUtils.getRootFilesDir();
-      final fileName = CalendarUtils.getTimeIdBasedSeconds();
+      final fileName = CalendarUtils.getTimeIdBasedSeconds(withTempPrefix: true);
       final path = '$directory/$fileName.png';
 
       File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
+
+      ///Removing previous screen shoot if exist
+      if (imagePath1?.isNotEmpty == true &&
+          imagePath1?.endsWith('.png') == true) {
+        File preFile = File(imagePath1);
+        if (await preFile.exists()) {
+          await preFile.delete();
+        }
+      }
+
       imagePath1 = path;
     });
   }

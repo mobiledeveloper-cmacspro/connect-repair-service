@@ -8,7 +8,7 @@ class CalendarUtils {
   }
 
   static String showInFormat(String dateFormat, DateTime datetime) {
-    DateFormat formatter = DateFormat(dateFormat, "de");
+    DateFormat formatter = DateFormat(dateFormat);
     return formatter.format(datetime);
   }
 }

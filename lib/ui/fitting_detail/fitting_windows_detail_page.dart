@@ -16,14 +16,14 @@ import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
-import 'package:repairservices/ui/fitting_windows/fitting_windows_bloc.dart';
+import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 
-class FittingWindowsDetail extends StatefulWidget {
+class FittingWindowsDetailPage extends StatefulWidget {
   final Windows model;
   final TypeFitting typeFitting;
 
-  const FittingWindowsDetail({Key key, this.model, this.typeFitting})
+  const FittingWindowsDetailPage({Key key, this.model, this.typeFitting})
       : super(key: key);
 
   @override
@@ -31,9 +31,16 @@ class FittingWindowsDetail extends StatefulWidget {
 }
 
 class _FittingWindowsDetails
-    extends StateWithBloC<FittingWindowsDetail, FittingWindowsBloC> {
-  DatabaseHelper helper = DatabaseHelper.instance;
-
+    extends StateWithBloC<FittingWindowsDetailPage, FittingWindowsBloC> {
+  @override
+  void initState() {
+    super.initState();
+    bloc.deleteResult.listen((onData){
+      if(onData == true){
+        NavigationUtils.pop(context);
+      }
+    });
+  }
   @override
   Widget buildWidget(BuildContext context) {
     return TXMainBarWidget(
@@ -141,20 +148,18 @@ class _FittingWindowsDetails
                       ));
                 });
               } else if (action.key == 'Remove') {
-                await helper.deleteWindows(widget.model.id);
-                await PDFManagerWindow.removePDF(widget.model);
-                NavigationUtils.pop(context);
+                bloc.delete(widget.model);
               }
             },
             actions: [
               ActionSheetModel(
                   key: "Print",
                   title: "Print",
-                  color: Theme.of(context).primaryColor),
+                  color: R.color.primary_color),
               ActionSheetModel(
                   key: "Email",
                   title: "Email",
-                  color: Theme.of(context).primaryColor),
+                  color: R.color.primary_color),
               ActionSheetModel(
                   key: "Remove", title: "Remove", color: Colors.red)
             ],
