@@ -18,4 +18,6 @@ class AppImage {
   final facePlateType4 = 'lib/res/assets/img/facePlateType4.png';
   final facePlateFixing1 = 'lib/res/assets/img/facePlateFixing1.png';
   final facePlateFixing2 = 'lib/res/assets/img/facePlateFixing2.png';
+  final checkGreen = 'lib/res/assets/img/checkGreen.png';
+  final checkGrey = 'lib/res/assets/img/checkGrey.png';
 }

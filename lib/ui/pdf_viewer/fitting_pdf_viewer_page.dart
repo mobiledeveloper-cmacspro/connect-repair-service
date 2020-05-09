@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/models/Windows.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
@@ -16,9 +17,15 @@ import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
 class FittingPDFViewerPage extends StatefulWidget {
   final Fitting model;
   final bool navigateFromDetail;
+  final bool isForPrint;
+  final bool isForMail;
 
   const FittingPDFViewerPage(
-      {Key key, this.model, this.navigateFromDetail = false})
+      {Key key,
+      this.model,
+      this.navigateFromDetail = false,
+      this.isForPrint = false,
+      this.isForMail = false})
       : super(key: key);
 
   @override
@@ -93,6 +100,33 @@ class _FittingPDFViewerState
                           color: Colors.black,
                           text: widget.model.name ?? "PDF viewer",
                         ),
+                        actions: <Widget>[
+                          widget.isForMail || widget.isForPrint
+                              ? InkWell(
+                                  child: Container(
+                                    child: TXTextWidget(
+                                      text: widget.isForMail ? 'Send' : 'Print',
+                                      fontWeight: FontWeight.bold,
+                                      color: R.color.primary_color,
+                                    ),
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.symmetric(horizontal: 5).copyWith(right: 10),
+                                  ),
+                                  onTap: () {
+                                    if (widget.isForMail) {
+                                      bloc.sendPdfByEmail(widget.model);
+                                      setState(() {
+
+                                      });
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          msg: "Under construction",
+                                          toastLength: Toast.LENGTH_LONG);
+                                    }
+                                  },
+                                )
+                              : Container()
+                        ],
                       ),
                     );
             },

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
+import 'package:repairservices/Utils/mail_mananger.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
@@ -15,6 +17,7 @@ import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/models/Windows.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/0_base/bloc_error_handler.dart';
 import 'package:repairservices/ui/0_base/bloc_loading.dart';
@@ -23,8 +26,10 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:repairservices/Utils/extensions.dart';
 
-class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
+class ArticleIdentificationBloC extends BaseBloC
+    with LoadingBloC, ErrorHandlerBloC {
   final IArticleLocalRepository _iArticleLocalRepository;
   DatabaseHelper helper = DatabaseHelper.instance;
 
@@ -35,6 +40,17 @@ class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerB
 
   Stream<List<ArticleBase>> get articlesResult =>
       _articleLocalController.stream;
+
+  BehaviorSubject<bool> _selectionModeController = new BehaviorSubject();
+
+  Stream<bool> get selectionModeResult => _selectionModeController.stream;
+
+  bool isInSelectionMode = false;
+
+  set setSelectionMode(bool mode) {
+    isInSelectionMode = mode;
+    _selectionModeController.sinkAddSafe(isInSelectionMode);
+  }
 
   void loadArticles() async {
     isLoading = true;
@@ -62,16 +78,33 @@ class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerB
 
     articles.addAll(fittingList);
     articles.addAll(articlesLocal);
+    _articleLocalController.sinkAddSafe(articles);
 
-    _articleLocalController.sink.add(articles);
+    articles.forEach((a) => a.isSelected = false);
+    setSelectionMode = false;
     isLoading = false;
   }
 
-  void deleteArticle(ArticleBase articleBase) async {
-    if (articleBase is ArticleLocalModel)
-      await _iArticleLocalRepository.deleteArticleLocal(articleBase);
-    else
-      await _deleteArticleFitting((articleBase as Fitting));
+  void refreshList() async {
+    List<ArticleBase> articleBaseList = (await articlesResult.first);
+    final ArticleBase article =
+        articleBaseList.firstWhere((a) => a.isSelected, orElse: () {
+      return null;
+    });
+    if (article == null) setSelectionMode = false;
+
+    _articleLocalController.sinkAddSafe(articleBaseList);
+  }
+
+  void deleteArticle() async {
+    List<ArticleBase> articleBaseList =
+        (await articlesResult.first).where((a) => a.isSelected).toList();
+    await Future.forEach(articleBaseList, (articleBase) async {
+      if (articleBase is ArticleLocalModel)
+        await _iArticleLocalRepository.deleteArticleLocal(articleBase);
+      else
+        await _deleteArticleFitting((articleBase as Fitting));
+    });
     loadArticles();
   }
 
@@ -93,51 +126,30 @@ class ArticleIdentificationBloC extends BaseBloC with LoadingBloC, ErrorHandlerB
 
   void sendPdfByEmail(ArticleBase articleBase) async {
     isLoading = true;
-    var htmlContent = await _loadHtmlFromAssets(articleBase);
+    final name = (articleBase is Fitting)
+        ? articleBase.name
+        : (articleBase as ArticleLocalModel).displayName;
+    final List<String> attachments = [
+      articleBase is ArticleLocalModel
+          ? articleBase.filePath
+          : (articleBase as Fitting).pdfPath
+    ];
+    final MailModel mailModel =
+        MailModel(subject: name, body: name, attachments: attachments);
 
-    final appRootFiles = await FileUtils.getRootFilesDir();
-    final fileName = CalendarUtils.getTimeIdBasedSeconds();
-    var targetFileName = "example-pdf";
-
-    var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
-        htmlContent, appRootFiles, targetFileName);
-
-    final MailOptions mailOptions = MailOptions(
-      body: 'Article fitting',
-      subject: (articleBase is Fitting)
-          ? articleBase.name
-          : (articleBase as ArticleLocalModel).displayName,
-      recipients: ['lepuchenavarro@gmail.com'],
-      isHTML: true,
-      attachments: [generatedPdfFile.path],
-    );
-
-    FlutterMailer.send(mailOptions);
-    isLoading = false;
-  }
-
-  Future<String> _loadHtmlFromAssets(ArticleBase article) async {
-    String fileText = '';
-    if (article is Windows) {
-      fileText = await rootBundle.loadString('assets/articleWindows.html');
-      fileText = await article.getHtmlString(fileText);
-    } else if (article is DoorLock) {
-      fileText = await rootBundle.loadString('assets/articleDoorLock.html');
-      fileText = await article.getHtmlString(fileText);
-    } else if (article is DoorHinge) {
-      fileText = await rootBundle.loadString('assets/articleDoorHinge.html');
-      fileText = await article.getHtmlString(fileText);
-    } else if (article is Sliding) {
-      fileText = await rootBundle.loadString('assets/articleSliding.html');
-      fileText = await article.getHtmlString(fileText);
+    final res = await MailManager.sendEmail(mailModel);
+    if (res != 'OK') {
+      Fluttertoast.showToast(
+          msg: "$res", toastLength: Toast.LENGTH_LONG, textColor: Colors.red);
     }
-    return fileText;
+    isLoading = false;
   }
 
   @override
   void dispose() {
+    _selectionModeController.close();
+    _articleLocalController.close();
     disposeLoadingBloC();
     disposeErrorHandlerBloC();
-    _articleLocalController.close();
   }
 }

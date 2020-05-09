@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:repairservices/Utils/mail_mananger.dart';
+import 'package:repairservices/domain/article_base.dart';
+import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
@@ -29,6 +34,29 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
     else if (model is DoorHinge)
       path = await PDFManagerDoorHinge.getPDFPath(model);
     _pdfPathController.sinkAddSafe(path);
+    isLoading = false;
+  }
+
+  void sendPdfByEmail(ArticleBase articleBase) async {
+    isLoading = true;
+    final name = (articleBase is Fitting)
+        ? articleBase.name
+        : (articleBase as ArticleLocalModel).displayName;
+    final List<String> attachments = [
+      articleBase is ArticleLocalModel
+          ? articleBase.filePath
+          : (articleBase as Fitting).pdfPath
+    ];
+    final MailModel mailModel =
+    MailModel(subject: name, body: name, attachments: attachments);
+
+    final res = await MailManager.sendEmail(mailModel);
+    if (res != 'OK') {
+      Fluttertoast.showToast(
+          msg: "$res",
+          toastLength: Toast.LENGTH_LONG,
+          textColor: Colors.red);
+    }
     isLoading = false;
   }
 

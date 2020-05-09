@@ -43,8 +43,6 @@ class TXItemCellEditWidget extends StatefulWidget {
 
 class _TXItemCellEditState extends State<TXItemCellEditWidget> {
   var focusNode = new FocusNode();
-  final double smallText = 12;
-  final double bigText = 16;
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +77,8 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
                       ? TXTextWidget(
                           text: widget.title,
                           size: widget.cellEditMode == CellEditMode.detail
-                              ? smallText
-                              : bigText,
+                              ? R.dim.smallText
+                              : R.dim.bigText,
                           maxLines: 1,
                           color: widget.cellEditMode == CellEditMode.detail
                               ? R.color.gray
@@ -104,8 +102,8 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
                                     : Colors.black),
                             size: widget.title.isEmpty ||
                                     widget.cellEditMode == CellEditMode.detail
-                                ? bigText
-                                : smallText,
+                                ? R.dim.bigText
+                                : R.dim.smallText,
                           ),
                         )
                       : TXTextFieldWidget(
@@ -115,7 +113,7 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
                           keyboardType: widget.keyboardType,
                           multiLine: widget.multiLine,
                           onSubmitted: widget.onSubmitted,
-                          fontSize: smallText,
+                          fontSize: R.dim.smallText,
                           onChanged: widget.onChanged,
                         ),
                 ],

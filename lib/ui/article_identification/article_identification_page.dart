@@ -17,6 +17,8 @@ import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/cnt_loading_fullscreen.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_cell_check_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
@@ -45,25 +47,9 @@ class ArticleIdentificationV extends StatefulWidget {
 
 class _ArticleIdentificationState
     extends StateWithBloC<ArticleIdentificationV, ArticleIdentificationBloC> {
-  DatabaseHelper helper = DatabaseHelper.instance;
   List<Fitting> articleList;
   int selected = 0;
   bool selecting = false;
-
-  _sendPdfByEmail(String name, String pdfPath) async {
-    final MailOptions mailOptions = MailOptions(
-      body: 'Article fitting',
-      subject: name,
-      recipients: ['lepuchenavarro@gmail.com'],
-      isHTML: true,
-//      bccRecipients: ['other@example.com'],
-//      ccRecipients: ['third@example.com'],
-      attachments: [pdfPath],
-    );
-
-    await FlutterMailer.send(mailOptions);
-  }
-
   String lastSelectedValue;
 
   void showDemoActionSheet({BuildContext context, Widget child}) {
@@ -124,140 +110,157 @@ class _ArticleIdentificationState
   Widget buildWidget(BuildContext context) {
     return Stack(
       children: <Widget>[
-        TXMainBarWidget(
-          title: FlutterI18n.translate(context, 'Article Identification'),
-          onLeadingTap: () {
-            Navigator.pop(context);
-          },
-          actions: <Widget>[
-            TXIconButtonWidget(
-              onPressed: () async {
-                final list = await bloc.articlesResult.first;
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => ArticleIdentificationGalleryPage(
-                            articles: list,
-                          )),
-                );
-              },
-              icon: Icon(
-                Icons.image,
-                color: R.color.primary_color,
-                size: 30,
-              ),
-            ),
-          ],
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              TXDividerWidget(),
-              Expanded(
-                child: StreamBuilder<List<ArticleBase>>(
-                  stream: bloc.articlesResult,
-                  initialData: [],
-                  builder: (context, snapshot) {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final articleBaseModel = snapshot.data[index];
-                          return _getItem(context, articleBaseModel);
-                        });
-                  },
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 0),
-                height: 70,
-                width: MediaQuery.of(context).size.width,
-                color: Theme.of(context).primaryColor,
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    new InkWell(
-                      child: new Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Container(
-                            margin: EdgeInsets.only(bottom: 8),
-                            child: new Image.asset('assets/gearWhite.png'),
-                          ),
-                          new Text(
-                            FlutterI18n.translate(context, 'Setting'),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                letterSpacing: 0.5),
-                          )
-                        ],
-                      ),
-                      onTap: () {
+        StreamBuilder<bool>(
+            stream: bloc.selectionModeResult,
+            initialData: bloc.isInSelectionMode,
+            builder: (ctx, snapshotMode) {
+              return TXMainBarWidget(
+                title: FlutterI18n.translate(context, 'Article Identification'),
+                onLeadingTap: () {
+                  Navigator.pop(context);
+                },
+                actions: <Widget>[
+                  TXIconButtonWidget(
+                    onPressed: () async {
+                      final list = await bloc.articlesResult.first ?? [];
+                      if (snapshotMode.data) {
+                        list.forEach((a) => a.isSelected = false);
+                        bloc.setSelectionMode = !bloc.isInSelectionMode;
+                      } else {
                         Navigator.push(
                           context,
                           CupertinoPageRoute(
                               builder: (context) =>
-                                  SettingsArticleIdentificationV()),
+                                  ArticleIdentificationGalleryPage(
+                                    articles: list,
+                                  )),
                         );
-                      },
-                    ),
-                    new InkWell(
-                      child: new Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Container(
-                            margin: EdgeInsets.only(bottom: 8),
-                            child: new Image.asset(
-                                'assets/articleLookUpWhite.png'),
+                      }
+                    },
+                    icon: snapshotMode.data
+                        ? Image.asset(R.image.checkGreen)
+                        : Icon(
+                            Icons.image,
+                            color: R.color.primary_color,
+                            size: 25,
                           ),
-                          new Text(
-                            FlutterI18n.translate(context, 'Find Part'),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                letterSpacing: 0.5),
+                  ),
+                ],
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    TXDividerWidget(),
+                    Expanded(
+                      child: StreamBuilder<List<ArticleBase>>(
+                        stream: bloc.articlesResult,
+                        initialData: [],
+                        builder: (context, snapshot) {
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final articleBaseModel = snapshot.data[index];
+                                return _getArticle(context, articleBaseModel);
+                              });
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 0),
+                      height: 70,
+                      width: MediaQuery.of(context).size.width,
+                      color: Theme.of(context).primaryColor,
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          new InkWell(
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Container(
+                                  margin: EdgeInsets.only(bottom: 8),
+                                  child:
+                                      new Image.asset('assets/gearWhite.png'),
+                                ),
+                                new Text(
+                                  FlutterI18n.translate(context, 'Setting'),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.5),
+                                )
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) =>
+                                        SettingsArticleIdentificationV()),
+                              );
+                            },
+                          ),
+                          new InkWell(
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Container(
+                                  margin: EdgeInsets.only(bottom: 8),
+                                  child: new Image.asset(
+                                      'assets/articleLookUpWhite.png'),
+                                ),
+                                new Text(
+                                  FlutterI18n.translate(context, 'Find Part'),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.5),
+                                )
+                              ],
+                            ),
+                            onTap: () async {
+                              await NavigationUtils.pushCupertino(
+                                  context, IdentificationTypeV());
+                              bloc.loadArticles();
+                            },
+                          ),
+                          new InkWell(
+                            child: new Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Container(
+                                  margin: EdgeInsets.only(bottom: 12),
+                                  child:
+                                      new Image.asset('assets/exportWhite.png'),
+                                ),
+                                new Text(
+                                  FlutterI18n.translate(context, 'Export'),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.5),
+                                )
+                              ],
+                            ),
+                            onTap: () async {
+                              final list =
+                                  (await bloc.articlesResult.first ?? [])
+                                      .where((a) => a.isSelected)
+                                      .toList();
+                              if (list.isNotEmpty) {
+                                launchOptions(context);
+                              } else if (!bloc.isInSelectionMode) {
+                                bloc.setSelectionMode = true;
+                              }
+                            },
                           )
                         ],
                       ),
-                      onTap: () async {
-                        await NavigationUtils.pushCupertino(
-                            context, IdentificationTypeV());
-                        bloc.loadArticles();
-                      },
-                    ),
-                    new InkWell(
-                      child: new Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          new Container(
-                            margin: EdgeInsets.only(bottom: 12),
-                            child: new Image.asset('assets/exportWhite.png'),
-                          ),
-                          new Text(
-                            FlutterI18n.translate(context, 'Export'),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                letterSpacing: 0.5),
-                          )
-                        ],
-                      ),
-                      onTap: () {
-                        if (!selecting) {
-                          setState(() {
-                            selecting = true;
-                          });
-                        } else if (selected != 0) {
-                          _onActionSheetPress(context);
-                        }
-                      },
                     )
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
+              );
+            }),
         TXLoadingWidget(
           loadingStream: bloc.isLoadingStream,
         )
@@ -265,14 +268,7 @@ class _ArticleIdentificationState
     );
   }
 
-  Widget _getItem(BuildContext context, ArticleBase articleBaseModel) {
-    if (articleBaseModel is Fitting)
-      return _getFitting(context, articleBaseModel);
-    else
-      return _getArticleLocalItem((articleBaseModel as ArticleLocalModel));
-  }
-
-  Widget _getFitting(BuildContext context, Fitting fitting) {
+  Widget _getArticle(BuildContext context, ArticleBase articleBase) {
     return Container(
         color: R.color.gray_light,
         child: Slidable(
@@ -280,137 +276,129 @@ class _ArticleIdentificationState
           actionExtentRatio: 0.20,
           child: Column(
             children: <Widget>[
-              TXItemCellEditWidget(
-                cellEditMode: CellEditMode.selector,
-                title: fitting.name,
-                value:
-                    CalendarUtils.showInFormat("dd/MM/yyyy", fitting.created),
+              TXCellCheckWidget(
+                checkMode: bloc.isInSelectionMode
+                    ? CellCheckMode.check
+                    : CellCheckMode.selector,
+                isChecked: articleBase.isSelected,
+                title: articleBase is ArticleLocalModel
+                    ? articleBase.displayName
+                    : (articleBase as Fitting).name,
+                subtitle: CalendarUtils.showInFormat(
+                    "dd/MM/yyyy",
+                    articleBase is ArticleLocalModel
+                        ? articleBase.createdOnScreenShoot
+                        : (articleBase as Fitting).created),
                 leading: Image.asset(
                   'assets/productImage.png',
                   height: 40,
                   width: 50,
                 ),
-                onSubmitted: (value) async {
-                  if (fitting is Windows) {
-                    final res = await NavigationUtils.pushCupertino(
-                      context,
-                      FittingWindowsDetailPage(
-                        model: fitting,
-                        typeFitting: fitting.systemDepth?.isNotEmpty == true
-                            ? TypeFitting.windows
-                            : TypeFitting.sunShading,
-                      ),
-                    );
+                onLongPress: bloc.isInSelectionMode ? null :() {
+                    articleBase.isSelected = true;
+                    bloc.setSelectionMode = true;
+                },
+                onTap: () async {
+                  if(bloc.isInSelectionMode){
+                    articleBase.isSelected = !articleBase.isSelected;
+                    bloc.refreshList();
+                  }else{
+                    if (articleBase is Fitting) {
+                      if (articleBase is Windows) {
+                        await NavigationUtils.pushCupertino(
+                          context,
+                          FittingWindowsDetailPage(
+                            model: articleBase,
+                            typeFitting:
+                            articleBase.systemDepth?.isNotEmpty == true
+                                ? TypeFitting.windows
+                                : TypeFitting.sunShading,
+                          ),
+                        );
+                      } else if (articleBase is Sliding) {
+                        await NavigationUtils.pushCupertino(
+                          context,
+                          FittingSlidingDetailPage(
+                            model: articleBase,
+                          ),
+                        );
+                      } else if (articleBase is DoorLock) {
+                        await NavigationUtils.pushCupertino(
+                          context,
+                          FittingDoorLockDetailPage(
+                            model: articleBase,
+                          ),
+                        );
+                      } else if (articleBase is DoorHinge) {
+                        await NavigationUtils.pushCupertino(
+                          context,
+                          FittingDoorHingeDetailPage(
+                            model: articleBase,
+                          ),
+                        );
+                      } else {
+                        Fluttertoast.showToast(msg: "Object not recognized");
+                      }
+                    } else {
+                      await NavigationUtils.pushCupertino(
+                        context,
+                        ArticleDetailPage(
+                          articleLocalModel: articleBase,
+                        ),
+                      );
+                    }
                     bloc.loadArticles();
-                  } else if (fitting is Sliding) {
-                    final res = await NavigationUtils.pushCupertino(
-                      context,
-                      FittingSlidingDetailPage(
-                        model: fitting,
-                      ),
-                    );
-                    bloc.loadArticles();
-                  } else if (fitting is DoorLock) {
-                    final res = await NavigationUtils.pushCupertino(
-                      context,
-                      FittingDoorLockDetailPage(
-                        model: fitting,
-                      ),
-                    );
-                    bloc.loadArticles();
-                  } else if (fitting is DoorHinge) {
-                    final res = await NavigationUtils.pushCupertino(
-                      context,
-                      FittingDoorHingeDetailPage(
-                        model: fitting,
-                      ),
-                    );
-                    bloc.loadArticles();
-                  } else {
-                    Fluttertoast.showToast(msg: "Object not recognized");
                   }
                 },
               ),
               TXDividerWidget()
             ],
           ),
-          secondaryActions: <Widget>[
-            IconSlideAction(
-              caption: 'E-mail',
-              foregroundColor: Colors.white,
-              color: Theme.of(context).primaryColor,
-              icon: CupertinoIcons.mail,
-              onTap: () {
-                bloc.sendPdfByEmail(fitting);
-//                _sendPdfByEmail(fitting.name, fitting.pdfPath);
-              },
-            ),
-            IconSlideAction(
-              caption: FlutterI18n.translate(context, 'Delete'),
-              color: Colors.red,
-              icon: CupertinoIcons.delete,
-              onTap: () {
-                bloc.deleteArticle(fitting);
-              },
-            ),
-          ],
+          secondaryActions: bloc.isInSelectionMode
+              ? []
+              : [
+                  IconSlideAction(
+                    caption: 'E-mail',
+                    foregroundColor: Colors.white,
+                    color: Theme.of(context).primaryColor,
+                    icon: CupertinoIcons.mail,
+                    onTap: () {
+                      bloc.sendPdfByEmail(articleBase);
+                    },
+                  ),
+                  IconSlideAction(
+                    caption: FlutterI18n.translate(context, 'Delete'),
+                    color: Colors.red,
+                    icon: CupertinoIcons.delete,
+                    onTap: () {
+                      articleBase.isSelected = true;
+                      bloc.deleteArticle();
+                    },
+                  ),
+                ],
         ));
   }
 
-  Widget _getArticleLocalItem(ArticleLocalModel articleLocalModel) {
-    return Container(
-        color: R.color.gray_light,
-        child: Slidable(
-          actionPane: SlidableDrawerActionPane(),
-          actionExtentRatio: 0.20,
-          child: Column(
-            children: <Widget>[
-              TXItemCellEditWidget(
-                cellEditMode: CellEditMode.selector,
-                title: articleLocalModel.displayName,
-                value: CalendarUtils.showInFormat(
-                    "dd/MM/YYYY", articleLocalModel.createdOnScreenShoot),
-                leading: Image.asset(
-                  'assets/productImage.png',
-                  height: 40,
-                  width: 50,
-                ),
-                onSubmitted: (value) async {
-                  NavigationUtils.pushCupertino(
-                    context,
-                    ArticleDetailPage(
-                      articleLocalModel: articleLocalModel,
-                    ),
-                  );
-                },
-              ),
-              TXDividerWidget()
+  void launchOptions(BuildContext context) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (ctx) {
+          return TXCupertinoActionSheetWidget(
+            onActionTap: (action) async {
+              if (action.key == 'Print' || action.key == 'Email') {
+              } else if (action.key == 'Remove') {
+//                bloc.deleteArticle();
+              }
+            },
+            actions: [
+              ActionSheetModel(
+                  key: "Print", title: "Print", color: R.color.primary_color),
+              ActionSheetModel(
+                  key: "Email", title: "Email", color: R.color.primary_color),
+              ActionSheetModel(
+                  key: "Remove", title: "Remove", color: Colors.red)
             ],
-          ),
-          secondaryActions: <Widget>[
-            IconSlideAction(
-              caption: 'E-mail',
-              foregroundColor: Colors.white,
-              color: Theme.of(context).primaryColor,
-              icon: CupertinoIcons.mail,
-              onTap: () {
-//                Future.delayed(
-//                    Duration(milliseconds: 500), () {
-//                  _sendPdfByEmail(
-//                      articleList[index].name,
-//                      articleList[index].pdfPath);
-//                });
-              },
-            ),
-            IconSlideAction(
-              caption: FlutterI18n.translate(context, 'Delete'),
-              color: Colors.red,
-              icon: CupertinoIcons.delete,
-              onTap: () {
-                bloc.deleteArticle(articleLocalModel);
-              },
-            ),
-          ],
-        ));
+          );
+        });
   }
 }

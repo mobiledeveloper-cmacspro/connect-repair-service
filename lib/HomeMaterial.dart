@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //import 'package:package_info/package_info.dart';
 import 'package:repairservices/ArticleBookMarkV.dart';
@@ -14,6 +15,7 @@ import 'package:repairservices/FAQ.dart';
 import 'package:repairservices/GlobalSetting.dart';
 import 'package:repairservices/ProfileV.dart';
 import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/Utils/mail_mananger.dart';
 import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
@@ -33,12 +35,10 @@ import 'dart:io' as Platt;
 import 'package:devicelocale/devicelocale.dart';
 
 class HomeM extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return HomeState();
   }
-
 }
 
 class HomeState extends State<HomeM> {
@@ -86,15 +86,13 @@ class HomeState extends State<HomeM> {
                     fontSize: 18.0,
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
-
                   ),
                 ),
                 margin: EdgeInsets.only(top: 8),
               )
             ],
           ),
-        )
-    );
+        ));
   }
 
   Widget _profileButton() {
@@ -109,8 +107,7 @@ class HomeState extends State<HomeM> {
           height: 25,
         ),
       );
-    }
-    else {
+    } else {
       return Container();
     }
   }
@@ -124,23 +121,17 @@ class HomeState extends State<HomeM> {
                 height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 child: Center(
                   child: Text(
                     FlutterI18n.translate(context, 'login'),
-                    style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white
-                    ),
+                    style: TextStyle(fontSize: 17, color: Colors.white),
                   ),
-                )
-            ),
+                )),
             onTap: () {
-              Navigator.push(
-                  context, CupertinoPageRoute(builder: (context) => LoginV()))
+              Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) => LoginV()))
                   .then((value) {
                 ISClientO.instance.isTokenAvailable().then((bool loggued) {
                   this.loggued = loggued;
@@ -148,11 +139,8 @@ class HomeState extends State<HomeM> {
                 });
               });
             },
-          )
-
-      );
-    }
-    else {
+          ));
+    } else {
       return Container(height: 0);
     }
   }
@@ -177,55 +165,39 @@ class HomeState extends State<HomeM> {
   }
 
   _sendFeedBackByEmail() async {
-//    debugPrint('Device Data ${deviceData.getData()}');
-    debugPrint('Sending pdf by Email');
     final data = deviceData.getData();
-//    List languages = List();
     String locale = await Devicelocale.currentLocale;
-//    languages = await Devicelocale.preferredLanguages;
 
     bool isIphone = false;
     if (data['systemVersion'] != null) {
       isIphone = true;
     }
-    String deviceType = isIphone ? data['model'] : data['brand'] + ' ' +
-        data['model'];
-    String systemVersion = isIphone ? data['systemName'] + ' ' +
-        data['systemVersion'] : 'Android ' + data['version.release'];
-
-//    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
+    String deviceType =
+        isIphone ? data['model'] : data['brand'] + ' ' + data['model'];
+    String systemVersion = isIphone
+        ? data['systemName'] + ' ' + data['systemVersion']
+        : 'Android ' + data['version.release'];
     String version = Platt.Platform.version;
-
-//    String version = packageInfo.version;
-    final MailOptions mailOptions = MailOptions(
-      body: '<h3>Details</h3><br>V.$version</br><br>$deviceType</br><br>$systemVersion</br><br>$locale</br>',
+    final MailModel model = MailModel(
       subject: 'App feedback',
-      recipients: ['lepuchenavarro@gmail.com'],
-      isHTML: true,
-//      bccRecipients: ['other@example.com'],
-//      ccRecipients: ['third@example.com'],
-//      attachments: [article.pdfPath],
+      body:
+          '<h3>Details</h3><br>V.$version</br><br>$deviceType</br><br>$systemVersion</br><br>$locale</br>',
     );
 
-    await FlutterMailer.send(mailOptions);
+    final res = await MailManager.sendEmail(model);
+    if (res != 'OK')
+      Fluttertoast.showToast(msg: res, toastLength: Toast.LENGTH_LONG);
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     final topButtonPadding = screenHeight * 0.020;
     final bottomButtonPadding = screenHeight * 0.010;
 
     Widget searchBar(BuildContext context) {
-      return new Container (
+      return new Container(
           height: 56.0,
           color: Colors.grey,
           child: Center(
@@ -234,14 +206,17 @@ class HomeState extends State<HomeM> {
                 height: 40,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(14.0)
-                ),
+                    borderRadius: BorderRadius.circular(14.0)),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context, CupertinoPageRoute(
-                        builder: (context) => ArticleListV())).then((value) {
-                      ISClientO.instance.isTokenAvailable().then((
-                          bool loggued) {
+                    Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => ArticleListV()))
+                        .then((value) {
+                      ISClientO.instance
+                          .isTokenAvailable()
+                          .then((bool loggued) {
                         this.loggued = loggued;
                         _readAllProductsInCart();
                         setState(() {});
@@ -252,10 +227,7 @@ class HomeState extends State<HomeM> {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(left: 16),
-                        child: Icon(
-                            Icons.search,
-                            color: Colors.grey
-                        ),
+                        child: Icon(Icons.search, color: Colors.grey),
                       ),
                       new Text(
                         FlutterI18n.translate(context, 'Search'),
@@ -280,10 +252,8 @@ class HomeState extends State<HomeM> {
                       ),
                     ],
                   ),
-                )
-            ),
-          )
-      );
+                )),
+          ));
     }
 
     final divider = Container(
@@ -304,16 +274,14 @@ class HomeState extends State<HomeM> {
               ),
             ),
           ),
-          iconTheme: IconThemeData(color: Theme
-              .of(context)
-              .primaryColor),
+          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           actions: <Widget>[
             GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context,
-                      CupertinoPageRoute(builder: (context) => ArticleInCart())
-                  ).then((value) {
+                      CupertinoPageRoute(
+                          builder: (context) => ArticleInCart())).then((value) {
                     ISClientO.instance.isTokenAvailable().then((bool loggued) {
                       this.loggued = loggued;
                       setState(() {});
@@ -323,49 +291,42 @@ class HomeState extends State<HomeM> {
                 child: Container(
                     margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
                     child: Center(
-                      child: new Stack(
-                          children: <Widget>[
-                            Container(
-                              height: 40,
-                              child: Image.asset(
-                                'assets/shopping-cart.png',
-                                height: 25,
+                      child: new Stack(children: <Widget>[
+                        Container(
+                          height: 40,
+                          child: Image.asset(
+                            'assets/shopping-cart.png',
+                            height: 25,
+                          ),
+                        ),
+                        new Positioned(
+                          right: 0,
+                          child: new Container(
+                              padding: EdgeInsets.all(1),
+                              decoration: new BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(9),
                               ),
-                            ),
-
-                            new Positioned(
-                              right: 0,
-                              child: new Container(
-                                  padding: EdgeInsets.all(1),
-                                  decoration: new BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(9),
-                                  ),
-                                  constraints: BoxConstraints(
-                                    minWidth: 18,
-                                    minHeight: 18,
-                                  ),
-                                  child: Center(
-                                    child: new Text(
-                                      '$cantProductsInCart',
-                                      style: new TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  )
+                              constraints: BoxConstraints(
+                                minWidth: 18,
+                                minHeight: 18,
                               ),
-                            )
-                          ]
-                      ),
-                    )
-                )
-            ),
+                              child: Center(
+                                child: new Text(
+                                  '$cantProductsInCart',
+                                  style: new TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                        )
+                      ]),
+                    ))),
             _profileButton()
           ],
         ),
-
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -373,20 +334,16 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/homeGreen.png',
                       width: 25,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          FlutterI18n.translate(context, 'Home'),
+                      child: Text(FlutterI18n.translate(context, 'Home'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -411,16 +368,15 @@ class HomeState extends State<HomeM> {
                           FlutterI18n.translate(context, 'Art_Ident_Serv'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
                 onTap: () {
                   Navigator.pop(context);
                   NavigationUtils.pushCupertinoWithRoute(
-                      context, ArticleIdentificationV(),
+                      context,
+                      ArticleIdentificationV(),
                       NavigationUtils.ArticleIdentificationPage);
                 },
               ),
@@ -428,7 +384,6 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/documentListGreen1.png',
                       width: 25,
@@ -439,9 +394,7 @@ class HomeState extends State<HomeM> {
                           FlutterI18n.translate(context, 'Art_BookMark_List'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -459,20 +412,16 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/documentGrey.png',
                       width: 20,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 20),
-                      child: Text(
-                          FlutterI18n.translate(context, 'home3'),
+                      child: Text(FlutterI18n.translate(context, 'home3'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -487,29 +436,23 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/docucenter1.png',
                       width: 25,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          'Docu-Center',
+                      child: Text('Docu-Center',
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
                 onTap: () async {
                   String url = Platt.Platform.isIOS
-                      ?
-                  'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                      :
-                  'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                      ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                      : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
                   if (await canLaunch(url)) {
                     await launch(url);
                   } else {
@@ -522,20 +465,16 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/buildingGreenHome.png',
                       width: 25,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          FlutterI18n.translate(context, 'comp_prof'),
+                      child: Text(FlutterI18n.translate(context, 'comp_prof'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -551,20 +490,16 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/informationGreen.png',
                       width: 25,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          'Service / FAQ',
+                      child: Text('Service / FAQ',
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -580,20 +515,16 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/phoneGreen.png',
                       width: 25,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          FlutterI18n.translate(context, 'Contact'),
+                      child: Text(FlutterI18n.translate(context, 'Contact'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -609,47 +540,41 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/gearGreen1.png',
                       width: 25,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          FlutterI18n.translate(context, 'Setting'),
+                      child: Text(FlutterI18n.translate(context, 'Setting'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, prefix0.CupertinoPageRoute(
-                      builder: (context) => GlobalSettings()));
+                  Navigator.push(
+                      context,
+                      prefix0.CupertinoPageRoute(
+                          builder: (context) => GlobalSettings()));
                 },
               ),
               divider,
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/headSetGreen.png',
                       height: 25,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          'Feedback',
+                      child: Text('Feedback',
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -662,7 +587,6 @@ class HomeState extends State<HomeM> {
               ListTile(
                 title: Row(
                   children: <Widget>[
-
                     Image.asset(
                       'assets/logOnGreen.png',
                       width: 25,
@@ -675,9 +599,7 @@ class HomeState extends State<HomeM> {
                               : FlutterI18n.translate(context, 'logoff'),
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17
-                          )
-                      ),
+                              fontSize: 17)),
                     )
                   ],
                 ),
@@ -685,16 +607,16 @@ class HomeState extends State<HomeM> {
                   Navigator.pop(context);
                   if (!loggued) {
                     Navigator.push(context,
-                        CupertinoPageRoute(builder: (context) => LoginV()))
+                            CupertinoPageRoute(builder: (context) => LoginV()))
                         .then((value) {
-                      ISClientO.instance.isTokenAvailable().then((
-                          bool loggued) {
+                      ISClientO.instance
+                          .isTokenAvailable()
+                          .then((bool loggued) {
                         this.loggued = loggued;
                         setState(() {});
                       });
                     });
-                  }
-                  else {
+                  } else {
                     ISClientO.instance.clearToken().then((_) {
                       setState(() {
                         this.loggued = false;
@@ -707,162 +629,157 @@ class HomeState extends State<HomeM> {
             ],
           ),
         ),
-
         body: Scaffold(
             body: new Container(
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  searchBar(context),
-                  Expanded(
-                    child: Column(
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              searchBar(context),
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Row(
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                                child: Container(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: topButtonPadding,
-                                        bottom: bottomButtonPadding),
-                                    child: _displayGridItem(
-                                        FlutterI18n.translate(context, 'home1'),
-                                        'assets/articleIdentificationService.png', () {
-                                      NavigationUtils.pushCupertinoWithRoute(
-                                          context, ArticleIdentificationV(),
-                                          NavigationUtils.ArticleIdentificationPage);
-                                    }),
-                                  ),
-                                )
-                            ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border(left: BorderSide(
+                        Expanded(
+                            child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(
+                                FlutterI18n.translate(context, 'home1'),
+                                'assets/articleIdentificationService.png', () {
+                              NavigationUtils.pushCupertinoWithRoute(
+                                  context,
+                                  ArticleIdentificationV(),
+                                  NavigationUtils.ArticleIdentificationPage);
+                            }),
+                          ),
+                        )),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  left: BorderSide(
                                       color: Color.fromARGB(100, 191, 191, 191),
                                       width: 1)),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: topButtonPadding,
-                                      bottom: bottomButtonPadding),
-                                  child: _displayGridItem(
-                                      FlutterI18n.translate(context, 'home2'),
-                                      'assets/articleBookmarkList.png', () {
-                                    Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(builder: (context) =>
-                                          ArticleBookMark()),
-                                    ).then((_) {
-                                      _readAllProductsInCart();
-                                    });
-                                  }),
-                                ),
-                              ),
                             ),
-                          ],
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: topButtonPadding,
+                                  bottom: bottomButtonPadding),
+                              child: _displayGridItem(
+                                  FlutterI18n.translate(context, 'home2'),
+                                  'assets/articleBookmarkList.png', () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => ArticleBookMark()),
+                                ).then((_) {
+                                  _readAllProductsInCart();
+                                });
+                              }),
+                            ),
+                          ),
                         ),
-                        Divider(height: 1),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                                child: Container(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: topButtonPadding,
-                                        bottom: bottomButtonPadding),
-                                    child: _displayGridItem(
-                                        FlutterI18n.translate(context, 'home3'),
-                                        'assets/projectDocumentation.png', () {}),
-                                  ),
-                                )
-                            ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border(left: BorderSide(
-                                      color: Color.fromARGB(100, 191, 191, 191),
-                                      width: 1)),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: topButtonPadding,
-                                      bottom: bottomButtonPadding),
-                                  child: _displayGridItem("Docu Center \n",
-                                      'assets/docucenter.png', () async {
-                                        String url = Platt.Platform.isIOS
-                                            ?
-                                        'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                                            :
-                                        'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                                        if (await canLaunch(url)) {
-                                          await launch(url);
-                                        } else {
-                                          throw 'Could not launch $url';
-                                        }
-                                      }),
-                                ),
-                              ),
-                              flex: 1,
-                            ),
-                          ],
-                        ),
-                        Divider(height: 1),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                                child: Container(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: topButtonPadding,
-                                        bottom: bottomButtonPadding),
-                                    child: _displayGridItem(
-                                        FlutterI18n.translate(context, 'home4'),
-                                        'assets/companyProfile.png', () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) =>
-                                                  CompanyProfileV())
-                                      );
-                                    }),
-                                  ),
-                                )
-                            ),
-                            Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(left: BorderSide(
-                                        color: Color.fromARGB(
-                                            100, 191, 191, 191), width: 1)),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: topButtonPadding,
-                                        bottom: bottomButtonPadding),
-                                    child: _displayGridItem("Service / FAQ\n",
-                                        'assets/FAQ.png', () {
-                                          Navigator.push(context,
-                                              CupertinoPageRoute(
-                                                  builder: (context) => FAQ()));
-                                        }),
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                        Divider(height: 1)
                       ],
                     ),
-                  ),
-                  _loginBt()
-                ],
+                    Divider(height: 1),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(
+                                FlutterI18n.translate(context, 'home3'),
+                                'assets/projectDocumentation.png',
+                                () {}),
+                          ),
+                        )),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  left: BorderSide(
+                                      color: Color.fromARGB(100, 191, 191, 191),
+                                      width: 1)),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: topButtonPadding,
+                                  bottom: bottomButtonPadding),
+                              child: _displayGridItem(
+                                  "Docu Center \n", 'assets/docucenter.png',
+                                  () async {
+                                String url = Platt.Platform.isIOS
+                                    ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                                    : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
+                              }),
+                            ),
+                          ),
+                          flex: 1,
+                        ),
+                      ],
+                    ),
+                    Divider(height: 1),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(
+                                FlutterI18n.translate(context, 'home4'),
+                                'assets/companyProfile.png', () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => CompanyProfileV()));
+                            }),
+                          ),
+                        )),
+                        Expanded(
+                            child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                                left: BorderSide(
+                                    color: Color.fromARGB(100, 191, 191, 191),
+                                    width: 1)),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(
+                                "Service / FAQ\n", 'assets/FAQ.png', () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => FAQ()));
+                            }),
+                          ),
+                        )),
+                      ],
+                    ),
+                    Divider(height: 1)
+                  ],
+                ),
               ),
-            )
-        )
-    );
+              _loginBt()
+            ],
+          ),
+        )));
   }
-
 }

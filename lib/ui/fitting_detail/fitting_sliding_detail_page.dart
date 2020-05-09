@@ -108,17 +108,15 @@ class _FittingSlidingDetailState
         builder: (ctx) {
           return TXCupertinoActionSheetWidget(
             onActionTap: (action) async {
-              if (action.key == 'Print') {
-                Fluttertoast.showToast(
-                    msg: "Under construction...",
-                    toastLength: Toast.LENGTH_LONG);
-              } else if (action.key == 'Email') {
+              if (action.key == 'Print' || action.key == 'Email') {
                 Future.delayed(Duration(milliseconds: 100), () {
                   NavigationUtils.pushCupertino(
                       context,
                       FittingPDFViewerPage(
                         navigateFromDetail: true,
                         model: widget.model,
+                        isForMail: action.key == 'Email',
+                        isForPrint: action.key == 'Print',
                       ));
                 });
               } else if (action.key == 'Remove') {

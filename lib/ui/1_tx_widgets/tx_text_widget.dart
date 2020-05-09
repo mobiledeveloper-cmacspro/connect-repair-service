@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:repairservices/res/R.dart';
 
 class TXTextWidget extends StatelessWidget {
   final String text;
@@ -27,7 +28,7 @@ class TXTextWidget extends StatelessWidget {
       textAlign: textAlign ?? TextAlign.start,
       style: TextStyle(
         color: color ?? Colors.black,
-        fontSize: size ?? 14,
+        fontSize: size ?? R.dim.normalText,
         fontWeight: fontWeight ?? FontWeight.normal,
       ),
       maxLines: maxLines,
