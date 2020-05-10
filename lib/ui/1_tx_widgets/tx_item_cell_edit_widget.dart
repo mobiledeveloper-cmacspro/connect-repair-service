@@ -27,7 +27,7 @@ class TXItemCellEditWidget extends StatefulWidget {
       this.textInputAction,
       this.keyboardType,
       this.onChanged,
-      this.title,
+      this.title = '',
       this.isMandatory,
       this.onSubmitted,
       this.multiLine,
