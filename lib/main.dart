@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color.fromRGBO(120, 185, 40, 1.0),
           // Define the default font family.
           fontFamily: 'Montserrat',
-
+          backgroundColor: Colors.white,
           // Define the default TextTheme. Use this to specify the default
           // text styling for headlines, titles, bodies of text, and more.
           textTheme: TextTheme(

@@ -11,6 +11,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
+import 'package:repairservices/ui/fitting_dimensions/door_hinge/fitting_door_hinge_dimension_page.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 
 class FittingDoorHingeDetailPage extends StatefulWidget {
@@ -81,7 +82,16 @@ class _FittingDoorHingeDetailState
               title: "",
               value: "Dimensions",
               cellEditMode: CellEditMode.selector,
-              onSubmitted: (value) {},
+              onSubmitted: (value) {
+                NavigationUtils.pushCupertino(
+                  context,
+                  FittingDoorHingeDimensionPage(
+                    model: widget.model,
+                    isEditable: false,
+                    dimensionType: DoorHingeDimensionType.surface,
+                  ),
+                );
+              },
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
@@ -108,7 +118,16 @@ class _FittingDoorHingeDetailState
               title: "",
               value: "Dimensions",
               cellEditMode: CellEditMode.selector,
-              onSubmitted: (value) {},
+              onSubmitted: (value) {
+                NavigationUtils.pushCupertino(
+                  context,
+                  FittingDoorHingeDimensionPage(
+                    model: widget.model,
+                    isEditable: false,
+                    dimensionType: DoorHingeDimensionType.barrel,
+                  ),
+                );
+              },
             ),
             TXDividerWidget(),
           ]),

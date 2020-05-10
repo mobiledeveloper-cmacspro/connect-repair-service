@@ -12,7 +12,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_resource_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
-import 'package:repairservices/ui/fitting_dimensions/fitting_door_lock_dimension_page.dart';
+import 'package:repairservices/ui/fitting_dimensions/door_lock/fitting_door_lock_dimension_page.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 
 class FittingDoorLockDetailPage extends StatefulWidget {
@@ -151,10 +151,12 @@ class _FittingDoorLockDetailState
               value: "Dimensions",
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
-//                NavigationUtils.pushCupertino(
-//                    context,
-//                    FittingDoorLockDimensionPage(
-//                    ));
+                NavigationUtils.pushCupertino(
+                    context,
+                    FittingDoorLockDimensionPage(
+                      model: widget.model,
+                      isEditable: false,
+                    ));
               },
             ),
             TXDividerWidget(),

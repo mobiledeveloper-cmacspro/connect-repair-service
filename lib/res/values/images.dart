@@ -27,4 +27,10 @@ class AppImage {
   final door = 'lib/res/assets/img/door.png';
   final doorLock = 'lib/res/assets/img/doorLock.png';
   final doorHinge = 'lib/res/assets/img/doorHinge.png';
+  final lockDimensionPage1 = 'lib/res/assets/img/lockDimensionPage1.png';
+  final lockDimensionPage2 = 'lib/res/assets/img/lockDimensionPage2.png';
+  final lockDimensionPage3 = 'lib/res/assets/img/lockDimensionPage3.png';
+  final slidingDimension = 'lib/res/assets/img/slidingDimension.png';
+  final hingeDimensionSurface = 'lib/res/assets/img/hingeDimensionSurface.png';
+  final hingeDimensionBarrel = 'lib/res/assets/img/hingeDimensionBarrel.png';
 }

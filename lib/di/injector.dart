@@ -14,6 +14,9 @@ import 'package:repairservices/ui/article_detail/article_detail_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_bloc.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
+import 'package:repairservices/ui/fitting_dimensions/door_hinge/fitting_door_hinge_dimension_bloc.dart';
+import 'package:repairservices/ui/fitting_dimensions/door_lock/fitting_door_lock_dimension_bloc.dart';
+import 'package:repairservices/ui/fitting_dimensions/sliding/fitting_sliding_dimension_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
@@ -88,11 +91,15 @@ class Injector {
   _registerBloCs() {
     container.registerFactory((c) => DrawerToolBloc(container.resolve()));
     container.registerFactory((c) => DrawerContainerBloC());
-    container.registerFactory((c) => ArticleIdentificationBloC(container.resolve()));
+    container
+        .registerFactory((c) => ArticleIdentificationBloC(container.resolve()));
     container.registerFactory((c) => ArticleLocalDetailBloC());
     container.registerFactory((c) => ArticleDetailBloC());
     container.registerFactory((c) => PDFViewerBloC());
     container.registerFactory((c) => FittingWindowsBloC());
+    container.registerFactory((c) => FittingDoorLockDimensionBloC());
+    container.registerFactory((c) => FittingSlidingDimensionBloC());
+    container.registerFactory((c) => FittingDoorHingeDimensionBloC());
   }
 
   _registerModelConverters() {

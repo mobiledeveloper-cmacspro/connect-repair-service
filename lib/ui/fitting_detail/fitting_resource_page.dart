@@ -17,7 +17,7 @@ class FittingResourcePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return TXMainBarWidget(
       title: title,
-      onLeadingTap: (){
+      onLeadingTap: () {
         NavigationUtils.pop(context);
       },
       body: Container(
@@ -26,10 +26,24 @@ class FittingResourcePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TXDividerWidget(),
-            SizedBox(height: 10,),
-            TXTextWidget(text: resourceTitle,),
-            SizedBox(height: 10,),
-            Image.asset(resource)
+            SizedBox(
+              height: 10,
+            ),
+            TXTextWidget(
+              text: resourceTitle,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              constraints: BoxConstraints(maxWidth: 300, maxHeight: 450),
+              child: Image.asset(
+                resource,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.contain,
+              ),
+            )
           ],
         ),
       ),
