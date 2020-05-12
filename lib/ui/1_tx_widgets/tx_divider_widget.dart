@@ -10,7 +10,7 @@ class TXDividerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: color ?? R.color.gray_darkest,
+      color: color ?? R.color.gray,
       height: height ?? .5,
     );
   }

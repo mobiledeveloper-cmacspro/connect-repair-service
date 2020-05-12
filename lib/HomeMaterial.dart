@@ -20,6 +20,8 @@ import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 
 //import 'package:repairservices/translations.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -265,6 +267,7 @@ class HomeState extends State<HomeM> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
+          elevation: 0,
           title: Center(
             child: Container(
               child: Image.asset(
@@ -629,129 +632,48 @@ class HomeState extends State<HomeM> {
             ],
           ),
         ),
-        body: Scaffold(
-            body: new Container(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              searchBar(context),
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(
-                                FlutterI18n.translate(context, 'home1'),
-                                'assets/articleIdentificationService.png', () {
-                              NavigationUtils.pushCupertinoWithRoute(
-                                  context,
-                                  ArticleIdentificationV(),
-                                  NavigationUtils.ArticleIdentificationPage);
-                            }),
-                          ),
-                        )),
-                        Expanded(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            TXDividerWidget(),
+            TXSearchBarWidget(
+              defaultModel: true,
+              onQRScanTap: () {},
+              onSearchTap: () async {
+                final res = await NavigationUtils.pushCupertino(
+                    context, ArticleListV());
+                ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                  this.loggued = loggued;
+                  _readAllProductsInCart();
+                  setState(() {});
+                });
+              },
+            ),
+//                  searchBar(context),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Expanded(
                           child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  left: BorderSide(
-                                      color: Color.fromARGB(100, 191, 191, 191),
-                                      width: 1)),
-                            ),
                             child: Padding(
                               padding: EdgeInsets.only(
                                   top: topButtonPadding,
                                   bottom: bottomButtonPadding),
                               child: _displayGridItem(
-                                  FlutterI18n.translate(context, 'home2'),
-                                  'assets/articleBookmarkList.png', () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => ArticleBookMark()),
-                                ).then((_) {
-                                  _readAllProductsInCart();
-                                });
+                                  FlutterI18n.translate(context, 'home1'),
+                                  'assets/articleIdentificationService.png', () {
+                                NavigationUtils.pushCupertinoWithRoute(
+                                    context,
+                                    ArticleIdentificationV(),
+                                    NavigationUtils.ArticleIdentificationPage);
                               }),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(height: 1),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(
-                                FlutterI18n.translate(context, 'home3'),
-                                'assets/projectDocumentation.png',
-                                () {}),
-                          ),
-                        )),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  left: BorderSide(
-                                      color: Color.fromARGB(100, 191, 191, 191),
-                                      width: 1)),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: topButtonPadding,
-                                  bottom: bottomButtonPadding),
-                              child: _displayGridItem(
-                                  "Docu Center \n", 'assets/docucenter.png',
-                                  () async {
-                                String url = Platt.Platform.isIOS
-                                    ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                                    : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              }),
-                            ),
-                          ),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                    Divider(height: 1),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(
-                                FlutterI18n.translate(context, 'home4'),
-                                'assets/companyProfile.png', () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => CompanyProfileV()));
-                            }),
-                          ),
-                        )),
-                        Expanded(
-                            child: Container(
+                          )),
+                      Expanded(
+                        child: Container(
                           decoration: BoxDecoration(
                             border: Border(
                                 left: BorderSide(
@@ -763,23 +685,114 @@ class HomeState extends State<HomeM> {
                                 top: topButtonPadding,
                                 bottom: bottomButtonPadding),
                             child: _displayGridItem(
-                                "Service / FAQ\n", 'assets/FAQ.png', () {
+                                FlutterI18n.translate(context, 'home2'),
+                                'assets/articleBookmarkList.png', () {
                               Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => FAQ()));
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => ArticleBookMark()),
+                              ).then((_) {
+                                _readAllProductsInCart();
+                              });
                             }),
                           ),
-                        )),
-                      ],
-                    ),
-                    Divider(height: 1)
-                  ],
-                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Divider(height: 1),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Container(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: topButtonPadding,
+                                  bottom: bottomButtonPadding),
+                              child: _displayGridItem(
+                                  FlutterI18n.translate(context, 'home3'),
+                                  'assets/projectDocumentation.png',
+                                      () {}),
+                            ),
+                          )),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                                left: BorderSide(
+                                    color: Color.fromARGB(100, 191, 191, 191),
+                                    width: 1)),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(
+                                "Docu Center \n", 'assets/docucenter.png',
+                                    () async {
+                                  String url = Platt.Platform.isIOS
+                                      ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                                      : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                }),
+                          ),
+                        ),
+                        flex: 1,
+                      ),
+                    ],
+                  ),
+                  Divider(height: 1),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Container(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: topButtonPadding,
+                                  bottom: bottomButtonPadding),
+                              child: _displayGridItem(
+                                  FlutterI18n.translate(context, 'home4'),
+                                  'assets/companyProfile.png', () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => CompanyProfileV()));
+                              }),
+                            ),
+                          )),
+                      Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  left: BorderSide(
+                                      color: Color.fromARGB(100, 191, 191, 191),
+                                      width: 1)),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: topButtonPadding,
+                                  bottom: bottomButtonPadding),
+                              child: _displayGridItem(
+                                  "Service / FAQ\n", 'assets/FAQ.png', () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => FAQ()));
+                              }),
+                            ),
+                          )),
+                    ],
+                  ),
+                  Divider(height: 1)
+                ],
               ),
-              _loginBt()
-            ],
-          ),
-        )));
+            ),
+            _loginBt()
+          ],
+        ),);
   }
 }

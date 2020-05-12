@@ -9,7 +9,10 @@ import 'package:repairservices/ArticleList.dart';
 import 'package:repairservices/ProfileV.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/NetworkImageSSL.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
 import 'package:pdf/pdf.dart';
@@ -31,7 +34,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
   int selected = 0;
   int cantProductsInCart = 0;
   final pdf = pw.Document();
-  
+
   _readAllProducts() async {
     this.productList = await helper.queryAllProducts(false);
     debugPrint(productList.length.toString());
@@ -264,7 +267,21 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            _searchBar(context),
+            TXDividerWidget(),
+            TXSearchBarWidget(
+              defaultModel: true,
+              onQRScanTap: () {},
+              onSearchTap: () async {
+                final res = await NavigationUtils.pushCupertino(
+                    context, ArticleListV());
+                ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                  this.loggued = loggued;
+                  _readAllProductsInCart();
+                  setState(() {});
+                });
+              },
+            ),
+//            _searchBar(context),
             Expanded(
               child: new ListView.builder(
                 itemCount: productList == null ? 0 : productList.length,
@@ -384,11 +401,13 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                   });
                                 } else if (action.key == 'Deselect all') {
                                   setState(() {
-                                    productList.forEach((p) =>p.selected = false);
+                                    productList
+                                        .forEach((p) => p.selected = false);
                                   });
                                 } else if (action.key == 'Select all') {
                                   setState(() {
-                                    productList.forEach((p) =>p.selected = true);
+                                    productList
+                                        .forEach((p) => p.selected = true);
                                   });
                                 }
                               },

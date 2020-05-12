@@ -33,4 +33,5 @@ class AppImage {
   final slidingDimension = 'lib/res/assets/img/slidingDimension.png';
   final hingeDimensionSurface = 'lib/res/assets/img/hingeDimensionSurface.png';
   final hingeDimensionBarrel = 'lib/res/assets/img/hingeDimensionBarrel.png';
+  final qrCodeGrey = 'lib/res/assets/img/qrCodeGrey.png';
 }
