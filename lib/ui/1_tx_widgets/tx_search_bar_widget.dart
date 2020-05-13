@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
@@ -95,7 +96,8 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
             ),
             Expanded(
               child: TXTextWidget(
-                text: "Search",
+                text: FlutterI18n.translate(
+                    context, 'Search'),
                 size: 18,
                 color: R.color.gray,
               ),
