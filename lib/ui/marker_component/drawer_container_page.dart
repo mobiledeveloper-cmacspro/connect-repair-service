@@ -8,6 +8,9 @@ import 'package:repairservices/di/injector.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_page.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_mode.dart';
@@ -22,7 +25,8 @@ class DrawerContainerPage extends StatefulWidget {
   final String imagePath;
   final bool isForMail;
 
-  const DrawerContainerPage({Key key, @required this.imagePath, this.isForMail = false})
+  const DrawerContainerPage(
+      {Key key, @required this.imagePath, this.isForMail = false})
       : super(key: key);
 
   @override
@@ -45,23 +49,15 @@ class _DrawerContainerPageState
 
   @override
   Widget buildWidget(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        backgroundColor: Colors.white,
-        actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text("Edit Picture", style: Theme.of(context).textTheme.body1),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Theme.of(context).primaryColor,
-        ),
-        actions: getActions(context),
-      ),
+    return TXMainBarWidget(
+      title: "Edit picture",
+      onLeadingTap: () {
+        NavigationUtils.pop(context);
+      },
+      actions: getActions(context),
       body: Column(
         children: [
+          TXDividerWidget(),
           Expanded(
             child: Stack(
               children: [
@@ -94,6 +90,7 @@ class _DrawerContainerPageState
               ],
             ),
           ),
+//          getBottomBar(),
           getCurrentMenu(),
         ],
       ),
@@ -426,4 +423,29 @@ class _DrawerContainerPageState
       },
     );
   }
+
+  Widget getBottomBar() {
+    return Container(
+      height: 40,
+      width: double.infinity,
+      child: Row(
+        children: <Widget>[
+          Expanded(flex: 1, child: TXIconButtonWidget(
+            icon: Icon(Icons.atm),
+          )),
+          Expanded(flex: 1, child: TXIconButtonWidget(
+              icon: Icon(Icons.android)
+          )),
+          Expanded(flex: 1, child: TXIconButtonWidget(
+              icon: Icon(Icons.image)
+          )),
+          Expanded(flex: 1, child: TXIconButtonWidget(
+              icon: Icon(Icons.folder)
+          )),
+        ],
+      ),
+    );
+  }
+
+  Widget _getBottomBarAction() {}
 }

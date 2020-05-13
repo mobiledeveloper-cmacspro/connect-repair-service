@@ -85,25 +85,51 @@ class ArticleListState extends State<ArticleListV> {
         _loading = false;
       });
       print('Exception details:\n $e');
-      showCupertinoDialog(
-          context: context,
-          builder: (BuildContext context) => CupertinoAlertDialog(
-                title: const Text("Error"),
-                content: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                  child: Text(e.toString(), style: TextStyle(fontSize: 17)),
-                ),
-                actions: <Widget>[
-                  CupertinoDialogAction(
-                    child: const Text("OK"),
-                    isDefaultAction: true,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
-              ));
+      _showDialog(context, 'Repair Service',
+          FlutterI18n.translate(context, 'We have connection problems'));
+//      showCupertinoDialog(
+//          context: context,
+//          builder: (BuildContext context) => CupertinoAlertDialog(
+//                title: const Text("Error"),
+//                content: Padding(
+//                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+//                  child: Text(e.toString(), style: TextStyle(fontSize: 17)),
+//                ),
+//                actions: <Widget>[
+//                  CupertinoDialogAction(
+//                    child: const Text("OK"),
+//                    isDefaultAction: true,
+//                    onPressed: () {
+//                      Navigator.pop(context);
+//                    },
+//                  )
+//                ],
+//              ));
     }
+  }
+
+  _showDialog(BuildContext context, String title, String msg) {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: msg.isNotEmpty
+              ? Padding(
+            padding:
+            EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            child: Text(msg, style: TextStyle(fontSize: 17)),
+          )
+              : Container(),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: const Text("OK"),
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ));
   }
 
   _endSearch() {
