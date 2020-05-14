@@ -5,6 +5,26 @@ PODS:
     - Flutter
   - file_picker (0.0.1):
     - Flutter
+  - Firebase/CoreOnly (5.11.0):
+    - FirebaseCore (= 5.1.6)
+  - Firebase/MLVision (5.11.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVision (= 0.12.1)
+  - Firebase/MLVisionBarcodeModel (5.11.0):
+    - Firebase/CoreOnly
+    - FirebaseMLVisionBarcodeModel (= 0.12.0)
+  - FirebaseCore (5.1.6):
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseMLCommon (0.12.1):
+    - FirebaseCore (~> 5.1)
+  - FirebaseMLVision (0.12.1):
+    - FirebaseCore (~> 5.1)
+    - FirebaseMLCommon (~> 0.12)
+    - GoogleAPIClientForREST/Core (~> 1.3)
+    - GoogleAPIClientForREST/Vision (~> 1.3)
+    - GoogleMobileVision/Detector (~> 1.4)
+  - FirebaseMLVisionBarcodeModel (0.12.0):
+    - GoogleMobileVision/BarcodeDetector (~> 1.4)
   - Flutter (1.0.0)
   - flutter_full_pdf_viewer (1.0.1):
     - Flutter
@@ -17,11 +37,45 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - GoogleAPIClientForREST/Core (1.4.1):
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleAPIClientForREST/Vision (1.4.1):
+    - GoogleAPIClientForREST/Core
+    - GTMSessionFetcher (>= 1.1.7)
+  - GoogleMobileVision/BarcodeDetector (1.6.0):
+    - GoogleMobileVision/Detector (~> 1.6)
+  - GoogleMobileVision/Detector (1.6.0):
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+    - Protobuf (~> 3.1)
+  - GoogleToolboxForMac/Defines (2.2.2)
+  - GoogleToolboxForMac/Logger (2.2.2):
+    - GoogleToolboxForMac/Defines (= 2.2.2)
+  - "GoogleToolboxForMac/NSData+zlib (2.2.2)":
+    - GoogleToolboxForMac/Defines (= 2.2.2)
+  - GoogleUtilities/Environment (5.8.0)
+  - GoogleUtilities/Logger (5.8.0):
+    - GoogleUtilities/Environment
+  - GTMSessionFetcher (1.3.0):
+    - GTMSessionFetcher/Full (= 1.3.0)
+  - GTMSessionFetcher/Core (1.3.0)
+  - GTMSessionFetcher/Full (1.3.0):
+    - GTMSessionFetcher/Core (= 1.3.0)
   - image_picker (0.0.1):
+    - Flutter
+  - native_device_orientation (0.0.1):
     - Flutter
   - path_provider (0.0.1):
     - Flutter
   - path_provider_macos (0.0.1):
+    - Flutter
+  - "permission_handler (5.0.0+hotfix.5)":
+    - Flutter
+  - Protobuf (3.11.1)
+  - qr_mobile_vision (0.0.1):
+    - Firebase/MLVision
+    - Firebase/MLVisionBarcodeModel
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
@@ -47,8 +101,11 @@ DEPENDENCIES:
   - flutter_mailer (from `.symlinks/plugins/flutter_mailer/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - qr_mobile_vision (from `.symlinks/plugins/qr_mobile_vision/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - shared_preferences_macos (from `.symlinks/plugins/shared_preferences_macos/ios`)
   - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
@@ -58,7 +115,18 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Firebase
+    - FirebaseCore
+    - FirebaseMLCommon
+    - FirebaseMLVision
+    - FirebaseMLVisionBarcodeModel
     - FMDB
+    - GoogleAPIClientForREST
+    - GoogleMobileVision
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - Protobuf
 
 EXTERNAL SOURCES:
   device_info:
@@ -79,10 +147,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
+  native_device_orientation:
+    :path: ".symlinks/plugins/native_device_orientation/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   path_provider_macos:
     :path: ".symlinks/plugins/path_provider_macos/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  qr_mobile_vision:
+    :path: ".symlinks/plugins/qr_mobile_vision/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   shared_preferences_macos:
@@ -100,15 +174,29 @@ SPEC CHECKSUMS:
   device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   devicelocale: feebbe5e7a30adb8c4f83185de1b50ff19b44f00
   file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
+  Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
+  FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
+  FirebaseMLCommon: 5fb0152dc0e4de69f86ec37e813fb2555566ebbd
+  FirebaseMLVision: 7e9a7f2f81117be2796196f3901c36ad893366b1
+  FirebaseMLVisionBarcodeModel: 1956b7b0ae267b67571260e00cc0429a6a5e3091
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_full_pdf_viewer: 1b65139fc3236cde300ba6bea2a72669cb07f2e6
   flutter_html_to_pdf: 0fd9f8d04f335d68b06a7c4ab5fc85d22e1ef91b
   flutter_mailer: 2ef5a67087bc8c6c4cefd04a178bf1ae2c94cd83
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  GoogleAPIClientForREST: e50dc3267b3131ee3a25e707c10204f6bec15ae9
+  GoogleMobileVision: 31cfb4319fd0c03d80105680abd9eae9da5e3b47
+  GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
+  GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
+  GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   image_picker: e3eacd46b94694dde7cf2705955cece853aa1a8f
+  native_device_orientation: e24d00be281de72996640885d80e706142707660
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
+  permission_handler: 6226fcb78b97c7c7458a95c7346a11d5184fec12
+  Protobuf: 20d79da7f20b5928b80043b05080b816e802659e
+  qr_mobile_vision: b20aca10aa3f5d1651cb71efc09bfaea098df043
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
   shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
