@@ -34,4 +34,12 @@ class AppImage {
   final hingeDimensionSurface = 'lib/res/assets/img/hingeDimensionSurface.png';
   final hingeDimensionBarrel = 'lib/res/assets/img/hingeDimensionBarrel.png';
   final qrCodeGrey = 'lib/res/assets/img/qrCodeGrey.png';
+  final noteText = 'lib/res/assets/img/noteText.png';
+  final noteTextWhite = 'lib/res/assets/img/noteTextWhite.png';
+  final noteAudio = 'lib/res/assets/img/noteRecord.png';
+  final noteAudioPlayWhite = 'lib/res/assets/img/noteRecordPlayWhite.png';
+  final noteAudioStopWhite = 'lib/res/assets/img/noteRecordStopWhite.png';
+  final noteAudioWhite = 'lib/res/assets/img/noteRecordWhite.png';
+  final noteVideo = 'lib/res/assets/img/noteVideo.png';
+  final noteVideoWhite = 'lib/res/assets/img/noteVideoWhite.png';
 }

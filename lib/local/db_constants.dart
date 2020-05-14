@@ -35,5 +35,8 @@ class DBConstants {
   static final String screenshoot_file_path = "screenshoot_file_path";
   static final String created_on_image = "created_on_image";
   static final String created_on_screen_shoot = "created_on_screen_shoot";
+  static final String notes = "notes";
+  static final String audios = "audios";
+  static final String videos = "videos";
 
 }

@@ -13,6 +13,9 @@ import 'package:repairservices/repositories/article_local_repository.dart';
 import 'package:repairservices/ui/article_detail/article_detail_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_bloc.dart';
+import 'package:repairservices/ui/article_resources/audio/audio_bloc.dart';
+import 'package:repairservices/ui/article_resources/note/note_bloc.dart';
+import 'package:repairservices/ui/article_resources/video/video_bloc.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
 import 'package:repairservices/ui/fitting_dimensions/door_hinge/fitting_door_hinge_dimension_bloc.dart';
 import 'package:repairservices/ui/fitting_dimensions/door_lock/fitting_door_lock_dimension_bloc.dart';
@@ -100,6 +103,9 @@ class Injector {
     container.registerFactory((c) => FittingDoorLockDimensionBloC());
     container.registerFactory((c) => FittingSlidingDimensionBloC());
     container.registerFactory((c) => FittingDoorHingeDimensionBloC());
+    container.registerFactory((c) => NoteBloC());
+    container.registerFactory((c) => AudioBloC());
+    container.registerFactory((c) => VideoBloC());
   }
 
   _registerModelConverters() {

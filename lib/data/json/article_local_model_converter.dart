@@ -10,6 +10,15 @@ class ArticleLocalModelConverter implements IArticleLocalModelConverter {
         filePath: json[DBConstants.file_path],
         screenShootFilePath: json[DBConstants.screenshoot_file_path],
         createdOnImage: DateTime.tryParse(json[DBConstants.created_on_image]),
+        notes: json.containsKey(DBConstants.notes)
+            ? List<String>.from(json[DBConstants.notes])
+            : [],
+        audiosFilePaths: json.containsKey(DBConstants.audios)
+            ? List<String>.from(json[DBConstants.notes])
+            : [],
+        videosFilePaths: json.containsKey(DBConstants.videos)
+            ? List<String>.from(json[DBConstants.notes])
+            : [],
         createdOnScreenShoot:
             DateTime.tryParse(json[DBConstants.created_on_screen_shoot]));
   }
@@ -22,7 +31,10 @@ class ArticleLocalModelConverter implements IArticleLocalModelConverter {
       DBConstants.screenshoot_file_path: model.screenShootFilePath,
       DBConstants.created_on_image: model.createdOnImage.toIso8601String(),
       DBConstants.created_on_screen_shoot:
-          model.createdOnScreenShoot.toIso8601String()
+          model.createdOnScreenShoot.toIso8601String(),
+      DBConstants.notes: model.notes.map((n) => n).toList(),
+      DBConstants.audios: model.audiosFilePaths.map((n) => n).toList(),
+      DBConstants.videos: model.videosFilePaths.map((n) => n).toList()
     };
   }
 }

@@ -6,12 +6,16 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/di/injector.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_page.dart';
+import 'package:repairservices/ui/article_resources/audio/audio_page.dart';
+import 'package:repairservices/ui/article_resources/note/note_page.dart';
+import 'package:repairservices/ui/article_resources/video/video_page.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_mode.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
@@ -58,6 +62,7 @@ class _DrawerContainerPageState
       body: Column(
         children: [
           TXDividerWidget(),
+//          getBottomBar(),
           Expanded(
             child: Stack(
               children: [
@@ -430,18 +435,44 @@ class _DrawerContainerPageState
       width: double.infinity,
       child: Row(
         children: <Widget>[
-          Expanded(flex: 1, child: TXIconButtonWidget(
-            icon: Icon(Icons.atm),
-          )),
-          Expanded(flex: 1, child: TXIconButtonWidget(
-              icon: Icon(Icons.android)
-          )),
-          Expanded(flex: 1, child: TXIconButtonWidget(
-              icon: Icon(Icons.image)
-          )),
-          Expanded(flex: 1, child: TXIconButtonWidget(
-              icon: Icon(Icons.folder)
-          )),
+          Expanded(
+              flex: 1,
+              child: TXIconButtonWidget(
+                backgroundColor: R.color.primary_color,
+                icon: Image.asset(R.image.noteTextWhite,
+                    color: R.color.primary_color),
+                onPressed: () {
+                  NavigationUtils.push(context, NotePage());
+                },
+              )),
+          Expanded(
+              flex: 1,
+              child: TXIconButtonWidget(
+                backgroundColor: R.color.primary_color,
+                icon: Image.asset(R.image.noteAudioWhite,
+                    color: R.color.primary_color),
+                onPressed: () {
+                  NavigationUtils.push(context, AudioPage());
+                },
+              )),
+          Expanded(
+              flex: 1,
+              child: TXIconButtonWidget(
+                backgroundColor: R.color.primary_color,
+                icon: Image.asset(
+                  R.image.noteVideoWhite,
+                  color: R.color.primary_color,
+                ),
+                onPressed: () {
+                  NavigationUtils.push(context, VideoPage());
+                },
+              )),
+          Expanded(
+              flex: 1,
+              child: TXIconButtonWidget(
+                icon: Icon(Icons.folder),
+                onPressed: () {},
+              )),
         ],
       ),
     );
