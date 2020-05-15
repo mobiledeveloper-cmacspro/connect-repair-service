@@ -264,7 +264,7 @@ class Impressum extends StatelessWidget {
                   FlutterI18n.translate(context,
                           'Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV ') +
                       FlutterI18n.translate(
-                          context, '(German Interstate Broadcasting Treaty).'),
+                          context, '(German Interstate Broadcasting Treaty)')+".",
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
@@ -351,7 +351,7 @@ class Impressum extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context, "VAT ID No.: DE 124001363"),
+                  FlutterI18n.translate(context, "VAT ID No: DE 124001363"),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(

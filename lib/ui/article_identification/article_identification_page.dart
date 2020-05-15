@@ -365,7 +365,7 @@ class _ArticleIdentificationState
               ? []
               : [
                   IconSlideAction(
-                    caption: FlutterI18n.translate(context, 'E-mail'),
+                    caption: FlutterI18n.translate(context, 'Email'),
                     foregroundColor: Colors.white,
                     color: Theme.of(context).primaryColor,
                     icon: CupertinoIcons.mail,

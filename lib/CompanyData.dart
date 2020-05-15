@@ -372,7 +372,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text('Fax',style: Theme.of(context).textTheme.body1),
+                      child: new Text(FlutterI18n.translate(context, 'Fax'),style: Theme.of(context).textTheme.body1),
                     ),
                   ],
                 ),

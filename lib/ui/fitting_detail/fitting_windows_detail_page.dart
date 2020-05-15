@@ -111,7 +111,7 @@ class _FittingWindowsDetails
                       onTap: () {
                         Fluttertoast.showToast(
                             msg: FlutterI18n.translate(
-                                context, "Under construction"));
+                                context, 'Under construction'));
                       },
                       child: Container(
                         constraints:

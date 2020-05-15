@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 //import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/marker_component/drawer_mode.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
@@ -88,7 +89,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                   Padding(
                     padding: EdgeInsets.only(bottom: 12),
                     child: new Text(
-                      'Photo Title',
+                      FlutterI18n.translate(context, 'Photo Title'),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,
@@ -101,7 +102,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                 showCupertinoDialog(
                     context: context,
                     builder: (BuildContext context) => CupertinoAlertDialog(
-                          title: new Text('Change the article name',
+                          title: new Text(FlutterI18n.translate(context, 'Change the article name'),
                               style: Theme.of(context).textTheme.subhead),
                           content: Padding(
                               padding: EdgeInsets.symmetric(
@@ -113,11 +114,11 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                                 keyboardType: TextInputType.number,
                                 maxLines: 1,
                                 controller: titleCtr,
-                                placeholder: 'Article Image',
+                                placeholder: FlutterI18n.translate(context, 'Article Image'),
                               )),
                           actions: <Widget>[
                             CupertinoDialogAction(
-                              child: new Text('Cancel',
+                              child: new Text(FlutterI18n.translate(context, 'Cancel'),
                                   style: TextStyle(
                                       color: Theme.of(context).primaryColor)),
                               isDefaultAction: true,
@@ -126,7 +127,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                               },
                             ),
                             CupertinoDialogAction(
-                              child: new Text('OK',
+                              child: new Text(FlutterI18n.translate(context, 'OK'),
                                   style: TextStyle(
                                       color: Theme.of(context).primaryColor)),
                               isDefaultAction: true,
@@ -150,7 +151,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                   Padding(
                     padding: EdgeInsets.only(bottom: 12),
                     child: new Text(
-                      'Dimensions',
+                      FlutterI18n.translate(context, 'Dimensions'),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,
@@ -239,7 +240,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                       child: new Image.asset('assets/arrowWhite.png'),
                     ),
                     new Text(
-                      '1 Head Arrow',
+                      FlutterI18n.translate(context, '1 Head Arrow'),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,
@@ -253,7 +254,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                   debugPrint('arrow 1 head');
                   bloc.addLine(ItemLine(
                     color: Colors.green,
-                    creatingText: 'Draw the line',
+                    creatingText: FlutterI18n.translate(context, 'Draw the line'),
                     startArrow: false,
                     endArrow: true,
                   ));
@@ -270,7 +271,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                       child: new Image.asset('assets/doubleArrowWhite.png'),
                     ),
                     new Text(
-                      '2 Head Arrow',
+                      FlutterI18n.translate(context, '2 Head Arrow'),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,
@@ -283,7 +284,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                   _controllerDimensionsBar.reverse();
                   bloc.addLine(ItemLine(
                     color: Colors.green,
-                    creatingText: 'Draw the line',
+                    creatingText: FlutterI18n.translate(context, 'Draw the line'),
                     startArrow: false,
                     endArrow: true,
                   ));
@@ -298,7 +299,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                       child: new Image.asset('assets/protractorGreyBlock.png'),
                     ),
                     new Text(
-                      'Angle',
+                      FlutterI18n.translate(context, 'Angle'),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,
@@ -311,7 +312,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                   _controllerDimensionsBar.reverse();
                   bloc.addLine(ItemAngle(
                     color: Colors.green,
-                    creatingText: 'Draw the line',
+                    creatingText: FlutterI18n.translate(context, 'Draw the line'),
                   ));
                 },
               ),
@@ -327,7 +328,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text("Edit Picture", style: Theme.of(context).textTheme.body1),
+        title: Text(FlutterI18n.translate(context, 'Edit Picture'), style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {

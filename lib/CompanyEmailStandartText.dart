@@ -52,7 +52,7 @@ class CompanyEmailStandartTextV extends StatelessWidget {
                   style: Theme.of(context).textTheme.body1,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'My Company',
+                      hintText: FlutterI18n.translate(context, 'My Company'),
                       hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
                   ),
                 ),

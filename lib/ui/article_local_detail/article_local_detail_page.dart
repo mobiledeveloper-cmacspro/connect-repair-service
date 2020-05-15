@@ -45,7 +45,7 @@ class _ArticleLocalDetailState
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: FlutterI18n.translate(context, 'Article detail'),
+            title: FlutterI18n.translate(context, 'Article Details'),
             onLeadingTap: () {
               _navBack();
             },
@@ -54,7 +54,7 @@ class _ArticleLocalDetailState
                   ? InkWell(
                       child: Container(
                         child: TXTextWidget(
-                          text: FlutterI18n.translate(context, "Send"),
+                          text: FlutterI18n.translate(context, 'Send'),
                           fontWeight: FontWeight.bold,
                           color: R.color.primary_color,
                         ),
