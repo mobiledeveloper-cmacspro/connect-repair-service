@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -34,7 +35,7 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: "Audio 1",
+            title: FlutterI18n.translate(context, 'Audio 1'),
             onLeadingTap: () {
               _navBack();
             },
@@ -66,7 +67,7 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                       height: 50,
                     ),
                     TXButtonWidget(
-                      title: "Delete record",
+                      title: FlutterI18n.translate(context, 'Delete record'),
                       onPressed: () {},
                       textColor: Colors.white,
                       mainColor: Colors.red,

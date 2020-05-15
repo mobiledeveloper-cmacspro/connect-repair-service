@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
@@ -38,7 +39,7 @@ class TXMainBarWidget extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   child: TXTextWidget(
-                    text: "Cancel",
+                    text: FlutterI18n.translate(context, 'Cancel'),
                   ),
                 ),
               )

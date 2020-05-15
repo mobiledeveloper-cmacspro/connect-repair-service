@@ -103,7 +103,8 @@ class ArticleIdentificationGalleryPage extends StatelessWidget {
               ),
             );
           } else {
-            Fluttertoast.showToast(msg: "Object not recognized");
+            Fluttertoast.showToast(
+                msg: FlutterI18n.translate(context, 'Object not recognized'));
           }
         },
       ),

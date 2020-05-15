@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
@@ -44,7 +45,7 @@ class _ArticleLocalDetailState
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: "Article detail",
+            title: FlutterI18n.translate(context, 'Article detail'),
             onLeadingTap: () {
               _navBack();
             },
@@ -53,7 +54,7 @@ class _ArticleLocalDetailState
                   ? InkWell(
                       child: Container(
                         child: TXTextWidget(
-                          text: 'Send',
+                          text: FlutterI18n.translate(context, "Send"),
                           fontWeight: FontWeight.bold,
                           color: R.color.primary_color,
                         ),

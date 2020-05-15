@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -14,12 +15,14 @@ class NotePage extends StatefulWidget {
   final String note;
 
   const NotePage({Key key, this.note}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _NoteState();
 }
 
 class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
   final TextEditingController _noteController = TextEditingController();
+
   void _navBack() {
     NavigationUtils.pop(context);
   }
@@ -40,7 +43,7 @@ class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: "Note 1",
+            title: FlutterI18n.translate(context, 'Note 1'),
             onLeadingTap: () {
               _navBack();
             },
@@ -63,12 +66,8 @@ class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
                         TXTextFieldWidget(
                           controller: _noteController,
                           multiLine: true,
-                          onSubmitted: (value){
-
-                          },
-                          onChanged: (value){
-
-                          },
+                          onSubmitted: (value) {},
+                          onChanged: (value) {},
                         ),
                         SizedBox(
                           height: 20,
@@ -76,10 +75,8 @@ class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
                         TXButtonWidget(
                           mainColor: Colors.red,
                           textColor: Colors.white,
-                          title: "Delete note",
-                          onPressed: () {
-
-                          },
+                          title: FlutterI18n.translate(context, 'Delete note'),
+                          onPressed: () {},
                         )
                       ],
                     ),

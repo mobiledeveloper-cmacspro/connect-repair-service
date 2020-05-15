@@ -35,12 +35,13 @@ class _FittingWindowsDetails
   @override
   void initState() {
     super.initState();
-    bloc.deleteResult.listen((onData){
-      if(onData == true){
+    bloc.deleteResult.listen((onData) {
+      if (onData == true) {
         NavigationUtils.pop(context);
       }
     });
   }
+
   @override
   Widget buildWidget(BuildContext context) {
     return TXMainBarWidget(
@@ -108,7 +109,9 @@ class _FittingWindowsDetails
                   children: <Widget>[
                     InkWell(
                       onTap: () {
-                        Fluttertoast.showToast(msg: "Under construction");
+                        Fluttertoast.showToast(
+                            msg: FlutterI18n.translate(
+                                context, "Under construction"));
                       },
                       child: Container(
                         constraints:
@@ -152,14 +155,16 @@ class _FittingWindowsDetails
             actions: [
               ActionSheetModel(
                   key: "Print",
-                  title: "Print",
+                  title: FlutterI18n.translate(context, 'Print'),
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Email",
-                  title: "Email",
+                  title: FlutterI18n.translate(context, 'Email'),
                   color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Remove", title: "Remove", color: Colors.red)
+                  key: "Remove",
+                  title: FlutterI18n.translate(context, 'Remove'),
+                  color: Colors.red)
             ],
           );
         });

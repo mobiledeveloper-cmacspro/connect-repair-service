@@ -245,56 +245,56 @@ class Impressum extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context, "Karolinenstrasse 1-15"),
+                  FlutterI18n.translate(context, 'Karolinenstrasse 1-15'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, "33609 Bielefeld"),
+              child: Text(FlutterI18n.translate(context, '33609 Bielefeld'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, "Germany"),
+              child: Text(FlutterI18n.translate(context, 'Germany'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
                   FlutterI18n.translate(context,
-                          "Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV ") +
+                          'Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV ') +
                       FlutterI18n.translate(
-                          context, "(German Interstate Broadcasting Treaty)."),
+                          context, '(German Interstate Broadcasting Treaty).'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context, "Executive Management Board:"),
+                  FlutterI18n.translate(context, 'Executive Management Board:'),
                   style: Theme.of(context).textTheme.display2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Text(
                   FlutterI18n.translate(
-                      context, "Andreas Engelhardt, CEO and Managing"),
+                      context, 'Andreas Engelhardt, CEO and Managing'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, "Partner"),
+              child: Text(FlutterI18n.translate(context, 'Partner'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, "Philip Neuhaus, CFO"),
+              child: Text(FlutterI18n.translate(context, 'Philip Neuhaus, CFO'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
                   FlutterI18n.translate(
-                      context, "Dr Walter Stadlbauer, COO and CTO"),
+                      context, 'Dr Walter Stadlbauer, COO and CTO'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
@@ -316,7 +316,7 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, "Fax:"),
+                  Text(FlutterI18n.translate(context, 'Fax:'),
                       style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -331,12 +331,11 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, "E-mail:"),
+                  Text(FlutterI18n.translate(context, 'E-mail:'),
                       style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
-                    child: Text(
-                        FlutterI18n.translate(context, "info@schueco.com"),
+                    child: Text('info@schueco.com',
                         style: TextStyle(
                             color: Colors.lightGreen[500], fontSize: 17)),
                   )
@@ -345,7 +344,7 @@ class Impressum extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, "www.schueco.com"),
+              child: Text('www.schueco.com',
                   style:
                       TextStyle(color: Colors.lightGreen[500], fontSize: 17)),
             ),
@@ -369,8 +368,8 @@ class Impressum extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child:
-                  Text(FlutterI18n.translate(context, "Bielefeld"), style: Theme.of(context).textTheme.body1),
+              child: Text(FlutterI18n.translate(context, 'Bielefeld'),
+                  style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -434,7 +433,7 @@ class _LanguageState extends State<Language> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text(FlutterI18n.translate(context, "English"),
+                    child: Text(FlutterI18n.translate(context, 'English'),
                         style: Theme.of(context).textTheme.body1),
                   ),
                   _currentLanguage == 'en'
@@ -461,7 +460,7 @@ class _LanguageState extends State<Language> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text(FlutterI18n.translate(context, "Deutsch"),
+                    child: Text(FlutterI18n.translate(context, 'Deutsch'),
                         style: Theme.of(context).textTheme.body1),
                   ),
                   _currentLanguage == 'de'

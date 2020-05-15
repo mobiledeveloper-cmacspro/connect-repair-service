@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/res/R.dart';
@@ -50,64 +51,66 @@ class _FittingDoorLockDetailState
           child: Column(children: <Widget>[
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Schüco logo visible on face plate",
+              title: FlutterI18n.translate(
+                  context, 'Schüco logo visible on face plate'),
               value: widget.model.logoVisible,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Profile insulations",
+              title: FlutterI18n.translate(context, 'Profile insulations'),
               value: widget.model.profile,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Basic depth of the door profile (mm)",
+              title: FlutterI18n.translate(
+                  context, 'Basic depth of the door profile (mm)'),
               value: widget.model.basicDepthDoor,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Opening direction",
+              title: FlutterI18n.translate(context, 'Opening direction'),
               value: widget.model.openingDirection,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Leaf",
+              title: FlutterI18n.translate(context, 'Leaf'),
               value: widget.model.leafDoor,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "DIN direction",
+              title: FlutterI18n.translate(context, 'DIN direction'),
               value: widget.model.dinDirection,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Type",
+              title: FlutterI18n.translate(context, 'Type'),
               value: widget.model.type,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Panic function",
+              title: FlutterI18n.translate(context, 'Panic function'),
               value: widget.model.panicFunction,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Electric strike",
+              title: FlutterI18n.translate(context, 'Electric strike'),
               value: widget.model.electricStrike,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Lock with top locking",
+              title: FlutterI18n.translate(context, 'Lock with top locking'),
               value: widget.model.lockWithTopLocking,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: "Lock type",
+              value: FlutterI18n.translate(context, 'Lock type'),
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
                     context,
                     FittingResourcePage(
-                      title: "Lock type",
+                      title: FlutterI18n.translate(context, 'Lock type'),
                       resourceTitle: "",
                       resource: bloc.getLockType(widget.model.lockType),
                     ));
@@ -116,13 +119,13 @@ class _FittingDoorLockDetailState
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: "Face plate type",
+              value: FlutterI18n.translate(context, 'Face plate type'),
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
                     context,
                     FittingResourcePage(
-                      title: "Face plate type",
+                      title: FlutterI18n.translate(context, 'Face plate type'),
                       resourceTitle: "",
                       resource:
                           bloc.getFacePlateType(widget.model.facePlateType),
@@ -132,13 +135,14 @@ class _FittingDoorLockDetailState
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: "Face plate fixing",
+              value: FlutterI18n.translate(context, 'Face plate fixing'),
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
                     context,
                     FittingResourcePage(
-                      title: "Face plate fixing",
+                      title:
+                          FlutterI18n.translate(context, 'Face plate fixing'),
                       resourceTitle: "",
                       resource:
                           bloc.getFacePlateMixing(widget.model.facePlateFixing),
@@ -148,7 +152,7 @@ class _FittingDoorLockDetailState
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: "Dimensions",
+              value: FlutterI18n.translate(context, 'Dimensions'),
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
@@ -189,11 +193,17 @@ class _FittingDoorLockDetailState
             },
             actions: [
               ActionSheetModel(
-                  key: "Print", title: "Print", color: R.color.primary_color),
+                  key: "Print",
+                  title: FlutterI18n.translate(context, 'Print'),
+                  color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Email", title: "Email", color: R.color.primary_color),
+                  key: "Email",
+                  title: FlutterI18n.translate(context, 'Email'),
+                  color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Remove", title: "Remove", color: Colors.red)
+                  key: "Remove",
+                  title: FlutterI18n.translate(context, 'Remove'),
+                  color: Colors.red)
             ],
           );
         });

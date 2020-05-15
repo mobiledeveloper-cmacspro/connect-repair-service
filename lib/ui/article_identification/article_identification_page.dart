@@ -295,15 +295,17 @@ class _ArticleIdentificationState
                   height: 40,
                   width: 50,
                 ),
-                onLongPress: bloc.isInSelectionMode ? null :() {
-                    articleBase.isSelected = true;
-                    bloc.setSelectionMode = true;
-                },
+                onLongPress: bloc.isInSelectionMode
+                    ? null
+                    : () {
+                        articleBase.isSelected = true;
+                        bloc.setSelectionMode = true;
+                      },
                 onTap: () async {
-                  if(bloc.isInSelectionMode){
+                  if (bloc.isInSelectionMode) {
                     articleBase.isSelected = !articleBase.isSelected;
                     bloc.refreshList();
-                  }else{
+                  } else {
                     if (articleBase is Fitting) {
                       if (articleBase is Windows) {
                         await NavigationUtils.pushCupertino(
@@ -311,9 +313,9 @@ class _ArticleIdentificationState
                           FittingWindowsDetailPage(
                             model: articleBase,
                             typeFitting:
-                            articleBase.systemDepth?.isNotEmpty == true
-                                ? TypeFitting.windows
-                                : TypeFitting.sunShading,
+                                articleBase.systemDepth?.isNotEmpty == true
+                                    ? TypeFitting.windows
+                                    : TypeFitting.sunShading,
                           ),
                         );
                       } else if (articleBase is Sliding) {
@@ -338,7 +340,9 @@ class _ArticleIdentificationState
                           ),
                         );
                       } else {
-                        Fluttertoast.showToast(msg: "Object not recognized");
+                        Fluttertoast.showToast(
+                            msg: FlutterI18n.translate(
+                                context, "Object not recognized"));
                       }
                     } else {
                       await NavigationUtils.pushCupertino(
@@ -361,7 +365,7 @@ class _ArticleIdentificationState
               ? []
               : [
                   IconSlideAction(
-                    caption: 'E-mail',
+                    caption: FlutterI18n.translate(context, 'E-mail'),
                     foregroundColor: Colors.white,
                     color: Theme.of(context).primaryColor,
                     icon: CupertinoIcons.mail,
@@ -395,11 +399,17 @@ class _ArticleIdentificationState
             },
             actions: [
               ActionSheetModel(
-                  key: "Print", title: "Print", color: R.color.primary_color),
+                  key: "Print",
+                  title: FlutterI18n.translate(context, 'Print'),
+                  color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Email", title: "Email", color: R.color.primary_color),
+                  key: "Email",
+                  title: FlutterI18n.translate(context, 'Email'),
+                  color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Remove", title: "Remove", color: Colors.red)
+                  key: "Remove",
+                  title: FlutterI18n.translate(context, 'Remove'),
+                  color: Colors.red)
             ],
           );
         });

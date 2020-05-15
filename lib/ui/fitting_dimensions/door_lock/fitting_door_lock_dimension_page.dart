@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
@@ -29,7 +30,7 @@ class _FittingDoorLockDimensionState extends StateWithBloC<
     return Stack(
       children: <Widget>[
         TXMainBarWidget(
-          title: "Lock dimensions",
+          title: FlutterI18n.translate(context, 'Lock dimensions'),
           onLeadingTap: () {
             NavigationUtils.pop(context);
           },

@@ -65,7 +65,8 @@ class _FittingPDFViewerState
                       onLeadingTap: () {
                         _navBack();
                       },
-                      title: widget.model.name ?? "PDF viewer",
+                      title: widget.model.name ??
+                          FlutterI18n.translate(context, 'PDF viewer'),
                       body: Container(
                         width: double.infinity,
                         height: double.infinity,
@@ -73,7 +74,8 @@ class _FittingPDFViewerState
                           child: snapshot.data == null
                               ? Container()
                               : TXTextWidget(
-                                  text: "Failed to load PDF",
+                                  text: FlutterI18n.translate(
+                                      context, "Failed to load PDF"),
                                   size: 18,
                                   color: Colors.black,
                                 ),
@@ -98,26 +100,33 @@ class _FittingPDFViewerState
                         title: TXTextWidget(
                           size: 18,
                           color: Colors.black,
-                          text: widget.model.name ?? "PDF viewer",
+                          text: widget.model.name ??
+                              FlutterI18n.translate(context, 'PDF viewer'),
                         ),
                         actions: <Widget>[
                           widget.isForMail || widget.isForPrint
                               ? InkWell(
                                   child: Container(
                                     child: TXTextWidget(
-                                      text: widget.isForMail ? 'Send' : 'Print',
+                                      text: widget.isForMail
+                                          ? FlutterI18n.translate(
+                                              context, "Send")
+                                          : FlutterI18n.translate(
+                                              context, "Print"),
                                       fontWeight: FontWeight.bold,
                                       color: R.color.primary_color,
                                     ),
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(horizontal: 5).copyWith(right: 10),
+                                    padding: EdgeInsets.symmetric(horizontal: 5)
+                                        .copyWith(right: 10),
                                   ),
                                   onTap: () {
                                     if (widget.isForMail) {
                                       bloc.sendPdfByEmail(widget.model);
                                     } else {
                                       Fluttertoast.showToast(
-                                          msg: "Under construction",
+                                          msg: FlutterI18n.translate(
+                                              context, "Under construction"),
                                           toastLength: Toast.LENGTH_LONG);
                                     }
                                   },
