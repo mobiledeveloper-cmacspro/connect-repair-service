@@ -301,7 +301,7 @@ class ArticleInCartState extends State<ArticleInCart> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text('Please give the name for the cart'),
+          title: new Text(FlutterI18n.translate(context, 'Please give the name for the cart')),
           content: new Container(
               margin: EdgeInsets.only(top: 16),
               child: Column(
@@ -313,7 +313,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                     keyboardType: TextInputType.url,
                     maxLines: 1,
                     controller: cardNameController,
-                    placeholder: 'cart name',
+                    placeholder: FlutterI18n.translate(context, 'cart name'),
                   ),
                   Padding(
                       padding: EdgeInsets.only(bottom: 16,top: 30),
@@ -326,7 +326,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                             ),
                             child: Center(
                               child: Text(
-                                "Send the card to purshase",
+                                FlutterI18n.translate(context, 'Send the card to purshase'),
                                 style: TextStyle(
                                     fontSize: 17,
                                     color: Colors.white

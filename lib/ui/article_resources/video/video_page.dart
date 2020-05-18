@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -52,7 +53,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: "Video 1",
+            title: FlutterI18n.translate(context, 'Video 1'),
             onLeadingTap: () {
               _navBack();
             },
@@ -94,7 +95,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
               TXButtonWidget(
                 mainColor: R.color.primary_color,
                 textColor: Colors.white,
-                title: "Take new video",
+                title: FlutterI18n.translate(context, 'Take new video'),
                 onPressed: () {},
               ),
               SizedBox(
@@ -103,7 +104,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
               TXButtonWidget(
                 mainColor: Colors.red,
                 textColor: Colors.white,
-                title: "Delete video",
+                title: FlutterI18n.translate(context, 'Delete video'),
                 onPressed: () {},
               )
             ]),

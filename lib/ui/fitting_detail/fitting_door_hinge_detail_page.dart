@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/res/R.dart';
@@ -49,38 +50,39 @@ class _FittingDoorHingeDetailState
           child: Column(children: <Widget>[
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Year of construction",
+              title: FlutterI18n.translate(context, 'Year of construction'),
               value: widget.model.year,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Basic depth of the door leaf (mm)",
+              title: FlutterI18n.translate(
+                  context, 'Basic depth of the door leaf (mm)'),
               value: widget.model.basicDepthOfDoorLeaf,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Material",
+              title: FlutterI18n.translate(context, 'Material'),
               value: widget.model.material,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Thermally",
+              title: FlutterI18n.translate(context, 'Thermally'),
               value: widget.model.thermally,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Door opening",
+              title: FlutterI18n.translate(context, 'Door opening'),
               value: widget.model.doorOpening,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Fitted",
+              title: FlutterI18n.translate(context, 'Fitted'),
               value: widget.model.fitted,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: "Dimensions",
+              value: FlutterI18n.translate(context, 'Dimensions'),
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
@@ -95,28 +97,28 @@ class _FittingDoorHingeDetailState
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Hinge type",
+              title: FlutterI18n.translate(context, 'Hinge type'),
               value: widget.model.hingeType,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Door leaf (mm)",
+              title: FlutterI18n.translate(context, 'Door leaf (mm)'),
               value: widget.model.systemDoorLeaf,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "Door frame (mm)",
+              title: FlutterI18n.translate(context, 'Door frame (mm)'),
               value: widget.model.doorFrame,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "System",
+              title: FlutterI18n.translate(context, 'System'),
               value: widget.model.systemHinge,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: "Dimensions",
+              value: FlutterI18n.translate(context, 'Dimensions'),
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
@@ -159,11 +161,17 @@ class _FittingDoorHingeDetailState
             },
             actions: [
               ActionSheetModel(
-                  key: "Print", title: "Print", color: R.color.primary_color),
+                  key: "Print",
+                  title: FlutterI18n.translate(context, 'Print'),
+                  color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Email", title: "Email", color: R.color.primary_color),
+                  key: "Email",
+                  title: FlutterI18n.translate(context, 'Email'),
+                  color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Remove", title: "Remove", color: Colors.red)
+                  key: "Remove",
+                  title: FlutterI18n.translate(context, 'Remove'),
+                  color: Colors.red)
             ],
           );
         });

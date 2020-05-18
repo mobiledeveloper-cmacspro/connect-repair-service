@@ -293,7 +293,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
       child: CupertinoActionSheet(
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text('Notausgänge/Fluchttüren', style: Theme.of(context).textTheme.display1),
+            child: new Text(FlutterI18n.translate(context, 'Notausgänge/Fluchttüren'), style: Theme.of(context).textTheme.display1),
             onPressed: (){
               Navigator.pop(context);
               setState(() {
@@ -302,7 +302,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
             },
           ),
           CupertinoActionSheetAction(
-            child: new Text('Standardtüren', style: Theme.of(context).textTheme.display1),
+            child: new Text(FlutterI18n.translate(context, 'Standardtüren'), style: Theme.of(context).textTheme.display1),
             onPressed: () {
               Navigator.pop(context);
               setState(() {
@@ -344,7 +344,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(left: 16),
-                        child: Text(standard ? 'Standardtüren' : 'Notausgänge/Fluchttüren',style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 17)),
+                        child: Text(standard ? FlutterI18n.translate(context, 'Standardtüren') : FlutterI18n.translate(context, 'Notausgänge/Fluchttüren'),style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 17)),
                       ),
                     ),
                     Padding(

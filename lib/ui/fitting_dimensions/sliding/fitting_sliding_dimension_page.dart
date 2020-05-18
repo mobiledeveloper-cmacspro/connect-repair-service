@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/res/R.dart';
@@ -31,7 +32,7 @@ class _FittingDimensionSlidingState extends StateWithBloC<
     return Stack(
       children: <Widget>[
         TXMainBarWidget(
-          title: "Sliding dimension",
+          title: FlutterI18n.translate(context, 'Sliding dimension'),
           onLeadingTap: () {
             NavigationUtils.pop(context);
           },

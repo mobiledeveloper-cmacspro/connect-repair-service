@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'Login.dart';
 
 class HomeV extends StatelessWidget {
@@ -172,7 +173,7 @@ class HomeBody extends StatelessWidget {
                 ),
               ),
               new Text(
-                "SearchBar",
+                FlutterI18n.translate(context, 'SearchBar'),
                 style: const TextStyle(
                   fontSize: 17,
                   color: Colors.grey,
@@ -211,7 +212,7 @@ class HomeBody extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "Log In",
+                    FlutterI18n.translate(context, 'Log In'),
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.white
@@ -247,7 +248,7 @@ class HomeBody extends StatelessWidget {
 //                    ),
                     child: Padding(
                       padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                      child: _displayGridItem("Article Identification\nService",'assets/article-identification.png'),
+                      child: _displayGridItem(FlutterI18n.translate(context, 'home1'),'assets/article-identification.png'),
                     ),
                   )
                 ),
@@ -262,7 +263,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem("Article Bookmark\nList",'assets/document-list-green.png'),
+                        child: _displayGridItem(FlutterI18n.translate(context, 'home2'),'assets/document-list-green.png'),
                       ),
                     ),
                 ),
@@ -282,7 +283,7 @@ class HomeBody extends StatelessWidget {
 //                      ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem("Project\nDocumentation",'assets/documentGrey.png'),
+                        child: _displayGridItem(FlutterI18n.translate(context, 'Project Documentation'),'assets/documentGrey.png'),
                       ),
                     )
                 ),
@@ -293,7 +294,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem("Docu Center \n",'assets/docucenter.png'),
+                        child: _displayGridItem(FlutterI18n.translate(context, 'Docu Center') + " \n",'assets/docucenter.png'),
                       ),
                     ),
                   flex: 1,
@@ -314,7 +315,7 @@ class HomeBody extends StatelessWidget {
 //                      ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem("Company profile\n",'assets/buildingGreenHome.png'),
+                        child: _displayGridItem(FlutterI18n.translate(context, 'home4'),'assets/buildingGreenHome.png'),
                       ),
                     )
                 ),
@@ -329,7 +330,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem("Service / FAQ\n",'assets/informationGreen.png'),
+                        child: _displayGridItem(FlutterI18n.translate(context, 'Service / FAQ'),'assets/informationGreen.png'),
                       ),
                     )
                 ),

@@ -35,8 +35,8 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
       child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8))),
+          decoration:
+              BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8))),
           child: widget.defaultModel
               ? _getViewInDefaultMode()
               : _getViewInEditMode()),
@@ -96,8 +96,7 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
             ),
             Expanded(
               child: TXTextWidget(
-                text: FlutterI18n.translate(
-                    context, 'Search'),
+                text: FlutterI18n.translate(context, 'Search'),
                 size: 18,
                 color: R.color.gray,
               ),

@@ -728,7 +728,7 @@ class HomeState extends State<HomeM> {
                                 top: topButtonPadding,
                                 bottom: bottomButtonPadding),
                             child: _displayGridItem(
-                                "Docu Center \n", 'assets/docucenter.png',
+                                FlutterI18n.translate(context, 'Docu Center')+" \n", 'assets/docucenter.png',
                                     () async {
                                   String url = Platt.Platform.isIOS
                                       ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
@@ -777,7 +777,7 @@ class HomeState extends State<HomeM> {
                                   top: topButtonPadding,
                                   bottom: bottomButtonPadding),
                               child: _displayGridItem(
-                                  "Service / FAQ\n", 'assets/FAQ.png', () {
+                                  FlutterI18n.translate(context, 'Service / FAQ'), 'assets/FAQ.png', () {
                                 Navigator.push(
                                     context,
                                     CupertinoPageRoute(

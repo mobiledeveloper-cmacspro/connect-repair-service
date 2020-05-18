@@ -282,11 +282,11 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
   String _getNameByFitting() {
     switch (typeFitting) {
       case TypeFitting.windows:
-        return 'Windows fitting';
+        return FlutterI18n.translate(context, 'Windows fittings');
       case TypeFitting.sunShading:
-        return 'Sun shading and screening';
+        return FlutterI18n.translate(context, 'Sun shading and screening');
       default:
-        return 'Other fitting';
+        return FlutterI18n.translate(context, 'Other fitting');
     }
   }
 
@@ -417,7 +417,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               },
               decoration: InputDecoration.collapsed(
                   border: InputBorder.none,
-                  hintText: 'Profile',
+                  hintText: FlutterI18n.translate(context, 'Profile'),
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
             ),
           ),

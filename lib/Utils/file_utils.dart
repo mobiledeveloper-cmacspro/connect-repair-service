@@ -104,7 +104,7 @@ class FileUtils {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.SizedBox(height: 30),
-                      pw.Text("Article details:",
+                      pw.Text("Article Details:",
                           style: pw.TextStyle(
                               fontSize: textFontSize,
                               font: ttfBold,

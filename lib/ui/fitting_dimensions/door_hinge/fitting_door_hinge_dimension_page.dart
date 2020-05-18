@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
@@ -31,7 +32,7 @@ class _FittingDoorHingeDimensionState extends StateWithBloC<
     return Stack(
       children: <Widget>[
         TXMainBarWidget(
-          title: "Hinge dimension",
+          title: FlutterI18n.translate(context, 'Hinge dimension'),
           onLeadingTap: () {
             NavigationUtils.pop(context);
           },

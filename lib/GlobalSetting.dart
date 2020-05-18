@@ -238,59 +238,71 @@ class Impressum extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
-              child: Text('Schüco International KG',
+              child: Text(
+                  FlutterI18n.translate(context, 'Schüco International KG'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text('Karolinenstrasse 1-15',
+              child: Text(
+                  FlutterI18n.translate(context, 'Karolinenstrasse 1-15'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text('33609 Bielefeld',
+              child: Text(FlutterI18n.translate(context, '33609 Bielefeld'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text('Germany', style: Theme.of(context).textTheme.body1),
+              child: Text(FlutterI18n.translate(context, 'Germany'),
+                  style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
-                  'Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV '
-                  '(German Interstate Broadcasting Treaty).',
+                  FlutterI18n.translate(context,
+                          'Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV ') +
+                      FlutterI18n.translate(
+                          context, '(German Interstate Broadcasting Treaty)')+".",
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
-              child: Text('Executive Management Board:',
+              child: Text(
+                  FlutterI18n.translate(context, 'Executive Management Board:'),
                   style: Theme.of(context).textTheme.display2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
-              child: Text('Andreas Engelhardt, CEO and Managing',
+              child: Text(
+                  FlutterI18n.translate(
+                      context, 'Andreas Engelhardt, CEO and Managing'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text('Partner', style: Theme.of(context).textTheme.body1),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text('Philip Neuhaus, CFO',
+              child: Text(FlutterI18n.translate(context, 'Partner'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text('Dr Walter Stadlbauer, COO and CTO',
+              child: Text(FlutterI18n.translate(context, 'Philip Neuhaus, CFO'),
+                  style: Theme.of(context).textTheme.body1),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8, left: 16, right: 16),
+              child: Text(
+                  FlutterI18n.translate(
+                      context, 'Dr Walter Stadlbauer, COO and CTO'),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text('Tel:', style: Theme.of(context).textTheme.body1),
+                  Text(FlutterI18n.translate(context, "Tel:"),
+                      style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text('+49 (0)521 78 30',
@@ -304,7 +316,8 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text('Fax:', style: Theme.of(context).textTheme.body1),
+                  Text(FlutterI18n.translate(context, 'Fax:'),
+                      style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text('+49 (0)521 78 34 51',
@@ -318,7 +331,8 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text('E-mail:', style: Theme.of(context).textTheme.body1),
+                  Text(FlutterI18n.translate(context, 'E-mail:'),
+                      style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text('info@schueco.com',
@@ -336,7 +350,8 @@ class Impressum extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
-              child: Text('VAT ID No.: DE 124001363',
+              child: Text(
+                  FlutterI18n.translate(context, "VAT ID No: DE 124001363"),
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
@@ -353,8 +368,8 @@ class Impressum extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child:
-                  Text('Bielefeld', style: Theme.of(context).textTheme.body1),
+              child: Text(FlutterI18n.translate(context, 'Bielefeld'),
+                  style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -418,7 +433,7 @@ class _LanguageState extends State<Language> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text('English',
+                    child: Text(FlutterI18n.translate(context, 'English'),
                         style: Theme.of(context).textTheme.body1),
                   ),
                   _currentLanguage == 'en'
@@ -445,7 +460,7 @@ class _LanguageState extends State<Language> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text('Deutsch',
+                    child: Text(FlutterI18n.translate(context, 'Deutsch'),
                         style: Theme.of(context).textTheme.body1),
                   ),
                   _currentLanguage == 'de'
