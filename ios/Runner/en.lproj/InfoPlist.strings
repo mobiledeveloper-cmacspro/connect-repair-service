@@ -1,0 +1,11 @@
+"NSAppleMusicUsageDescription" = "Enable media library access to upload media.";
+"NSCalendarsUsageDescription" = "Enable calendar access to sync with your calendar.";
+"NSCameraUsageDescription" = "Enable camera access to take photos and videos.";
+"NSContactsUsageDescription" = "Enable contacts access to sync with your device contacts.";
+"NSLocationAlwaysUsageDescription" = "Enable your location to access your device location.";
+"NSLocationWhenInUseUsageDescription" = "Enable your location to access your device location.";
+"NSMicrophoneUsageDescription" = "Enable microphone allow speech to text.";
+"NSMotionUsageDescription" = "Enable motion to access your phones motions.";
+"NSPhotoLibraryUsageDescription" = "Enable photo library access to upload photos and videos.";
+"NSSpeechRecognitionUsageDescription" = "Speech data from this app will be sent to Apple to process your requests. This will help Apple improve its speech recognition technology.";
+"NSFaceIDUsageDescription" = "This application needs Face Id recognition.";

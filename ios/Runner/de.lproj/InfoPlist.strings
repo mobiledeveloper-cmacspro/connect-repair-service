@@ -1,0 +1,11 @@
+"NSAppleMusicUsageDescription" = "Aktivieren Sie den Zugriff auf die Medienbibliothek, um Medien hochzuladen.";
+"NSCalendarsUsageDescription" = "Aktivieren Sie den Kalenderzugriff, um ihn mit Ihrem Kalender zu synchronisieren.";
+"NSCameraUsageDescription" = "Aktivieren Sie den Kamerazugriff, um Fotos und Videos aufzunehmen.";
+"NSContactsUsageDescription" = "Aktivieren Sie den Zugriff auf Kontakte, um sie mit Ihren Gerätekontakten zu synchronisieren.";
+"NSLocationAlwaysUsageDescription" = "Aktivieren Sie Ihren Standort, um auf Ihren Gerätestandort zuzugreifen.";
+"NSLocationWhenInUseUsageDescription" = "Aktivieren Sie Ihren Standort, um auf Ihren Gerätestandort zuzugreifen.";
+"NSMicrophoneUsageDescription" = "Aktivieren Sie das Mikrofon, um Sprache in Text umzusetzen.";
+"NSMotionUsageDescription" = "Aktivieren Sie Bewegung, um auf die Bewegungen Ihres Gerätes zuzugreifen.";
+"NSPhotoLibraryUsageDescription" = "Aktivieren Sie den Zugriff auf die Fotobibliothek, um Fotos und Videos hochzuladen.";
+"NSSpeechRecognitionUsageDescription" = "Die Sprachdaten dieser App werden an Apple gesendet, um Ihre Anfragen zu bearbeiten. Dies wird Apple helfen, seine Spracherkennungstechnologie zu verbessern.";
+"NSFaceIDUsageDescription" = "Diese Anwendung muss auf die Face ID zugreifen.";
