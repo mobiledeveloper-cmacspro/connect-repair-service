@@ -43,12 +43,26 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>The will need to access your audio files</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This application needs the this permission</string>
 	<key>NSCameraUsageDescription</key>
-	<string>For capture photo of your article  identification</string>
+	<string>The app needs to access your camera</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This application needs the this permission</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This application needs the this permission</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This application needs the this permission</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>For record audio to save in notes in the article</string>
+	<string>This application needs to access your microphone</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This application needs the this permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>For capture picture of your company or article</string>
+	<string>The app needs to access your photos</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This application needs the speech recognition permission</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
