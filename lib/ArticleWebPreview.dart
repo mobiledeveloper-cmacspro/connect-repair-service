@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 
 //import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
-import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
+//import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -92,9 +92,9 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
     var targetPath = appDocDir.path;
     var targetFileName = "example-pdf";
 
-    var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
-        htmlContent, targetPath, targetFileName);
-    generatedPdfFilePath = generatedPdfFile.path;
+//    var generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
+//        htmlContent, targetPath, targetFileName);
+//    generatedPdfFilePath = generatedPdfFile.path;
 //    article.pdfPath = generatedPdfFilePath;
     _savePDFPath();
     Navigator.push(
