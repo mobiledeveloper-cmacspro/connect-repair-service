@@ -10,6 +10,8 @@ import 'package:repairservices/FittingSelection.dart';
 import 'package:repairservices/Utils/DeviceInfo.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/article_resources/video/video_page.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_page.dart';
 
 class IdentificationTypeV extends StatefulWidget {
@@ -33,8 +35,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
     final File image = await ImagePicker.pickImage(source: source);
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
-    final File newImage = await image.copy(
-        '$directory/$fileName.png');
+    final File newImage = await image.copy('$directory/$fileName.png');
     imagePath = newImage.path;
     _showAlertDialog(context);
   }
@@ -76,7 +77,8 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
               ),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: new Text(FlutterI18n.translate(context, "Just save it"),
+                  child: new Text(
+                      FlutterI18n.translate(context, "Just save it"),
                       style: TextStyle(color: Theme.of(context).primaryColor)),
                   isDefaultAction: true,
                   onPressed: () {
@@ -84,12 +86,16 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) =>
-                                DrawerContainerPage(imagePath: imagePath, isForMail: false,)));
+                            builder: (context) => DrawerContainerPage(
+                                  imagePath: imagePath,
+                                  isForMail: false,
+                                )));
                   },
                 ),
                 CupertinoDialogAction(
-                  child: new Text(FlutterI18n.translate(context, "Save it and send by email"),
+                  child: new Text(
+                      FlutterI18n.translate(
+                          context, "Save it and send by email"),
                       style: TextStyle(color: Theme.of(context).primaryColor)),
                   isDefaultAction: true,
                   onPressed: () {
@@ -140,7 +146,8 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                         'assets/cameraGreen.png',
                       ),
                       new Container(
-                        child: new Text(FlutterI18n.translate(context, "Camera"),
+                        child: new Text(
+                            FlutterI18n.translate(context, "Camera"),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.body1),
                         margin: EdgeInsets.only(top: 26),
@@ -169,7 +176,8 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                         'assets/notesGreen.png',
                       ),
                       new Container(
-                        child: new Text(FlutterI18n.translate(context, "Record Product"),
+                        child: new Text(
+                            FlutterI18n.translate(context, "Record Product"),
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.body1),
                         margin: EdgeInsets.only(top: 26),
@@ -189,35 +197,36 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
           ),
           Container(
             color: Colors.grey,
-            width: MediaQuery.of(context).size.width ,
+            width: MediaQuery.of(context).size.width,
             height: 1,
           ),
           Row(
             children: <Widget>[
               Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
 //                      color: Theme.of(context).primaryColor,
-                    child: InkWell(
-                      child: new Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          /*Image.asset(
+                child: InkWell(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      /*Image.asset(
                             '',
                           ),*/
-                          new Container(
-                            child: new Text(FlutterI18n.translate(context, "Video"),
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.body1),
-                            margin: EdgeInsets.only(top: 26),
-                          )
-                        ],
-                      ),
-                      onTap: () {
-
-                      },
-                    ),
-                  )),
+                      new Container(
+                        child: new Text(FlutterI18n.translate(context, "Video"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.body1),
+                        margin: EdgeInsets.only(top: 26),
+                      )
+                    ],
+                  ),
+                  onTap: () async {
+                    await NavigationUtils.pushCupertino(
+                        context,  VideoPage(filePath: ""));
+                  },
+                ),
+              )),
               Container(
                 color: Colors.grey,
                 width: 1,
@@ -225,28 +234,26 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
               ),
               Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 8),
+                padding: EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 8),
 //                      color: Theme.of(context).primaryColor,
-                    child: InkWell(
-                      child: new Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                         /* Image.asset(
+                child: InkWell(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      /* Image.asset(
                             '',
                           ),*/
-                          new Container(
-                            child: new Text(FlutterI18n.translate(context, "Audio"),
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.body1),
-                            margin: EdgeInsets.only(top: 26),
-                          )
-                        ],
-                      ),
-                      onTap: () {
-
-                      },
-                    ),
-                  )),
+                      new Container(
+                        child: new Text(FlutterI18n.translate(context, "Audio"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.body1),
+                        margin: EdgeInsets.only(top: 26),
+                      )
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+              )),
             ],
           ),
           Container(

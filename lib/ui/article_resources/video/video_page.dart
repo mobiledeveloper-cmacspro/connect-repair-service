@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -30,16 +31,49 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
     NavigationUtils.pop(context);
   }
 
+  void _onVideoControllerUpdate() {
+    setState(() {});
+  }
+
+  void _takeVideo(ImageSource source) async {
+    ImagePicker.pickVideo(source: source).then((File file) {
+      if (file != null && mounted) {
+        setState(() {
+          _controller = VideoPlayerController.file(file)
+            ..addListener(_onVideoControllerUpdate)
+            ..setVolume(1.0)
+            ..initialize()
+            ..setLooping(true)
+            ..play();
+        });
+      }
+    });
+  }
+
+  @override
+  void deactivate() {
+    if (_controller != null) {
+      _controller.setVolume(0.0);
+      _controller.removeListener(_onVideoControllerUpdate);
+    }
+    super.deactivate();
+  }
+
   @override
   void initState() {
     _controller = VideoPlayerController.file(File(widget.filePath));
     _initializeVideoPlayerFuture = _controller.initialize();
+
+    if(widget.filePath.isEmpty){
+      _takeVideo(ImageSource.camera);
+    }
+
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (_controller != null) _controller.dispose();
     super.dispose();
   }
 
@@ -96,7 +130,9 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
                 mainColor: R.color.primary_color,
                 textColor: Colors.white,
                 title: FlutterI18n.translate(context, 'Take new video'),
-                onPressed: () {},
+                onPressed: () {
+                  _takeVideo(ImageSource.camera);
+                },
               ),
               SizedBox(
                 height: 10,
