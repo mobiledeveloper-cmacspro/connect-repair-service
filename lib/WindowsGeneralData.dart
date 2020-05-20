@@ -102,7 +102,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
     debugPrint('DocumentPicker');
     try {
       filePath = await FilePicker.getFilePath(
-          type: FileType.CUSTOM, fileExtension: 'PDF');
+          type: FileType.custom, allowedExtensions: ['PDF']);
       File pdf = File(filePath);
       final path = await FileUtils.getRootFilesDir();
       final fileName = CalendarUtils.getTimeIdBasedSeconds();

@@ -34,8 +34,6 @@ PODS:
   - Flutter (1.0.0)
   - flutter_full_pdf_viewer (1.0.1):
     - Flutter
-  - flutter_html_to_pdf (0.0.1):
-    - Flutter
   - flutter_mailer (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -63,11 +61,11 @@ PODS:
   - GoogleUtilities/Environment (5.8.0)
   - GoogleUtilities/Logger (5.8.0):
     - GoogleUtilities/Environment
-  - GTMSessionFetcher (1.3.0):
-    - GTMSessionFetcher/Full (= 1.3.0)
-  - GTMSessionFetcher/Core (1.3.0)
-  - GTMSessionFetcher/Full (1.3.0):
-    - GTMSessionFetcher/Core (= 1.3.0)
+  - GTMSessionFetcher (1.4.0):
+    - GTMSessionFetcher/Full (= 1.4.0)
+  - GTMSessionFetcher/Core (1.4.0)
+  - GTMSessionFetcher/Full (1.4.0):
+    - GTMSessionFetcher/Core (= 1.4.0)
   - image_picker (0.0.1):
     - Flutter
   - native_device_orientation (0.0.1):
@@ -78,7 +76,7 @@ PODS:
     - Flutter
   - "permission_handler (5.0.0+hotfix.5)":
     - Flutter
-  - Protobuf (3.11.1)
+  - Protobuf (3.12.0)
   - qr_mobile_vision (0.0.1):
     - Firebase/MLVision
     - Firebase/MLVisionBarcodeModel
@@ -98,8 +96,6 @@ PODS:
     - Flutter
   - video_player_web (0.0.1):
     - Flutter
-  - webview_flutter (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
   - audio_recorder (from `.symlinks/plugins/audio_recorder/ios`)
@@ -110,7 +106,6 @@ DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_full_pdf_viewer (from `.symlinks/plugins/flutter_full_pdf_viewer/ios`)
-  - flutter_html_to_pdf (from `.symlinks/plugins/flutter_html_to_pdf/ios`)
   - flutter_mailer (from `.symlinks/plugins/flutter_mailer/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
@@ -126,7 +121,6 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - video_player_web (from `.symlinks/plugins/video_player_web/ios`)
-  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
   trunk:
@@ -160,8 +154,6 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_full_pdf_viewer:
     :path: ".symlinks/plugins/flutter_full_pdf_viewer/ios"
-  flutter_html_to_pdf:
-    :path: ".symlinks/plugins/flutter_html_to_pdf/ios"
   flutter_mailer:
     :path: ".symlinks/plugins/flutter_mailer/ios"
   fluttertoast:
@@ -192,8 +184,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/video_player/ios"
   video_player_web:
     :path: ".symlinks/plugins/video_player_web/ios"
-  webview_flutter:
-    :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   audio_recorder: 8d200bc5ca10f8a5f8121ad1d2fcf49108a0b3bf
@@ -209,7 +199,6 @@ SPEC CHECKSUMS:
   FirebaseMLVisionBarcodeModel: 1956b7b0ae267b67571260e00cc0429a6a5e3091
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_full_pdf_viewer: 1b65139fc3236cde300ba6bea2a72669cb07f2e6
-  flutter_html_to_pdf: 0fd9f8d04f335d68b06a7c4ab5fc85d22e1ef91b
   flutter_mailer: 2ef5a67087bc8c6c4cefd04a178bf1ae2c94cd83
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -217,13 +206,13 @@ SPEC CHECKSUMS:
   GoogleMobileVision: 31cfb4319fd0c03d80105680abd9eae9da5e3b47
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
-  GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
+  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   image_picker: e3eacd46b94694dde7cf2705955cece853aa1a8f
   native_device_orientation: e24d00be281de72996640885d80e706142707660
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   permission_handler: 6226fcb78b97c7c7458a95c7346a11d5184fec12
-  Protobuf: 20d79da7f20b5928b80043b05080b816e802659e
+  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   qr_mobile_vision: b20aca10aa3f5d1651cb71efc09bfaea098df043
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
@@ -232,8 +221,7 @@ SPEC CHECKSUMS:
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   video_player_web: da8cadb8274ed4f8dbee8d7171b420dedd437ce7
-  webview_flutter: db3aba222b23e4dc432e0c5882834123dc50ff9f
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

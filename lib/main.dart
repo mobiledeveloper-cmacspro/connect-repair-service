@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:repairservices/crashlytics.dart';
@@ -23,18 +24,18 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.white
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.white));
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         localizationsDelegates: [
           FlutterI18nDelegate(
-              useCountryCode: false,
-              path: "assets/flutter_i18n",
-              fallbackFile: "assets/flutter_i18n/de.json",
-              forcedLocale: Locale("de")),
+              translationLoader: FileTranslationLoader(
+                  useCountryCode: false,
+                  basePath: "assets/flutter_i18n",
+                  fallbackFile: "assets/flutter_i18n/de.json",
+                  forcedLocale: Locale("de"))),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
         ],
