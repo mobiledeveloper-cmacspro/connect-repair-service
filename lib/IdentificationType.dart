@@ -189,6 +189,68 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
           ),
           Container(
             color: Colors.grey,
+            width: MediaQuery.of(context).size.width ,
+            height: 1,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+//                      color: Theme.of(context).primaryColor,
+                    child: InkWell(
+                      child: new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          /*Image.asset(
+                            '',
+                          ),*/
+                          new Container(
+                            child: new Text(FlutterI18n.translate(context, "Video"),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.body1),
+                            margin: EdgeInsets.only(top: 26),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+
+                      },
+                    ),
+                  )),
+              Container(
+                color: Colors.grey,
+                width: 1,
+                height: MediaQuery.of(context).size.width / 2 - 40,
+              ),
+              Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 8),
+//                      color: Theme.of(context).primaryColor,
+                    child: InkWell(
+                      child: new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                         /* Image.asset(
+                            '',
+                          ),*/
+                          new Container(
+                            child: new Text(FlutterI18n.translate(context, "Audio"),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.body1),
+                            margin: EdgeInsets.only(top: 26),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+
+                      },
+                    ),
+                  )),
+            ],
+          ),
+          Container(
+            color: Colors.grey,
             height: 1,
             width: MediaQuery.of(context).size.width,
           ),
