@@ -9,11 +9,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 
-Future<String> takeScreenShot({
+Future<void> takeScreenShot({
   GlobalKey previewContainer,
   BuildContext context,
   double pixelRatio = 1,
-  String fileName,
+  File file,
 }) async {
   ui.Image image = await getBitmap(
     previewContainer: previewContainer,
@@ -22,11 +22,7 @@ Future<String> takeScreenShot({
   );
   ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   Uint8List pngBytes = byteData.buffer.asUint8List();
-  final directory = await FileUtils.getRootFilesDir();
-  File imgFile = File('$directory/$fileName');
-  imgFile.writeAsBytes(pngBytes);
-
-  return imgFile.path;
+  await file.writeAsBytes(pngBytes);
 }
 
 Future<ui.Image> getBitmap({
