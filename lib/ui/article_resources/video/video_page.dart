@@ -26,6 +26,7 @@ class VideoPage extends StatefulWidget {
 class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
   VideoPlayerController _controller;
   Future<void> _initializeVideoPlayerFuture;
+  String savedFilePath;
 
   void _navBack() {
     NavigationUtils.pop(context);
@@ -38,15 +39,16 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
   void _takeVideo(ImageSource source) async {
     ImagePicker.pickVideo(source: source).then((File file) {
       if (file != null && mounted) {
-        debugPrint('FilePath: '+ file.path);
-        setState(() {
-          _controller = VideoPlayerController.file(file)
-            ..addListener(_onVideoControllerUpdate)
-            ..setVolume(1.0)
-            ..initialize()
-            ..setLooping(true)
-            ..play();
-        });
+        bloc.saveVideo(file).then((value) => setState(() {
+              bloc.deleteVideo(file.path);
+              _controller = VideoPlayerController.file(value)
+                ..addListener(_onVideoControllerUpdate)
+                ..setVolume(1.0)
+                ..initialize()
+                ..setLooping(true)
+                ..play();
+              savedFilePath = value.path;
+            }));
       }
     });
   }
@@ -65,7 +67,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
     _controller = VideoPlayerController.file(File(widget.filePath));
     _initializeVideoPlayerFuture = _controller.initialize();
 
-    if(widget.filePath.isEmpty){
+    if (widget.filePath.isEmpty) {
       _takeVideo(ImageSource.camera);
     }
 
@@ -74,7 +76,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
 
   @override
   void dispose() {
-    if (_controller != null) _controller.dispose();
+    if(_controller!= null) _controller.dispose();
     super.dispose();
   }
 
@@ -132,40 +134,51 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
                 textColor: Colors.white,
                 title: FlutterI18n.translate(context, 'Take new video'),
                 onPressed: () {
+                  bloc.deleteVideo(savedFilePath);
                   _takeVideo(ImageSource.camera);
                 },
               ),
               SizedBox(
                 height: 10,
               ),
-              TXButtonWidget(
-                mainColor: Colors.red,
-                textColor: Colors.white,
-                title: FlutterI18n.translate(context, 'Delete video'),
-                onPressed: () {},
-              ),
+              (savedFilePath != null)
+                  ? TXButtonWidget(
+                      mainColor: Colors.red,
+                      textColor: Colors.white,
+                      title: FlutterI18n.translate(context, 'Delete video'),
+                      onPressed: () {
+                        bloc.deleteVideo(savedFilePath);
+                        setState(() { savedFilePath = null;});
+                        _controller.addListener(() {_onVideoControllerUpdate();});
+                      },
+                    )
+                  : Container(),
               SizedBox(
                 height: 10,
               ),
-              TXButtonWidget(
-                mainColor: R.color.primary_color,
-                textColor: Colors.white,
-                title: FlutterI18n.translate(context, 'Play video'),
-                onPressed: () {
-                  _controller.play();
-                },
-              ),
+              (savedFilePath != null)
+                  ? TXButtonWidget(
+                      mainColor: R.color.primary_color,
+                      textColor: Colors.white,
+                      title: FlutterI18n.translate(context, 'Play video'),
+                      onPressed: () {
+                        _controller.play();
+                      },
+                    )
+                  : Container(),
               SizedBox(
                 height: 10,
               ),
-              TXButtonWidget(
-                mainColor: Colors.red,
-                textColor: Colors.white,
-                title: FlutterI18n.translate(context, 'Stop video'),
-                onPressed: () {
-                  _controller.pause();
-                },
-              )
+              (savedFilePath != null)
+                  ? TXButtonWidget(
+                      mainColor: Colors.red,
+                      textColor: Colors.white,
+                      title: FlutterI18n.translate(context, 'Stop video'),
+                      onPressed: () {
+                        _controller.pause();
+                      },
+                    )
+                  : Container()
             ]),
           )
         ],
