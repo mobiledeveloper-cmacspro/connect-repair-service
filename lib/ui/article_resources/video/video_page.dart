@@ -38,6 +38,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
   void _takeVideo(ImageSource source) async {
     ImagePicker.pickVideo(source: source).then((File file) {
       if (file != null && mounted) {
+        debugPrint('FilePath: '+ file.path);
         setState(() {
           _controller = VideoPlayerController.file(file)
             ..addListener(_onVideoControllerUpdate)
@@ -142,6 +143,28 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
                 textColor: Colors.white,
                 title: FlutterI18n.translate(context, 'Delete video'),
                 onPressed: () {},
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TXButtonWidget(
+                mainColor: R.color.primary_color,
+                textColor: Colors.white,
+                title: FlutterI18n.translate(context, 'Play video'),
+                onPressed: () {
+                  _controller.play();
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TXButtonWidget(
+                mainColor: Colors.red,
+                textColor: Colors.white,
+                title: FlutterI18n.translate(context, 'Stop video'),
+                onPressed: () {
+                  _controller.pause();
+                },
               )
             ]),
           )
