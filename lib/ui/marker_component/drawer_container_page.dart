@@ -23,6 +23,8 @@ import 'package:repairservices/ui/marker_component/drawer_tool_ui.dart';
 import 'package:repairservices/ui/marker_component/items/item_angle.dart';
 import 'package:repairservices/ui/marker_component/items/item_line.dart';
 import 'package:repairservices/ui/marker_component/utils/take_screenshoot.dart';
+
+import '../../Utils/file_utils.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class DrawerContainerPage extends StatefulWidget {
@@ -372,14 +374,20 @@ class _DrawerContainerPageState
 
   saveScreenshot(BuildContext context) async {
     final fileName = '${CalendarUtils.getTimeIdBasedSeconds()}.png';
+    final directory = await FileUtils.getRootFilesDir();
+    File imgFile = File('$directory/$fileName');
     bloc.savingScreenShot = true;
-    final screenShotFileName = await takeScreenShot(
+
+    bloc.articleModel.screenShootFilePath = imgFile.path;
+    bloc.articleModel.createdOnScreenShoot =
+        CalendarUtils.getDateTimeFromString(fileName);
+    await takeScreenShot(
         context: context,
         previewContainer: previewContainer,
         pixelRatio: 2,
-        fileName: fileName);
+        file: imgFile);
 
-    await bloc.saveScreeShoot(screenShotFileName);
+    await bloc.saveScreeShoot();
 
 //    bloc.screenShotFile = screenShotFileName;
     bloc.savingScreenShot = false;

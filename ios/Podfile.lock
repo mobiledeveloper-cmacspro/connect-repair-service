@@ -9,7 +9,39 @@ PODS:
     - Flutter
   - devicelocale (0.0.1):
     - Flutter
+  - DKImagePickerController/Core (4.2.2):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.2.2)
+  - DKImagePickerController/PhotoGallery (4.2.2):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.2.2)
+  - DKPhotoGallery (0.0.14):
+    - DKPhotoGallery/Core (= 0.0.14)
+    - DKPhotoGallery/Model (= 0.0.14)
+    - DKPhotoGallery/Preview (= 0.0.14)
+    - DKPhotoGallery/Resource (= 0.0.14)
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Core (0.0.14):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Model (0.0.14):
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Preview (0.0.14):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SDWebImageFLPlugin
+  - DKPhotoGallery/Resource (0.0.14):
+    - SDWebImage
+    - SDWebImageFLPlugin
   - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
     - Flutter
   - Firebase/CoreOnly (5.11.0):
     - FirebaseCore (= 5.1.6)
@@ -31,12 +63,13 @@ PODS:
     - GoogleMobileVision/Detector (~> 1.4)
   - FirebaseMLVisionBarcodeModel (0.12.0):
     - GoogleMobileVision/BarcodeDetector (~> 1.4)
+  - FLAnimatedImage (1.0.12)
   - Flutter (1.0.0)
   - flutter_full_pdf_viewer (1.0.1):
     - Flutter
-  - flutter_html_to_pdf (0.0.1):
-    - Flutter
   - flutter_mailer (0.0.1):
+    - Flutter
+  - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
@@ -63,11 +96,11 @@ PODS:
   - GoogleUtilities/Environment (5.8.0)
   - GoogleUtilities/Logger (5.8.0):
     - GoogleUtilities/Environment
-  - GTMSessionFetcher (1.3.0):
-    - GTMSessionFetcher/Full (= 1.3.0)
-  - GTMSessionFetcher/Core (1.3.0)
-  - GTMSessionFetcher/Full (1.3.0):
-    - GTMSessionFetcher/Core (= 1.3.0)
+  - GTMSessionFetcher (1.4.0):
+    - GTMSessionFetcher/Full (= 1.4.0)
+  - GTMSessionFetcher/Core (1.4.0)
+  - GTMSessionFetcher/Full (1.4.0):
+    - GTMSessionFetcher/Core (= 1.4.0)
   - image_picker (0.0.1):
     - Flutter
   - native_device_orientation (0.0.1):
@@ -76,13 +109,19 @@ PODS:
     - Flutter
   - path_provider_macos (0.0.1):
     - Flutter
-  - "permission_handler (5.0.0+hotfix.5)":
+  - "permission_handler (5.0.0+hotfix.6)":
     - Flutter
-  - Protobuf (3.11.1)
+  - Protobuf (3.12.0)
   - qr_mobile_vision (0.0.1):
     - Firebase/MLVision
     - Firebase/MLVisionBarcodeModel
     - Flutter
+  - SDWebImage (5.8.0):
+    - SDWebImage/Core (= 5.8.0)
+  - SDWebImage/Core (5.8.0)
+  - SDWebImageFLPlugin (0.4.0):
+    - FLAnimatedImage (>= 1.0.11)
+    - SDWebImage/Core (~> 5.6)
   - shared_preferences (0.0.1):
     - Flutter
   - shared_preferences_macos (0.0.1):
@@ -94,11 +133,13 @@ PODS:
     - FMDB (~> 2.7.2)
   - url_launcher (0.0.1):
     - Flutter
+  - url_launcher_macos (0.0.1):
+    - Flutter
+  - url_launcher_web (0.0.1):
+    - Flutter
   - video_player (0.0.1):
     - Flutter
   - video_player_web (0.0.1):
-    - Flutter
-  - webview_flutter (0.0.1):
     - Flutter
 
 DEPENDENCIES:
@@ -110,8 +151,8 @@ DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_full_pdf_viewer (from `.symlinks/plugins/flutter_full_pdf_viewer/ios`)
-  - flutter_html_to_pdf (from `.symlinks/plugins/flutter_html_to_pdf/ios`)
   - flutter_mailer (from `.symlinks/plugins/flutter_mailer/ios`)
+  - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
@@ -124,17 +165,21 @@ DEPENDENCIES:
   - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
+  - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - video_player_web (from `.symlinks/plugins/video_player_web/ios`)
-  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
   trunk:
+    - DKImagePickerController
+    - DKPhotoGallery
     - Firebase
     - FirebaseCore
     - FirebaseMLCommon
     - FirebaseMLVision
     - FirebaseMLVisionBarcodeModel
+    - FLAnimatedImage
     - FMDB
     - GoogleAPIClientForREST
     - GoogleMobileVision
@@ -142,6 +187,8 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - Protobuf
+    - SDWebImage
+    - SDWebImageFLPlugin
 
 EXTERNAL SOURCES:
   audio_recorder:
@@ -160,10 +207,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_full_pdf_viewer:
     :path: ".symlinks/plugins/flutter_full_pdf_viewer/ios"
-  flutter_html_to_pdf:
-    :path: ".symlinks/plugins/flutter_html_to_pdf/ios"
   flutter_mailer:
     :path: ".symlinks/plugins/flutter_mailer/ios"
+  flutter_plugin_android_lifecycle:
+    :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   image_picker:
@@ -188,52 +235,60 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
+  url_launcher_macos:
+    :path: ".symlinks/plugins/url_launcher_macos/ios"
+  url_launcher_web:
+    :path: ".symlinks/plugins/url_launcher_web/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
   video_player_web:
     :path: ".symlinks/plugins/video_player_web/ios"
-  webview_flutter:
-    :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   audio_recorder: 8d200bc5ca10f8a5f8121ad1d2fcf49108a0b3bf
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
   camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
-  device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   devicelocale: feebbe5e7a30adb8c4f83185de1b50ff19b44f00
-  file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
+  DKImagePickerController: 4a3e7948a848c4348e600b3fe5ce41478835fa10
+  DKPhotoGallery: 0290d32343574f06eaa4c26f8f2f8a1035e916be
+  file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
   Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
   FirebaseCore: d16552f06821489ce1affe2e5e3e5593402ddfe3
   FirebaseMLCommon: 5fb0152dc0e4de69f86ec37e813fb2555566ebbd
   FirebaseMLVision: 7e9a7f2f81117be2796196f3901c36ad893366b1
   FirebaseMLVisionBarcodeModel: 1956b7b0ae267b67571260e00cc0429a6a5e3091
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_full_pdf_viewer: 1b65139fc3236cde300ba6bea2a72669cb07f2e6
-  flutter_html_to_pdf: 0fd9f8d04f335d68b06a7c4ab5fc85d22e1ef91b
   flutter_mailer: 2ef5a67087bc8c6c4cefd04a178bf1ae2c94cd83
+  flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GoogleAPIClientForREST: e50dc3267b3131ee3a25e707c10204f6bec15ae9
   GoogleMobileVision: 31cfb4319fd0c03d80105680abd9eae9da5e3b47
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
-  GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
-  image_picker: e3eacd46b94694dde7cf2705955cece853aa1a8f
+  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  image_picker: 66aa71bc96850a90590a35d4c4a2907b0d823109
   native_device_orientation: e24d00be281de72996640885d80e706142707660
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
-  permission_handler: 6226fcb78b97c7c7458a95c7346a11d5184fec12
-  Protobuf: 20d79da7f20b5928b80043b05080b816e802659e
+  permission_handler: b7a0953389e699927c6217933754cdcd0fa2c5a7
+  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   qr_mobile_vision: b20aca10aa3f5d1651cb71efc09bfaea098df043
-  shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
+  SDWebImage: 84000f962cbfa70c07f19d2234cbfcf5d779b5dc
+  SDWebImageFLPlugin: 6c2295fb1242d44467c6c87dc5db6b0a13228fd8
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
   shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
-  url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
+  url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
+  url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
+  url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   video_player_web: da8cadb8274ed4f8dbee8d7171b420dedd437ce7
-  webview_flutter: db3aba222b23e4dc432e0c5882834123dc50ff9f
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

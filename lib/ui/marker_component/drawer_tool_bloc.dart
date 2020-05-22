@@ -11,6 +11,8 @@ import 'package:repairservices/ui/marker_component/items_data.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:rxdart/subjects.dart';
 
+import '../../Utils/calendar_utils.dart';
+
 class DrawerToolBloc extends BaseBloC {
   final IArticleLocalRepository _iArticleLocalRepository;
 
@@ -26,13 +28,15 @@ class DrawerToolBloc extends BaseBloC {
   ArticleLocalModel articleModel;
 
   void initArticleModel(String initialFilePath) {
-    final DateTime now = DateTime.now();
     final File file = File(initialFilePath);
     articleModel = ArticleLocalModel(
         id: file.path.split("/").last,
         displayName: "Picture1",
-        createdOnImage: now,
-        createdOnScreenShoot: now,
+        notes: [],
+        audiosFilePaths: [],
+        videosFilePaths: [],
+        createdOnImage: CalendarUtils.getDateTimeFromString(
+            initialFilePath.split("/").last),
         filePath: initialFilePath);
     _selectedImageController.sink.add(File(initialFilePath));
   }
@@ -186,9 +190,7 @@ class DrawerToolBloc extends BaseBloC {
     _viewModeController.sink.add(vm);
   }
 
-  Future<void> saveScreeShoot(String screenShotFileName) async {
-    articleModel.screenShootFilePath = screenShotFileName;
-    articleModel.createdOnScreenShoot = DateTime.now();
+  Future<void> saveScreeShoot() async {
     await _iArticleLocalRepository.saveArticleLocal(articleModel);
   }
 
