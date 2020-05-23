@@ -149,7 +149,8 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
                       onPressed: () {
                         bloc.deleteVideo(savedFilePath);
                         setState(() { savedFilePath = null;});
-                        _controller.addListener(() {_onVideoControllerUpdate();});
+                        _controller.removeListener(() {_onVideoControllerUpdate();});
+                        _controller.initialize();
                       },
                     )
                   : Container(),
