@@ -11,7 +11,6 @@ import 'package:repairservices/Utils/DeviceInfo.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
-import 'package:repairservices/ui/article_resources/audio/audio_page.dart';
 import 'package:repairservices/ui/article_resources/video/video_page.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_page.dart';
 
@@ -66,50 +65,50 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-          title: new Text(FlutterI18n.translate(context, "Send by Email"),
-              style: Theme.of(context).textTheme.subhead),
-          content: Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-            child: Text(
-              FlutterI18n.translate(context, "Send this article"),
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.justify,
-            ),
-          ),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: new Text(
-                  FlutterI18n.translate(context, "Just save it"),
-                  style: TextStyle(color: Theme.of(context).primaryColor)),
-              isDefaultAction: true,
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => DrawerContainerPage(
-                          imagePath: imagePath,
-                          isForMail: false,
-                        )));
-              },
-            ),
-            CupertinoDialogAction(
-              child: new Text(
-                  FlutterI18n.translate(
-                      context, "Save it and send by email"),
-                  style: TextStyle(color: Theme.of(context).primaryColor)),
-              isDefaultAction: true,
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) =>
-                            DrawerContainerPage(imagePath: imagePath)));
-              },
-            ),
-          ],
-        ));
+              title: new Text(FlutterI18n.translate(context, "Send by Email"),
+                  style: Theme.of(context).textTheme.subhead),
+              content: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                child: Text(
+                  FlutterI18n.translate(context, "Send this article"),
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: new Text(
+                      FlutterI18n.translate(context, "Just save it"),
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => DrawerContainerPage(
+                                  imagePath: imagePath,
+                                  isForMail: false,
+                                )));
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: new Text(
+                      FlutterI18n.translate(
+                          context, "Save it and send by email"),
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) =>
+                                DrawerContainerPage(imagePath: imagePath)));
+                  },
+                ),
+              ],
+            ));
   }
 
   @override
@@ -131,142 +130,140 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
       ),
       body: new Container(
           child: new Column(
-            mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Row(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(8),
+              Expanded(
+                  child: Container(
+                padding: EdgeInsets.all(8),
 //                      color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          child: new Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/cameraGreen.png',
-                              ),
-                              new Container(
-                                child: new Text(
-                                    FlutterI18n.translate(context, "Camera"),
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.body1),
-                                margin: EdgeInsets.only(top: 26),
-                              )
-                            ],
-                          ),
-                          onTap: () {
-                            _getImageFromSource(ImageSource.camera);
-                          },
-                        ),
-                      )),
-                  Container(
-                    color: Colors.grey,
-                    width: 1,
-                    height: MediaQuery.of(context).size.width / 2 - 40,
+                child: InkWell(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/cameraGreen.png',
+                      ),
+                      new Container(
+                        child: new Text(
+                            FlutterI18n.translate(context, "Camera"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.body1),
+                        margin: EdgeInsets.only(top: 26),
+                      )
+                    ],
                   ),
-                  Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 8),
-//                      color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          child: new Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/notesGreen.png',
-                              ),
-                              new Container(
-                                child: new Text(
-                                    FlutterI18n.translate(context, "Record Product"),
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.body1),
-                                margin: EdgeInsets.only(top: 26),
-                              )
-                            ],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => FittingSelection()),
-                            );
-                          },
-                        ),
-                      )),
-                ],
-              ),
+                  onTap: () {
+                    _getImageFromSource(ImageSource.camera);
+                  },
+                ),
+              )),
               Container(
                 color: Colors.grey,
-                width: MediaQuery.of(context).size.width,
-                height: 1,
+                width: 1,
+                height: MediaQuery.of(context).size.width / 2 - 40,
               ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(8),
+              Expanded(
+                  child: Container(
+                padding: EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 8),
 //                      color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          child: new Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              /*Image.asset(
-                            '',
-                          ),*/
-                              new Container(
-                                child: new Text(FlutterI18n.translate(context, "Video"),
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.body1),
-                                margin: EdgeInsets.only(top: 26),
-                              )
-                            ],
-                          ),
-                          onTap: () async {
-                            await NavigationUtils.pushCupertino(
-                                context,  VideoPage(filePath: ""));
-                          },
-                        ),
-                      )),
-                  Container(
-                    color: Colors.grey,
-                    width: 1,
-                    height: MediaQuery.of(context).size.width / 2 - 40,
+                child: InkWell(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/notesGreen.png',
+                      ),
+                      new Container(
+                        child: new Text(
+                            FlutterI18n.translate(context, "Record Product"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.body1),
+                        margin: EdgeInsets.only(top: 26),
+                      )
+                    ],
                   ),
-                  Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 8),
-//                      color: Theme.of(context).primaryColor,
-                        child: InkWell(
-                          child: new Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              /* Image.asset(
-                            '',
-                          ),*/
-                              new Container(
-                                child: new Text(FlutterI18n.translate(context, "Audio"),
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.body1),
-                                margin: EdgeInsets.only(top: 26),
-                              )
-                            ],
-                          ),
-                          onTap: () {
-                            NavigationUtils.push(context, AudioPage());
-                          },
-                        ),
-                      )),
-                ],
-              ),
-              Container(
-                color: Colors.grey,
-                height: 1,
-                width: MediaQuery.of(context).size.width,
-              ),
-              _fromGallery()
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => FittingSelection()),
+                    );
+                  },
+                ),
+              )),
             ],
-          )),
+          ),
+          Container(
+            color: Colors.grey,
+            width: MediaQuery.of(context).size.width,
+            height: 1,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child: Container(
+                padding: EdgeInsets.all(8),
+//                      color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      /*Image.asset(
+                            '',
+                          ),*/
+                      new Container(
+                        child: new Text(FlutterI18n.translate(context, "Video"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.body1),
+                        margin: EdgeInsets.only(top: 26),
+                      )
+                    ],
+                  ),
+                  onTap: () async {
+                    await NavigationUtils.pushCupertino(
+                        context,  VideoPage(filePath: ""));
+                  },
+                ),
+              )),
+              Container(
+                color: Colors.grey,
+                width: 1,
+                height: MediaQuery.of(context).size.width / 2 - 40,
+              ),
+              Expanded(
+                  child: Container(
+                padding: EdgeInsets.only(top: 24, left: 8, right: 8, bottom: 8),
+//                      color: Theme.of(context).primaryColor,
+                child: InkWell(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      /* Image.asset(
+                            '',
+                          ),*/
+                      new Container(
+                        child: new Text(FlutterI18n.translate(context, "Audio"),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.body1),
+                        margin: EdgeInsets.only(top: 26),
+                      )
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+              )),
+            ],
+          ),
+          Container(
+            color: Colors.grey,
+            height: 1,
+            width: MediaQuery.of(context).size.width,
+          ),
+          _fromGallery()
+        ],
+      )),
     );
   }
 }
