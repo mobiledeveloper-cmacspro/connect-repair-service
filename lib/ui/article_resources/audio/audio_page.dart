@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -30,6 +31,16 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
   Recording _recording = new Recording();
   bool _isRecording = false;
   String _savedFilePath;
+  String _textViewDuration;
+
+  Stopwatch _watch = Stopwatch();
+  Timer _timer;
+
+  @override
+  void initState() {
+    _requestPermission();
+    super.initState();
+  }
 
   void _navBack() {
     NavigationUtils.pop(context);
@@ -43,10 +54,13 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
         : '';
   }
 
-  @override
-  void initState() {
-    _requestPermission();
-    super.initState();
+  _updateTime(Timer timer) {
+    if (_watch.isRunning) {
+      setState(() {
+        _textViewDuration =
+            bloc.transformMilliSeconds(_watch.elapsedMilliseconds);
+      });
+    }
   }
 
   _start() async {
@@ -58,6 +72,9 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                   await AudioRecorder.isRecording.then((value) => setState(() {
                         _recording = new Recording(duration: new Duration());
                         _isRecording = value;
+                        _watch.start();
+                        _timer = Timer.periodic(
+                            Duration(milliseconds: 100), _updateTime);
                       })))
             });
       } else {
@@ -71,6 +88,8 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
   _stop() async {
     var recording = await AudioRecorder.stop();
     print("Stop recording: ${recording.path}");
+    _watch.stop();
+    _timer.cancel();
     bool isRecording = await AudioRecorder.isRecording;
     File file = File(recording.path);
     print("  File length: ${await file.length()} ");
@@ -78,9 +97,13 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
       _recording = recording;
       _isRecording = isRecording;
       _savedFilePath = file.path;
+      _textViewDuration =
+          bloc.transformMilliSeconds(_watch.elapsedMilliseconds);
+      _watch.reset();
     });
   }
 
+  _playAudio() async {}
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -118,7 +141,9 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                       height: 10,
                     ),
                     TXTextWidget(
-                      text: "00:00:00",
+                      text: (_textViewDuration != null)
+                          ? _textViewDuration
+                          : "00:00:00",
                     ),
                     SizedBox(
                       height: 10,
@@ -149,7 +174,19 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                         bloc.deleteAudio(_savedFilePath);
                       },
                     ),
-                    
+                    SizedBox(
+                      height: 10,
+                    ),
+                    (_savedFilePath != null)
+                        ? TXButtonWidget(
+                            title: 'Play',
+                            textColor: Colors.white,
+                            mainColor: Colors.blueAccent,
+                            onPressed: () {
+                              _playAudio();
+                            },
+                          )
+                        : Container()
                   ],
                 ),
               ),
