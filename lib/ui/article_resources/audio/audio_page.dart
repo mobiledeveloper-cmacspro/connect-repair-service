@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -27,11 +28,25 @@ class AudioPage extends StatefulWidget {
 
 class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
   Recording _recording = new Recording();
-  bool _isRecording = false; 
+  bool _isRecording = false;
   String _savedFilePath;
 
   void _navBack() {
     NavigationUtils.pop(context);
+  }
+
+  _requestPermission() async {
+    !(await Permission.speech.request().isGranted &&
+            await Permission.storage.request().isGranted)
+        ? _navBack()
+        // ignore: unnecessary_statements
+        : '';
+  }
+
+  @override
+  void initState() {
+    _requestPermission();
+    super.initState();
   }
 
   _start() async {
@@ -39,12 +54,12 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
       if (await AudioRecorder.hasPermissions) {
         print("Start recording");
         bloc.audioPath().then((value) async => {
-          await AudioRecorder.start(path: value).then((value) async =>
-          await AudioRecorder.isRecording.then((value) => setState(() {
-            _recording = new Recording(duration: new Duration());
-            _isRecording = value;
-          })))
-        });
+              await AudioRecorder.start(path: value).then((value) async =>
+                  await AudioRecorder.isRecording.then((value) => setState(() {
+                        _recording = new Recording(duration: new Duration());
+                        _isRecording = value;
+                      })))
+            });
       } else {
         print("You must accept permissions");
       }
@@ -65,6 +80,7 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
       _savedFilePath = file.path;
     });
   }
+
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -129,8 +145,11 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                       title: FlutterI18n.translate(context, 'Delete record'),
                       textColor: Colors.white,
                       mainColor: Colors.red,
-                      onPressed: () {  bloc.deleteAudio(_savedFilePath);},
-                    )
+                      onPressed: () {
+                        bloc.deleteAudio(_savedFilePath);
+                      },
+                    ),
+                    
                   ],
                 ),
               ),
@@ -140,6 +159,4 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
       ),
     );
   }
-
-
 }
