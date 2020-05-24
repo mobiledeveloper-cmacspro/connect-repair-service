@@ -132,6 +132,19 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
           : "";
       setState(() {
         _isPlaying = true;
+
+        audioPlayer.onDurationChanged.listen((Duration d) {
+          setState(() => _playDuration = d);
+        });
+
+        audioPlayer.onAudioPositionChanged.listen((Duration p) {
+          setState(() => _position = p);
+        });
+        audioPlayer.onPlayerCompletion.listen((event) {
+          setState(() {
+            _position = _playDuration;
+          });
+        });
       });
     } else if (_isPaused & _isPlaying) {
       int response = await audioPlayer.resume();
@@ -154,6 +167,24 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
       _isPlaying = false;
       _isPaused = false;
     });
+  }
+
+  void seekToSecond(int second) {
+    Duration newDuration = Duration(seconds: second);
+    audioPlayer.seek(newDuration);
+  }
+
+  Widget slider() {
+    return Slider(
+        value: _position.inSeconds.toDouble(),
+        min: 0.0,
+        max: _playDuration.inSeconds.toDouble(),
+        onChanged: (double value) {
+          setState(() {
+            seekToSecond(value.toInt());
+            value = value;
+          });
+        });
   }
 
   @override
@@ -231,12 +262,9 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
               (_savedFilePath != null)
                   ? Container(
                       width: double.infinity,
-                      height: 200,
+                      height: 250,
                       child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
-                          ),
+                        children: <Widget>[                           
                           TXButtonWidget(
                             title:
                                 (!_isPlaying || _isPaused) ? 'Play' : 'Pause',
@@ -256,11 +284,12 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                             onPressed: () {
                               _stopAudio();
                             },
-                          )
+                          ),
+                          slider()
                         ],
                       ),
                     )
-                  : Container(), 
+                  : Container(),
             ]),
           ),
         ],
