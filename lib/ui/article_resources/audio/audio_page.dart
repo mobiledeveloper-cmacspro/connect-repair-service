@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -32,14 +33,26 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
   bool _isRecording = false;
   String _savedFilePath;
   String _textViewDuration;
+  AudioPlayer audioPlayer = new AudioPlayer();
+  Duration _playDuration = new Duration();
+  Duration _position = new Duration();
 
   Stopwatch _watch = Stopwatch();
   Timer _timer;
+
+  bool _isPlaying = false;
+  bool _isPaused = false;
 
   @override
   void initState() {
     _requestPermission();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    AudioRecorder.stop();
   }
 
   void _navBack() {
@@ -103,7 +116,45 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
     });
   }
 
-  _playAudio() async {}
+  _deleteRecord() async {
+    bloc.deleteAudio(_savedFilePath);
+    setState(() {
+      _savedFilePath = null;
+      _textViewDuration = null;
+    });
+  }
+
+  _playPauseAudio() async {
+    if (!_isPlaying) {
+      int response = await audioPlayer.play(_savedFilePath, isLocal: true);
+      !(response == 1)
+          ? print('Some error occured in playing from storage!')
+          : "";
+      setState(() {
+        _isPlaying = true;
+      });
+    } else if (_isPaused & _isPlaying) {
+      int response = await audioPlayer.resume();
+      !(response == 1) ? print('Some error occured resuming!') : "";
+      setState(() {
+        _isPaused = false;
+      });
+    } else {
+      int response = await audioPlayer.pause();
+      !(response == 1) ? print('Some error occured pausing!') : "";
+      setState(() {
+        _isPaused = true;
+      });
+    }
+  }
+
+  _stopAudio() async {
+    audioPlayer.stop();
+    setState(() {
+      _isPlaying = false;
+      _isPaused = false;
+    });
+  }
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -131,7 +182,7 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
               TXDividerWidget(),
               Container(
                 width: double.infinity,
-                height: 350,
+                height: 300,
                 child: Column(
                   children: <Widget>[
                     TXIconButtonWidget(
@@ -171,27 +222,47 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                       textColor: Colors.white,
                       mainColor: Colors.red,
                       onPressed: () {
-                        bloc.deleteAudio(_savedFilePath);
+                        _deleteRecord();
                       },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    (_savedFilePath != null)
-                        ? TXButtonWidget(
-                            title: 'Play',
-                            textColor: Colors.white,
-                            mainColor: Colors.blueAccent,
-                            onPressed: () {
-                              _playAudio();
-                            },
-                          )
-                        : Container()
+                    )
                   ],
                 ),
               ),
+              (_savedFilePath != null)
+                  ? Container(
+                      width: double.infinity,
+                      height: 200,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TXButtonWidget(
+                            title:
+                                (!_isPlaying || _isPaused) ? 'Play' : 'Pause',
+                            textColor: Colors.white,
+                            mainColor: Colors.blueAccent,
+                            onPressed: () {
+                              _playPauseAudio();
+                            },
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TXButtonWidget(
+                            title: 'Stop',
+                            textColor: Colors.white,
+                            mainColor: Colors.redAccent,
+                            onPressed: () {
+                              _stopAudio();
+                            },
+                          )
+                        ],
+                      ),
+                    )
+                  : Container(), 
             ]),
-          )
+          ),
         ],
       ),
     );
