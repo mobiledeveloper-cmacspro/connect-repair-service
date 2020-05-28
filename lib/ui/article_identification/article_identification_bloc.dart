@@ -106,10 +106,28 @@ class ArticleIdentificationBloC extends BaseBloC
   void deleteArticle() async {
     List<ArticleBase> articleBaseList = await articlesResult.first;
     await Future.forEach(articleBaseList, (articleBase) async {
-      if(articleBase.isSelected){
-        if (articleBase is ArticleLocalModel)
+      if (articleBase.isSelected) {
+        if (articleBase is ArticleLocalModel) {
           await _iArticleLocalRepository.deleteArticleLocal(articleBase);
-        else
+          if (articleBase.filePath.isNotEmpty) {
+            final file = File(articleBase.filePath);
+            if (file.existsSync()) file.deleteSync();
+          }
+
+          articleBase.audios.forEach((element) {
+            if (element.filePath.isNotEmpty) {
+              final file = File(element.filePath);
+              if (file.existsSync()) file.deleteSync();
+            }
+          });
+
+          articleBase.videos.forEach((element) {
+            if (element.filePath.isNotEmpty) {
+              final file = File(element.filePath);
+              if (file.existsSync()) file.deleteSync();
+            }
+          });
+        } else
           await _deleteArticleFitting((articleBase as Fitting));
       }
     });

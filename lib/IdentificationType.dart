@@ -11,6 +11,7 @@ import 'package:repairservices/Utils/DeviceInfo.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/article_resources/audio/audio_page.dart';
 import 'package:repairservices/ui/article_resources/video/video_page.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_page.dart';
 
@@ -222,8 +223,8 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                     ],
                   ),
                   onTap: () async {
-                    await NavigationUtils.pushCupertino(
-                        context,  VideoPage(filePath: ""));
+//                    await NavigationUtils.pushCupertino(
+//                        context,  VideoPage(filePath: ""));
                   },
                 ),
               )),
@@ -251,7 +252,10 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                       )
                     ],
                   ),
-                  onTap: () {},
+                  onTap: () async{
+//                    await NavigationUtils.pushCupertino(
+//                        context,  AudioPage(filePath: ""));
+                  },
                 ),
               )),
             ],

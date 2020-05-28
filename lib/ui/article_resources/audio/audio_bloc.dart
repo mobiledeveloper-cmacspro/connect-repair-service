@@ -1,15 +1,117 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:audio_recorder/audio_recorder.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/0_base/bloc_error_handler.dart';
 import 'package:repairservices/ui/0_base/bloc_loading.dart';
+import 'package:repairservices/Utils/extensions.dart';
+import 'package:repairservices/ui/article_resources/article_resource_model.dart';
+import 'package:rxdart/subjects.dart';
 
-class AudioBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC{
+class AudioBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
+  BehaviorSubject<MediaActions> _audioActionController = new BehaviorSubject();
+
+  Stream<MediaActions> get audioActionResult => _audioActionController.stream;
+
+  BehaviorSubject<String> _timerController = new BehaviorSubject();
+
+  Stream<String> get timerResult => _timerController.stream;
 
   static Future<String> getRootFiles() async =>
       await FileUtils.getRootFilesDir();
+
+  final AudioPlayer audioPlayer = new AudioPlayer();
+//  final Stopwatch _watchTimer = Stopwatch();
+  Timer _timer;
+
+  MemoAudioModel model;
+
+  void init(MemoAudioModel model) async {
+    this.model = model;
+    if (model.filePath.isNotEmpty && File(model.filePath).existsSync()) {
+      await audioPlayer.setUrl(model.filePath, isLocal: true);
+      initAudioPlayListeners();
+      _audioActionController.sinkAddSafe(MediaActions.RECORDED);
+    } else {
+      final appRootFiles = await getRootFiles();
+      this.model.filePath = "$appRootFiles/${model.id}";
+      _audioActionController.sinkAddSafe(MediaActions.NEW);
+    }
+  }
+
+  void disposeAudioView() async {
+    if (await audioActionResult.first == MediaActions.RECORDING) {
+      await deleteAudio();
+    }
+
+    if (await audioActionResult.first == MediaActions.PLAYING) {
+      await audioPlayer.release();
+    }
+  }
+
+  void startRecord() async {
+    await AudioRecorder.start(path: this.model.filePath);
+    _audioActionController.sinkAddSafe(MediaActions.RECORDING);
+    initRecorderListeners();
+  }
+
+  void stopRecord() async {
+    Recording recording = await AudioRecorder.stop();
+    this.model.filePath = recording.path;
+//    _watchTimer.stop();
+    _timer.cancel();
+    await audioPlayer.setUrl(model.filePath, isLocal: true);
+    initAudioPlayListeners();
+    _audioActionController.sinkAddSafe(MediaActions.RECORDED);
+//    transformMilliSeconds(_watchTimer.elapsedMilliseconds);
+//    _watchTimer.reset();
+  }
+
+  void initAudioPlayListeners() {
+    audioPlayer.onAudioPositionChanged.listen((Duration d) {
+      transformMilliSeconds(d.inMilliseconds);
+    });
+
+    audioPlayer.onDurationChanged.listen((Duration d) {
+      transformMilliSeconds(d.inMilliseconds);
+    });
+
+    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
+      if (s == AudioPlayerState.PLAYING) {
+        _audioActionController.sinkAddSafe(MediaActions.PLAYING);
+      } else {
+        _audioActionController.sinkAddSafe(MediaActions.RECORDED);
+      }
+    });
+
+    audioPlayer.onPlayerCompletion.listen((event) {
+      _audioActionController.sinkAddSafe(MediaActions.RECORDED);
+    });
+  }
+
+  void initRecorderListeners() {
+    int millis = 0;
+//    _watchTimer.start();
+    _timer = Timer.periodic(Duration(milliseconds: 100),(timer){
+      millis += 100;
+      transformMilliSeconds(millis);
+    });
+  }
+
+  void playAudio() async {
+    await audioPlayer.play(this.model.filePath, isLocal: true);
+    _audioActionController.sinkAddSafe(MediaActions.PLAYING);
+  }
+
+  void stopAudio() async {
+    await audioPlayer.stop();
+    _audioActionController.sinkAddSafe(MediaActions.RECORDED);
+  }
 
   Future<String> audioPath() async {
     final appRootFiles = await getRootFiles();
@@ -18,12 +120,13 @@ class AudioBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC{
     return newFilePath;
   }
 
-  void deleteAudio(String filePath){
-    File newFile = new File( filePath);
-    newFile.delete();
+  Future<void> deleteAudio() async {
+    File file = File(this.model.filePath);
+    file.deleteSync();
+    this.model.filePath = "";
   }
 
-  transformMilliSeconds(int milliseconds) {
+  void transformMilliSeconds(int milliseconds) {
     int hundreds = (milliseconds / 10).truncate();
     int seconds = (hundreds / 100).truncate();
     int minutes = (seconds / 60).truncate();
@@ -32,14 +135,14 @@ class AudioBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC{
     String hoursStr = (hours % 60).toString().padLeft(2, '0');
     String minutesStr = (minutes % 60).toString().padLeft(2, '0');
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
-
-    return "$hoursStr:$minutesStr:$secondsStr";
+    _timerController.sinkAddSafe("$hoursStr:$minutesStr:$secondsStr");
   }
 
   @override
   void dispose() {
+    _audioActionController.close();
+    _timerController.close();
     disposeLoadingBloC();
     disposeErrorHandlerBloC();
   }
-
 }

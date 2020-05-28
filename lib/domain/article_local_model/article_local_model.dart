@@ -1,5 +1,6 @@
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
+import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 
 class ArticleLocalModel extends ArticleBase {
   String id = "";
@@ -8,9 +9,9 @@ class ArticleLocalModel extends ArticleBase {
   String screenShootFilePath;
   DateTime createdOnImage;
   DateTime createdOnScreenShoot;
-  List<String> notes;
-  List<String> audiosFilePaths;
-  List<String> videosFilePaths;
+  List<MemoNoteModel> notes;
+  List<MemoAudioModel> audios;
+  List<MemoVideoModel> videos;
 
   ArticleLocalModel(
       {this.id = "",
@@ -19,7 +20,7 @@ class ArticleLocalModel extends ArticleBase {
       this.screenShootFilePath,
       this.createdOnImage,
       this.createdOnScreenShoot,
-      this.audiosFilePaths,
+      this.audios,
       this.notes,
-      this.videosFilePaths});
+      this.videos});
 }

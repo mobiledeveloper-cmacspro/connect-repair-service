@@ -11,13 +11,14 @@ import 'package:repairservices/ui/1_tx_widgets/tx_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
+import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 import 'package:repairservices/ui/article_resources/video/video_bloc.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPage extends StatefulWidget {
-  final String filePath;
+  final MemoVideoModel model;
 
-  const VideoPage({Key key, this.filePath}) : super(key: key);
+  const VideoPage({Key key, this.model}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _VideoState();
@@ -26,31 +27,37 @@ class VideoPage extends StatefulWidget {
 class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
   VideoPlayerController _controller;
   Future<void> _initializeVideoPlayerFuture;
-  String savedFilePath;
+  bool _isPlaying = false;
 
   void _navBack() {
-    NavigationUtils.pop(context);
+    NavigationUtils.pop(context, result: widget.model);
   }
 
   void _onVideoControllerUpdate() {
-    setState(() {});
+    final bool isPlaying = _controller.value.isPlaying;
+    if (isPlaying != _isPlaying) {
+      _controller.initialize();
+      setState(() {
+        _isPlaying = isPlaying;
+      });
+    }
   }
 
   void _takeVideo(ImageSource source) async {
-    ImagePicker.pickVideo(source: source).then((File file) {
-      if (file != null && mounted) {
-        bloc.saveVideo(file).then((value) => setState(() {
-              bloc.deleteVideo(file.path);
-              _controller = VideoPlayerController.file(value)
-                ..addListener(_onVideoControllerUpdate)
-                ..setVolume(1.0)
-                ..initialize()
-                ..setLooping(true)
-                ..play();
-              savedFilePath = value.path;
-            }));
-      }
-    });
+    final file = await ImagePicker.pickVideo(source: source);
+    if (file != null && mounted) {
+      await bloc.saveVideo(file, widget.model.id);
+      _controller = VideoPlayerController.file(file);
+      _controller.initialize();
+      _controller.addListener(_onVideoControllerUpdate);
+//        ..setVolume(1.0)
+//        ..initialize()
+//        ..play();
+      widget.model.filePath = file.path;
+      setState(() {
+        _isPlaying = false;
+      });
+    }
   }
 
   @override
@@ -64,19 +71,20 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
 
   @override
   void initState() {
-    _controller = VideoPlayerController.file(File(widget.filePath));
-    _initializeVideoPlayerFuture = _controller.initialize();
+    super.initState();
 
-    if (widget.filePath.isEmpty) {
+    _isPlaying = false;
+    _controller = VideoPlayerController.file(File(widget.model.filePath));
+    _controller.addListener(_onVideoControllerUpdate);
+    _initializeVideoPlayerFuture = _controller.initialize();
+    if (widget.model.filePath.isEmpty) {
       _takeVideo(ImageSource.camera);
     }
-
-    super.initState();
   }
 
   @override
   void dispose() {
-    if(_controller!= null) _controller.dispose();
+    if (_controller != null) _controller.dispose();
     super.dispose();
   }
 
@@ -102,85 +110,117 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
                 },
               )
             ],
-            body: Column(children: <Widget>[
-              TXDividerWidget(),
-              Container(
-                width: double.infinity,
-                height: 300,
-                child: FutureBuilder(
-                  future: _initializeVideoPlayerFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      // If the VideoPlayerController has finished initialization, use
-                      // the data it provides to limit the aspect ratio of the VideoPlayer.
-                      return AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        // Use the VideoPlayer widget to display the video.
-                        child: VideoPlayer(_controller),
-                      );
-                    } else {
-                      // If the VideoPlayerController is still initializing, show a
-                      // loading spinner.
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TXButtonWidget(
-                mainColor: R.color.primary_color,
-                textColor: Colors.white,
-                title: FlutterI18n.translate(context, 'Take new video'),
-                onPressed: () {
-                  bloc.deleteVideo(savedFilePath);
-                  _takeVideo(ImageSource.camera);
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              (savedFilePath != null)
-                  ? TXButtonWidget(
+            body: Stack(
+              children: <Widget>[
+                Column(children: <Widget>[
+                  TXDividerWidget(),
+                  Expanded(
+                    child: FutureBuilder(
+                      future: _initializeVideoPlayerFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          // If the VideoPlayerController has finished initialization, use
+                          // the data it provides to limit the aspect ratio of the VideoPlayer.
+                          return AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            // Use the VideoPlayer widget to display the video.
+                            child: VideoPlayer(_controller),
+                          );
+                        } else {
+                          // If the VideoPlayerController is still initializing, show a
+                          // loading spinner.
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    width: double.infinity,
+                    child: TXButtonWidget(
+                      mainColor: R.color.primary_color,
+                      textColor: Colors.white,
+                      title: FlutterI18n.translate(context, 'Take new video'),
+                      onPressed: () async {
+                        await bloc.deleteVideo(widget.model.filePath);
+                        _takeVideo(ImageSource.camera);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    width: double.infinity,
+                    child: TXButtonWidget(
                       mainColor: Colors.red,
                       textColor: Colors.white,
                       title: FlutterI18n.translate(context, 'Delete video'),
-                      onPressed: () {
-                        bloc.deleteVideo(savedFilePath);
-                        setState(() { savedFilePath = null;});
-                        _controller.removeListener(() {_onVideoControllerUpdate();});
-                        _controller.initialize();
+                      onPressed: () async {
+                        await bloc.deleteVideo(widget.model.filePath);
+                        widget.model.filePath = "";
+                        _navBack();
+//                    _controller.removeListener(() {
+//                      _onVideoControllerUpdate();
+//                    });
+//                    _controller.initialize();
                       },
-                    )
-                  : Container(),
-              SizedBox(
-                height: 10,
-              ),
-              (savedFilePath != null)
-                  ? TXButtonWidget(
-                      mainColor: R.color.primary_color,
-                      textColor: Colors.white,
-                      title: FlutterI18n.translate(context, 'Play video'),
-                      onPressed: () {
-                        _controller.play();
-                      },
-                    )
-                  : Container(),
-              SizedBox(
-                height: 10,
-              ),
-              (savedFilePath != null)
-                  ? TXButtonWidget(
-                      mainColor: Colors.red,
-                      textColor: Colors.white,
-                      title: FlutterI18n.translate(context, 'Stop video'),
-                      onPressed: () {
-                        _controller.pause();
-                      },
-                    )
-                  : Container()
-            ]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+//              (savedFilePath != null)
+//                  ? TXButtonWidget(
+//                      mainColor: R.color.primary_color,
+//                      textColor: Colors.white,
+//                      title: FlutterI18n.translate(context, 'Play video'),
+//                      onPressed: () {
+//                        _controller.play();
+//                      },
+//                    )
+//                  : Container(),
+//              SizedBox(
+//                height: 10,
+//              ),
+//              (savedFilePath != null)
+//                  ? TXButtonWidget(
+//                      mainColor: Colors.red,
+//                      textColor: Colors.white,
+//                      title: FlutterI18n.translate(context, 'Stop video'),
+//                      onPressed: () {
+//                        _controller.pause();
+//                      },
+//                    )
+//                  : Container()
+                ]),
+                !_isPlaying
+                    ? Center(
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.white,
+                          child: InkWell(
+                              onTap: () async {
+                                setState(() {
+                                  _isPlaying = true;
+                                });
+                                await _controller.play();
+                              },
+                              child: Image.asset(
+                                R.image.noteAudioPlayWhite,
+                                color: R.color.primary_color,
+                                width: 25,
+                                height: 25,
+                              )),
+                        ),
+                      )
+                    : Container()
+              ],
+            ),
           )
         ],
       ),

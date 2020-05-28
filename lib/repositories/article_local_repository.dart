@@ -18,7 +18,7 @@ class ArticleLocalRepository implements IArticleLocalRepository {
   @override
   Future<bool> saveArticleLocal(ArticleLocalModel model) async {
     final res = await _articleLocalDao.saveArticleLocal(model);
-    final list = await _articleLocalDao.getArticleLocalList();
+//    final list = await _articleLocalDao.getArticleLocalList();
     return res;
   }
 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:repairservices/di/bloc_provider.dart';
+import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 import 'package:repairservices/ui/marker_component/drawer_mode.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
 import 'package:repairservices/ui/marker_component/glass_data.dart';
@@ -15,12 +16,14 @@ class DrawerToolUI extends StatelessWidget {
   final GlobalKey previewContainer;
   final double topOffset;
   final Color backgroundColor;
+  final List<Positioned> memos;
 
   DrawerToolUI({
     this.selectedImage,
     this.previewContainer,
     this.topOffset = 70,
     this.backgroundColor = Colors.black,
+    this.memos = const [],
   });
 
   @override
@@ -50,6 +53,7 @@ class DrawerToolUI extends StatelessWidget {
                   child: Stack(
                     children: [
                       getImageView(),
+                      ...memos,
                       getPainter(context),
                     ],
                   ),

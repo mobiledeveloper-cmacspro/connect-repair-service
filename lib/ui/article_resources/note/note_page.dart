@@ -9,12 +9,13 @@ import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_textfield_widget.dart';
+import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 import 'package:repairservices/ui/article_resources/note/note_bloc.dart';
 
 class NotePage extends StatefulWidget {
-  final String note;
+  final MemoNoteModel model;
 
-  const NotePage({Key key, this.note}) : super(key: key);
+  const NotePage({Key key, this.model}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _NoteState();
@@ -24,13 +25,14 @@ class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
   final TextEditingController _noteController = TextEditingController();
 
   void _navBack() {
-    NavigationUtils.pop(context);
+    NavigationUtils.pop(context, result: bloc.model);
   }
 
   @override
   void initState() {
     super.initState();
-    _noteController.text = widget.note ?? '';
+    bloc.model = widget.model;
+    _noteController.text = widget.model.description ?? '';
   }
 
   @override
@@ -60,25 +62,48 @@ class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
                 TXDividerWidget(),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                    child: Column(
-                      children: <Widget>[
-                        TXTextFieldWidget(
-                          controller: _noteController,
-                          multiLine: true,
-                          onSubmitted: (value) {},
-                          onChanged: (value) {},
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TXButtonWidget(
-                          mainColor: Colors.red,
-                          textColor: Colors.white,
-                          title: FlutterI18n.translate(context, 'Delete note'),
-                          onPressed: () {},
-                        )
-                      ],
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                      height: double.infinity,
+                      color: R.color.gray_light,
+                      child: Column(
+                        children: <Widget>[
+                          TXTextFieldWidget(
+                            boxDecoration: BoxDecoration(
+                                border: Border.all(color: R.color.gray),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5.0)),
+                                color: Colors.white),
+                            controller: _noteController,
+                            multiLine: true,
+                            contentPadding: EdgeInsets.all(6.0),
+                            onSubmitted: (value) {
+                              bloc.model.description = value;
+                            },
+                            onChanged: (value) {
+                              bloc.model.description = value;
+                            },
+                            placeholder: "Add text",
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            child: TXButtonWidget(
+                              mainColor: Colors.red,
+                              textColor: Colors.white,
+                              title:
+                                  FlutterI18n.translate(context, 'Delete note'),
+                              onPressed: () {
+                                bloc.model.description = "";
+                                _navBack();
+                              },
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

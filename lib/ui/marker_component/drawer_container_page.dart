@@ -1,18 +1,22 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/di/injector.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_dialog_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_page.dart';
+import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 import 'package:repairservices/ui/article_resources/audio/audio_page.dart';
 import 'package:repairservices/ui/article_resources/note/note_page.dart';
 import 'package:repairservices/ui/article_resources/video/video_page.dart';
@@ -23,6 +27,7 @@ import 'package:repairservices/ui/marker_component/drawer_tool_ui.dart';
 import 'package:repairservices/ui/marker_component/items/item_angle.dart';
 import 'package:repairservices/ui/marker_component/items/item_line.dart';
 import 'package:repairservices/ui/marker_component/utils/take_screenshoot.dart';
+import 'package:repairservices/utils/calendar_utils.dart';
 
 import '../../Utils/file_utils.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -51,6 +56,7 @@ class _DrawerContainerPageState
     super.initState();
     bloc.initArticleModel(widget.imagePath);
     titleCtr.text = bloc.articleModel.displayName;
+    initMemoListener();
   }
 
   @override
@@ -64,21 +70,26 @@ class _DrawerContainerPageState
       body: Column(
         children: [
           TXDividerWidget(),
-//          getBottomBar(),
+          Text(titleCtr.text,
+              style: TextStyle(
+                  fontSize: 17, color: Theme.of(context).primaryColor)),
           Expanded(
             child: Stack(
               children: [
-                Text(titleCtr.text,
-                    style: TextStyle(
-                        fontSize: 17, color: Theme.of(context).primaryColor)),
                 StreamBuilder<File>(
                   stream: bloc.selectedImageStream,
                   builder: (c, snap) {
-                    return DrawerToolUI(
-                      selectedImage: snap.data,
-                      previewContainer: previewContainer,
-                      backgroundColor: Colors.white,
-                    );
+                    return StreamBuilder<List<MemoModel>>(
+                        stream: bloc.memoListResult,
+                        initialData: [],
+                        builder: (ctx, snapshotMemos) {
+                          return DrawerToolUI(
+                            selectedImage: snap.data,
+                            previewContainer: previewContainer,
+                            backgroundColor: Colors.white,
+                            memos: _getMemos(snapshotMemos.data),
+                          );
+                        });
                   },
                 ),
                 Align(
@@ -86,7 +97,9 @@ class _DrawerContainerPageState
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      getSecondLayerMenu(),
+                      bloc.addingMemo
+                          ? getBottomMemoBar()
+                          : getSecondLayerMenu(),
                       Container(
                         height: 1,
                         color: Colors.black54,
@@ -97,7 +110,6 @@ class _DrawerContainerPageState
               ],
             ),
           ),
-//          getBottomBar(),
           getCurrentMenu(),
         ],
       ),
@@ -242,7 +254,13 @@ class _DrawerContainerPageState
           getActionItem(
             icon: MdiIcons.noteOutline,
             text: 'Memo',
-            onTap: () {},
+            onTap: () {
+              bloc.viewMode = ViewMode.NOTHING;
+              bloc.currentDrawerMode = DrawerMode.nothing();
+              setState(() {
+                bloc.addingMemo = true;
+              });
+            },
           ),
         ],
       ),
@@ -302,7 +320,12 @@ class _DrawerContainerPageState
               icon: Icons.add,
               text: 'Add',
               onTap: () {
-                bloc.viewMode = ViewMode.ADD;
+                bloc.viewMode = bloc.viewMode == ViewMode.ADD
+                    ? ViewMode.NOTHING
+                    : ViewMode.ADD;
+                setState(() {
+                  bloc.addingMemo = false;
+                });
               },
             ),
           ],
@@ -437,54 +460,169 @@ class _DrawerContainerPageState
     );
   }
 
-  Widget getBottomBar() {
+  List<Positioned> _getMemos(List<MemoModel> memosList) {
+    List<Positioned> list = [];
+    memosList.forEach((element) {
+      final w = Positioned(
+        left: element.xPos,
+        top: element.yPos,
+        child: InkWell(
+          onTap: () async {
+            _navigateToMemo(element);
+          },
+          child: Container(
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            padding: EdgeInsets.all(5),
+            child: Image.asset(element is MemoNoteModel
+                ? R.image.noteText
+                : (element is MemoAudioModel
+                    ? R.image.noteAudio
+                    : R.image.noteVideo)),
+          ),
+        ),
+      );
+      list.add(w);
+    });
+    return list;
+  }
+
+  void initMemoListener() {
+    bloc.memoResult.listen((offset) async {
+      bloc.viewMode = ViewMode.NOTHING;
+      bloc.currentDrawerMode = DrawerMode.nothing();
+      setState(() {
+        bloc.addingMemo = false;
+      });
+      MemoModel model = bloc.currentMemoType == MemoType.Note
+          ? MemoNoteModel()
+          : (bloc.currentMemoType == MemoType.Audio
+              ? MemoAudioModel()
+              : MemoVideoModel());
+      model.id = CalendarUtils.getTimeIdBasedSeconds();
+      model.yPos = offset.dy;
+      model.xPos = offset.dx;
+
+      _navigateToMemo(model);
+    });
+  }
+
+  void _navigateToMemo(MemoModel model) async {
+    if (model is MemoNoteModel) {
+      final res = await NavigationUtils.push(
+          context,
+          NotePage(
+            model: model,
+          ));
+      bloc.syncMemo(res);
+    } else if (model is MemoAudioModel) {
+      final res = await NavigationUtils.push(
+          context,
+          AudioPage(
+            model: model,
+          ));
+      bloc.syncMemo(res);
+    } else {
+//      _showDialogVideoPicker(option: (opt) async {
+//
+//      });
+      final res = await NavigationUtils.push(
+          context,
+          VideoPage(
+            model: model,
+          ));
+      bloc.syncMemo(res);
+    }
+  }
+
+  Widget getBottomMemoBar() {
     return Container(
-      height: 40,
       width: double.infinity,
+      color: R.color.gray_light,
       child: Row(
         children: <Widget>[
           Expanded(
               flex: 1,
               child: TXIconButtonWidget(
-                backgroundColor: R.color.primary_color,
                 icon: Image.asset(R.image.noteTextWhite,
                     color: R.color.primary_color),
-                onPressed: () {
-                  NavigationUtils.push(context, NotePage());
+                onPressed: () async {
+                  bloc.currentMemoType = MemoType.Note;
+                  _showDialogInfo(
+                      content: "Tap in the image for add a text note");
                 },
               )),
           Expanded(
               flex: 1,
               child: TXIconButtonWidget(
-                backgroundColor: R.color.primary_color,
                 icon: Image.asset(R.image.noteAudioWhite,
                     color: R.color.primary_color),
-                onPressed: () {
-                  NavigationUtils.push(context, AudioPage());
+                onPressed: () async {
+                  bloc.currentMemoType = MemoType.Audio;
+                  _showDialogInfo(
+                      content: "Tap in the image for add a record note");
                 },
               )),
           Expanded(
               flex: 1,
               child: TXIconButtonWidget(
-                backgroundColor: R.color.primary_color,
                 icon: Image.asset(
                   R.image.noteVideoWhite,
                   color: R.color.primary_color,
                 ),
-                onPressed: () {
-                  NavigationUtils.push(context, VideoPage());
+                onPressed: () async {
+                  bloc.currentMemoType = MemoType.Video;
+                  _showDialogInfo(
+                      content: "Tap in the image for add a video note");
                 },
-              )),
-          Expanded(
-              flex: 1,
-              child: TXIconButtonWidget(
-                icon: Icon(Icons.folder),
-                onPressed: () {},
               )),
         ],
       ),
     );
   }
 
-  Widget _getBottomBarAction() {}
+  void _showDialogInfo({String content}) {
+    showCupertinoDialog<String>(
+      context: context,
+      builder: (BuildContext context) => TXCupertinoDialogWidget(
+        title: "Add Memo",
+        content: content,
+        onOK: () {
+          NavigationUtils.pop(context);
+        },
+      ),
+    );
+  }
+
+  void _showDialogVideoPicker({ValueChanged<int> option}) {
+    showCupertinoDialog<String>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: CupertinoDialogAction(
+          child: Container(
+            child: TXTextWidget(
+              text: "Choose from gallery",
+            ),
+          ),
+          onPressed: () {
+            NavigationUtils.pop(context);
+//            option(1);
+          },
+        ),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: Container(
+              margin: EdgeInsets.only(top: 10),
+              child: TXTextWidget(
+                text: "Take video",
+              ),
+            ),
+            onPressed: () {
+              NavigationUtils.pop(context);
+//              option(2);
+            },
+          )
+        ],
+      ),
+    );
+  }
 }

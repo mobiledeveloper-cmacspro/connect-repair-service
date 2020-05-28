@@ -4,10 +4,9 @@ class TXIconButtonWidget extends StatelessWidget {
   final Widget icon;
   final Function onPressed;
   final double iconSize;
-  final Color backgroundColor;
 
   const TXIconButtonWidget(
-      {Key key, this.icon, this.onPressed, this.iconSize, this.backgroundColor})
+      {Key key, this.icon, this.onPressed, this.iconSize})
       : super(key: key);
 
   @override

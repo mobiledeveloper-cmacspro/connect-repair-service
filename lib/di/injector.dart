@@ -96,7 +96,7 @@ class Injector {
     container.registerFactory((c) => DrawerContainerBloC());
     container
         .registerFactory((c) => ArticleIdentificationBloC(container.resolve()));
-    container.registerFactory((c) => ArticleLocalDetailBloC());
+    container.registerFactory((c) => ArticleLocalDetailBloC(container.resolve()));
     container.registerFactory((c) => ArticleDetailBloC());
     container.registerFactory((c) => PDFViewerBloC());
     container.registerFactory((c) => FittingWindowsBloC());

@@ -15,6 +15,7 @@ class TXTextFieldWidget extends StatefulWidget {
   final Widget prefixIcon;
   final EdgeInsets contentPadding;
   final bool autofocus;
+  final BoxDecoration boxDecoration;
 
   const TXTextFieldWidget(
       {Key key,
@@ -29,7 +30,7 @@ class TXTextFieldWidget extends StatefulWidget {
       this.fontSize = 12,
       this.prefixIcon,
       this.contentPadding,
-      this.autofocus = false})
+      this.autofocus = false, this.boxDecoration})
       : super(key: key);
 
   @override
@@ -46,7 +47,7 @@ class _TXTextFieldWidgetState extends State<TXTextFieldWidget> {
       minLines: 1,
       prefix: widget.prefixIcon,
       padding: widget.contentPadding ?? EdgeInsets.all(0),
-      decoration: BoxDecoration(border: null),
+      decoration: widget.boxDecoration,
       placeholder: widget.placeholder,
       style: TextStyle(
           fontSize: widget.fontSize, color: Colors.black, letterSpacing: .05),
