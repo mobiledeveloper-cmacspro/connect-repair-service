@@ -19,7 +19,6 @@ import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 import 'package:repairservices/ui/article_resources/audio/audio_bloc.dart';
-import 'package:audio_recorder/audio_recorder.dart';
 
 class AudioPage extends StatefulWidget {
   final MemoAudioModel model;
@@ -31,7 +30,7 @@ class AudioPage extends StatefulWidget {
 }
 
 class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
-  Recording _recording = new Recording();
+//  Recording _recording = new Recording();
   bool _isRecording = false;
   String _savedFilePath;
   String _textViewDuration;

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:audio_recorder/audio_recorder.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_audio_recorder/flutter_audio_recorder.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
@@ -30,6 +30,7 @@ class AudioBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   Timer _timer;
 
   MemoAudioModel model;
+  FlutterAudioRecorder recorder;
 
   void init(MemoAudioModel model) async {
     this.model = model;
@@ -42,6 +43,9 @@ class AudioBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
       this.model.filePath = "$appRootFiles/${model.id}";
       _audioActionController.sinkAddSafe(MediaActions.NEW);
     }
+
+    recorder = FlutterAudioRecorder(this.model.filePath);
+    await recorder.initialized;
   }
 
   void disposeAudioView() async {
@@ -55,14 +59,16 @@ class AudioBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   }
 
   void startRecord() async {
-    await AudioRecorder.start(path: this.model.filePath);
+//    await AudioRecorder.start(path: this.model.filePath);
+    await recorder.start();
     _audioActionController.sinkAddSafe(MediaActions.RECORDING);
     initRecorderListeners();
   }
 
   void stopRecord() async {
-    Recording recording = await AudioRecorder.stop();
-    this.model.filePath = recording.path;
+    var result = await recorder.stop();
+//    Recording recording = await AudioRecorder.stop();
+    this.model.filePath = result.path;
 //    _watchTimer.stop();
     _timer.cancel();
     await audioPlayer.setUrl(model.filePath, isLocal: true);
