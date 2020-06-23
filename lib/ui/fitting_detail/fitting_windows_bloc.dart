@@ -82,6 +82,21 @@ class FittingWindowsBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
     return res;
   }
 
+  String getSurfaceType(String type){
+    String res = '';
+    if (type.contains("1"))
+      res = R.image.surfaceType1;
+    else if (type.contains("2"))
+      res = R.image.surfaceType2;
+    else if (type.contains("3"))
+      res = R.image.surfaceType3;
+    else if (type.contains("4"))
+      res = R.image.surfaceType4;
+    else if (type.contains("5"))
+      res = R.image.surfaceType5;
+    return res;
+  }
+
 
 
   @override

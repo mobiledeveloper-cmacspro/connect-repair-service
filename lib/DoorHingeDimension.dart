@@ -108,16 +108,22 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                   if (dimensionCtr.text != "" && int.parse(dimensionCtr.text) != 0){
                     switch(dimension){
                       case 'A':
-                        aCtr.text = int.parse(dimensionCtr.text).toString();
-                        takeScreenShoot();
+                        setState(() {
+                          aCtr.text = int.parse(dimensionCtr.text).toString();
+                        });
+//                        takeScreenShoot();
                         break;
                       case 'B':
-                        bCtr.text = int.parse(dimensionCtr.text).toString();
-                        takeScreenShoot();
+                        setState(() {
+                          bCtr.text = int.parse(dimensionCtr.text).toString();
+                        });
+//                        takeScreenShoot();
                         break;
                       default:
-                        cCtr.text = int.parse(dimensionCtr.text).toString();
-                        takeScreenShoot();
+                        setState(() {
+                          cCtr.text = int.parse(dimensionCtr.text).toString();
+                        });
+//                        takeScreenShoot();
                     }
                   }
                   else {
@@ -138,31 +144,29 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
     );
   }
 
-  takeScreenShoot() async {
-    setState(() {});
-    await Future.delayed(Duration(seconds: 1),() async {
-      debugPrint('taking screenshot');
-      RenderRepaintBoundary boundary = imageKey1.currentContext.findRenderObject();
-      var image = await boundary.toImage();
-      var byteData = await image.toByteData(format: ImageByteFormat.png);
-      final buffer = byteData.buffer;
-      final directory = await FileUtils.getRootFilesDir();
-      final fileName = CalendarUtils.getTimeIdBasedSeconds(withTempPrefix: true);
-      final path = '$directory/$fileName.png';
+  Future<void> takeScreenShoot1() async {
+//    setState(() {});
+    debugPrint('taking screenshot');
+    RenderRepaintBoundary boundary = imageKey1.currentContext.findRenderObject();
+    var image = await boundary.toImage();
+    var byteData = await image.toByteData(format: ImageByteFormat.png);
+    final buffer = byteData.buffer;
+    final directory = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds(withTempPrefix: true);
+    final path = '$directory/$fileName.png';
 
-      File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
+    File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
 
-      ///Removing previous screen shoot if exist
-      if (imagePath1?.isNotEmpty == true &&
-          imagePath1?.endsWith('.png') == true) {
-        File preFile = File(imagePath1);
-        if (await preFile.exists()) {
-          await preFile.delete();
-        }
+    ///Removing previous screen shoot if exist
+    if (imagePath1?.isNotEmpty == true &&
+        imagePath1?.endsWith('.png') == true) {
+      File preFile = File(imagePath1);
+      if (await preFile.exists()) {
+        await preFile.delete();
       }
+    }
 
-      imagePath1 = path;
-    });
+    imagePath1 = path;
   }
 
   @override
@@ -186,7 +190,8 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
               'assets/checkGreen.png',
               height: 25,
             ),
-            onTap: (){
+            onTap: () async{
+              await takeScreenShoot1();
               final doorHinge = DoorHinge.withData('Door Hinge Fitting', DateTime.now(), aCtr.text, bCtr.text, cCtr.text, dCtr.text, imagePath1);
               Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData(doorHinge)));
             },
@@ -271,7 +276,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                                           Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(FlutterI18n.translate(context, 'Dimension')+' D', ['22','36']))).then((selectedOption){
                                             setState(() {
                                               dCtr.text = selectedOption;
-                                              takeScreenShoot();
+//                                              takeScreenShoot();
                                             });
                                           });
                                         },
@@ -305,7 +310,10 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         keyboardType: TextInputType.number,
                         onSubmitted: (next){
                           _changeFocus(context, aNode, bNode);
-                          takeScreenShoot();
+                          setState(() {
+
+                          });
+//                          takeScreenShoot();
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -332,7 +340,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         keyboardType: TextInputType.number,
                         onSubmitted: (next){
                           _changeFocus(context, bNode, cNode);
-                          takeScreenShoot();
+//                          takeScreenShoot();
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -357,8 +365,8 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         controller: cCtr,
                         keyboardType: TextInputType.number,
                         onSubmitted: (_){
-                          setState(() {});
-                          takeScreenShoot();
+//                          setState(() {});
+//                          takeScreenShoot();
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -410,7 +418,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(FlutterI18n.translate(context, 'Dimension')+' D', ['22','36']))).then((selectedOption){
                           setState(() {
                             dCtr.text = selectedOption;
-                            takeScreenShoot();
+//                            takeScreenShoot();
                           });
                         });
                       },

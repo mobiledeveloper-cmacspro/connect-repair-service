@@ -264,7 +264,16 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     doorHinge.doorFrame = doorFrameCtr.text;
     doorHinge.systemDoorFrame = systemDoorFrameCtr.text;
 
-    doorHinge.pdfPath = await PDFManagerDoorHinge.getPDFPath(doorHinge);
+    int type = 0;
+    if (doorHinge.hingeType == FlutterI18n.translate(context, 'Barrel hinge')) {
+      type = 1;
+    } else if (doorHinge.hingeType ==
+        FlutterI18n.translate(context, 'Surface-mounted door hinge')) {
+      type = 2;
+    }
+    doorHinge.pdfPath =
+        await PDFManagerDoorHinge.getPDFPath(doorHinge, type: type);
+
     int id = await helper.insertDoorHinge(doorHinge);
     print('inserted row: $id');
     if (id != null) {
@@ -676,8 +685,12 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               hingeTypeCtr,
               FlutterI18n.translate(context, 'Surface-mounted door hinge')),
           Divider(height: 1),
-          _getSurface(),
-          _getBarrel()
+          if (hingeTypeCtr.text ==
+              FlutterI18n.translate(context, 'Surface-mounted door hinge'))
+            _getSurface(),
+          if (hingeTypeCtr.text ==
+              FlutterI18n.translate(context, 'Barrel hinge'))
+            _getBarrel()
         ],
       ),
     );

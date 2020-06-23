@@ -116,12 +116,16 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                   if (dimensionCtr.text != "" && int.parse(dimensionCtr.text) != 0){
                     switch(dimension){
                       case 'A':
-                        aCtr.text = int.parse(dimensionCtr.text).toString();
-                        takeScreenShoot();
+                        setState(() {
+                          aCtr.text = int.parse(dimensionCtr.text).toString();
+                        });
+//                        takeScreenShoot();
                         break;
                       default:
-                        bCtr.text = int.parse(dimensionCtr.text).toString();
-                        takeScreenShoot();
+                        setState(() {
+                          bCtr.text = int.parse(dimensionCtr.text).toString();
+                        });
+//                        takeScreenShoot();
                     }
                   }
                   else {
@@ -149,21 +153,18 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
       return Image.asset('assets/hingeDimensionBarril.png');
     }
   }
-  takeScreenShoot() async {
-    setState(() {});
-    await Future.delayed(Duration(seconds: 1),()async{
-      debugPrint('Taking screenshot');
-      RenderRepaintBoundary boundary = imageKey1.currentContext.findRenderObject();
-      var image = await boundary.toImage();
-      var byteData = await image.toByteData(format: prefix0.ImageByteFormat.png);
-      final buffer = byteData.buffer;
-      final directory = await FileUtils.getRootFilesDir();
-      final fileName = CalendarUtils.getTimeIdBasedSeconds();
-      final path = '$directory/$fileName.png';
+  Future<void> takeScreenShoot() async {
+    debugPrint('Taking screenshot');
+    RenderRepaintBoundary boundary = imageKey1.currentContext.findRenderObject();
+    var image = await boundary.toImage();
+    var byteData = await image.toByteData(format: prefix0.ImageByteFormat.png);
+    final buffer = byteData.buffer;
+    final directory = await FileUtils.getRootFilesDir();
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
+    final path = '$directory/$fileName.png';
 
-      File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
-      imagePath1 = path;
-    });
+    File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
+    imagePath1 = path;
   }
 
   @override
@@ -187,12 +188,12 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
               'assets/checkGreen.png',
               height: 25,
             ),
-            onTap: (){
+            onTap: ()async{
               doorHinge.dimensionsBarrelA = aCtr.text;
               doorHinge.dimensionsBarrelB = bCtr.text;
               aNode.unfocus();
               bNode.unfocus();
-              takeScreenShoot();
+              await takeScreenShoot();
               if (imagePath1 != '') {
                 doorHinge.dimensionBarrelIm = imagePath1;
               }
@@ -280,7 +281,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                         keyboardType: TextInputType.number,
                         onSubmitted: (next){
                           _changeFocus(context, aNode, bNode);
-                          takeScreenShoot();
+//                          takeScreenShoot();
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,

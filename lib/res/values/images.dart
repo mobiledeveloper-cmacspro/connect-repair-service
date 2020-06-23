@@ -42,4 +42,9 @@ class AppImage {
   final noteAudioWhite = 'lib/res/assets/img/noteRecordWhite.png';
   final noteVideo = 'lib/res/assets/img/noteVideo.png';
   final noteVideoWhite = 'lib/res/assets/img/noteVideoWhite.png';
+  final surfaceType1 = 'lib/res/assets/img/surfaceType1.png';
+  final surfaceType2 = 'lib/res/assets/img/surfaceType2.png';
+  final surfaceType3 = 'lib/res/assets/img/surfaceType3.png';
+  final surfaceType4 = 'lib/res/assets/img/surfaceType4.png';
+  final surfaceType5 = 'lib/res/assets/img/surfaceType5.png';
 }
