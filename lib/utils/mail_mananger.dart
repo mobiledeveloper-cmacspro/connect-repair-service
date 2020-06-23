@@ -8,7 +8,7 @@ class MailModel {
 
   MailModel(
       {this.attachments = const [],
-      this.recipients = const ["lepuchenavarro@gmail.com"],
+      this.recipients = const ["connect-app@schueco.com"],
       this.subject,
       this.body});
 }
