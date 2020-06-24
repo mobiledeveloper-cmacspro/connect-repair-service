@@ -15,6 +15,7 @@ abstract class PDFManagerDoorLock {
       PDFCell(
           title: "Schüco logo visible on face place",
           value: "${model.logoVisible}"),
+      PDFCell(title: "Year of manufactoring", value: model.year),
       PDFCell(title: "Profile insulation", value: model.profile),
       PDFCell(title: "Protection", value: model.protection),
       PDFCell(
@@ -97,7 +98,7 @@ abstract class PDFManagerDoorLock {
       );
       children.addAll(rows);
 
-      children.insert(7, lockDataRowSection);
+      children.insert(8, lockDataRowSection);
       children.add(pw.Container(
           margin: pw.EdgeInsets.only(bottom: 10),
           child: pw.Column(children: [
