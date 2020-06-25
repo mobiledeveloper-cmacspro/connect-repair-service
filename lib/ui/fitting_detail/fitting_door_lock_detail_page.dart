@@ -55,6 +55,18 @@ class _FittingDoorLockDetailState
                   context, 'Schüco logo visible on face plate'),
               value: widget.model.logoVisible,
             ),
+            widget.model.year.trim().isNotEmpty
+                ? Column(
+                    children: <Widget>[
+                      TXDividerWidget(),
+                      TXItemCellEditWidget(
+                        title: FlutterI18n.translate(
+                            context, 'Year of manufactoring'),
+                        value: widget.model.year,
+                      ),
+                    ],
+                  )
+                : Container(),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: FlutterI18n.translate(context, 'Profile insulations'),
@@ -76,6 +88,17 @@ class _FittingDoorLockDetailState
               title: FlutterI18n.translate(context, 'Leaf'),
               value: widget.model.leafDoor,
             ),
+            widget.model.leafDoor != 'Single'
+                ? Column(
+                    children: <Widget>[
+                      TXDividerWidget(),
+                      TXItemCellEditWidget(
+                        title: FlutterI18n.translate(context, 'Bolt'),
+                        value: widget.model.bolt,
+                      ),
+                    ],
+                  )
+                : Container(),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: FlutterI18n.translate(context, 'DIN direction'),
@@ -101,6 +124,34 @@ class _FittingDoorLockDetailState
               title: FlutterI18n.translate(context, 'Lock with top locking'),
               value: widget.model.lockWithTopLocking,
             ),
+            TXDividerWidget(),
+            widget.model.lockWithTopLocking == 'Yes'
+                ? Column(
+                    children: <Widget>[
+                      TXItemCellEditWidget(
+                        title:
+                            FlutterI18n.translate(context, 'Shoot bolt lock'),
+                        value: widget.model.shootBoltLock,
+                      ),
+                      TXDividerWidget(),
+                      TXItemCellEditWidget(
+                        title: FlutterI18n.translate(context, 'Handle height'),
+                        value: widget.model.handleHeight,
+                      ),
+                      TXDividerWidget(),
+                      TXItemCellEditWidget(
+                        title:
+                            FlutterI18n.translate(context, 'Door leaf height'),
+                        value: widget.model.doorLeafHight,
+                      ),
+                      TXDividerWidget(),
+                      TXItemCellEditWidget(
+                        title: FlutterI18n.translate(context, 'Restrictor'),
+                        value: widget.model.restrictor,
+                      ),
+                    ],
+                  )
+                : Container(),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",

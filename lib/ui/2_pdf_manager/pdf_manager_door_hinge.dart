@@ -85,11 +85,11 @@ class PDFManagerDoorHinge {
       if(type == 2){
         final String doorHingeDetailsImId =
         model.doorHingeDetailsIm.replaceAll('type', '');
-        ByteData bd3 = await rootBundle
+        ByteData bd1 = await rootBundle
             .load('lib/res/assets/img/surfaceType$doorHingeDetailsImId.png');
         final doorHingeDetailsImage = PdfImage.file(
           pdf.document,
-          bytes: bd3.buffer.asUint8List(),
+          bytes: bd1.buffer.asUint8List(),
         );
         children.insert(12, pw.Image(doorHingeDetailsImage));
       }

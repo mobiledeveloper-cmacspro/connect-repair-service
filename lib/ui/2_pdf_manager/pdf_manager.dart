@@ -19,6 +19,8 @@ class PDFCell {
 class PDFManager {
   ///For text style
   static double textFontSize = 18.0;
+  static double textFontSizeMedium = 15.0;
+  static double textFontSizeMin = 12.0;
   static PdfPageFormat pageFormat = PdfPageFormat.a4;
 
   static Future<Font> getTTFBold() async {
