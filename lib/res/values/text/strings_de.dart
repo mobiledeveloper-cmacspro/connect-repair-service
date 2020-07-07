@@ -15,13 +15,12 @@ class StringsDe implements StringsBase {
   String get checkNetworkConnection => 'Wir haben Verbindungsprobleme';
 
   @override
-  String get failedOperation => null;
+  String get failedOperation => "";
 
   @override
-  String get forgotPassword => null;
+  String get forgotPassword => "";
 
   @override
-  // TODO: implement login
-  String get login => null;
+  String get login => "";
 
 }

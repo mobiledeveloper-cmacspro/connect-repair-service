@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 
 //en
 abstract class StringsBase implements WidgetsLocalizations {
-
   String get appName;
 
   String get checkNetworkConnection;
@@ -12,5 +11,4 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get forgotPassword;
 
   String get login;
-
 }
