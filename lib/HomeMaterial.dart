@@ -35,6 +35,7 @@ import 'package:repairservices/Utils/DeviceInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' as Platt;
 import 'package:devicelocale/devicelocale.dart';
+import 'package:repairservices/res/R.dart';
 
 class HomeM extends StatefulWidget {
   @override
@@ -127,7 +128,7 @@ class HomeState extends State<HomeM> {
                 ),
                 child: Center(
                   child: Text(
-                    FlutterI18n.translate(context, 'login'),
+                    R.string.login,
                     style: TextStyle(fontSize: 17, color: Colors.white),
                   ),
                 )),
@@ -343,7 +344,8 @@ class HomeState extends State<HomeM> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(FlutterI18n.translate(context, 'Home'),
+                      child: Text(
+                          R.string.home,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -368,7 +370,7 @@ class HomeState extends State<HomeM> {
                     Container(
                       margin: EdgeInsets.only(left: 16),
                       child: Text(
-                          FlutterI18n.translate(context, 'Art_Ident_Serv'),
+                          R.string.artIdentServ,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -394,7 +396,7 @@ class HomeState extends State<HomeM> {
                     Container(
                       margin: EdgeInsets.only(left: 16),
                       child: Text(
-                          FlutterI18n.translate(context, 'Art_BookMark_List'),
+                          R.string.artBookMarkList,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -421,7 +423,8 @@ class HomeState extends State<HomeM> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 20),
-                      child: Text(FlutterI18n.translate(context, 'home3'),
+                      child: Text(
+                          R.string.home3,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -445,7 +448,8 @@ class HomeState extends State<HomeM> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text('Docu-Center',
+                      child: Text(
+                          R.string.docCenter,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -474,7 +478,8 @@ class HomeState extends State<HomeM> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(FlutterI18n.translate(context, 'comp_prof'),
+                      child: Text(
+                          R.string.companyProfile,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -499,7 +504,8 @@ class HomeState extends State<HomeM> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text('Service / FAQ',
+                      child: Text(
+                          R.string.serviceFaq,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -524,7 +530,8 @@ class HomeState extends State<HomeM> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(FlutterI18n.translate(context, 'Contact'),
+                      child: Text(
+                          R.string.contact,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -549,7 +556,8 @@ class HomeState extends State<HomeM> {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 16),
-                      child: Text(FlutterI18n.translate(context, 'Setting'),
+                      child: Text(
+                          R.string.setting,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -598,8 +606,8 @@ class HomeState extends State<HomeM> {
                       margin: EdgeInsets.only(left: 16),
                       child: Text(
                           !loggued
-                              ? FlutterI18n.translate(context, 'login')
-                              : FlutterI18n.translate(context, 'logoff'),
+                              ? R.string.login
+                              : R.string.logoff,
                           style: TextStyle(
                               color: Color.fromRGBO(38, 38, 38, 1.0),
                               fontSize: 17)),
@@ -663,7 +671,7 @@ class HomeState extends State<HomeM> {
                                   top: topButtonPadding,
                                   bottom: bottomButtonPadding),
                               child: _displayGridItem(
-                                  FlutterI18n.translate(context, 'home1'),
+                                  R.string.home1,
                                   'assets/articleIdentificationService.png', () {
                                 NavigationUtils.pushCupertinoWithRoute(
                                     context,
@@ -685,7 +693,7 @@ class HomeState extends State<HomeM> {
                                 top: topButtonPadding,
                                 bottom: bottomButtonPadding),
                             child: _displayGridItem(
-                                FlutterI18n.translate(context, 'home2'),
+                                R.string.home2,
                                 'assets/articleBookmarkList.png', () {
                               Navigator.push(
                                 context,
@@ -710,7 +718,7 @@ class HomeState extends State<HomeM> {
                                   top: topButtonPadding,
                                   bottom: bottomButtonPadding),
                               child: _displayGridItem(
-                                  FlutterI18n.translate(context, 'home3'),
+                                  R.string.home3,
                                   'assets/projectDocumentation.png',
                                       () {}),
                             ),
@@ -728,7 +736,7 @@ class HomeState extends State<HomeM> {
                                 top: topButtonPadding,
                                 bottom: bottomButtonPadding),
                             child: _displayGridItem(
-                                FlutterI18n.translate(context, 'Docu Center')+" \n", 'assets/docucenter.png',
+                                R.string.docCenter + " \n", 'assets/docucenter.png',
                                     () async {
                                   String url = Platt.Platform.isIOS
                                       ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
@@ -755,7 +763,7 @@ class HomeState extends State<HomeM> {
                                   top: topButtonPadding,
                                   bottom: bottomButtonPadding),
                               child: _displayGridItem(
-                                  FlutterI18n.translate(context, 'home4'),
+                                  R.string.home4,
                                   'assets/companyProfile.png', () {
                                 Navigator.push(
                                     context,
@@ -777,7 +785,7 @@ class HomeState extends State<HomeM> {
                                   top: topButtonPadding,
                                   bottom: bottomButtonPadding),
                               child: _displayGridItem(
-                                  FlutterI18n.translate(context, 'Service / FAQ'), 'assets/FAQ.png', () {
+                                  R.string.serviceFaq, 'assets/FAQ.png', () {
                                 Navigator.push(
                                     context,
                                     CupertinoPageRoute(
