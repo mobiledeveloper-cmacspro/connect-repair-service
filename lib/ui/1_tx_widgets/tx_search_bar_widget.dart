@@ -96,7 +96,7 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
             ),
             Expanded(
               child: TXTextWidget(
-                text: FlutterI18n.translate(context, 'Search'),
+                text: R.string.search,
                 size: 18,
                 color: R.color.gray,
               ),
