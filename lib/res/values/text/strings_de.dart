@@ -470,47 +470,4 @@ class StringsDe implements StringsBase {
   @override
   String get addAddress => "Adresse hinzufügen";
 
-
-  @override
-  String get home => "Startseite";
-
-  @override
-  String get artIdentServ => "Artikel-Identifikationsdienst";
-
-  @override
-  String get artBookMarkList => "Artikel-Merkliste";
-
-  @override
-  String get home1 => "Artikel-Identifikations\n-dienst";
-
-  @override
-  String get home2 => "Artikel-Merkliste\n";
-
-  @override
-  String get home3 => "ProjektDokumentation";
-
-  @override
-  String get home4 => "Firmenprofil\n";
-
-  @override
-  String get docCenter => "Docu Center";
-
-  @override
-  String get companyProfile => "Firmenprofil";
-
-  @override
-  String get contact => "Kontakt";
-
-  @override
-  String get serviceFaq => "";
-
-  @override
-  String get setting => "Einstellungen";
-
-  @override
-  String get logoff => "Abmelden";
-
-  @override
-  String get search => "Suche";
-
 }
