@@ -274,4 +274,40 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get systemRoyal17mm;
 
+  String get systemRoyalS10mm;
+
+  String get systemRoyalS17mm;
+
+  String get tiltSlideFittings;
+
+  String get withEngagementMechanism;
+
+  String get withoutEngagementMechanism;
+
+  String get fittingComponentsToBeReplaced;
+
+  String get rollerCarriageFrontRear;
+
+  String get topStaysFrontRear;
+
+  String get cornerDriveBottomHandleSide;
+
+  String get cornerDriveTopHandleSide;
+
+  String get cornerDriveRear;
+
+  String get controlDevice;
+
+  String get handle;
+
+  String get systemRoyal;
+
+  String get slidingDimensions;
+
+  String get articleList;
+
+  String get addressAdded;
+
+  String get addAddress;
+
 }

@@ -416,5 +416,59 @@ class StringsDe implements StringsBase {
   @override
   String get systemRoyal17mm => "System Royal 17mm";
 
+  @override
+  String get systemRoyalS10mm => "System Royal S 10mm";
+
+  @override
+  String get systemRoyalS17mm => "System Royal S 17mm";
+
+  @override
+  String get tiltSlideFittings => "Beschlagsart";
+
+  @override
+  String get withEngagementMechanism => "mit Zwangsandruck";
+
+  @override
+  String get withoutEngagementMechanism => "ohne Zwangsandruck";
+
+  @override
+  String get fittingComponentsToBeReplaced => "Zu ersetzende Beschlagsteile";
+
+  @override
+  String get rollerCarriageFrontRear => "Laufwagen (vorne/hinten)";
+
+  @override
+  String get topStaysFrontRear => "Scheren oben (vordere/hintere)";
+
+  @override
+  String get cornerDriveBottomHandleSide => "Eckumlenkung (unten Griffseite)";
+
+  @override
+  String get cornerDriveTopHandleSide => "Eckumlenkung (oben Griffseite)";
+
+  @override
+  String get cornerDriveRear => "Eckumlenkung (hinten)";
+
+  @override
+  String get controlDevice => "Steuerteil";
+
+  @override
+  String get handle => "Handhebel";
+
+  @override
+  String get systemRoyal => "System Royal 8.5mm";
+
+  @override
+  String get slidingDimensions => "Bemaßung Laufschiene";
+
+  @override
+  String get articleList => "Artikelsuche";
+
+  @override
+  String get addressAdded => "Adresse hinzugefügt";
+
+  @override
+  String get addAddress => "Adresse hinzufügen";
+
 
 }

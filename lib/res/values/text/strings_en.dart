@@ -416,6 +416,60 @@ class StringsEn implements StringsBase {
   @override
   String get systemRoyal17mm => "System royal 17mm";
 
+  @override
+  String get systemRoyalS10mm => "System royal S 10mm";
+
+  @override
+  String get systemRoyalS17mm => "System royal S 17mm";
+
+  @override
+  String get tiltSlideFittings => "Tilt / slide fittings";
+
+  @override
+  String get withEngagementMechanism => "With engagement mechanism";
+
+  @override
+  String get withoutEngagementMechanism => "Without engagement mechanism";
+
+  @override
+  String get fittingComponentsToBeReplaced => "Fittings components to be replaced";
+
+  @override
+  String get rollerCarriageFrontRear => "Roller carriage (front/rear)";
+
+  @override
+  String get topStaysFrontRear => "Top stays (front/rear)";
+
+  @override
+  String get cornerDriveBottomHandleSide => "Corner drive (bottom, handle side)";
+
+  @override
+  String get cornerDriveTopHandleSide => "Corner drive (top, handle side)";
+
+  @override
+  String get cornerDriveRear => "Corner drive (rear)";
+
+  @override
+  String get controlDevice => "Control device";
+
+  @override
+  String get handle => "Handle";
+
+  @override
+  String get systemRoyal => "System royal 8.5mm";
+
+  @override
+  String get slidingDimensions => "Sliding dimensions";
+
+  @override
+  String get articleList => "Article List";
+
+  @override
+  String get addressAdded => "Address added";
+
+  @override
+  String get addAddress => "Add address";
+
 
 
 }
