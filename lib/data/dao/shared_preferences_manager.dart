@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesManager {
-  final _language = 'languaje';
+  final _language = 'language';
 
   Future<bool> setLanguage(String language) async {
     return (await SharedPreferences.getInstance())

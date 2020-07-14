@@ -32,7 +32,7 @@ class _FittingDoorHingeDimensionState extends StateWithBloC<
     return Stack(
       children: <Widget>[
         TXMainBarWidget(
-          title: FlutterI18n.translate(context, 'Hinge dimension'),
+          title: R.string.hingeDimensions,
           onLeadingTap: () {
             NavigationUtils.pop(context);
           },

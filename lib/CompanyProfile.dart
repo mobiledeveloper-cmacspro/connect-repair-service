@@ -5,6 +5,7 @@ import 'database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
 import 'CreateCompany.dart';
 import 'dart:io';
+import 'package:repairservices/res/R.dart';
 
 class CompanyProfileV extends StatefulWidget {
   @override
@@ -73,7 +74,7 @@ class CompanyProfileState extends State<CompanyProfileV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'comp_prof'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.companyProfile,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -99,13 +100,13 @@ class CompanyProfileState extends State<CompanyProfileV> {
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 20.0,top: 16.0),
-                            child: Text(FlutterI18n.translate(context, 'Create company profile'),style: Theme.of(context).textTheme.body1),
+                            child: Text(R.string.createCompanyProfile,style: Theme.of(context).textTheme.body1),
                           )
                         ],
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 8,left: 60, bottom: 8),
-                        child: Text(FlutterI18n.translate(context, 'Create your personal company profile to enter your contact details and company logo in the export document'),
+                        child: Text(R.string.createPersonalCompanyProfileTo,
                             style: Theme.of(context).textTheme.body2),
                       ),
                       Divider()
@@ -151,7 +152,7 @@ class CompanyProfileState extends State<CompanyProfileV> {
                                 new Container(
                                     margin: EdgeInsets.only(left: 8,top: 4),
                                     child: Text(
-                                        FlutterI18n.translate(context, 'Default company'),
+                                        R.string.defaultCompany,
                                         style:  TextStyle(
                                           fontSize: 14,
                                           color: Color.fromRGBO(38, 38, 38, 1.0)

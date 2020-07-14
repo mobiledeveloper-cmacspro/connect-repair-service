@@ -13,6 +13,7 @@ import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorLockData extends StatefulWidget {
   final DoorLock doorLock;
@@ -122,7 +123,7 @@ class DoorLockDataState extends State<DoorLockData> {
       return Column(
         children: <Widget>[
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Daytime setting'),
+              R.string.daytimeSetting,
               false,
               ['Yes', 'No'],
               daytimeCtr,
@@ -139,27 +140,27 @@ class DoorLockDataState extends State<DoorLockData> {
       return Column(
         children: <Widget>[
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Shoot bolt lock'),
+              R.string.shootBoltLock,
               false,
               ['DIN EN 1125 push bar', 'DIN EN 179 handle'],
               shootBoltLockCtr,
               'DIN EN 179 handle'),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Handle height'),
+              R.string.handleHeight,
               false,
               ['Standard 1050 mm', '850 mm', '1500'],
               handleHeightCtr,
               'Standard 1050 mm'),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Door leaf height'),
+              R.string.doorLeafHeight,
               false,
               ['Under 2500 mm', 'Over 2500 mm'],
               doorLeafHeightCtr,
               'Under 2500 mm'),
           Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Restrictor'),
+          _constructGenericOption(R.string.restrictor,
               false, ['Yes', 'No'], restrictorCtr, 'Yes'),
           Divider(height: 1),
         ],
@@ -229,7 +230,7 @@ class DoorLockDataState extends State<DoorLockData> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Lock data'),
+        title: Text(R.string.lockData,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -249,63 +250,72 @@ class DoorLockDataState extends State<DoorLockData> {
       body: ListView(
         children: <Widget>[
           _constructGenericOption(
-              FlutterI18n.translate(context, 'DIN direction'),
+              R.string.dinDirection,
               true,
               [
-                FlutterI18n.translate(context, 'Left'),
-                FlutterI18n.translate(context, 'Right')
+                R.string.left,
+                R.string.right
               ],
               dinDirectionCtr,
-              FlutterI18n.translate(context, 'Left')),
+              R.string.left
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Type'),
+              R.string.type,
               true,
               [
-                FlutterI18n.translate(context, 'Defective'),
-                FlutterI18n.translate(context, 'Change of use')
+                R.string.defective,
+                R.string.changeOfUse
               ],
               typeCtr,
-              FlutterI18n.translate(context, 'Defective')),
+              R.string.defective
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Panic function'),
+              R.string.panicFunction,
               true,
               ['Yes', 'No'],
               panicFuncCtr,
-              'None'),
+              'None'
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Self-locking'),
+              R.string.selfLocking,
               false,
               ['Yes', 'No'],
               selfLockingCtr,
-              'Yes'),
+              'Yes'
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Secure latch bolt stop'),
+              R.string.secureLatchBoltStop,
               false,
               ['Yes', 'No'],
               secureLatchCtr,
-              'Yes'),
-          Divider(height: 1),
-          _constructGenericOption(FlutterI18n.translate(context, 'Monitoring'),
-              false, ['Yes', 'No'], monitoringCtr, 'Yes'),
+              'Yes'
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Electric strike'),
+              R.string.monitoring,
+              false, ['Yes', 'No'], monitoringCtr, 'Yes'
+          ),
+          Divider(height: 1),
+          _constructGenericOption(
+              R.string.electricStrike,
               false,
               ['Yes', 'No'],
               electricStrikeCtr,
-              'Yes'),
+              'Yes'
+          ),
           Divider(height: 1),
           _getDaytime(),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Lock with top locking'),
+              R.string.lockTopLocking,
               true,
               ['Yes', 'No'],
               lockWithTopLockingCtr,
-              'No'),
+              'No'
+          ),
           Divider(height: 1),
           _getLockWithTopLockingOptions(),
           //LockType image
@@ -321,8 +331,7 @@ class DoorLockDataState extends State<DoorLockData> {
 //                      mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                                FlutterI18n.translate(
-                                    context, 'Select lock type'),
+                                R.string.selectLockType,
                                 style: Theme.of(context).textTheme.body1,
                                 textAlign: TextAlign.left),
                             _getMandatory(true)
@@ -362,8 +371,7 @@ class DoorLockDataState extends State<DoorLockData> {
 //                      mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                                FlutterI18n.translate(
-                                    context, 'Select face plate type'),
+                                R.string.selectFacePlateType,
                                 style: Theme.of(context).textTheme.body1,
                                 textAlign: TextAlign.left),
                             _getMandatory(true)
@@ -403,8 +411,7 @@ class DoorLockDataState extends State<DoorLockData> {
 //                      mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                                FlutterI18n.translate(
-                                    context, 'Select face plate fixing'),
+                                R.string.selectFacePlateFixing,
                                 style: Theme.of(context).textTheme.body1,
                                 textAlign: TextAlign.left),
                             _getMandatory(true)
@@ -444,8 +451,7 @@ class DoorLockDataState extends State<DoorLockData> {
 //                      mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                                FlutterI18n.translate(
-                                    context, 'Multi-point locking'),
+                                R.string.multiPointLocking,
                                 style: Theme.of(context).textTheme.body1,
                                 textAlign: TextAlign.left),
                             _getMandatory(false)

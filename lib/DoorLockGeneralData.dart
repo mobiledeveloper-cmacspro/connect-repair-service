@@ -6,6 +6,7 @@ import 'package:repairservices/DoorLockData.dart';
 import 'package:repairservices/GenericSelection.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/DoorLock.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorLockGeneralData extends StatefulWidget {
   final DoorLock doorLock;
@@ -164,19 +165,20 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
   }
 
   Widget _getBolt() {
-    if (leafCtr.text == FlutterI18n.translate(context, 'Double-leaf door')) {
+    if (leafCtr.text == R.string.doubleLeafDoor) {
       return Column(
         children: <Widget>[
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Bolt'),
+              R.string.bolt,
               true,
               [
-                FlutterI18n.translate(context, 'Rebate shoot bolt'),
-                FlutterI18n.translate(context, 'Surface-mounted shoot bolt'),
-                FlutterI18n.translate(context, 'Shoot bolt lock1')
+                R.string.rebateShootBolt,
+                R.string.surfaceMountedShootBolt,
+                R.string.shootBoltLock1
               ],
               boltCtr,
-              FlutterI18n.translate(context, 'Rebate shoot bolt')),
+              R.string.rebateShootBolt
+          ),
           Divider(height: 1),
         ],
       );
@@ -190,14 +192,13 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
         protectionCtr.text != "" &&
         openingDirCtr.text != "" &&
         leafCtr.text != "") {
-      if (leafCtr.text == FlutterI18n.translate(context, 'Double-leaf door') &&
-          boltCtr.text != "") {
+      if (leafCtr.text == R.string.doubleLeafDoor && boltCtr.text != "") {
         filled = true;
         return Image.asset(
           'assets/checkGreen.png',
           height: 25,
         );
-      } else if (leafCtr.text == FlutterI18n.translate(context, 'Single')) {
+      } else if (leafCtr.text == R.string.single) {
         filled = true;
         return Image.asset(
           'assets/checkGreen.png',
@@ -242,7 +243,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'General data'),
+        title: Text(R.string.generalData,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -263,8 +264,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
       body: ListView(
         children: <Widget>[
           _constructGenericOption(
-              FlutterI18n.translate(
-                  context, 'Schüco logo visible in face plate'),
+              R.string.schucoLogoVisibleOnFacePlate,
               true,
               ['Yes', 'No'],
               logoVisibleCtr,
@@ -272,7 +272,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
           Divider(height: 1),
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
-            child: Text(FlutterI18n.translate(context, 'Year of manufacturing'),
+            child: Text(R.string.yearOfManufacturing,
                 style: Theme.of(context).textTheme.body1,
                 textAlign: TextAlign.left),
           ),
@@ -295,53 +295,56 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
           ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Profile insulation'),
+              R.string.profileInsulation,
               true,
               [
-                FlutterI18n.translate(context, 'Thermally insulated profiles'),
-                FlutterI18n.translate(context, 'Non-insulated profiles')
+                R.string.thermallyInsulatedProfiles,
+                R.string.nonInsulatedProfiles
               ],
               profileCtr,
-              FlutterI18n.translate(context, 'Thermally insulated profiles')),
+              R.string.thermallyInsulatedProfiles
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Protection'),
+              R.string.protection,
               true,
               [
-                FlutterI18n.translate(context, 'None'),
-                FlutterI18n.translate(context, 'Fire protection'),
-                FlutterI18n.translate(context, 'Smoke protection')
+                R.string.none,
+                R.string.fireProtection,
+                R.string.smokeProtection
               ],
               protectionCtr,
-              FlutterI18n.translate(context, 'None')),
+            R.string.none,
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(
-                  context, 'Basic depth of door profile (mm)'),
+              R.string.basicDepthDoorProfileMM,
               false,
               ['50mm', '60mm', '65mm', '70mm', '75mm', '90mm'],
               basicDepthCtr,
               '50mm'),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Opening direction'),
+              R.string.openingDirection,
               true,
               [
-                FlutterI18n.translate(context, 'Inward'),
-                FlutterI18n.translate(context, 'Outward')
+                R.string.inward,
+                R.string.outward
               ],
               openingDirCtr,
-              FlutterI18n.translate(context, 'Inward')),
+              R.string.inward
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Leaf'),
+              R.string.leaf,
               true,
               [
-                FlutterI18n.translate(context, 'Single'),
-                FlutterI18n.translate(context, 'Double-leaf door')
+                R.string.single,
+                R.string.doubleLeafDoor
               ],
               leafCtr,
-              FlutterI18n.translate(context, 'Single')),
+              R.string.single
+          ),
           Divider(height: 1),
           _getBolt()
         ],

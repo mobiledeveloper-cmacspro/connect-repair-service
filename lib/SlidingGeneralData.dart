@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/DoorLockData.dart';
 import 'package:repairservices/GenericSelection.dart';
 import 'package:repairservices/SlidingComponents.dart';
 import 'package:repairservices/SlidingDimension.dart';
 import 'package:repairservices/SlidingDirectionOpening.dart';
+import 'package:repairservices/res/R.dart';
 
 //import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Sliding.dart';
@@ -183,7 +183,7 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'General data'),
+        title: Text(R.string.generalData,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -208,7 +208,7 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
               padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Year of construction'),
+                  Text(R.string.yearConstruction,
                       style: Theme.of(context).textTheme.body1,
                       textAlign: TextAlign.left),
                   _getMandatory(false)
@@ -233,7 +233,7 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
           ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Fitting manufacturer'),
+              R.string.fittingManufacturer,
               false,
               ['GU', 'HAUTAU'],
               manufacturerCtr,
@@ -245,7 +245,7 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
                 margin: EdgeInsets.only(left: 16),
                 child: Row(
                   children: <Widget>[
-                    Text(FlutterI18n.translate(context, 'Opening direction'),
+                    Text(R.string.openingDirection,
                         style: Theme.of(context).textTheme.body1,
                         textAlign: TextAlign.left),
                     Expanded(
@@ -273,11 +273,11 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
           ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Material'),
+              R.string.material,
               true,
               [
-                FlutterI18n.translate(context, 'Aluminum'),
-                FlutterI18n.translate(context, 'PVC-U')
+                R.string.aluminium,
+                R.string.pvcU
               ],
               materialCtr,
               ''),
@@ -309,23 +309,23 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
           ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Vent overlap (mm)'),
+              R.string.ventOverlapMM,
               true,
               [
-                FlutterI18n.translate(context, 'System royal 17mm'),
-                FlutterI18n.translate(context, 'System royal S 10mm'),
-                FlutterI18n.translate(context, 'System royal S 17mm'),
-                FlutterI18n.translate(context, 'System royal')
+                R.string.systemRoyal17mm,
+                R.string.systemRoyalS10mm,
+                R.string.systemRoyalS17mm,
+                R.string.systemRoyal,
               ],
               ventOverlapCtr,
               ''),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Tilt / slide fittings'),
+              R.string.tiltSlideFittings,
               true,
               [
-                FlutterI18n.translate(context, 'With engagement mechanism'),
-                FlutterI18n.translate(context, 'Without engagement mechanism')
+                R.string.withEngagementMechanism,
+                R.string.withoutEngagementMechanism
               ],
               tiltSlideCtr,
               ''),
@@ -337,8 +337,7 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                        FlutterI18n.translate(
-                            context, 'Fittings components to be replaced'),
+                        R.string.fittingComponentsToBeReplaced,
                         style: Theme.of(context).textTheme.body1,
                         textAlign: TextAlign.left),
                     Expanded(

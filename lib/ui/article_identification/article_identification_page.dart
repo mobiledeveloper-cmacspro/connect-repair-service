@@ -72,24 +72,25 @@ class _ArticleIdentificationState
       child: CupertinoActionSheet(
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Print'),
+            child:
+                new Text(R.string.print,
                 style: Theme.of(context).textTheme.display1),
             onPressed: () => Navigator.pop(context, 'Print'),
           ),
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Email'),
+            child: new Text(R.string.email,
                 style: Theme.of(context).textTheme.display1),
             onPressed: () => Navigator.pop(context, 'Email'),
           ),
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Remove'),
+            child: new Text(R.string.remove,
                 style: TextStyle(color: Colors.red, fontSize: 22.0)),
             isDestructiveAction: true,
             onPressed: () => Navigator.pop(context, 'Remove'),
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
-          child: new Text(FlutterI18n.translate(context, 'Cancel'),
+          child: new Text(R.string.cancel,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 22.0,
@@ -116,7 +117,7 @@ class _ArticleIdentificationState
             initialData: bloc.isInSelectionMode,
             builder: (ctx, snapshotMode) {
               return TXMainBarWidget(
-                title: FlutterI18n.translate(context, 'Article Identification'),
+                title: R.string.articleIdentification,
                 onLeadingTap: () {
                   Navigator.pop(context);
                 },
@@ -184,7 +185,7 @@ class _ArticleIdentificationState
                                       new Image.asset('assets/gearWhite.png'),
                                 ),
                                 new Text(
-                                  FlutterI18n.translate(context, 'Setting'),
+                                  R.string.setting,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,
@@ -211,7 +212,7 @@ class _ArticleIdentificationState
                                       'assets/articleLookUpWhite.png'),
                                 ),
                                 new Text(
-                                  FlutterI18n.translate(context, 'Find Part'),
+                                  R.string.findPart,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,
@@ -235,7 +236,7 @@ class _ArticleIdentificationState
                                       new Image.asset('assets/exportWhite.png'),
                                 ),
                                 new Text(
-                                  FlutterI18n.translate(context, 'Export'),
+                                  R.string.export,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,
@@ -341,8 +342,7 @@ class _ArticleIdentificationState
                         );
                       } else {
                         Fluttertoast.showToast(
-                            msg: FlutterI18n.translate(
-                                context, "Object not recognized"));
+                            msg: R.string.objectNotRecognized);
                       }
                     } else {
                       await NavigationUtils.pushCupertino(
@@ -365,7 +365,7 @@ class _ArticleIdentificationState
               ? []
               : [
                   IconSlideAction(
-                    caption: FlutterI18n.translate(context, 'Email'),
+                    caption: R.string.email,
                     foregroundColor: Colors.white,
                     color: Theme.of(context).primaryColor,
                     icon: CupertinoIcons.mail,
@@ -374,7 +374,7 @@ class _ArticleIdentificationState
                     },
                   ),
                   IconSlideAction(
-                    caption: FlutterI18n.translate(context, 'Delete'),
+                    caption: R.string.delete,
                     color: Colors.red,
                     icon: CupertinoIcons.delete,
                     onTap: () {
@@ -400,15 +400,15 @@ class _ArticleIdentificationState
             actions: [
               ActionSheetModel(
                   key: "Print",
-                  title: FlutterI18n.translate(context, 'Print'),
+                  title: R.string.print,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Email",
-                  title: FlutterI18n.translate(context, 'Email'),
+                  title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Remove",
-                  title: FlutterI18n.translate(context, 'Remove'),
+                  title: R.string.remove,
                   color: Colors.red)
             ],
           );

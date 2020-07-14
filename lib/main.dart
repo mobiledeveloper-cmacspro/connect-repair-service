@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: localizationDelegate.supportedLocales,
       localeResolutionCallback: localizationDelegate.resolution(
-        fallback: Locale("en"),
+        fallback: Locale("de"),
       ),
     );
   }

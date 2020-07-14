@@ -30,7 +30,7 @@ class _FittingDoorLockDimensionState extends StateWithBloC<
     return Stack(
       children: <Widget>[
         TXMainBarWidget(
-          title: FlutterI18n.translate(context, 'Lock dimensions'),
+          title: R.string.lockDimensions,
           onLeadingTap: () {
             NavigationUtils.pop(context);
           },

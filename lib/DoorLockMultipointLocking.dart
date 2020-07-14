@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorLockMultipointLocking extends StatefulWidget {
   final String imageStr;
@@ -293,7 +294,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
       child: CupertinoActionSheet(
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Notausgänge/Fluchttüren'), style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.emergencyExists, style: Theme.of(context).textTheme.display1),
             onPressed: (){
               Navigator.pop(context);
               setState(() {
@@ -302,7 +303,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
             },
           ),
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Standardtüren'), style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.standardDoors, style: Theme.of(context).textTheme.display1),
             onPressed: () {
               Navigator.pop(context);
               setState(() {
@@ -322,7 +323,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Multi-point locking'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.multiPointLocking,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -344,7 +345,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(left: 16),
-                        child: Text(standard ? FlutterI18n.translate(context, 'Standardtüren') : FlutterI18n.translate(context, 'Notausgänge/Fluchttüren'),style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 17)),
+                        child: Text(standard ? R.string.standardDoors : R.string.emergencyExists,style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 17)),
                       ),
                     ),
                     Padding(

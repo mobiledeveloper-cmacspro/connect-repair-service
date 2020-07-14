@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/res/R.dart';
 
 class AddOrderAddress extends StatefulWidget {
   @override
@@ -98,7 +99,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
               });
            if (saved) {
              Navigator.pop(context);
-             _showAlertDialog(context, FlutterI18n.translate(context, 'Address added'), "OK");
+             _showAlertDialog(context, R.string.addressAdded, "OK");
 
            }
         });
@@ -121,7 +122,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Add address'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.addAddress,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -162,7 +163,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 },
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: FlutterI18n.translate(context, 'Company name'),
+                    hintText: R.string.companyName,
                     hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
                 ),
               ),
@@ -184,7 +185,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 },
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: FlutterI18n.translate(context, 'Street'),
+                    hintText: R.string.street,
                     hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
                 ),
               ),
@@ -207,7 +208,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 },
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: FlutterI18n.translate(context, 'Number'),
+                    hintText: R.string.number,
                     hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
                 ),
               ),
@@ -229,7 +230,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 },
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: FlutterI18n.translate(context, 'City'),
+                    hintText: R.string.city,
                     hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
                 ),
               ),
@@ -253,7 +254,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 onEditingComplete: () => _checkFields(),
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: FlutterI18n.translate(context, 'PostCode'),
+                    hintText: R.string.postcode,
                     hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
                 ),
               ),
@@ -270,7 +271,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 controller: countryController,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: FlutterI18n.translate(context, 'Country'),
+                    hintText: R.string.country,
                     hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
                 ),
                 onChanged: (_) => _checkFields(),

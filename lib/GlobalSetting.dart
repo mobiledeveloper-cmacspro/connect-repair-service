@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:repairservices/res/R.dart';
 
 class GlobalSettings extends StatelessWidget {
   @override
@@ -13,7 +14,7 @@ class GlobalSettings extends StatelessWidget {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Setting'),
+        title: Text(R.string.setting,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -37,7 +38,7 @@ class GlobalSettings extends StatelessWidget {
       body: Column(
         children: <Widget>[
           ListTile(
-              title: Text(FlutterI18n.translate(context, 'Legal Information'),
+              title: Text(R.string.legalInformation,
                   style: Theme.of(context).textTheme.body1),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
@@ -49,7 +50,7 @@ class GlobalSettings extends StatelessWidget {
               }),
           Divider(height: 1),
           ListTile(
-              title: Text(FlutterI18n.translate(context, 'Signature'),
+              title: Text(R.string.signature,
                   style: Theme.of(context).textTheme.body1),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
@@ -59,7 +60,7 @@ class GlobalSettings extends StatelessWidget {
               }),
           Divider(height: 1),
           ListTile(
-              title: Text(FlutterI18n.translate(context, 'Imprint'),
+              title: Text(R.string.imprint,
                   style: Theme.of(context).textTheme.body1),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
@@ -69,7 +70,7 @@ class GlobalSettings extends StatelessWidget {
               }),
           Divider(height: 1),
           ListTile(
-              title: Text(FlutterI18n.translate(context, 'Language'),
+              title: Text(R.string.language,
                   style: Theme.of(context).textTheme.body1),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
@@ -92,7 +93,7 @@ class LegalInformation extends StatelessWidget {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Legal Information'),
+        title: Text(R.string.legalInformation,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -108,7 +109,7 @@ class LegalInformation extends StatelessWidget {
             padding: EdgeInsets.only(top: 52),
             child: Center(
               child: Text(
-                FlutterI18n.translate(context, 'Legal Information Details'),
+                R.string.legalInformationDetails,
                 style: Theme.of(context).textTheme.body1,
                 textAlign: TextAlign.center,
               ),
@@ -161,7 +162,7 @@ class SignatureState extends State<Signature> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Signature'),
+        title: Text(R.string.signature,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -197,8 +198,7 @@ class SignatureState extends State<Signature> {
                   style: Theme.of(context).textTheme.body1,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: FlutterI18n.translate(context,
-                          'Enter the standard text here for the export by e-mail'),
+                      hintText: R.string.standardTextExportEmail,
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
                 ),
               )),
@@ -217,7 +217,7 @@ class Impressum extends StatelessWidget {
           backgroundColor: Colors.white,
           actionsIconTheme:
               IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Imprint'),
+          title: Text(R.string.imprint,
               style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -232,76 +232,73 @@ class Impressum extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(
-                      context, 'The Schüco service app is provided by:'),
+                  R.string.shucoServiceAppProvidedBy,
                   style: Theme.of(context).textTheme.display2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context, 'Schüco International KG'),
+                  R.string.schucoInternational,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context, 'Karolinenstrasse 1-15'),
+                  R.string.karolinenstrasse,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, '33609 Bielefeld'),
+              child: Text(
+                  R.string.bielefeld33609,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, 'Germany'),
+              child: Text(
+                  R.string.germany,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context,
-                          'Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV ') +
-                      FlutterI18n.translate(
-                          context, '(German Interstate Broadcasting Treaty)')+".",
+                  R.string.mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith +
+                  R.string.germanInterstateBroadcastingTreaty+".",
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context, 'Executive Management Board:'),
+                  R.string.executiveManagementBoard,
                   style: Theme.of(context).textTheme.display2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(
-                      context, 'Andreas Engelhardt, CEO and Managing'),
+                  R.string.andreasEngelhardtCEOAndManaging,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, 'Partner'),
+              child: Text(R.string.partner,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, 'Philip Neuhaus, CFO'),
+              child: Text(R.string.philipNeuhausCFO,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(
-                      context, 'Dr Walter Stadlbauer, COO and CTO'),
+                  R.string.drWalterStadlbauerCOOandCTO,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, "Tel:"),
+                  Text(R.string.tel,
                       style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -316,7 +313,7 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Fax:'),
+                  Text(R.string.fax,
                       style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -331,7 +328,7 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'E-mail:'),
+                  Text(R.string.eMail,
                       style: Theme.of(context).textTheme.body1),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -351,24 +348,23 @@ class Impressum extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(context, "VAT ID No: DE 124001363"),
+                  R.string.vatId,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
-                  FlutterI18n.translate(
-                      context, 'Registered office and court of record:'),
+                  R.string.registeredOfficeCourtOfRecord,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, 'Limited partnership'),
+              child: Text(R.string.limitedPartnership,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(FlutterI18n.translate(context, 'Bielefeld'),
+              child: Text(R.string.bielefeld,
                   style: Theme.of(context).textTheme.body1),
             ),
             Padding(
@@ -378,8 +374,7 @@ class Impressum extends StatelessWidget {
                 right: 16,
               ),
               child: Text(
-                  FlutterI18n.translate(
-                      context, 'Commercial register: HRA 8135'),
+                  R.string.commercialRegister,
                   style: Theme.of(context).textTheme.body1),
             ),
             SizedBox(
@@ -413,7 +408,7 @@ class _LanguageState extends State<Language> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Language'),
+        title: Text(R.string.language,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -433,7 +428,7 @@ class _LanguageState extends State<Language> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text(FlutterI18n.translate(context, 'English'),
+                    child: Text(R.string.english,
                         style: Theme.of(context).textTheme.body1),
                   ),
                   _currentLanguage == 'en'
@@ -446,7 +441,7 @@ class _LanguageState extends State<Language> {
               ),
             ),
             onTap: () async {
-              await FlutterI18n.refresh(context, Locale('en'));
+              //await FlutterI18n.refresh(context, Locale('en'));
               await _sharedPreferences.setLanguage('en');
               Navigator.pop(context);
             },
@@ -460,7 +455,7 @@ class _LanguageState extends State<Language> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text(FlutterI18n.translate(context, 'Deutsch'),
+                    child: Text(R.string.deutsch,
                         style: Theme.of(context).textTheme.body1),
                   ),
                   _currentLanguage == 'de'
@@ -473,7 +468,7 @@ class _LanguageState extends State<Language> {
               ),
             ),
             onTap: () async {
-              await FlutterI18n.refresh(context, Locale('de'));
+              //await FlutterI18n.refresh(context, Locale('de'));
               await _sharedPreferences.setLanguage('de');
               Navigator.pop(context);
             },

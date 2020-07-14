@@ -67,13 +67,12 @@ class _FittingWindowsDetails
             children: <Widget>[
               TXDividerWidget(),
               TXItemCellEditWidget(
-                title: FlutterI18n.translate(
-                    context, 'Part number of defective component'),
+                title: R.string.partNumberDefectiveComponent,
                 value: widget.model.number.toString(),
               ),
               TXDividerWidget(),
               TXItemCellEditWidget(
-                title: FlutterI18n.translate(context, 'Year of construction'),
+                title: R.string.yearConstruction,
                 value: widget.model.year,
               ),
               widget.typeFitting == TypeFitting.other ||
@@ -82,14 +81,12 @@ class _FittingWindowsDetails
                       children: <Widget>[
                         TXDividerWidget(),
                         TXItemCellEditWidget(
-                          title: FlutterI18n.translate(
-                              context, 'System depth (mm)'),
+                          title: R.string.systemDepthMM,
                           value: widget.model.systemDepth,
                         ),
                         TXDividerWidget(),
                         TXItemCellEditWidget(
-                          title: FlutterI18n.translate(
-                              context, 'Profile system / -serie'),
+                          title: R.string.profileSystemSerie,
                           value: widget.model.profileSystem,
                         ),
                       ],
@@ -97,7 +94,7 @@ class _FittingWindowsDetails
                   : Container(),
               TXDividerWidget(),
               TXItemCellEditWidget(
-                title: FlutterI18n.translate(context, 'Description'),
+                title: R.string.description,
                 value: widget.model.description,
               ),
               TXDividerWidget(),
@@ -110,8 +107,7 @@ class _FittingWindowsDetails
                     InkWell(
                       onTap: () {
                         Fluttertoast.showToast(
-                            msg: FlutterI18n.translate(
-                                context, 'Under construction'));
+                            msg: R.string.underConstruction);
                       },
                       child: Container(
                         constraints:
@@ -155,15 +151,15 @@ class _FittingWindowsDetails
             actions: [
               ActionSheetModel(
                   key: "Print",
-                  title: FlutterI18n.translate(context, 'Print'),
+                  title: R.string.print,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Email",
-                  title: FlutterI18n.translate(context, 'Email'),
+                  title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Remove",
-                  title: FlutterI18n.translate(context, 'Remove'),
+                  title: R.string.remove,
                   color: Colors.red)
             ],
           );

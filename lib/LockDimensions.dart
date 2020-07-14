@@ -10,6 +10,7 @@ import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:flutter/rendering.dart';
+import 'package:repairservices/res/R.dart';
 
 class LockDimensions extends StatefulWidget {
   @override
@@ -88,7 +89,7 @@ class LockDimensionsState extends State<LockDimensions> {
                   onPressed: () => Navigator.pop(context),
                 ),
                 CupertinoDialogAction(
-                  child: new Text(FlutterI18n.translate(context, 'Cancel')),
+                  child: new Text(R.string.cancel),
                   isDestructiveAction: true,
                   onPressed: () {
                     Navigator.pop(context);
@@ -103,7 +104,7 @@ class LockDimensionsState extends State<LockDimensions> {
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
               title: new Text(
-                  FlutterI18n.translate(context, 'Dimension') + ' $dimension'),
+                  R.string.dimension + ' $dimension'),
               content: new Container(
                   margin: EdgeInsets.only(top: 16),
                   child: new CupertinoTextField(
@@ -152,15 +153,11 @@ class LockDimensionsState extends State<LockDimensions> {
                         }
                       } else {
 //                    Navigator.pop(context);
-                        showAlertDialog(
-                            context,
-                            FlutterI18n.translate(context,
-                                '0 is not valid value for this dimension'),
-                            "OK");
+                        showAlertDialog(context, R.string.zeroNotValueForDimension, "OK");
                       }
                     }),
                 CupertinoDialogAction(
-                  child: new Text(FlutterI18n.translate(context, 'Cancel')),
+                  child: new Text(R.string.cancel),
                   isDestructiveAction: true,
                   onPressed: () {
                     Navigator.pop(context);
@@ -627,7 +624,7 @@ class LockDimensionsState extends State<LockDimensions> {
           backgroundColor: Colors.white,
           actionsIconTheme:
               IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Lock dimensions'),
+          title: Text(R.string.lockDimensions,
               style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),

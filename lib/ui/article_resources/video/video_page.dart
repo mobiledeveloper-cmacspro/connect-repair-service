@@ -98,7 +98,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: FlutterI18n.translate(context, 'Video 1'),
+            title: R.string.video1,
             onLeadingTap: () {
               _navBack();
             },
@@ -143,7 +143,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
                     child: TXButtonWidget(
                       mainColor: R.color.primary_color,
                       textColor: Colors.white,
-                      title: FlutterI18n.translate(context, 'Take new video'),
+                      title: R.string.takeNewVideo,
                       onPressed: () async {
                         await bloc.deleteVideo(widget.model.filePath);
                         _takeVideo(ImageSource.camera);
@@ -159,7 +159,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
                     child: TXButtonWidget(
                       mainColor: Colors.red,
                       textColor: Colors.white,
-                      title: FlutterI18n.translate(context, 'Delete video'),
+                      title: R.string.deleteVideo,
                       onPressed: () async {
                         await bloc.deleteVideo(widget.model.filePath);
                         widget.model.filePath = "";
@@ -178,7 +178,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
 //                  ? TXButtonWidget(
 //                      mainColor: R.color.primary_color,
 //                      textColor: Colors.white,
-//                      title: FlutterI18n.translate(context, 'Play video'),
+//                      title: R.string.playVideo,
 //                      onPressed: () {
 //                        _controller.play();
 //                      },
@@ -191,7 +191,7 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
 //                  ? TXButtonWidget(
 //                      mainColor: Colors.red,
 //                      textColor: Colors.white,
-//                      title: FlutterI18n.translate(context, 'Stop video'),
+//                      title: R.string.stopVideo,
 //                      onPressed: () {
 //                        _controller.pause();
 //                      },

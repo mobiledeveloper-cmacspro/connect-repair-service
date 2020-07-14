@@ -30,7 +30,7 @@ class ArticleIdentificationGalleryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TXMainBarWidget(
-      title: FlutterI18n.translate(context, 'Article Gallery'),
+      title: R.string.articleGallery,
       onLeadingTap: () {
         NavigationUtils.pop(context);
       },
@@ -104,7 +104,8 @@ class ArticleIdentificationGalleryPage extends StatelessWidget {
             );
           } else {
             Fluttertoast.showToast(
-                msg: FlutterI18n.translate(context, 'Object not recognized'));
+                msg: R.string.objectNotRecognized
+            );
           }
         },
       ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/models/Company.dart';
+import 'package:repairservices/res/R.dart';
 
 class CompanyLayoutPreview extends StatelessWidget {
   final Company comp;
@@ -28,7 +29,7 @@ class CompanyLayoutPreview extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Colors.grey),
-          title: Text(FlutterI18n.translate(context, 'Layout Preview'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.layoutPreview,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -69,7 +70,7 @@ class CompanyLayoutPreview extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(left: 16,bottom: 8),
-              child: Text(FlutterI18n.translate(context, 'Company data'),style: Theme.of(context).textTheme.subhead,textAlign: TextAlign.left),
+              child: Text(R.string.companyData,style: Theme.of(context).textTheme.subhead,textAlign: TextAlign.left),
             ),
             Divider(height: 1),
             Container(
@@ -78,7 +79,7 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Address')+': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.address+': ',style: Theme.of(context).textTheme.body1),
                   Expanded(
                     child: Text(_componeAddress() !=null ? _componeAddress() : "",style: Theme.of(context).textTheme.body1,maxLines: 2),
                   ),
@@ -92,7 +93,7 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Aditional information')+': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.aditionalInformation + ': ',style: Theme.of(context).textTheme.body1),
                   Expanded(
                     child: Text(comp.additionalInf != null ? comp.additionalInf : "",style: Theme.of(context).textTheme.body1),
                   ),
@@ -105,7 +106,7 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Telephone number')+': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.phoneNumber + ': ',style: Theme.of(context).textTheme.body1),
                   Expanded(
                     child: Text(comp.phone != null ? comp.phone: "",style: Theme.of(context).textTheme.body1),
                   ),
@@ -118,7 +119,7 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'E-mail address')+': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.emailAddress + ': ',style: Theme.of(context).textTheme.body1),
                   Expanded(
                     child: Text(comp.email!= null ? comp.email: "",style: Theme.of(context).textTheme.body1),
                   ),
@@ -153,7 +154,7 @@ class CompanyLayoutPreview extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(left: 16,bottom: 8,top: 8),
-              child: Text(FlutterI18n.translate(context, 'E-mail standart text'),style: Theme.of(context).textTheme.subhead,textAlign: TextAlign.left),
+              child: Text(R.string.emailStandardText,style: Theme.of(context).textTheme.subhead,textAlign: TextAlign.left),
             ),
             Divider(height: 1),
             Expanded(

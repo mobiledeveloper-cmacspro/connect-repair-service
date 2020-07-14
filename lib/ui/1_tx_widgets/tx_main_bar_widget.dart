@@ -39,7 +39,7 @@ class TXMainBarWidget extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   child: TXTextWidget(
-                    text: FlutterI18n.translate(context, 'Cancel'),
+                    text: R.string.cancel,
                   ),
                 ),
               )

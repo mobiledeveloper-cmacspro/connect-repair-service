@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/DoorHingeDimension.dart';
 import 'package:repairservices/LockDimensions.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorFitting extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class DoorFitting extends StatelessWidget {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Door type'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.doorType,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -37,7 +38,7 @@ class DoorFitting extends StatelessWidget {
                           Image.asset('assets/doorType.png'),
                           Padding(
                               padding: EdgeInsets.only(top: 8),
-                              child: Text(FlutterI18n.translate(context, 'Lock'),style: TextStyle(fontSize: 14))
+                              child: Text(R.string.lock,style: TextStyle(fontSize: 14))
                           )
                         ],
                       ),
@@ -51,7 +52,7 @@ class DoorFitting extends StatelessWidget {
                               padding: EdgeInsets.only(top: 8),
                               child: Container(
                                   width: 90,
-                                  child: Text(FlutterI18n.translate(context, 'Door hinge'),style: TextStyle(fontSize: 14),maxLines: 2,textAlign: TextAlign.center,)
+                                  child: Text(R.string.doorHinge,style: TextStyle(fontSize: 14),maxLines: 2,textAlign: TextAlign.center,)
                               )
                           )
                         ],

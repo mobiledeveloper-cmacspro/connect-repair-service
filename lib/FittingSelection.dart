@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/DoorFitting.dart';
 import 'package:repairservices/SlidingGeneralData.dart';
 import 'package:repairservices/WindowsGeneralData.dart';
+import 'package:repairservices/res/R.dart';
 
 class FittingSelection extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class FittingSelection extends StatelessWidget {
           backgroundColor: Colors.white,
           actionsIconTheme:
               IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Fitting selection'),
+          title: Text(R.string.fittingSelection,
               style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -41,8 +42,7 @@ class FittingSelection extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                  FlutterI18n.translate(
-                                      context, 'Windows fittings'),
+                                  R.string.windowsFittings,
                                   style: TextStyle(fontSize: 14)))
                         ],
                       ),
@@ -61,8 +61,7 @@ class FittingSelection extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                  FlutterI18n.translate(
-                                      context, 'Door fittings'),
+                                  R.string.doorFittings,
                                   style: TextStyle(fontSize: 14)))
                         ],
                       ),
@@ -80,8 +79,7 @@ class FittingSelection extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                  FlutterI18n.translate(
-                                      context, 'Sliding system'),
+                                  R.string.slidingSystem,
                                   style: TextStyle(fontSize: 14)))
                         ],
                       ),
@@ -108,7 +106,7 @@ class FittingSelection extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                  FlutterI18n.translate(context, 'Other'),
+                                  R.string.other,
                                   style: TextStyle(fontSize: 14)))
                         ],
                       ),
@@ -127,8 +125,7 @@ class FittingSelection extends StatelessWidget {
                               child: Container(
                                   width: 90,
                                   child: Text(
-                                    FlutterI18n.translate(
-                                        context, 'Sun shading and screening'),
+                                    R.string.sunShadingScreening,
                                     style: TextStyle(fontSize: 14),
                                     maxLines: 2,
                                     textAlign: TextAlign.center,

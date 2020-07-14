@@ -32,7 +32,7 @@ class _FittingDimensionSlidingState extends StateWithBloC<
     return Stack(
       children: <Widget>[
         TXMainBarWidget(
-          title: FlutterI18n.translate(context, 'Sliding dimension'),
+          title: R.string.slidingDimensions,
           onLeadingTap: () {
             NavigationUtils.pop(context);
           },

@@ -86,7 +86,7 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
               builder: (ctx, actionSnapshot) {
                 final act = actionSnapshot.data;
                 return TXMainBarWidget(
-                  title: FlutterI18n.translate(context, 'Audio 1'),
+                  title: R.string.audio1,
                   onLeadingTap: () {
                     _navBack();
                   },
@@ -167,8 +167,7 @@ class _AudioState extends StateWithBloC<AudioPage, AudioBloC> {
                               height: 30,
                             ),
                             TXButtonWidget(
-                              title: FlutterI18n.translate(
-                                  context, 'Delete record'),
+                              title: R.string.deleteRecord,
                               textColor: Colors.white,
                               mainColor: (act == MediaActions.NEW ||
                                       act == MediaActions.RECORDING)

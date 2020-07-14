@@ -7,6 +7,7 @@ import 'package:repairservices/res/values/text/strings_en.dart';
 
 class CustomLocalizationsDelegate extends LocalizationsDelegate<StringsBase> {
   static StringsBase stringsBase = StringsDe();
+  static AppLocale currentLang;
 
   List<Locale> get supportedLocales {
     return const <Locale>[
@@ -29,8 +30,6 @@ class CustomLocalizationsDelegate extends LocalizationsDelegate<StringsBase> {
     }
     return SynchronousFuture<StringsBase>(stringsBase);
   }
-
-  static AppLocale currentLang;
 
   LocaleResolutionCallback resolution({Locale fallback}) {
     return (Locale locale, Iterable<Locale> supported) {

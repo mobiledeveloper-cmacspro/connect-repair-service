@@ -909,7 +909,7 @@ class StringsEn implements StringsBase {
   String get cartName => "Cart Name";
 
   @override
-  String get sendCardToPurchase => "Send the card to purchase";
+  String get sendCartToPurchase => "Send the cart to purchase";
 
   @override
   String get myCompany => "My Company";
@@ -976,4 +976,7 @@ class StringsEn implements StringsBase {
 
   @override
   String get video => "Video";
+
+  @override
+  String get boltLock => "Bolt Lock";
 }

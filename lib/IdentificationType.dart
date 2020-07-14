@@ -14,6 +14,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/article_resources/audio/audio_page.dart';
 import 'package:repairservices/ui/article_resources/video/video_page.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_page.dart';
+import 'package:repairservices/res/R.dart';
 
 class IdentificationTypeV extends StatefulWidget {
   @override
@@ -66,12 +67,12 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-              title: new Text(FlutterI18n.translate(context, "Send by Email"),
+              title: new Text(R.string.sendByEmail,
                   style: Theme.of(context).textTheme.subhead),
               content: Padding(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 child: Text(
-                  FlutterI18n.translate(context, "Send this article"),
+                  R.string.sendThisArticle,
                   style: TextStyle(fontSize: 16),
                   textAlign: TextAlign.justify,
                 ),
@@ -79,7 +80,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
               actions: <Widget>[
                 CupertinoDialogAction(
                   child: new Text(
-                      FlutterI18n.translate(context, "Just save it"),
+                      R.string.justSaveIt,
                       style: TextStyle(color: Theme.of(context).primaryColor)),
                   isDefaultAction: true,
                   onPressed: () {
@@ -95,8 +96,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                 ),
                 CupertinoDialogAction(
                   child: new Text(
-                      FlutterI18n.translate(
-                          context, "Save it and send by email"),
+                      R.string.saveAndSendByEmail,
                       style: TextStyle(color: Theme.of(context).primaryColor)),
                   isDefaultAction: true,
                   onPressed: () {
@@ -119,7 +119,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, "Identification Type"),
+        title: Text(R.string.identificationType,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -148,7 +148,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                       ),
                       new Container(
                         child: new Text(
-                            FlutterI18n.translate(context, "Camera"),
+                            R.string.camera,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.body1),
                         margin: EdgeInsets.only(top: 26),
@@ -178,7 +178,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                       ),
                       new Container(
                         child: new Text(
-                            FlutterI18n.translate(context, "Record Product"),
+                            R.string.recordProduct,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.body1),
                         margin: EdgeInsets.only(top: 26),
@@ -215,7 +215,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
 //                            '',
 //                          ),*/
 //                      new Container(
-//                        child: new Text(FlutterI18n.translate(context, "Video"),
+//                        child: new Text(R.string.video,
 //                            textAlign: TextAlign.center,
 //                            style: Theme.of(context).textTheme.body1),
 //                        margin: EdgeInsets.only(top: 26),
@@ -245,7 +245,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
 //                            '',
 //                          ),*/
 //                      new Container(
-//                        child: new Text(FlutterI18n.translate(context, "Audio"),
+//                        child: new Text(R.string.audio,
 //                            textAlign: TextAlign.center,
 //                            style: Theme.of(context).textTheme.body1),
 //                        margin: EdgeInsets.only(top: 26),

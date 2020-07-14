@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorHinge.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorHingeDimensionBarrel extends StatefulWidget {
   final DoorHinge doorHinge;
@@ -79,7 +80,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
               },
             ),
             CupertinoDialogAction(
-              child: new Text(FlutterI18n.translate(context, 'Cancel')),
+              child: new Text(R.string.cancel),
               isDestructiveAction: true,
               onPressed: () {
                 Navigator.pop(context);
@@ -94,7 +95,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(FlutterI18n.translate(context, 'Dimension') + ' $dimension'),
+          title: new Text(R.string.dimension + ' $dimension'),
           content: new Container(
               margin: EdgeInsets.only(top: 16),
               child: new CupertinoTextField(
@@ -130,12 +131,12 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                   }
                   else {
                     Navigator.pop(context);
-                    showAlertDialog(context, FlutterI18n.translate(context, '0 is not valid value for this dimension'), "OK");
+                    showAlertDialog(context, R.string.zeroNotValueForDimension, "OK");
                   }
                 }
             ),
             CupertinoDialogAction(
-              child: new Text(FlutterI18n.translate(context, 'Cancel')),
+              child: new Text(R.string.cancel),
               isDestructiveAction: true,
               onPressed: () {
                 Navigator.pop(context);
@@ -174,7 +175,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Hinge dimensions'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.hingeDimensions,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {

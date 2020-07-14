@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorLockTypeImage extends StatelessWidget {
   final String imageStr;
@@ -42,7 +43,7 @@ class DoorLockTypeImage extends StatelessWidget {
           backgroundColor: Colors.white,
           actionsIconTheme:
               IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Select lock type'),
+          title: Text(R.string.selectLockType,
               style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -70,8 +71,7 @@ class DoorLockTypeImage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                FlutterI18n.translate(
-                                    context, 'Fallen-Riegelschloss'),
+                                R.string.latchBoltLock,
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     color: Color.fromRGBO(38, 38, 38, 1.0)),
@@ -90,7 +90,7 @@ class DoorLockTypeImage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                FlutterI18n.translate(context, 'Fallenriegel selbstverriegelnd'),
+                                R.string.latchBoltSelflocking,
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     color: Color.fromRGBO(38, 38, 38, 1.0)),
@@ -119,7 +119,7 @@ class DoorLockTypeImage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                FlutterI18n.translate(context, 'Hakenschloss'),
+                                R.string.hookLock,
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     color: Color.fromRGBO(38, 38, 38, 1.0)),
@@ -137,7 +137,7 @@ class DoorLockTypeImage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(top: 8),
                               child: Text(
-                                FlutterI18n.translate(context, 'Riegelschloss'),
+                                R.string.boltLock,
                                 style: TextStyle(
                                     fontSize: 14.0,
                                     color: Color.fromRGBO(38, 38, 38, 1.0)),

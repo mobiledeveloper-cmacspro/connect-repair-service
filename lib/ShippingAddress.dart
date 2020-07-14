@@ -5,6 +5,7 @@ import 'package:repairservices/AddOrderAddress.dart';
 import 'package:repairservices/ChekoutOrder.dart';
 //import 'package:repairservices/generated/i18n.dart';
 import 'package:repairservices/models/Company.dart';
+import 'package:repairservices/res/R.dart';
 
 class ShippingAddress extends StatefulWidget {
   @override
@@ -80,7 +81,7 @@ class ShippingAddressState extends State<ShippingAddress> {
     showDemoActionSheet(
         context: context,
         child: CupertinoActionSheet(
-            title: Text(FlutterI18n.translate(context, 'Select B2B Unit')),
+            title: Text(R.string.selectB2BUnit),
             actions: _actionItems(context)
         )
     );
@@ -93,7 +94,7 @@ class ShippingAddressState extends State<ShippingAddress> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Shipping address'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.shippingAddress,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -107,7 +108,7 @@ class ShippingAddressState extends State<ShippingAddress> {
             Padding(
               padding: EdgeInsets.only(top: 30),
               child: Center(
-                child: Text(FlutterI18n.translate(context, 'Select your shipping address'),style: Theme.of(context).textTheme.subhead)
+                child: Text(R.string.selectShippingAddress,style: Theme.of(context).textTheme.subhead)
               )
             ),
             GestureDetector(
@@ -122,7 +123,7 @@ class ShippingAddressState extends State<ShippingAddress> {
                         child: Text(
                             selectedAddress != null ? '${selectedAddress.companyName}, ${selectedAddress.street} '
                                 '${selectedAddress.houseNumber}, ${selectedAddress.postCode} ${selectedAddress.city}, ${selectedAddress.country}' :
-                            FlutterI18n.translate(context, 'Select your address'),
+                            R.string.selectAddress,
                             style: Theme.of(context).textTheme.body1, maxLines: 2, textAlign: TextAlign.center),
                       )
                     ),
@@ -148,7 +149,7 @@ class ShippingAddressState extends State<ShippingAddress> {
                       ),
                       child: Center(
                         child: Text(
-                          FlutterI18n.translate(context, 'Add new delivery address'),
+                          R.string.addNewDeliveryAddress,
                           style: TextStyle(
                               fontSize: 17,
                               color: Colors.white
@@ -172,7 +173,7 @@ class ShippingAddressState extends State<ShippingAddress> {
                       ),
                       child: Center(
                         child: Text(
-                          FlutterI18n.translate(context, 'Go to chekout page'),
+                          R.string.goToCheckoutPage,
                           style: TextStyle(
                               fontSize: 17,
                               color: Colors.white
@@ -185,7 +186,7 @@ class ShippingAddressState extends State<ShippingAddress> {
                       Navigator.push(context, CupertinoPageRoute(builder: (context) => CheckoutOrder(this.selectedAddress)));
                     }
                     else {
-                      _showAlertDialog(context, FlutterI18n.translate(context, 'Select the shipping address first'), 'OK');
+                      _showAlertDialog(context, R.string.selectShippingAddressFirst, 'OK');
                     }
                   },
                 )

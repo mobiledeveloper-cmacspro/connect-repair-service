@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:repairservices/ArticleWebPreview.dart';
@@ -211,7 +211,8 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
       child: CupertinoActionSheet(
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Camera'),
+            child:
+                new Text(R.string.camera,
                 style: Theme.of(context).textTheme.display1),
             onPressed: () {
               Navigator.pop(context);
@@ -220,7 +221,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           ),
           CupertinoActionSheetAction(
             child: new Text(
-                FlutterI18n.translate(context, 'Choose from gallery'),
+                R.string.chooseFromGallery,
                 style: Theme.of(context).textTheme.display1),
             onPressed: () {
               Navigator.pop(context);
@@ -229,7 +230,8 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
-          child: new Text(FlutterI18n.translate(context, 'Cancel'),
+          child:
+              new Text(R.string.cancel,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 22.0,
@@ -249,7 +251,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
 //        message: const Text('Please select the best dessert from the options below.'),
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Photo of part'),
+            child: new Text(R.string.photoOfPart,
                 style: Theme.of(context).textTheme.display1),
             onPressed: () {
               Navigator.pop(context);
@@ -258,7 +260,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           ),
           CupertinoActionSheetAction(
             child: new Text(
-                FlutterI18n.translate(context, 'Invoice of product'),
+                R.string.invoiceOfProduct,
                 style: Theme.of(context).textTheme.display1),
             onPressed: () {
               Navigator.pop(context);
@@ -267,7 +269,8 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
-          child: new Text(FlutterI18n.translate(context, 'Cancel'),
+          child:
+              new Text(R.string.cancel,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 22.0,
@@ -282,11 +285,11 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
   String _getNameByFitting() {
     switch (typeFitting) {
       case TypeFitting.windows:
-        return FlutterI18n.translate(context, 'Windows fittings');
+        return R.string.windowsFittings;
       case TypeFitting.sunShading:
-        return FlutterI18n.translate(context, 'Sun shading and screening');
+        return R.string.sunShadingScreening;
       default:
-        return FlutterI18n.translate(context, 'Other fitting');
+        return R.string.otherFitting;
     }
   }
 
@@ -333,7 +336,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
                 Padding(
                   padding: EdgeInsets.only(left: 16, top: 8),
                   child: Text(
-                      FlutterI18n.translate(context, 'System depth (mm)'),
+                      R.string.systemDepthMM,
                       style: Theme.of(context).textTheme.body1,
                       textAlign: TextAlign.left),
                 ),
@@ -376,7 +379,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               context,
               CupertinoPageRoute(
                   builder: (context) => GenericSelection(
-                      FlutterI18n.translate(context, 'System depth (mm)'),
+                      R.string.systemDepthMM,
                       myOptions))).then((systemDepth) {
             setState(() {
               systemCtr.text = systemDepth;
@@ -398,7 +401,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
             child: Text(
-                FlutterI18n.translate(context, 'Profile system / -serie'),
+                R.string.profileSystemSerie,
                 style: Theme.of(context).textTheme.body1,
                 textAlign: TextAlign.left),
           ),
@@ -417,7 +420,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               },
               decoration: InputDecoration.collapsed(
                   border: InputBorder.none,
-                  hintText: FlutterI18n.translate(context, 'Profile'),
+                  hintText: R.string.profile,
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
             ),
           ),
@@ -435,7 +438,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'General data'),
+        title: Text(R.string.generalData,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -465,8 +468,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
             child: Text(
-                FlutterI18n.translate(
-                    context, 'Part number of defective component'),
+                R.string.partNumberDefectiveComponent,
                 style: Theme.of(context).textTheme.body1,
                 textAlign: TextAlign.left),
           ),
@@ -486,14 +488,14 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               },
               decoration: InputDecoration.collapsed(
                   border: InputBorder.none,
-                  hintText: FlutterI18n.translate(context, 'Number'),
+                  hintText: R.string.number,
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
             ),
           ),
           Divider(height: 1),
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
-            child: Text(FlutterI18n.translate(context, 'Year of construction'),
+            child: Text(R.string.yearConstruction,
                 style: Theme.of(context).textTheme.body1,
                 textAlign: TextAlign.left),
           ),
@@ -529,7 +531,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           _getProfileSystem(),
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
-            child: Text(FlutterI18n.translate(context, 'Description'),
+            child: Text(R.string.description,
                 style: Theme.of(context).textTheme.body1,
                 textAlign: TextAlign.left),
           ),
@@ -545,7 +547,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               textInputAction: TextInputAction.go,
               decoration: InputDecoration.collapsed(
                   border: InputBorder.none,
-                  hintText: FlutterI18n.translate(context, 'Part details'),
+                  hintText: R.string.partDetails,
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
             ),
           ),
@@ -561,7 +563,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
                     ),
                     child: Center(
                       child: Text(
-                        FlutterI18n.translate(context, 'Upload'),
+                        R.string.upload,
                         style: TextStyle(fontSize: 17, color: Colors.white),
                       ),
                     )),

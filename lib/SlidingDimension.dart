@@ -13,6 +13,7 @@ import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/res/R.dart';
 
 import 'Utils/file_utils.dart';
 
@@ -67,7 +68,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
               title: new Text(
-                  FlutterI18n.translate(context, 'Dimension') + ' $dimension'),
+                  R.string.dimension + ' $dimension'),
               content: new Container(
                   margin: EdgeInsets.only(top: 16),
                   child: new CupertinoTextField(
@@ -110,13 +111,12 @@ class SlidingDimensionState extends State<SlidingDimension> {
                         Navigator.pop(context);
                         showAlertDialog(
                             context,
-                            FlutterI18n.translate(context,
-                                '0 is not valid value for this dimension'),
+                            R.string.zeroNotValueForDimension,
                             "OK");
                       }
                     }),
                 CupertinoDialogAction(
-                  child: new Text(FlutterI18n.translate(context, 'Cancel')),
+                  child: new Text(R.string.cancel),
                   isDestructiveAction: true,
                   onPressed: () {
                     Navigator.pop(context);
@@ -177,7 +177,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
                   },
                 ),
                 CupertinoDialogAction(
-                  child: new Text(FlutterI18n.translate(context, 'Cancel')),
+                  child: new Text(R.string.cancel),
                   isDestructiveAction: true,
                   onPressed: () {
                     Navigator.pop(context);
@@ -205,7 +205,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Sliding dimensions'),
+        title: Text(R.string.slidingDimensions,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

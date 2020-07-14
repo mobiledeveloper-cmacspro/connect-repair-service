@@ -11,6 +11,7 @@ import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorHingeGeneralData extends StatefulWidget {
   final DoorHinge doorHinge;
@@ -128,7 +129,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         fittedCtr.text != "" &&
         hingeTypeCtr.text != "") {
       if (hingeTypeCtr.text ==
-          FlutterI18n.translate(context, 'Surface-mounted door hinge')) {
+          R.string.surfaceMountedDoorHinge) {
         if (coverCapsCtr.text != '' &&
             this.doorHinge.doorHingeDetailsIm != '' &&
             this.doorHinge.doorHingeDetailsIm != null) {
@@ -145,7 +146,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           );
         }
       } else if (hingeTypeCtr.text ==
-          FlutterI18n.translate(context, 'Barrel hinge')) {
+          R.string.barrelHinge) {
         if (doorLeafCtr.text != '' &&
             doorFrameCtr.text != '' &&
             doorHinge.dimensionBarrelIm != '' &&
@@ -265,10 +266,10 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     doorHinge.systemDoorFrame = systemDoorFrameCtr.text;
 
     int type = 0;
-    if (doorHinge.hingeType == FlutterI18n.translate(context, 'Barrel hinge')) {
+    if (doorHinge.hingeType == R.string.barrelHinge) {
       type = 1;
     } else if (doorHinge.hingeType ==
-        FlutterI18n.translate(context, 'Surface-mounted door hinge')) {
+        R.string.surfaceMountedDoorHinge) {
       type = 2;
     }
     doorHinge.pdfPath =
@@ -298,8 +299,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               child: Row(
                 children: <Widget>[
                   Text(
-                      FlutterI18n.translate(
-                          context, 'Surface-mounted door hinge details'),
+                      R.string.surfaceMountedDoorHingeDetails,
                       style: Theme.of(context).textTheme.body1,
                       textAlign: TextAlign.left),
                   Expanded(
@@ -329,28 +329,29 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         ),
         Divider(height: 1),
         _constructGenericOption(
-            FlutterI18n.translate(context, 'Cover caps of the door hinge'),
+            R.string.coverCapsDoorHinge,
             true,
             [
-              FlutterI18n.translate(context, 'Circular (generation 1 & 3)'),
-              FlutterI18n.translate(context, 'Oval (generation 2)')
+              R.string.circularGeneration,
+              R.string.ovalGeneration
             ],
             coverCapsCtr,
-            FlutterI18n.translate(context, 'Circular (generation 1 & 3)')),
+            R.string.circularGeneration,
+        ),
         Divider(height: 1),
       ],
     );
   }
 
   Widget _getBarrel() {
-    if (hingeTypeCtr.text == FlutterI18n.translate(context, 'Barrel hinge')) {
+    if (hingeTypeCtr.text == R.string.barrelHinge) {
       return Column(
         children: <Widget>[
           Padding(
               padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Door leaf (mm)'),
+                  Text(R.string.doorLeafMM,
                       style: Theme.of(context).textTheme.body1,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
@@ -415,7 +416,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Door frame (mm)'),
+                  Text(R.string.doorFrameMM,
                       style: Theme.of(context).textTheme.body1,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
@@ -482,7 +483,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                 margin: EdgeInsets.only(left: 16),
                 child: Row(
                   children: <Widget>[
-                    Text(FlutterI18n.translate(context, 'Dimension'),
+                    Text(R.string.dimension,
                         style: Theme.of(context).textTheme.body1,
                         textAlign: TextAlign.left),
                     Expanded(
@@ -520,7 +521,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'General data'),
+        title: Text(R.string.generalData,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
@@ -550,7 +551,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Year of construction'),
+                  Text(R.string.yearConstruction,
                       style: Theme.of(context).textTheme.body1,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
@@ -579,8 +580,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               child: Row(
                 children: <Widget>[
                   Text(
-                      FlutterI18n.translate(
-                          context, 'Basic depth of the door leaf (mm)'),
+                      R.string.basicDepthDoorLeafMM,
                       style: Theme.of(context).textTheme.body1,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
@@ -630,66 +630,67 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Material'),
+              R.string.material,
               true,
               [
-                FlutterI18n.translate(context, 'Aluminum'),
-                FlutterI18n.translate(context, 'PVC-U'),
-                FlutterI18n.translate(context, 'Steel')
+                R.string.aluminium,
+                R.string.pvcU,
+                R.string.steel
               ],
               materialCtr,
-              FlutterI18n.translate(context, 'Aluminum')),
+              R.string.aluminium
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Thermally'),
+              R.string.thermally,
               true,
               [
-                FlutterI18n.translate(context, 'Thermally broken door'),
-                FlutterI18n.translate(context, 'Thermally non broken door')
+                R.string.thermallyBrokenDoor,
+                R.string.thermallyNonBrokenDoor
               ],
               thermallyCtr,
-              FlutterI18n.translate(context, 'Thermally broken door')),
+                R.string.thermallyBrokenDoor
+          ),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Door opening'),
+              R.string.doorOpening,
               true,
               [
-                FlutterI18n.translate(context, 'Inward'),
-                FlutterI18n.translate(context, 'Outward')
+                R.string.inward,
+                R.string.outward
               ],
               doorOpeningCtr,
-              FlutterI18n.translate(context, 'Inward')),
+              R.string.inward),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Fitted'),
+              R.string.fitted,
               true,
               [
-                FlutterI18n.translate(context, 'Flush-fitted'),
-                FlutterI18n.translate(context, 'Face-fitted')
+              R.string.flushFitted,
+                R.string.faceFitted
               ],
               fittedCtr,
-              FlutterI18n.translate(context, 'Flush-fitted')),
+              R.string.flushFitted),
           Divider(height: 1),
           _constructGenericOption(
-              FlutterI18n.translate(context, 'Hinge type'),
+              R.string.hingeType,
               true,
               [
-                FlutterI18n.translate(context, 'Surface-mounted door hinge'),
-                FlutterI18n.translate(context, 'Barrel hinge'),
-                FlutterI18n.translate(context, 'Weld-on hinge'),
-                FlutterI18n.translate(context, '100 concealed hinge'),
-                FlutterI18n.translate(context, '180 concealed hinge'),
-                FlutterI18n.translate(context, '2-part'),
-                FlutterI18n.translate(context, '3-part')
+                R.string.surfaceMountedDoorHinge,
+                R.string.barrelHinge,
+                R.string.weldOnHinge,
+                R.string.concealedHinge100,
+                R.string.concealedHinge180,
+                R.string.part2,
+                R.string.part3
               ],
               hingeTypeCtr,
-              FlutterI18n.translate(context, 'Surface-mounted door hinge')),
+              R.string.surfaceMountedDoorHinge),
           Divider(height: 1),
-          if (hingeTypeCtr.text ==
-              FlutterI18n.translate(context, 'Surface-mounted door hinge'))
+          if(hingeTypeCtr.text == R.string.surfaceMountedDoorHinge)
             _getSurface(),
           if (hingeTypeCtr.text ==
-              FlutterI18n.translate(context, 'Barrel hinge'))
+              R.string.barrelHinge)
             _getBarrel()
         ],
       ),

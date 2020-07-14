@@ -10,6 +10,7 @@ import 'package:repairservices/models/Product.dart';
 import 'Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:repairservices/database_helpers.dart';
+import 'package:repairservices/res/R.dart';
 
 class ArticleDetailsV extends StatefulWidget {
   final Product product;
@@ -68,15 +69,15 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
   String _getTextByAvability(String avability) {
     switch (avability) {
       case "1":
-        return FlutterI18n.translate(context, 'avability1');
+        return R.string.availability1;
       case "2":
-        return FlutterI18n.translate(context, 'avability2');
+        return R.string.availability2;
       case "3":
-        return FlutterI18n.translate(context, 'avability3');
+        return R.string.availability3;
       case "4":
-        return FlutterI18n.translate(context, 'avability4');
+        return R.string.availability4;
       default:
-        return FlutterI18n.translate(context, 'avability5');
+        return R.string.availability5;
     }
   }
 
@@ -157,7 +158,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
                 ),
                 child: Center(
                   child: Text(
-                    FlutterI18n.translate(context, 'Add to Cart'),
+                    R.string.addToCart,
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.white
@@ -183,7 +184,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
                 ),
                 child: Center(
                   child: Text(
-                    FlutterI18n.translate(context, 'login'),
+                    R.string.login,
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.white
@@ -223,7 +224,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
                     width: 154,
                     child: Center(
                       child: Text(
-                        FlutterI18n.translate(context, 'avability'), style: TextStyle(fontSize: 20,color: _getColorByAvability(product.avability != null ? product.avability.value : "1"),fontWeight: FontWeight.bold),
+                        R.string.availability, style: TextStyle(fontSize: 20,color: _getColorByAvability(product.avability != null ? product.avability.value : "1"),fontWeight: FontWeight.bold),
                       ),
                     ),
                     decoration: BoxDecoration(
@@ -346,7 +347,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
                       child: Padding(
                         padding: EdgeInsets.only(right: 8,left: 4),
                         child: Text(
-                          FlutterI18n.translate(context, 'To see prices and availability, please log in.'),
+                          R.string.toSeePricesAvailabilityLogIn,
                           style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 14,fontWeight: FontWeight.w400),
                         ),
                       )
@@ -432,7 +433,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
 //        actionsIconTheme: IconThemeData(color: Colors.red),
-          title: Text(FlutterI18n.translate(context, 'Article Details'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.articleDetails,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

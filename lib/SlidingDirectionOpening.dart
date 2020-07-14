@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 
 class SlidingDirectionOpening extends StatelessWidget {
   final String imageStr;
@@ -40,7 +41,7 @@ class SlidingDirectionOpening extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Opening direction'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.openingDirection,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -66,7 +67,7 @@ class SlidingDirectionOpening extends StatelessWidget {
                             _getSquare(1),
                             Padding(
                               padding: EdgeInsets.only(top: 8),
-                              child: Text(FlutterI18n.translate(context, 'Right'),style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),maxLines: 2,),
+                              child: Text(R.string.right,style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),maxLines: 2,),
                             ),
                             Image.asset('assets/slidingDirectionOpening1.png'),
                           ],
@@ -80,7 +81,7 @@ class SlidingDirectionOpening extends StatelessWidget {
                             _getSquare(2),
                             Padding(
                               padding: EdgeInsets.only(top: 8),
-                              child: Text(FlutterI18n.translate(context, 'Left'),style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),maxLines: 2,textAlign: TextAlign.center,),
+                              child: Text(R.string.left,style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),maxLines: 2,textAlign: TextAlign.center,),
                             ),
                             Image.asset('assets/slidingDirectionOpening2.png'),
                           ],
@@ -103,7 +104,7 @@ class SlidingDirectionOpening extends StatelessWidget {
                             _getSquare(3),
                             Padding(
                               padding: EdgeInsets.only(top: 8),
-                              child: Text(FlutterI18n.translate(context, 'Right'),style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),),
+                              child: Text(R.string.right,style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),),
                             ),
                             Image.asset('assets/slidingDirectionOpening3.png'),
                           ],
@@ -117,7 +118,7 @@ class SlidingDirectionOpening extends StatelessWidget {
                             _getSquare(4),
                             Padding(
                               padding: EdgeInsets.only(top: 8),
-                              child: Text(FlutterI18n.translate(context, 'Left'),style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),maxLines: 2,),
+                              child: Text(R.string.left,style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(38, 38, 38, 1.0)),maxLines: 2,),
                             ),
                             Image.asset('assets/slidingDirectionOpening4.png'),
                           ],

@@ -16,6 +16,7 @@ import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/models/Windows.dart';
+import 'package:repairservices/res/R.dart';
 
 class ArticleWebPreview extends StatefulWidget {
   final Fitting article;
@@ -45,7 +46,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
 
   Widget _getTitle() {
 //    _loadHtmlFromAssets();
-    return Text(FlutterI18n.translate(context, 'Article Preview'),
+    return Text(R.string.articlePreview,
         style: Theme.of(context).textTheme.body1);
   }
 
@@ -114,8 +115,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
                       },
                       color: Theme.of(context).primaryColor,
                     ),
-                    title: Text(FlutterI18n.translate(
-                        context, 'Generated PDF Document'))),
+                    title: Text(R.string.generatedPDFDoc)),
                 path: article.pdfPath)));
     setState(() {
       loading = false;
@@ -182,7 +182,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
                         ),
                         child: Center(
                           child: Text(
-                            FlutterI18n.translate(context, 'Send by Email'),
+                            R.string.sendByEmail,
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           ),
                         )),

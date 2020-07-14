@@ -45,7 +45,7 @@ class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: FlutterI18n.translate(context, 'Note 1'),
+            title: R.string.note1,
             onLeadingTap: () {
               _navBack();
             },
@@ -95,7 +95,7 @@ class _NoteState extends StateWithBloC<NotePage, NoteBloC> {
                               mainColor: Colors.red,
                               textColor: Colors.white,
                               title:
-                                  FlutterI18n.translate(context, 'Delete note'),
+                                  R.string.deleteNote,
                               onPressed: () {
                                 bloc.model.description = "";
                                 _navBack();

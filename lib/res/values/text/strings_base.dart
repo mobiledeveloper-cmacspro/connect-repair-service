@@ -602,7 +602,7 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get cartName;
 
-  String get sendCardToPurchase;
+  String get sendCartToPurchase;
 
   String get myCompany;
 
@@ -647,4 +647,6 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get audio;
 
   String get video;
+
+  String get boltLock;
 }

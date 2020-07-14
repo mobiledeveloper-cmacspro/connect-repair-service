@@ -48,7 +48,7 @@ class _ArticleLocalDetailState
       child: Stack(
         children: <Widget>[
           TXMainBarWidget(
-            title: FlutterI18n.translate(context, 'Article Details'),
+            title: R.string.articleDetails,
             onLeadingTap: () {
               _navBack();
             },
@@ -69,7 +69,7 @@ class _ArticleLocalDetailState
 //                  ? InkWell(
 //                      child: Container(
 //                        child: TXTextWidget(
-//                          text: FlutterI18n.translate(context, 'Send'),
+//                          text: FR.string.send,
 //                          fontWeight: FontWeight.bold,
 //                          color: R.color.primary_color,
 //                        ),
@@ -113,15 +113,15 @@ class _ArticleLocalDetailState
             actions: [
               ActionSheetModel(
                   key: "Print",
-                  title: FlutterI18n.translate(context, 'Print'),
+                  title: R.string.print,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Email",
-                  title: FlutterI18n.translate(context, 'Email'),
+                  title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Remove",
-                  title: FlutterI18n.translate(context, 'Remove'),
+                  title: R.string.remove,
                   color: Colors.red)
             ],
           );

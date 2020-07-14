@@ -17,6 +17,7 @@ import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:repairservices/res/R.dart';
 
 class ArticleBookMark extends StatefulWidget {
   @override
@@ -169,7 +170,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                       child: Icon(Icons.search, color: Colors.grey),
                     ),
                     new Text(
-                      FlutterI18n.translate(context, 'Search'),
+                      R.string.search,
                       style: const TextStyle(
                         fontSize: 17,
                         color: Colors.grey,
@@ -208,7 +209,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
           backgroundColor: Colors.white,
           actionsIconTheme:
               IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Article Bookmark'),
+          title: Text(R.string.articleBookmark,
               style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -381,7 +382,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                               color: Colors.white),
                         ),
                         new Text(
-                          FlutterI18n.translate(context, 'Options'),
+                          R.string.options,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 12.0,
@@ -414,18 +415,15 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                               actions: [
                                 ActionSheetModel(
                                     key: "Select all",
-                                    title: FlutterI18n.translate(
-                                        context, 'Select all'),
+                                    title: R.string.selectAll,
                                     color: Theme.of(context).primaryColor),
                                 ActionSheetModel(
                                     key: "Deselect all",
-                                    title: FlutterI18n.translate(
-                                        context, 'Deselect all'),
+                                    title: R.string.deselectAll,
                                     color: Theme.of(context).primaryColor),
                                 ActionSheetModel(
                                     key: "Remove selected ones",
-                                    title: FlutterI18n.translate(
-                                        context, 'Remove selected ones'),
+                                    title: R.string.removeSelected,
                                     color: Colors.red)
                               ],
                             );

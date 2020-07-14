@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/models/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:repairservices/res/R.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class ProfileState extends State<Profile> {
               ),
               child: Center(
                 child: Text(
-                  FlutterI18n.translate(context, 'Select B2B Unit'),
+                  R.string.selectB2BUnit,
                   style: TextStyle(
                       fontSize: 17,
                       color: Colors.white
@@ -64,7 +65,7 @@ class ProfileState extends State<Profile> {
     showDemoActionSheet(
         context: context,
         child: CupertinoActionSheet(
-            title: Text(FlutterI18n.translate(context, 'Select B2B Unit')),
+            title: Text(R.string.selectB2BUnit),
             actions: _actionItems(context)
         )
     );
@@ -119,7 +120,7 @@ class ProfileState extends State<Profile> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'User Information'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.userInfo,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -135,7 +136,7 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(FlutterI18n.translate(context, 'Name:'), style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.name, style: Theme.of(context).textTheme.subhead),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
@@ -148,7 +149,7 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(FlutterI18n.translate(context, 'Country')+':', style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.country+':', style: Theme.of(context).textTheme.subhead),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
@@ -161,7 +162,7 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(FlutterI18n.translate(context, 'City')+':', style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.city+':', style: Theme.of(context).textTheme.subhead),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
@@ -174,7 +175,7 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(FlutterI18n.translate(context, 'Street')+':', style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.street+':', style: Theme.of(context).textTheme.subhead),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
@@ -188,7 +189,7 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(FlutterI18n.translate(context, 'Email')+':', style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.email+':', style: Theme.of(context).textTheme.subhead),
               ),
               Expanded(
                 child: Padding(
@@ -203,7 +204,7 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(FlutterI18n.translate(context, 'Gender:'), style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.gender, style: Theme.of(context).textTheme.subhead),
               ),
               Expanded(
                 child: Padding(
@@ -218,7 +219,7 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(FlutterI18n.translate(context, 'Active B2B Unit:'), style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.activeB2BUnit, style: Theme.of(context).textTheme.subhead),
               ),
               Expanded(
                   child: Padding(

@@ -233,7 +233,7 @@ class HomeState extends State<HomeM> {
                         child: Icon(Icons.search, color: Colors.grey),
                       ),
                       new Text(
-                        FlutterI18n.translate(context, 'Search'),
+                        R.string.search,
                         style: const TextStyle(
                           fontSize: 17,
                           color: Colors.grey,

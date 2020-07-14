@@ -11,6 +11,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'Login.dart';
 import 'package:repairservices/Utils/ISClient.dart';
 import 'ArticleDetails.dart';
+import 'package:repairservices/res/R.dart';
 
 class ArticleListV extends StatefulWidget {
   @override
@@ -86,7 +87,7 @@ class ArticleListState extends State<ArticleListV> {
       });
       print('Exception details:\n $e');
       _showDialog(context, 'Repair Service',
-          FlutterI18n.translate(context, 'We have connection problems'));
+          R.string.connectionProblems);
 //      showCupertinoDialog(
 //          context: context,
 //          builder: (BuildContext context) => CupertinoAlertDialog(
@@ -156,7 +157,7 @@ class ArticleListState extends State<ArticleListV> {
     if (isSearching) {
       return CupertinoButton(
         child: Text(
-          FlutterI18n.translate(context, 'Cancel'),
+          R.string.cancel,
           style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 17,
@@ -218,7 +219,7 @@ class ArticleListState extends State<ArticleListV> {
                               decoration: InputDecoration.collapsed(
                                   border: InputBorder.none,
                                   hintText:
-                                      FlutterI18n.translate(context, 'Search'),
+                                      R.string.search,
                                   hintStyle: TextStyle(
                                       color: Colors.grey, fontSize: 17)),
                             ),
@@ -240,7 +241,7 @@ class ArticleListState extends State<ArticleListV> {
       inAsyncCall: _loading,
       child: TXMainBarWidget(
 //        actionsIconTheme: IconThemeData(color: Colors.red),
-        title: FlutterI18n.translate(context, 'Article List'),
+        title: R.string.articleList,
         onLeadingTap: () {
           NavigationUtils.pop(context);
         },
@@ -312,7 +313,7 @@ class ArticleListState extends State<ArticleListV> {
                       ),
                       child: Center(
                         child: Text(
-                          FlutterI18n.translate(context, 'login'),
+                          R.string.login,
                           style: TextStyle(fontSize: 17, color: Colors.white),
                         ),
                       )),

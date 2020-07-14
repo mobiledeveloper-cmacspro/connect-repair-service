@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/models/Company.dart';
+import 'package:repairservices/res/R.dart';
 
 class AddressCompanyV extends StatefulWidget {
   final Address address;
@@ -66,7 +67,7 @@ class AddressCompanyState extends State<AddressCompanyV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Colors.grey),
-        title: Text(FlutterI18n.translate(context, 'Address'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.address,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -118,7 +119,7 @@ class AddressCompanyState extends State<AddressCompanyV> {
                       ),
                       child: Center(
                         child: Text(
-                          FlutterI18n.translate(context, 'Use current location'),
+                          R.string.useCurrentLocation,
                           style: TextStyle(
                               fontSize: 17,
                               color: Colors.white
@@ -148,7 +149,7 @@ class AddressCompanyState extends State<AddressCompanyV> {
               },
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: FlutterI18n.translate(context, 'Street'),
+                  hintText: R.string.street,
                   hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
               ),
             ),
@@ -170,7 +171,7 @@ class AddressCompanyState extends State<AddressCompanyV> {
               },
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: FlutterI18n.translate(context, 'House number'),
+                  hintText: R.string.houseNumber,
                   hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
               ),
             ),
@@ -191,7 +192,7 @@ class AddressCompanyState extends State<AddressCompanyV> {
               },
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: FlutterI18n.translate(context, 'Extra address line'),
+                  hintText: R.string.extraAddressLine,
                   hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
               ),
             ),
@@ -231,7 +232,7 @@ class AddressCompanyState extends State<AddressCompanyV> {
               keyboardType: TextInputType.numberWithOptions(signed: true,decimal: true),
               decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: FlutterI18n.translate(context, 'Location'),
+                  hintText: R.string.location,
                   hintStyle: TextStyle(color: Colors.grey,fontSize: 17)
               ),
             ),

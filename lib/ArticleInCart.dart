@@ -10,6 +10,7 @@ import 'package:repairservices/NetworkImageSSL.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
+import 'package:repairservices/res/R.dart';
 
 class ArticleInCart extends StatefulWidget {
   @override
@@ -92,7 +93,7 @@ class ArticleInCartState extends State<ArticleInCart> {
         width: 120,
         child: Row(
           children: <Widget>[
-            Text(FlutterI18n.translate(context, 'Price: '), style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
+            Text(R.string.price, style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
             Expanded(
               child: Text(productList[pos].totalAmount.value + " " + productList[pos].currency.value,style: TextStyle(fontSize: 14)),
             )
@@ -123,7 +124,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                           ),
                           child: Center(
                             child: Text(
-                              FlutterI18n.translate(context, 'Request Order'),
+                              R.string.requestOrder,
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Colors.white
@@ -145,7 +146,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                         ),
                         child: Center(
                           child: Text(
-                            FlutterI18n.translate(context, 'Order'),
+                            R.string.order,
                             style: TextStyle(
                                 fontSize: 17,
                                 color: Colors.white
@@ -182,7 +183,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                             child: Padding(
                               padding: EdgeInsets.only(right: 8,left: 4,top: 16,bottom: 16),
                               child: Text(
-                                FlutterI18n.translate(context, 'Your selected B2BUnit has no buyer. Please contact your sales area Manager to confirm your purchase!'),
+                                R.string.selectedB2BUnitHasNoBuyer,
                                 style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 14,fontWeight: FontWeight.w400),
                               ),
                             )
@@ -199,7 +200,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                         ),
                         child: Center(
                           child: Text(
-                            FlutterI18n.translate(context, 'Request Order'),
+                            R.string.requestOrder,
                             style: TextStyle(
                                 fontSize: 17,
                                 color: Colors.white
@@ -228,7 +229,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                 ),
                 child: Center(
                   child: Text(
-                    FlutterI18n.translate(context, 'login'),
+                    R.string.login,
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.white
@@ -301,7 +302,7 @@ class ArticleInCartState extends State<ArticleInCart> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(FlutterI18n.translate(context, 'Please give the name for the cart')),
+          title: new Text(R.string.giveNameForCart),
           content: new Container(
               margin: EdgeInsets.only(top: 16),
               child: Column(
@@ -313,7 +314,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                     keyboardType: TextInputType.url,
                     maxLines: 1,
                     controller: cardNameController,
-                    placeholder: FlutterI18n.translate(context, 'cart name'),
+                    placeholder: R.string.cartName,
                   ),
                   Padding(
                       padding: EdgeInsets.only(bottom: 16,top: 30),
@@ -326,7 +327,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                             ),
                             child: Center(
                               child: Text(
-                                FlutterI18n.translate(context, 'Send the card to purshase'),
+                                R.string.sendCartToPurchase,
                                 style: TextStyle(
                                     fontSize: 17,
                                     color: Colors.white
@@ -350,7 +351,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                             ),
                             child: Center(
                               child: Text(
-                                FlutterI18n.translate(context, 'Cancel'),
+                                R.string.cancel,
                                 style: TextStyle(
                                     fontSize: 17,
                                     color: Colors.white
@@ -428,7 +429,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                       ),
                     ),
                     new Text(
-                      FlutterI18n.translate(context, 'Search'),
+                      R.string.search,
                       style: const TextStyle(
                         fontSize: 17,
                         color: Colors.grey,
@@ -478,7 +479,7 @@ class ArticleInCartState extends State<ArticleInCart> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Article In Cart'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.articleInCart,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -621,7 +622,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                                       child: Padding(
                                           padding: EdgeInsets.only(right: 16,top: 8),
                                           child: Text(
-                                            FlutterI18n.translate(context, 'avability'),
+                                            R.string.availability,
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 color: _getColorByAvability(productList[index].avability == null ? "1" : productList[index].avability.value ),

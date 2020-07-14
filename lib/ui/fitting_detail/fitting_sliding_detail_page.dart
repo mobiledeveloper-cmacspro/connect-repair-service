@@ -51,25 +51,25 @@ class _FittingSlidingDetailState
           child: Column(children: <Widget>[
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Year of construction'),
+              title: R.string.yearConstruction,
               value: widget.model.year,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Fitting manufacturer'),
+              title: R.string.fittingManufacturer,
               value: widget.model.manufacturer,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: FlutterI18n.translate(context, 'Direction opening'),
+              value: R.string.openingDirection,
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
                     context,
                     FittingResourcePage(
                       title:
-                          FlutterI18n.translate(context, 'Direction opening'),
+                        R.string.openingDirection,
                       resourceTitle:
                           (widget.model.directionOpening.contains("1") ||
                                   widget.model.directionOpening.contains("3")
@@ -82,28 +82,28 @@ class _FittingSlidingDetailState
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Material'),
+              title: R.string.material,
               value: widget.model.material,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'System'),
+              title: R.string.system,
               value: widget.model.system,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Vent overlap (mm)'),
+              title: R.string.ventOverlapMM,
               value: widget.model.directionOpening,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Tilt / sliding fittings'),
+              title: R.string.tiltSlidingFittings,
               value: widget.model.tiltSlide,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: FlutterI18n.translate(context, 'Dimensions'),
+              value: R.string.dimensions,
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
@@ -145,15 +145,15 @@ class _FittingSlidingDetailState
             actions: [
               ActionSheetModel(
                   key: "Print",
-                  title: FlutterI18n.translate(context, 'Print'),
+                  title: R.string.print,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Email",
-                  title: FlutterI18n.translate(context, 'Email'),
+                  title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Remove",
-                  title: FlutterI18n.translate(context, 'Remove'),
+                  title: R.string.remove,
                   color: Colors.red)
             ],
           );

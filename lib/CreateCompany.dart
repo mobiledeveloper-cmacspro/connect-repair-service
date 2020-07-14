@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'CompanyLayoutPreview.dart';
 import 'CompanyEmailStandartText.dart';
+import 'package:repairservices/res/R.dart';
 
 class CreateCompanyV extends StatefulWidget {
 
@@ -57,7 +58,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(FlutterI18n.translate(context, 'Write de url of your logo')),
+          title: new Text(R.string.writeURLLogo),
           content: new Container(
               margin: EdgeInsets.only(top: 16),
               child: new CupertinoTextField(
@@ -74,7 +75,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           actions: <Widget>[
             CupertinoDialogAction(
                 child: new Text(
-                    FlutterI18n.translate(context, 'Download'),
+                    R.string.download,
                     style: TextStyle(color: Theme.of(context).primaryColor)),
                 isDefaultAction: true,
                 onPressed: () {
@@ -83,7 +84,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
                 }
             ),
             CupertinoDialogAction(
-              child: new Text(FlutterI18n.translate(context, 'Cancel')),
+              child: new Text(R.string.cancel),
               isDestructiveAction: true,
               onPressed: () {
                 Navigator.pop(context);
@@ -102,14 +103,14 @@ class CreateCompanyState extends State<CreateCompanyV> {
 //        message: const Text('Please select the best dessert from the options below.'),
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Choose from gallery'), style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.chooseFromGallery, style: Theme.of(context).textTheme.display1),
             onPressed: (){
               Navigator.pop(context, 'weblink');
               getImageFromGallery();
             },
           ),
           CupertinoActionSheetAction(
-            child: new Text(FlutterI18n.translate(context, 'Import from weblink'), style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.importFromWeblink, style: Theme.of(context).textTheme.display1),
             onPressed: () {
               Navigator.pop(context, 'weblink');
               this.showAlertDialogWeblink(context);
@@ -117,7 +118,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           )
         ],
         cancelButton: CupertinoActionSheetAction(
-          child: new Text(FlutterI18n.translate(context, 'Cancel'), style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 22.0,fontWeight: FontWeight.w700)),
+          child: new Text(R.string.cancel, style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 22.0,fontWeight: FontWeight.w700)),
           isDefaultAction: true,
           onPressed: () => Navigator.pop(context, 'Cancel'),
         ),
@@ -174,7 +175,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Colors.grey),
-        title: Text(this.newCompany == false ? FlutterI18n.translate(context, 'Company Details') : FlutterI18n.translate(context, 'Create Company'),style: Theme.of(context).textTheme.body1),
+        title: Text(this.newCompany == false ? R.string.companyDetails : R.string.createCompany,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -200,7 +201,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
         children: <Widget>[
           ListTile(
             title: Text(
-              FlutterI18n.translate(context, 'Company data'),
+              R.string.companyData,
               style: Theme.of(context).textTheme.body1,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
@@ -222,7 +223,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           Divider(height: 1),
           ListTile(
             title: Text(
-              FlutterI18n.translate(context, 'Company Logo'),
+              R.string.companyLogo,
               style: Theme.of(context).textTheme.body1,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
@@ -233,7 +234,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           Divider(height: 1),
           ListTile(
             title: Text(
-              FlutterI18n.translate(context, 'Layout preview'),
+              R.string.layoutPreview,
               style: Theme.of(context).textTheme.body1,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
@@ -244,7 +245,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           Divider(height: 1),
           ListTile(
             title: Text(
-              FlutterI18n.translate(context, 'E-mail standart text'),
+              R.string.emailStandardText,
               style: Theme.of(context).textTheme.body1,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
@@ -262,7 +263,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
             width: 100,
             height: 100,
             child: Center(
-              child: _image == null ? Text(FlutterI18n.translate(context, 'Not image selected')) : Image.file(_image) ,
+              child: _image == null ? Text(R.string.noImageSelected) : Image.file(_image) ,
             ),
           )
         ],

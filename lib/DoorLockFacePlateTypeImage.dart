@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorLockFacePlateTypeImage extends StatelessWidget {
   final String imageStr;
@@ -39,7 +40,7 @@ class DoorLockFacePlateTypeImage extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Face plate type'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.facePlateType,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

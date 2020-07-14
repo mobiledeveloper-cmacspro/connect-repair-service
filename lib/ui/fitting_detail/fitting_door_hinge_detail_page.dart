@@ -51,45 +51,43 @@ class _FittingDoorHingeDetailState
           child: Column(children: <Widget>[
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Year of construction'),
+              title: R.string.yearConstruction,
               value: widget.model.year,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(
-                  context, 'Basic depth of the door leaf (mm)'),
+              title: R.string.basicDepthDoorLeafMM,
               value: widget.model.basicDepthOfDoorLeaf,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(
-                  context, 'System'),
+              title: R.string.system,
               value: widget.model.systemHinge,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Material'),
+              title: R.string.material,
               value: widget.model.material,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Thermally'),
+              title: R.string.thermally,
               value: widget.model.thermally,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Door opening'),
+              title: R.string.doorOpening,
               value: widget.model.doorOpening,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Fitted'),
+              title: R.string.fitted,
               value: widget.model.fitted,
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
               title: "",
-              value: FlutterI18n.translate(context, 'Dimensions'),
+              value: R.string.dimensions,
               cellEditMode: CellEditMode.selector,
               onSubmitted: (value) {
                 NavigationUtils.pushCupertino(
@@ -104,7 +102,7 @@ class _FittingDoorHingeDetailState
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: FlutterI18n.translate(context, 'Hinge type'),
+              title: R.string.hingeType,
               value: widget.model.hingeType,
             ),
             TXDividerWidget(),
@@ -119,31 +117,31 @@ class _FittingDoorHingeDetailState
   }
 
   Widget _getHingeTypeCells(){
-    if(widget.model.hingeType == FlutterI18n.translate(context, 'Barrel hinge')){
+    if(widget.model.hingeType == R.string.barrelHinge){
       return Column(children: <Widget>[
         TXItemCellEditWidget(
-          title: FlutterI18n.translate(context, 'Door leaf (mm)'),
+          title: R.string.doorLeafMM,
           value: widget.model.doorLeafBarrel,
         ),
         TXDividerWidget(),
         TXItemCellEditWidget(
-          title: FlutterI18n.translate(context, 'System'),
+          title: R.string.system,
           value: widget.model.systemDoorLeaf,
         ),
         TXDividerWidget(),
         TXItemCellEditWidget(
-          title: FlutterI18n.translate(context, 'Door frame (mm)'),
+          title: R.string.doorFrameMM,
           value: widget.model.doorFrame,
         ),
         TXDividerWidget(),
         TXItemCellEditWidget(
-          title: FlutterI18n.translate(context, 'System'),
+          title: R.string.system,
           value: widget.model.systemDoorFrame,
         ),
         TXDividerWidget(),
         TXItemCellEditWidget(
           title: "",
-          value: FlutterI18n.translate(context, 'Dimensions'),
+          value: R.string.dimensions,
           cellEditMode: CellEditMode.selector,
           onSubmitted: (value) {
             NavigationUtils.pushCupertino(
@@ -157,20 +155,19 @@ class _FittingDoorHingeDetailState
           },
         ),
       ],);
-    }else if(widget.model.hingeType ==
-        FlutterI18n.translate(context, 'Surface-mounted door hinge')){
+    }else if(widget.model.hingeType == R.string.surfaceMountedDoorHinge){
 
       return Column(
         children: <Widget>[
           TXItemCellEditWidget(
             title: "",
-            value: FlutterI18n.translate(context, 'Door hinge details'),
+            value: R.string.doorHingeDetails,
             cellEditMode: CellEditMode.selector,
             onSubmitted: (value) {
               NavigationUtils.pushCupertino(
                   context,
                   FittingResourcePage(
-                    title: FlutterI18n.translate(context, 'Door hinge details'),
+                    title: R.string.doorHingeDetails,
                     resourceTitle: "",
                     resource: bloc.getSurfaceType(widget.model.doorHingeDetailsIm),
                   ));
@@ -178,7 +175,7 @@ class _FittingDoorHingeDetailState
           ),
           TXDividerWidget(),
           TXItemCellEditWidget(
-            title: FlutterI18n.translate(context, 'Cover caps of the door hinge'),
+            title: R.string.coverCapsDoorHinge,
             value: widget.model.coverCaps,
           ),
         ],
@@ -212,15 +209,15 @@ class _FittingDoorHingeDetailState
             actions: [
               ActionSheetModel(
                   key: "Print",
-                  title: FlutterI18n.translate(context, 'Print'),
+                  title: R.string.print,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Email",
-                  title: FlutterI18n.translate(context, 'Email'),
+                  title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
                   key: "Remove",
-                  title: FlutterI18n.translate(context, 'Remove'),
+                  title: R.string.remove,
                   color: Colors.red)
             ],
           );

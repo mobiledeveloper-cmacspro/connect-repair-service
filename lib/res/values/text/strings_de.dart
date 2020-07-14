@@ -15,7 +15,7 @@ class StringsDe implements StringsBase {
   String get connectionProblems => 'Wir haben Verbindungsprobleme';
 
   @override
-  String get login => null;
+  String get login => "";
 
   @override
   String get home => "Startseite";
@@ -39,7 +39,7 @@ class StringsDe implements StringsBase {
   String get home4 => "Firmenprofil\n";
 
   @override
-  String get docCenter => null;
+  String get docCenter => "";
 
   @override
   String get companyProfile => "Firmenprofil";
@@ -48,7 +48,7 @@ class StringsDe implements StringsBase {
   String get contact => "Kontakt";
 
   @override
-  String get serviceFaq => null;
+  String get serviceFaq => "";
 
   @override
   String get setting => "Einstellungen";
@@ -171,7 +171,7 @@ class StringsDe implements StringsBase {
   String get partDetails => "Details zum Artikel";
 
   @override
-  String get upload => null;
+  String get upload => "";
 
   @override
   String get doorType => "Türart";
@@ -480,7 +480,7 @@ class StringsDe implements StringsBase {
   String get city => "Stadt";
 
   @override
-  String get postcode => null;
+  String get postcode => "";
 
   @override
   String get country => "Land";
@@ -549,34 +549,34 @@ class StringsDe implements StringsBase {
   String get articleInCart => "Artikel im Warenkorb";
 
   @override
-  String get articlePreview => null;
+  String get articlePreview => "";
 
   @override
-  String get generatedPDFDoc => null;
+  String get generatedPDFDoc => "";
 
   @override
   String get sendByEmail => "Per E-Mail senden";
 
   @override
-  String get orderSent => null;
+  String get orderSent => "";
 
   @override
-  String get checkOrder => null;
+  String get checkOrder => "";
 
   @override
-  String get shippingAddress => null;
+  String get shippingAddress => "";
 
   @override
-  String get expressDelivery => null;
+  String get expressDelivery => "";
 
   @override
-  String get products => null;
+  String get products => "";
 
   @override
-  String get clickHereToEditCart => null;
+  String get clickHereToEditCart => "";
 
   @override
-  String get quantity => null;
+  String get quantity => "";
 
   @override
   String get companyData => "Firmendaten";
@@ -600,10 +600,10 @@ class StringsDe implements StringsBase {
   String get emailAddress => "E-Mail Adresse";
 
   @override
-  String get website => null;
+  String get website => "";
 
   @override
-  String get emailStandardText => null;
+  String get emailStandardText => "";
 
   @override
   String get layoutPreview => "Vorschau";
@@ -615,7 +615,7 @@ class StringsDe implements StringsBase {
   String get createPersonalCompanyProfileTo => "Erstellen Sie Ihr persönliches Firmenprofil, um Ihre Kontaktdaten und Ihr Firmenlogo in das Exportdokument einzugeben";
 
   @override
-  String get defaultCompany => null;
+  String get defaultCompany => "";
 
   @override
   String get weAreHereToHelp => "Wir helfen Ihnen gerne weiter";
@@ -633,16 +633,16 @@ class StringsDe implements StringsBase {
   String get friday8am3pm => "Freitag: 08 - 15 Uhr";
 
   @override
-  String get writeURLLogo => null;
+  String get writeURLLogo => "";
 
   @override
-  String get download => null;
+  String get download => "";
 
   @override
   String get importFromWeblink => "Import aus Weblink";
 
   @override
-  String get companyDetails => null;
+  String get companyDetails => "";
 
   @override
   String get createCompany => "Firma anlegen";
@@ -657,7 +657,7 @@ class StringsDe implements StringsBase {
   String get sparePartsShop => "Ersatzteilshop";
 
   @override
-  String get service => null;
+  String get service => "";
 
   @override
   String get firstTextFaq => "Schüco bietet Ihnen eine Vielzahl von Ersatzteilen für Ihre Bauprojekte.\nTeilen Sie uns alle Komponenten mit die Sie benötigen.";
@@ -717,7 +717,7 @@ class StringsDe implements StringsBase {
   String get missingData => "Fehlende Daten";
 
   @override
-  String get emailUsername => null;
+  String get emailUsername => "";
 
   @override
   String get password => "Passwort";
@@ -813,25 +813,25 @@ class StringsDe implements StringsBase {
   String get germany => "Deutschland";
 
   @override
-  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith => null;
+  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith => "";
 
   @override
-  String get germanInterstateBroadcastingTreaty => null;
+  String get germanInterstateBroadcastingTreaty => "";
 
   @override
-  String get executiveManagementBoard => null;
+  String get executiveManagementBoard => "";
 
   @override
-  String get andreasEngelhardtCEOAndManaging => null;
+  String get andreasEngelhardtCEOAndManaging => "";
 
   @override
   String get partner => "Partner";
 
   @override
-  String get philipNeuhausCFO => null;
+  String get philipNeuhausCFO => "";
 
   @override
-  String get drWalterStadlbauerCOOandCTO => null;
+  String get drWalterStadlbauerCOOandCTO => "";
 
   @override
   String get tel => "Tel:";
@@ -855,64 +855,64 @@ class StringsDe implements StringsBase {
   String get deutsch => "Deutsch";
 
   @override
-  String get objectNotRecognized => null;
+  String get objectNotRecognized => "";
 
   @override
-  String get send => null;
+  String get send => "";
 
   @override
-  String get deleteRecord => null;
+  String get deleteRecord => "";
 
   @override
-  String get note1 => null;
+  String get note1 => "";
 
   @override
-  String get deleteNote => null;
+  String get deleteNote => "";
 
   @override
   String get video1 => "Video 1";
 
   @override
-  String get takeNewVideo => null;
+  String get takeNewVideo => "";
 
   @override
-  String get deleteVideo => null;
+  String get deleteVideo => "";
 
   @override
   String get system => "System";
 
   @override
-  String get schucoLogoVisibleOnFacePlate => null;
+  String get schucoLogoVisibleOnFacePlate => "";
 
   @override
-  String get profileInsulations => null;
+  String get profileInsulations => "";
 
   @override
-  String get lockType => null;
+  String get lockType => "";
 
   @override
-  String get tiltSlidingFittings => null;
+  String get tiltSlidingFittings => "";
 
   @override
-  String get underConstruction => null;
+  String get underConstruction => "";
 
   @override
-  String get pdfViewer => null;
+  String get pdfViewer => "";
 
   @override
-  String get failedLoadPDF => null;
+  String get failedLoadPDF => "";
 
   @override
-  String get giveNameForCart => null;
+  String get giveNameForCart => "";
 
   @override
-  String get cartName => null;
+  String get cartName => "";
 
   @override
-  String get sendCardToPurchase => null;
+  String get sendCartToPurchase => "";
 
   @override
-  String get myCompany => null;
+  String get myCompany => "";
 
   @override
   String get emergencyExists => "Notausgänge/Fluchttüren";
@@ -936,44 +936,47 @@ class StringsDe implements StringsBase {
   String get deadboltLock => "Riegelschloss";
 
   @override
-  String get changeArticleName => null;
+  String get changeArticleName => "";
 
   @override
-  String get articleImage => null;
+  String get articleImage => "";
 
   @override
   String get ok => "OK";
 
   @override
-  String get headArrow1 => null;
+  String get headArrow1 => "";
 
   @override
-  String get drawTheLine => null;
+  String get drawTheLine => "";
 
   @override
-  String get headArrow2 => null;
+  String get headArrow2 => "";
 
   @override
-  String get angle => null;
+  String get angle => "";
 
   @override
-  String get searchBar => null;
+  String get searchBar => "";
 
   @override
-  String get logIn => null;
+  String get logIn => "";
 
   @override
   String get projectDoc => "Projekt \n Dokumentation";
 
   @override
-  String get profile => null;
+  String get profile => "";
 
   @override
-  String get otherFitting => null;
+  String get otherFitting => "";
 
   @override
   String get audio => "Audio";
 
   @override
   String get video => "Video";
+
+  @override
+  String get boltLock => "Riegelschloss";
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/article_detail/article_detail_bloc.dart';
@@ -24,7 +25,7 @@ class _ArticleDetailState
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Article Image'),
+        title: Text(R.string.articleImage,
             style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

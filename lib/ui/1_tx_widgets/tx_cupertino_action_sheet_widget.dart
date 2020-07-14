@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 
@@ -26,7 +26,7 @@ class TXCupertinoActionSheetWidget extends StatelessWidget {
               NavigationUtils.pop(context);
             },
             child: TXTextWidget(
-                text: FlutterI18n.translate(context, 'Cancel'),
+                text: R.string.cancel,
                 size: 18,
                 color: Theme.of(context).primaryColor),
           ),

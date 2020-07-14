@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/models/Company.dart';
 import 'AddressCompany.dart';
+import 'package:repairservices/res/R.dart';
 
 
 class CompanyDataV extends StatefulWidget {
@@ -40,7 +41,7 @@ class CompanyDataState extends State<CompanyDataV> {
               onPressed: action,
             ),
             CupertinoDialogAction(
-              child: new Text(FlutterI18n.translate(context, 'Cancel')),
+              child: new Text(R.string.cancel),
               isDestructiveAction: true,
               onPressed: () {
                 Navigator.pop(context);
@@ -95,7 +96,7 @@ class CompanyDataState extends State<CompanyDataV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Colors.grey),
-        title: Text(FlutterI18n.translate(context, 'Company data'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.companyData,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -113,7 +114,7 @@ class CompanyDataState extends State<CompanyDataV> {
               faxNode.unfocus();
               websiteNode.unfocus();
               if (nameController.text == "") {
-                this.showAlertDialog(context, FlutterI18n.translate(context, 'A name is necessary for the company'), "OK", () {
+                this.showAlertDialog(context, R.string.nameIsNecessaryForCompany, "OK", () {
                   Navigator.pop(context);
                   FocusScope.of(context).requestFocus(nameNode);
                 });
@@ -152,7 +153,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(FlutterI18n.translate(context, 'Company name'),style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.companyName,style: Theme.of(context).textTheme.body1),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 2,bottom: 0),
@@ -176,7 +177,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     },
                     decoration: InputDecoration.collapsed(
                       border: InputBorder.none,
-                      hintText: FlutterI18n.translate(context, 'New Company'),
+                      hintText: R.string.newCompany,
                       hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
                     ),
                   ),
@@ -197,7 +198,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(FlutterI18n.translate(context, 'Aditional information'),style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.aditionalInformation,style: Theme.of(context).textTheme.body1),
                     ),
                   ],
                 ),
@@ -217,7 +218,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     },
                     decoration: InputDecoration.collapsed(
                         border: InputBorder.none,
-                        hintText: FlutterI18n.translate(context, 'Information'),
+                        hintText: R.string.information,
                         hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
                     ),
                   ),
@@ -246,14 +247,14 @@ class CompanyDataState extends State<CompanyDataV> {
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                              child: new Text(FlutterI18n.translate(context, 'Address'),style: Theme.of(context).textTheme.body1),
+                              child: new Text(R.string.address,style: Theme.of(context).textTheme.body1),
                             ),
                           ],
                         ),
                         new Container(
                           margin: EdgeInsets.only(left: 16,right: 16,top: 4,bottom: 0),
                           child: Text(
-                            FlutterI18n.translate(context, 'Address'),
+                            R.string.address,
                             style: TextStyle(color: Colors.grey,fontSize: 14),
                             textAlign: TextAlign.left,
                           ),
@@ -288,7 +289,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(FlutterI18n.translate(context, 'Telephone Number'),style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.phoneNumber,style: Theme.of(context).textTheme.body1),
                     ),
                   ],
                 ),
@@ -330,7 +331,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(FlutterI18n.translate(context, 'E-mail address'),style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.emailAddress,style: Theme.of(context).textTheme.body1),
                     ),
                   ],
                 ),
@@ -372,7 +373,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(FlutterI18n.translate(context, 'Fax'),style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.fax,style: Theme.of(context).textTheme.body1),
                     ),
                   ],
                 ),
@@ -414,7 +415,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(FlutterI18n.translate(context, 'Website'),style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.website,style: Theme.of(context).textTheme.body1),
                     ),
                   ],
                 ),

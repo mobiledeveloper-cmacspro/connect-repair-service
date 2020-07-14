@@ -8,6 +8,7 @@ import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:repairservices/res/R.dart';
 
 class CheckoutOrder extends StatefulWidget {
   final Address shippingAddress;
@@ -109,7 +110,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
         width: 120,
         child: Row(
           children: <Widget>[
-            Text(FlutterI18n.translate(context, 'Price: '), style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
+            Text(R.string.price, style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
             Expanded(
               child: Text(productList[pos].totalAmount.value + " " + productList[pos].currency.value,style: TextStyle(fontSize: 14)),
             )
@@ -170,7 +171,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
       try {
         ISClientO.instance.saveOrder(expressDelivery, 'test', shippingAddress, productList).then((saved){
           if(saved){
-            _showAlertDialog(context, FlutterI18n.translate(context, 'Order sended'), "OK",(){
+            _showAlertDialog(context, R.string.orderSent, "OK",(){
               for(Product product in productList) {
                 _removeProduct(product.id);
                 Navigator.of(context).popUntil((route) => route.isFirst);
@@ -197,7 +198,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(FlutterI18n.translate(context, 'Check Order'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.checkOrder,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -211,7 +212,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
             Padding(
               padding: EdgeInsets.only(top: 20,bottom: 16),
               child: Center(
-                child: Text(FlutterI18n.translate(context, 'Shipping address'), style: Theme.of(context).textTheme.subhead)
+                child: Text(R.string.shippingAddress, style: Theme.of(context).textTheme.subhead)
               )
             ),
             Container(
@@ -246,7 +247,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                   Padding(
                     padding: EdgeInsets.only(right: 30),
                     child: Center(
-                      child: Text(FlutterI18n.translate(context, 'Express deilvery'),style: Theme.of(context).textTheme.body1),
+                      child: Text(R.string.expressDelivery,style: Theme.of(context).textTheme.body1),
                     ),
                   ),
                   Transform.scale(
@@ -270,8 +271,8 @@ class CheckoutOrderState extends State<CheckoutOrder> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(FlutterI18n.translate(context, 'Products'),style: Theme.of(context).textTheme.subhead),
-                  Text(FlutterI18n.translate(context, 'Click here to edit the cart'),style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 14))
+                  Text(R.string.products,style: Theme.of(context).textTheme.subhead),
+                  Text(R.string.clickHereToEditCart,style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 14))
                 ],
               ),
             ),
@@ -333,7 +334,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      Text(FlutterI18n.translate(context, 'Quantity: ')),
+                                      Text(R.string.quantity),
                                       Expanded(
                                         child: Center(
                                           child: Container(
@@ -357,7 +358,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                                     Expanded(
                                         child: Padding(
                                             padding: EdgeInsets.only(right: 16,top: 8),
-                                            child: Text(FlutterI18n.translate(context, 'avability'),
+                                            child: Text(R.string.availability,
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   color: _getColorByAvability(productList[index].avability == null ? "1" : productList[index].avability.value ),
@@ -397,7 +398,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                       ),
                       child: Center(
                         child: Text(
-                          FlutterI18n.translate(context, 'Check Order'),
+                          R.string.checkOrder,
                           style: TextStyle(
                               fontSize: 17,
                               color: Colors.white

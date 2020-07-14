@@ -12,6 +12,7 @@ import 'package:repairservices/GenericSelection.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorHinge.dart';
+import 'package:repairservices/res/R.dart';
 
 class DoorHingeDimension extends StatefulWidget {
   @override
@@ -71,7 +72,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
               },
             ),
             CupertinoDialogAction(
-              child: new Text(FlutterI18n.translate(context, 'Cancel')),
+              child: new Text(R.string.cancel),
               isDestructiveAction: true,
               onPressed: () {
                 Navigator.pop(context);
@@ -86,7 +87,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(FlutterI18n.translate(context, 'Dimension') + ' $dimension'),
+          title: new Text(R.string.dimension + ' $dimension'),
           content: new Container(
               margin: EdgeInsets.only(top: 16),
               child: new CupertinoTextField(
@@ -128,12 +129,12 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                   }
                   else {
                     Navigator.pop(context);
-                    showAlertDialog(context, FlutterI18n.translate(context, '0 is not valid value for this dimension'), "OK");
+                    showAlertDialog(context, R.string.zeroNotValueForDimension, "OK");
                   }
                 }
             ),
             CupertinoDialogAction(
-              child: new Text(FlutterI18n.translate(context, 'Cancel')),
+              child: new Text(R.string.cancel),
               isDestructiveAction: true,
               onPressed: () {
                 Navigator.pop(context);
@@ -176,7 +177,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Hinge dimensions'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.hingeDimensions,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -273,7 +274,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                                     height: 44,
                                     child: InkWell(
                                         onTap: (){
-                                          Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(FlutterI18n.translate(context, 'Dimension')+' D', ['22','36']))).then((selectedOption){
+                                          Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(R.string.dimension + ' D', ['22','36']))).then((selectedOption){
                                             setState(() {
                                               dCtr.text = selectedOption;
 //                                              takeScreenShoot();
@@ -415,7 +416,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         ],
                       ),
                       onTap: (){
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(FlutterI18n.translate(context, 'Dimension')+' D', ['22','36']))).then((selectedOption){
+                        Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(R.string.dimension + ' D', ['22','36']))).then((selectedOption){
                           setState(() {
                             dCtr.text = selectedOption;
 //                            takeScreenShoot();

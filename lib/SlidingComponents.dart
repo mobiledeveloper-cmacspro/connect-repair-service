@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/res/R.dart';
 
 class SlidingComponents extends StatefulWidget {
   final String components;
@@ -21,14 +22,14 @@ class SlidingComponentsState extends State<SlidingComponents>{
 
   _fillComponets() {
     componentsList = [
-      Component(FlutterI18n.translate(context, 'Roller carriage (front/rear)'),false) ,
-      Component(FlutterI18n.translate(context, 'Top stays (front/rear)'),false),
-      Component(FlutterI18n.translate(context, 'Corner drive (bottom, handle side)'),false),
-      Component(FlutterI18n.translate(context, 'Corner drive (top, handle side)'),false),
-      Component(FlutterI18n.translate(context, 'Corner drive (rear)'),false),
-      Component(FlutterI18n.translate(context, 'Control device'),false),
-      Component(FlutterI18n.translate(context, 'Handle'),false),
-      Component(FlutterI18n.translate(context, 'Other'),false)];
+      Component(R.string.rollerCarriageFrontRear,false) ,
+      Component(R.string.topStaysFrontRear,false),
+      Component(R.string.cornerDriveBottomHandleSide,false),
+      Component(R.string.cornerDriveTopHandleSide,false),
+      Component(R.string.cornerDriveRear,false),
+      Component(R.string.controlDevice,false),
+      Component(R.string.handle,false),
+      Component(R.string.other,false)];
   }
   _checkSelectedComponents(){
     if(components != null){
@@ -83,10 +84,10 @@ class SlidingComponentsState extends State<SlidingComponents>{
     for (Component component in componentsList){
       if (component.selected) {
         if (comp == ''){
-          comp = FlutterI18n.translate(context, component.component);
+          comp = component.component;
         }
         else {
-          comp += ';${FlutterI18n.translate(context, component.component)}';
+          comp += ';${component.component}';
         }
       }
     }
@@ -99,7 +100,7 @@ class SlidingComponentsState extends State<SlidingComponents>{
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(FlutterI18n.translate(context, 'Fittings components to be replaced'),style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.fittingComponentsToBeReplaced,style: Theme.of(context).textTheme.body1),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {

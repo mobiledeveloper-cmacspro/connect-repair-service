@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/models/Company.dart';
+import 'package:repairservices/res/R.dart';
 
 class CompanyEmailStandartTextV extends StatelessWidget {
   final Company comp;
@@ -15,7 +16,7 @@ class CompanyEmailStandartTextV extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Colors.grey),
-          title: Text(FlutterI18n.translate(context, 'E-mail standart text'),style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.emailStandardText,style: Theme.of(context).textTheme.body1),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -52,7 +53,7 @@ class CompanyEmailStandartTextV extends StatelessWidget {
                   style: Theme.of(context).textTheme.body1,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: FlutterI18n.translate(context, 'My Company'),
+                      hintText: R.string.myCompany,
                       hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
                   ),
                 ),
