@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/FAQ.dart';
 import 'package:repairservices/Utils/ISClient.dart';
 import 'package:repairservices/models/User.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:repairservices/res/R.dart';
 
 class LoginV extends StatefulWidget {
   @override
@@ -101,7 +101,7 @@ class LoginState extends State<LoginV> {
     showDemoActionSheet(
         context: context,
         child: CupertinoActionSheet(
-            title: Text(FlutterI18n.translate(context, 'Select B2B Unit')),
+            title: Text(R.string.selectB2BUnit),
             actions: _actionItems(context)));
   }
 
@@ -109,7 +109,7 @@ class LoginState extends State<LoginV> {
     debugPrint('Login function');
 
     if (usernameController.text == "" || passwordController.text == "") {
-      _showDialog(context, FlutterI18n.translate(context, 'Missing data'), '');
+      _showDialog(context, R.string.missingData, '');
     } else {
       setState(() {
         _saving = true;
@@ -135,13 +135,13 @@ class LoginState extends State<LoginV> {
         final m = e.message;
         if (m.contains("Failed host lookup"))
           _showDialog(context, 'Repair Service',
-              FlutterI18n.translate(context, 'We have connection problems'));
+              R.string.connectionProblems);
         else if (e.response != null && (e.response.statusCode == 400 || e.response.statusCode == 401))
           _showDialog(context, 'Repair Service',
-              FlutterI18n.translate(context, 'Bad credentials'));
+              R.string.badCredentials);
         else
           _showDialog(context, 'Repair Service',
-              FlutterI18n.translate(context, 'We have connection problems'));
+              R.string.connectionProblems);
       }
     }
   }
@@ -180,7 +180,7 @@ class LoginState extends State<LoginV> {
               ),
               child: Center(
                 child: Text(
-                  FlutterI18n.translate(context, 'login'),
+                  R.string.login,
                   style: TextStyle(fontSize: 17, color: Colors.white),
                 ),
               )),
@@ -196,7 +196,8 @@ class LoginState extends State<LoginV> {
             backgroundColor: Colors.white,
             actionsIconTheme:
                 IconThemeData(color: Theme.of(context).primaryColor),
-            title: Text(FlutterI18n.translate(context, 'login'),
+            title:
+                Text(R.string.login,
                 style: Theme.of(context).textTheme.body1),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
@@ -222,8 +223,7 @@ class LoginState extends State<LoginV> {
                       controller: usernameController,
                       focusNode: usernameNode,
                       decoration: InputDecoration(
-                          hintText: FlutterI18n.translate(
-                              context, 'E-mail / username'),
+                          hintText: R.string.emailUsername,
                           border: InputBorder.none),
                       style: TextStyle(
                           fontSize: 14, fontWeight: FontWeight.normal),
@@ -246,7 +246,7 @@ class LoginState extends State<LoginV> {
                       textInputAction: TextInputAction.go,
                       obscureText: true,
                       decoration: InputDecoration(
-                          hintText: FlutterI18n.translate(context, 'Password'),
+                          hintText: R.string.password,
                           border: InputBorder.none),
                       style: TextStyle(
                           fontSize: 14, fontWeight: FontWeight.normal),
@@ -261,8 +261,7 @@ class LoginState extends State<LoginV> {
                 children: <Widget>[
                   CupertinoButton(
                     child: Text(
-                      FlutterI18n.translate(
-                          context, 'Forgotten your password?'),
+                      R.string.forgotPassword,
                       style: TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).primaryColor,
@@ -283,7 +282,7 @@ class LoginState extends State<LoginV> {
                   ),
                   CupertinoButton(
                     child: Text(
-                      FlutterI18n.translate(context, 'First time registration'),
+                      R.string.firstTimeRegistration,
                       style: TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).primaryColor,

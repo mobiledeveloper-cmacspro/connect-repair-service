@@ -39,7 +39,7 @@ class StringsEn implements StringsBase {
   String get home4 => "Company profile\n";
 
   @override
-  String get docCenter => null;
+  String get docCenter => "Docu Center";
 
   @override
   String get companyProfile => "Company profile";

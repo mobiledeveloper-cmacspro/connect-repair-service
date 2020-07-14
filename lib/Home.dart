@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'Login.dart';
+import 'package:repairservices/res/R.dart';
 
 class HomeV extends StatelessWidget {
   const HomeV();
@@ -173,7 +173,7 @@ class HomeBody extends StatelessWidget {
                 ),
               ),
               new Text(
-                FlutterI18n.translate(context, 'SearchBar'),
+                R.string.searchBar,
                 style: const TextStyle(
                   fontSize: 17,
                   color: Colors.grey,
@@ -212,7 +212,7 @@ class HomeBody extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    FlutterI18n.translate(context, 'Log In'),
+                    R.string.logIn,
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.white
@@ -248,7 +248,7 @@ class HomeBody extends StatelessWidget {
 //                    ),
                     child: Padding(
                       padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                      child: _displayGridItem(FlutterI18n.translate(context, 'home1'),'assets/article-identification.png'),
+                      child: _displayGridItem(R.string.home1,'assets/article-identification.png'),
                     ),
                   )
                 ),
@@ -263,7 +263,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(FlutterI18n.translate(context, 'home2'),'assets/document-list-green.png'),
+                        child: _displayGridItem(R.string.home2,'assets/document-list-green.png'),
                       ),
                     ),
                 ),
@@ -283,7 +283,7 @@ class HomeBody extends StatelessWidget {
 //                      ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(FlutterI18n.translate(context, 'Project Documentation'),'assets/documentGrey.png'),
+                        child: _displayGridItem(R.string.projectDoc,'assets/documentGrey.png'),
                       ),
                     )
                 ),
@@ -294,7 +294,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(FlutterI18n.translate(context, 'Docu Center') + " \n",'assets/docucenter.png'),
+                        child: _displayGridItem(R.string.docCenter + " \n",'assets/docucenter.png'),
                       ),
                     ),
                   flex: 1,
@@ -315,7 +315,7 @@ class HomeBody extends StatelessWidget {
 //                      ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(FlutterI18n.translate(context, 'home4'),'assets/buildingGreenHome.png'),
+                        child: _displayGridItem(R.string.home4,'assets/buildingGreenHome.png'),
                       ),
                     )
                 ),
@@ -330,7 +330,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(FlutterI18n.translate(context, 'Service / FAQ'),'assets/informationGreen.png'),
+                        child: _displayGridItem(R.string.serviceFaq,'assets/informationGreen.png'),
                       ),
                     )
                 ),
