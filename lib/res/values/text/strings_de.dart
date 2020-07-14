@@ -39,7 +39,7 @@ class StringsDe implements StringsBase {
   String get home4 => "Firmenprofil\n";
 
   @override
-  String get docCenter => "Docu Center";
+  String get docCenter => null;
 
   @override
   String get companyProfile => "Firmenprofil";
@@ -470,4 +470,510 @@ class StringsDe implements StringsBase {
   @override
   String get addAddress => "Adresse hinzufügen";
 
+  @override
+  String get companyName => "Firmenname";
+
+  @override
+  String get street => "Straße";
+
+  @override
+  String get city => "Stadt";
+
+  @override
+  String get postcode => null;
+
+  @override
+  String get country => "Land";
+
+  @override
+  String get address => "Adresse";
+
+  @override
+  String get useCurrentLocation => "Aktuellen Standort verwenden";
+
+  @override
+  String get houseNumber => "Hausnummer";
+
+  @override
+  String get extraAddressLine => "Adresszusatz";
+
+  @override
+  String get location => "Ort";
+
+  @override
+  String get articleBookmark => "Artikel-Merkliste";
+
+  @override
+  String get options => "Optionen";
+
+  @override
+  String get availability1 => "Verfügbar mit der nächsten Tour!";
+
+  @override
+  String get availability2 => "Sonderabwicklung oder nicht mit der nächsten Tour lieferbar! Bitte kontaktieren Sie unseren Vertriebsinnendienst";
+
+  @override
+  String get availability3 => "Ggf. über Sonderabwicklung lieferbar! Bitte kontaktieren Sie unseren Vertriebsinnendienst";
+
+  @override
+  String get availability4 => "Artikel nicht lieferbar! Bitte kontaktieren Sie unseren Vertriebsinnendiens bzgl. möglicher Alternativartikel";
+
+  @override
+  String get availability5 => "Konfigurrierbarer Artikel, beschaffbar über Sonderabwicklung!";
+
+  @override
+  String get addToCart => "Warenkorb";
+
+  @override
+  String get availability => "Verfügbarkeit";
+
+  @override
+  String get toSeePricesAvailabilityLogIn => "Um Preise und Verfügbarkeit zu sehen, loggen Sie sich bitte ein.";
+
+  @override
+  String get articleDetails => "Artikeldetails";
+
+  @override
+  String get price => "Preis: ";
+
+  @override
+  String get requestOrder => "Bestellung anfordern";
+
+  @override
+  String get order => "Bestellung";
+
+  @override
+  String get selectedB2BUnitHasNoBuyer => "Ihre ausgewählte B2BUnit hat keinen Käufer. Bitte wenden Sie sich an Ihren Vertriebsleiter, um Ihren Kauf zu bestätigen!";
+
+  @override
+  String get articleInCart => "Artikel im Warenkorb";
+
+  @override
+  String get articlePreview => null;
+
+  @override
+  String get generatedPDFDoc => null;
+
+  @override
+  String get sendByEmail => "Per E-Mail senden";
+
+  @override
+  String get orderSent => null;
+
+  @override
+  String get checkOrder => null;
+
+  @override
+  String get shippingAddress => null;
+
+  @override
+  String get expressDelivery => null;
+
+  @override
+  String get products => null;
+
+  @override
+  String get clickHereToEditCart => null;
+
+  @override
+  String get quantity => null;
+
+  @override
+  String get companyData => "Firmendaten";
+
+  @override
+  String get nameIsNecessaryForCompany => "Für die Firma ist ein Name notwendig";
+
+  @override
+  String get newCompany => "Neue Firma";
+
+  @override
+  String get aditionalInformation => "Zusätzliche Informationen";
+
+  @override
+  String get information => "Information";
+
+  @override
+  String get phoneNumber => "Telefonnummer";
+
+  @override
+  String get emailAddress => "E-Mail Adresse";
+
+  @override
+  String get website => null;
+
+  @override
+  String get emailStandardText => null;
+
+  @override
+  String get layoutPreview => "Vorschau";
+
+  @override
+  String get createCompanyProfile => "Firmenprofil erstellen";
+
+  @override
+  String get createPersonalCompanyProfileTo => "Erstellen Sie Ihr persönliches Firmenprofil, um Ihre Kontaktdaten und Ihr Firmenlogo in das Exportdokument einzugeben";
+
+  @override
+  String get defaultCompany => null;
+
+  @override
+  String get weAreHereToHelp => "Wir helfen Ihnen gerne weiter";
+
+  @override
+  String get phoneNumberDE => "Telefonnummer (DE)";
+
+  @override
+  String get serviceTimes => "Servicezeiten:";
+
+  @override
+  String get mondayThursday8am5pm => "Montag - Donnerstag: 08 - 17 Uhr";
+
+  @override
+  String get friday8am3pm => "Freitag: 08 - 15 Uhr";
+
+  @override
+  String get writeURLLogo => null;
+
+  @override
+  String get download => null;
+
+  @override
+  String get importFromWeblink => "Import aus Weblink";
+
+  @override
+  String get companyDetails => null;
+
+  @override
+  String get createCompany => "Firma anlegen";
+
+  @override
+  String get companyLogo => "Firmenlogo";
+
+  @override
+  String get noImageSelected => "Kein Bild ausgewählt";
+
+  @override
+  String get sparePartsShop => "Ersatzteilshop";
+
+  @override
+  String get service => null;
+
+  @override
+  String get firstTextFaq => "Schüco bietet Ihnen eine Vielzahl von Ersatzteilen für Ihre Bauprojekte.\nTeilen Sie uns alle Komponenten mit die Sie benötigen.";
+
+  @override
+  String get toTheSparePartsShop => "zum Ersatzteilshop";
+
+  @override
+  String get secTextFaq => "FAQ (häufig gestellte Fragen)";
+
+  @override
+  String get faqQuestion1 => "1. Wie identifiziere ich das Ersatzteil, nach dem ich suche?";
+
+  @override
+  String get faqQuestion2 => "2. Wie identifiziere ich die Beschläge in meinem Fenster?";
+
+  @override
+  String get faqQuestion3 => "3. Welche DIN-Öffnungsrichtung hat mein Fenster?";
+
+  @override
+  String get faqQuestion4 => "4. Wie identifiziere ich das Schloss an meiner Eingangstür?";
+
+  @override
+  String get faqQuestion5 => "5. Wie kann ich mich für die Nutzung der erweiterten Informationen und Services der App registrieren?";
+
+  @override
+  String get faqAnswer1 => "Die folgenden Punkte helfen Ihnen, das richtige Ersatzteil zu finden: \n Ist das Produkt mit Unterschriften (Schüco-Schriftzug oder Krone) versehen?\n\nWelche Art von Öffnungseinheit ist es? Handelt es sich um eine Fenster- / Balkontür oder eine Eingangstür?\n\nWelches Material besteht aus der Öffnungseinheit? Aluminium oder PVC-U?\n\nWelches Produkt benötigen Sie für ein Ersatzteil?\n  a) Kennen Sie die Artikelnummer der defekten Komponente (falls unbekannt, vielleicht eine der anderen Komponenten in der Öffnungseinheit)?\n  b) Kennen Sie das Profilsystem / die Serie? Weitere Informationen hierzu finden Sie auf Ihrer Kaufrechnung.\n c) Kennen Sie das Jahr, in dem der Bau der Eröffnungseinheit gebaut wurde? Ihre Einkaufsrechnung kann Ihnen auch hier weiterhelfen.\n d) Kennen Sie die Basistiefe (in mm) des festen Rahmens?";
+
+  @override
+  String get faqAnswer2 => "Die Beschläge in einem Fenster verbinden den beweglichen Teil eines Fensters (die Entlüftung) mit dem feststehenden Teil (den Rahmen). Abhängig von der Art der Öffnung des Fensters gibt es verschiedene Beschlagstypen, z. B. Dreh- und Schwenkbewegungen , Kipp-vor-Dreh-Beschläge oder Klappenbeschläge Bei Schwingarm-Beschlägen wird das Fenster mit dem Griff von der geschlossenen Position in die Drehposition bewegt Position. Tilt-Before-Turn-Fenstergriffe sind die Umkehrung der allgemeinen Funktionen eines Dreh- / Neigungsbeschlags (90 ° -Drehung / 180 ° -Drehung). Fenster mit Fensterrollläden haben Verschlussbeschläge.";
+
+  @override
+  String get faqAnswer3 => "Fenster / Balkonntüren: Wenn sich der Griff auf der rechten Seite befindet, handelt es sich um eine linke DIN / Fenster- / Balkontür (nach links öffnend). Wenn sich der Griff auf der linken Seite befindet, befindet sich die Fenster- / Balkontür DIN rechts (nach rechts öffnend).\n\nEingangstür: Wenn sich der Türgriff auf der rechten Seite befindet, handelt es sich um eine linke DIN-Tür (nach links öffnend). Wenn sich der Türgriff auf der linken Seite befindet Seitlich ist die Eingangstür DIN rechts (Öffnung nach rechts). ";
+
+  @override
+  String get faqAnswer4 => "Wenn auf den sichtbaren Teilen des Schlosses Artikelnummern zu sehen sind, teilen Sie uns diese bitte mit. Auf der Innenseite des Schlosses (oder des Schlosskastens) können sich auch Aufkleber, Gravuren usw. befinden, die auf Artikelnummern verweisen können Die Abmessungen eines Schlosses sind zur Identifizierung erforderlich. ";
+
+  @override
+  String get faqAnswer5 => "Um die erweiterten Informationen und Services der App nutzen zu können, ist eine Schüco-Kundennummer sowie ein Schüco-Connect-Benutzer erforderlich. Eine Kundennummer erhalten Sie mit Ihrer ersten Bestellung bei Schüco. Haben Sie bereits eine Schüco-Kundennummer, wenden Sie sich bitte an den für Ihre Kundennummer zuständigen Vertriebsmitarbeiter.";
+
+  @override
+  String get shucoServiceAppProvidedBy => "Die Schüco Connect Service App wird bereitgestellt von:";
+
+  @override
+  String get registeredOfficeCourtOfRecord => "Sitz und eingetragenes Gericht:";
+
+  @override
+  String get limitedPartnership => "Kommanditgesellschaft";
+
+  @override
+  String get commercialRegister => "Handelsregister: HRA 8135";
+
+  @override
+  String get selectB2BUnit => "Bitte Kunden wählen";
+
+  @override
+  String get missingData => "Fehlende Daten";
+
+  @override
+  String get emailUsername => null;
+
+  @override
+  String get password => "Passwort";
+
+  @override
+  String get forgotPassword => "Passwort vergessen?";
+
+  @override
+  String get firstTimeRegistration => "Erstregistrierung";
+
+  @override
+  String get userInfo => "Nutzerinformation";
+
+  @override
+  String get name => "Name:";
+
+  @override
+  String get gender => "Geschlecht:";
+
+  @override
+  String get activeB2BUnit => "Aktive B2B-Einheit:";
+
+  @override
+  String get selectShippingAddress => "Wählen Sie Ihre Lieferadresse";
+
+  @override
+  String get selectAddress => "Wählen Sie Ihre Adresse";
+
+  @override
+  String get addNewDeliveryAddress => "Neue Lieferadresse hinzufügen";
+
+  @override
+  String get goToCheckoutPage => "Zur Kasse gehen";
+
+  @override
+  String get selectShippingAddressFirst => "Wählen Sie zuerst die Lieferadresse aus";
+
+  @override
+  String get photoTitle => "Fototitel";
+
+  @override
+  String get dimensions => "Maße";
+
+  @override
+  String get memo => "Memo";
+
+  @override
+  String get folders => "Ordner";
+
+  @override
+  String get editPicture => "Bild bearbeiten";
+
+  @override
+  String get badCredentials => "Zugangsdaten nicht korrekt";
+
+  @override
+  String get articleGallery => "Artikelgalerie";
+
+  @override
+  String get imprint => "Impressum";
+
+  @override
+  String get recordProduct => "Produktdaten aufzeichnen";
+
+  @override
+  String get saveAndSendByEmail => "Speichern Sie es und senden Sie es per E-Mail";
+
+  @override
+  String get justSaveIt => "Speichern Sie es einfach";
+
+  @override
+  String get sendThisArticle => "Möchten Sie diesen Artikel senden, nachdem Sie die Messungen hinzugefügt und gespeichert haben?";
+
+  @override
+  String get selectAll => "Alle markieren";
+
+  @override
+  String get deselectAll => "Alle entmarkieren";
+
+  @override
+  String get removeSelected => "Remove selected ones";
+
+  @override
+  String get schucoInternational => "Schüco International KG";
+
+  @override
+  String get karolinenstrasse => "Karolinenstrasse 1-15";
+
+  @override
+  String get bielefeld33609 => "33609 Bielefeld";
+
+  @override
+  String get germany => "Deutschland";
+
+  @override
+  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith => null;
+
+  @override
+  String get germanInterstateBroadcastingTreaty => null;
+
+  @override
+  String get executiveManagementBoard => null;
+
+  @override
+  String get andreasEngelhardtCEOAndManaging => null;
+
+  @override
+  String get partner => "Partner";
+
+  @override
+  String get philipNeuhausCFO => null;
+
+  @override
+  String get drWalterStadlbauerCOOandCTO => null;
+
+  @override
+  String get tel => "Tel:";
+
+  @override
+  String get fax => "Fax:";
+
+  @override
+  String get eMail => "E-mail:";
+
+  @override
+  String get vatId => "VAT ID No.: DE 124001363";
+
+  @override
+  String get bielefeld => "Bielefeld";
+
+  @override
+  String get english => "Englisch";
+
+  @override
+  String get deutsch => "Deutsch";
+
+  @override
+  String get objectNotRecognized => null;
+
+  @override
+  String get send => null;
+
+  @override
+  String get deleteRecord => null;
+
+  @override
+  String get note1 => null;
+
+  @override
+  String get deleteNote => null;
+
+  @override
+  String get video1 => "Video 1";
+
+  @override
+  String get takeNewVideo => null;
+
+  @override
+  String get deleteVideo => null;
+
+  @override
+  String get system => "System";
+
+  @override
+  String get schucoLogoVisibleOnFacePlate => null;
+
+  @override
+  String get profileInsulations => null;
+
+  @override
+  String get lockType => null;
+
+  @override
+  String get tiltSlidingFittings => null;
+
+  @override
+  String get underConstruction => null;
+
+  @override
+  String get pdfViewer => null;
+
+  @override
+  String get failedLoadPDF => null;
+
+  @override
+  String get giveNameForCart => null;
+
+  @override
+  String get cartName => null;
+
+  @override
+  String get sendCardToPurchase => null;
+
+  @override
+  String get myCompany => null;
+
+  @override
+  String get emergencyExists => "Notausgänge/Fluchttüren";
+
+  @override
+  String get standardDoors => "Standardtüren";
+
+  @override
+  String get audio1 => "Audio 1";
+
+  @override
+  String get latchBoltLock => "Fallen-Riegelschloss";
+
+  @override
+  String get latchBoltSelflocking => "Fallenriegel selbstverriegelnd";
+
+  @override
+  String get hookLock => "Hakenschloss";
+
+  @override
+  String get deadboltLock => "Riegelschloss";
+
+  @override
+  String get changeArticleName => null;
+
+  @override
+  String get articleImage => null;
+
+  @override
+  String get ok => "OK";
+
+  @override
+  String get headArrow1 => null;
+
+  @override
+  String get drawTheLine => null;
+
+  @override
+  String get headArrow2 => null;
+
+  @override
+  String get angle => null;
+
+  @override
+  String get searchBar => null;
+
+  @override
+  String get logIn => null;
+
+  @override
+  String get projectDoc => "Projekt \n Dokumentation";
+
+  @override
+  String get profile => null;
+
+  @override
+  String get otherFitting => null;
+
+  @override
+  String get audio => "Audio";
+
+  @override
+  String get video => "Video";
 }

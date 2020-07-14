@@ -310,4 +310,341 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get addAddress;
 
+  String get companyName;
+
+  String get street;
+
+  String get city;
+
+  String get postcode;
+
+  String get country;
+
+  String get address;
+
+  String get useCurrentLocation;
+
+  String get houseNumber;
+
+  String get extraAddressLine;
+
+  String get location;
+
+  String get articleBookmark;
+
+  String get options;
+
+  String get availability1;
+
+  String get availability2;
+
+  String get availability3;
+
+  String get availability4;
+
+  String get availability5;
+
+  String get addToCart;
+
+  String get availability;
+
+  String get toSeePricesAvailabilityLogIn;
+
+  String get articleDetails;
+
+  String get price;
+
+  String get requestOrder;
+
+  String get order;
+
+  String get selectedB2BUnitHasNoBuyer;
+
+  String get articleInCart;
+
+  String get articlePreview;
+
+  String get generatedPDFDoc;
+
+  String get sendByEmail;
+
+  String get orderSent;
+
+  String get checkOrder;
+
+  String get shippingAddress;
+
+  String get expressDelivery;
+
+  String get products;
+
+  String get clickHereToEditCart;
+
+  String get quantity;
+
+  String get companyData;
+
+  String get nameIsNecessaryForCompany;
+
+  String get newCompany;
+
+  String get aditionalInformation;
+
+  String get information;
+
+  String get phoneNumber;
+
+  String get emailAddress;
+
+  String get website;
+
+  String get emailStandardText;
+
+  String get layoutPreview;
+
+  String get createCompanyProfile;
+
+  String get createPersonalCompanyProfileTo;
+
+  String get defaultCompany;
+
+  String get weAreHereToHelp;
+
+  String get phoneNumberDE;
+
+  String get serviceTimes;
+
+  String get mondayThursday8am5pm;
+
+  String get friday8am3pm;
+
+  String get writeURLLogo;
+
+  String get download;
+
+  String get importFromWeblink;
+
+  String get companyDetails;
+
+  String get createCompany;
+
+  String get companyLogo;
+
+  String get noImageSelected;
+
+  String get sparePartsShop;
+
+  String get service;
+
+  String get firstTextFaq;
+
+  String get toTheSparePartsShop;
+
+  String get secTextFaq;
+
+  String get faqQuestion1;
+
+  String get faqQuestion2;
+
+  String get faqQuestion3;
+
+  String get faqQuestion4;
+
+  String get faqQuestion5;
+
+  String get faqAnswer1;
+
+  String get faqAnswer2;
+
+  String get faqAnswer3;
+
+  String get faqAnswer4;
+
+  String get faqAnswer5;
+
+  String get shucoServiceAppProvidedBy;
+
+  String get registeredOfficeCourtOfRecord;
+
+  String get limitedPartnership;
+
+  String get commercialRegister;
+
+  String get selectB2BUnit;
+
+  String get missingData;
+
+  String get emailUsername;
+
+  String get password;
+
+  String get forgotPassword;
+
+  String get firstTimeRegistration;
+
+  String get userInfo;
+
+  String get name;
+
+  String get gender;
+
+  String get activeB2BUnit;
+
+  String get selectShippingAddress;
+
+  String get selectAddress;
+
+  String get addNewDeliveryAddress;
+
+  String get goToCheckoutPage;
+
+  String get selectShippingAddressFirst;
+
+  String get photoTitle;
+
+  String get dimensions;
+
+  String get memo;
+
+  String get folders;
+
+  String get editPicture;
+
+  String get badCredentials;
+
+  String get articleGallery;
+
+  String get imprint;
+
+  String get recordProduct;
+
+  String get saveAndSendByEmail;
+
+  String get justSaveIt;
+
+  String get sendThisArticle;
+
+  String get selectAll;
+
+  String get deselectAll;
+
+  String get removeSelected;
+
+  String get schucoInternational;
+
+  String get karolinenstrasse;
+
+  String get bielefeld33609;
+
+  String get germany;
+
+  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith;
+
+  String get germanInterstateBroadcastingTreaty;
+
+  String get executiveManagementBoard;
+
+  String get andreasEngelhardtCEOAndManaging;
+
+  String get partner;
+
+  String get philipNeuhausCFO;
+
+  String get drWalterStadlbauerCOOandCTO;
+
+  String get tel;
+
+  String get fax;
+
+  String get eMail;
+
+  String get vatId;
+
+  String get bielefeld;
+
+  String get english;
+
+  String get deutsch;
+
+  String get objectNotRecognized;
+
+  String get send;
+
+  String get deleteRecord;
+
+  String get note1;
+
+  String get deleteNote;
+
+  String get video1;
+
+  String get takeNewVideo;
+
+  String get deleteVideo;
+
+  String get system;
+
+  String get schucoLogoVisibleOnFacePlate;
+
+  String get profileInsulations;
+
+  String get lockType;
+
+  String get tiltSlidingFittings;
+
+  String get underConstruction;
+
+  String get pdfViewer;
+
+  String get failedLoadPDF;
+
+  String get giveNameForCart;
+
+  String get cartName;
+
+  String get sendCardToPurchase;
+
+  String get myCompany;
+
+  String get emergencyExists;
+
+  String get standardDoors;
+
+  String get audio1;
+
+  String get latchBoltLock;
+
+  String get latchBoltSelflocking;
+
+  String get hookLock;
+
+  String get deadboltLock;
+
+  String get changeArticleName;
+
+  String get articleImage;
+
+  String get ok;
+
+  String get headArrow1;
+
+  String get drawTheLine;
+
+  String get headArrow2;
+
+  String get angle;
+
+  String get searchBar;
+
+  String get logIn;
+
+  String get projectDoc;
+
+  String get profile;
+
+  String get otherFitting;
+
+  String get audio;
+
+  String get video;
 }
