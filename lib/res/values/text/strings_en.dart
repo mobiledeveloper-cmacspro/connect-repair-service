@@ -567,7 +567,7 @@ class StringsEn implements StringsBase {
   String get shippingAddress => "Shipping address";
 
   @override
-  String get expressDelivery => "Express deilvery";
+  String get expressDelivery => "Express delivery";
 
   @override
   String get products => "Products";
@@ -957,7 +957,7 @@ class StringsEn implements StringsBase {
   String get angle => "Angle";
 
   @override
-  String get searchBar => "SearchBar";
+  String get searchBar => "Search bar";
 
   @override
   String get logIn => "Log In";

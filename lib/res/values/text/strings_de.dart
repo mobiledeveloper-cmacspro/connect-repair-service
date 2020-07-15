@@ -15,7 +15,7 @@ class StringsDe implements StringsBase {
   String get connectionProblems => 'Wir haben Verbindungsprobleme';
 
   @override
-  String get login => "";
+  String get login => "Login";
 
   @override
   String get home => "Startseite";
@@ -39,7 +39,7 @@ class StringsDe implements StringsBase {
   String get home4 => "Firmenprofil\n";
 
   @override
-  String get docCenter => "";
+  String get docCenter => "Docu Center";
 
   @override
   String get companyProfile => "Firmenprofil";
@@ -48,7 +48,7 @@ class StringsDe implements StringsBase {
   String get contact => "Kontakt";
 
   @override
-  String get serviceFaq => "";
+  String get serviceFaq => "Service / FAQ";
 
   @override
   String get setting => "Einstellungen";
@@ -171,7 +171,7 @@ class StringsDe implements StringsBase {
   String get partDetails => "Details zum Artikel";
 
   @override
-  String get upload => "";
+  String get upload => "Hochladen";
 
   @override
   String get doorType => "Türart";
@@ -480,7 +480,7 @@ class StringsDe implements StringsBase {
   String get city => "Stadt";
 
   @override
-  String get postcode => "";
+  String get postcode => "PLZ";
 
   @override
   String get country => "Land";
@@ -549,34 +549,34 @@ class StringsDe implements StringsBase {
   String get articleInCart => "Artikel im Warenkorb";
 
   @override
-  String get articlePreview => "";
+  String get articlePreview => "Artikelvorschau";
 
   @override
-  String get generatedPDFDoc => "";
+  String get generatedPDFDoc => "Generiertes PDF-Dokument";
 
   @override
   String get sendByEmail => "Per E-Mail senden";
 
   @override
-  String get orderSent => "";
+  String get orderSent => "Bestellung gesendet";
 
   @override
-  String get checkOrder => "";
+  String get checkOrder => "Prüfe die Reihenfolge";
 
   @override
-  String get shippingAddress => "";
+  String get shippingAddress => "Lieferanschrift";
 
   @override
-  String get expressDelivery => "";
+  String get expressDelivery => "Expresszustellung";
 
   @override
-  String get products => "";
+  String get products => "Produkte";
 
   @override
-  String get clickHereToEditCart => "";
+  String get clickHereToEditCart => "Klicken Sie hier, um den Warenkorb zu bearbeiten";
 
   @override
-  String get quantity => "";
+  String get quantity => "Menge: ";
 
   @override
   String get companyData => "Firmendaten";
@@ -600,10 +600,10 @@ class StringsDe implements StringsBase {
   String get emailAddress => "E-Mail Adresse";
 
   @override
-  String get website => "";
+  String get website => "Webseite";
 
   @override
-  String get emailStandardText => "";
+  String get emailStandardText => "Standardtext per E-Mail versenden";
 
   @override
   String get layoutPreview => "Vorschau";
@@ -615,7 +615,7 @@ class StringsDe implements StringsBase {
   String get createPersonalCompanyProfileTo => "Erstellen Sie Ihr persönliches Firmenprofil, um Ihre Kontaktdaten und Ihr Firmenlogo in das Exportdokument einzugeben";
 
   @override
-  String get defaultCompany => "";
+  String get defaultCompany => "Standardfirma";
 
   @override
   String get weAreHereToHelp => "Wir helfen Ihnen gerne weiter";
@@ -633,16 +633,16 @@ class StringsDe implements StringsBase {
   String get friday8am3pm => "Freitag: 08 - 15 Uhr";
 
   @override
-  String get writeURLLogo => "";
+  String get writeURLLogo => "Schreiben Sie die URL Ihres Logos";
 
   @override
-  String get download => "";
+  String get download => "Herunterladen";
 
   @override
   String get importFromWeblink => "Import aus Weblink";
 
   @override
-  String get companyDetails => "";
+  String get companyDetails => "Unternehmens-Details";
 
   @override
   String get createCompany => "Firma anlegen";
@@ -657,7 +657,7 @@ class StringsDe implements StringsBase {
   String get sparePartsShop => "Ersatzteilshop";
 
   @override
-  String get service => "";
+  String get service => "Bedienung";
 
   @override
   String get firstTextFaq => "Schüco bietet Ihnen eine Vielzahl von Ersatzteilen für Ihre Bauprojekte.\nTeilen Sie uns alle Komponenten mit die Sie benötigen.";
@@ -717,7 +717,7 @@ class StringsDe implements StringsBase {
   String get missingData => "Fehlende Daten";
 
   @override
-  String get emailUsername => "";
+  String get emailUsername => "E-Mail / Benutzername";
 
   @override
   String get password => "Passwort";
@@ -813,25 +813,25 @@ class StringsDe implements StringsBase {
   String get germany => "Deutschland";
 
   @override
-  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith => "";
+  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith => "Herr Andreas Engelhardt, Geschäftsführer und geschäftsführender Gesellschafter, ist gemäß § 55 RStV verantwortlich";
 
   @override
-  String get germanInterstateBroadcastingTreaty => "";
+  String get germanInterstateBroadcastingTreaty => "(Deutscher zwischenstaatlicher Rundfunkvertrag)";
 
   @override
-  String get executiveManagementBoard => "";
+  String get executiveManagementBoard => "Geschäftsleitung:";
 
   @override
-  String get andreasEngelhardtCEOAndManaging => "";
+  String get andreasEngelhardtCEOAndManaging => "Andreas Engelhardt, Geschäftsführer und Geschäftsführer";
 
   @override
   String get partner => "Partner";
 
   @override
-  String get philipNeuhausCFO => "";
+  String get philipNeuhausCFO => "Philip Neuhaus, CFO";
 
   @override
-  String get drWalterStadlbauerCOOandCTO => "";
+  String get drWalterStadlbauerCOOandCTO => "Dr. Walter Stadlbauer, COO und CTO";
 
   @override
   String get tel => "Tel:";
@@ -855,64 +855,64 @@ class StringsDe implements StringsBase {
   String get deutsch => "Deutsch";
 
   @override
-  String get objectNotRecognized => "";
+  String get objectNotRecognized => "Objekt nicht erkannt";
 
   @override
-  String get send => "";
+  String get send => "Senden";
 
   @override
-  String get deleteRecord => "";
+  String get deleteRecord => "Aufzeichnung löschen";
 
   @override
-  String get note1 => "";
+  String get note1 => "Anmerkung 1";
 
   @override
-  String get deleteNote => "";
+  String get deleteNote => "Notiz löschen";
 
   @override
   String get video1 => "Video 1";
 
   @override
-  String get takeNewVideo => "";
+  String get takeNewVideo => "Nimm ein neues Video auf";
 
   @override
-  String get deleteVideo => "";
+  String get deleteVideo => "Video löschen";
 
   @override
   String get system => "System";
 
   @override
-  String get schucoLogoVisibleOnFacePlate => "";
+  String get schucoLogoVisibleOnFacePlate => "Schüco-Logo auf der Frontplatte sichtbar";
 
   @override
-  String get profileInsulations => "";
+  String get profileInsulations => "Profilisolierungen";
 
   @override
-  String get lockType => "";
+  String get lockType => "Schloss Typ";
 
   @override
-  String get tiltSlidingFittings => "";
+  String get tiltSlidingFittings => "Kipp- / Schiebebeschläge";
 
   @override
-  String get underConstruction => "";
+  String get underConstruction => "Im Bau";
 
   @override
-  String get pdfViewer => "";
+  String get pdfViewer => "PDF-Viewer";
 
   @override
-  String get failedLoadPDF => "";
+  String get failedLoadPDF => "PDF konnte nicht geladen werden";
 
   @override
-  String get giveNameForCart => "";
+  String get giveNameForCart => "Bitte geben Sie einen Namen für den Warenkorb an";
 
   @override
-  String get cartName => "";
+  String get cartName => "Warenkorb Name";
 
   @override
-  String get sendCartToPurchase => "";
+  String get sendCartToPurchase => "Senden Sie den Warenkorb zum Kauf";
 
   @override
-  String get myCompany => "";
+  String get myCompany => "Meine Firma";
 
   @override
   String get emergencyExists => "Notausgänge/Fluchttüren";
@@ -936,40 +936,40 @@ class StringsDe implements StringsBase {
   String get deadboltLock => "Riegelschloss";
 
   @override
-  String get changeArticleName => "";
+  String get changeArticleName => "Ändern Sie den Artikelnamen";
 
   @override
-  String get articleImage => "";
+  String get articleImage => "Artikelbild";
 
   @override
   String get ok => "OK";
 
   @override
-  String get headArrow1 => "";
+  String get headArrow1 => "1 Kopfpfeil";
 
   @override
-  String get drawTheLine => "";
+  String get drawTheLine => "Zeichne die Linie";
 
   @override
-  String get headArrow2 => "";
+  String get headArrow2 => "2 Kopfpfeil";
 
   @override
-  String get angle => "";
+  String get angle => "Winkel";
 
   @override
-  String get searchBar => "";
+  String get searchBar => "Suchleiste";
 
   @override
-  String get logIn => "";
+  String get logIn => "Login";
 
   @override
   String get projectDoc => "Projekt \n Dokumentation";
 
   @override
-  String get profile => "";
+  String get profile => "Profil";
 
   @override
-  String get otherFitting => "";
+  String get otherFitting => "Andere Armatur";
 
   @override
   String get audio => "Audio";
