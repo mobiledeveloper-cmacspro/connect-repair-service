@@ -588,7 +588,7 @@ class StringsEn implements StringsBase {
   String get newCompany => "New Company";
 
   @override
-  String get aditionalInformation => "Aditional information";
+  String get aditionalInformation => "Additional information";
 
   @override
   String get information => "Information";
@@ -660,7 +660,7 @@ class StringsEn implements StringsBase {
   String get service => "Service";
 
   @override
-  String get firstTextFaq => "Schüco offers you a wide variety of spare parts for your construction projects. \nBrowse all components needed to determin the right part.";
+  String get firstTextFaq => "Schüco offers you a wide variety of spare parts for your construction projects. \nBrowse all components needed to determine the right part.";
 
   @override
   String get toTheSparePartsShop => "to the Spare Parts Shop";

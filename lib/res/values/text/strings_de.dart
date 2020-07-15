@@ -960,7 +960,7 @@ class StringsDe implements StringsBase {
   String get searchBar => "Suchleiste";
 
   @override
-  String get logIn => "Login";
+  String get logIn => "Log In";
 
   @override
   String get projectDoc => "Projekt \n Dokumentation";
