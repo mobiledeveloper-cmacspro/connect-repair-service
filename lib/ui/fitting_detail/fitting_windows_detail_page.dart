@@ -46,7 +46,7 @@ class _FittingWindowsDetails
   @override
   Widget buildWidget(BuildContext context) {
     return TXMainBarWidget(
-      title: widget.model.name,
+      title: widget.model.getNamei18N,
       onLeadingTap: () {
         Navigator.pop(context);
       },

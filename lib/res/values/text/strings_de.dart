@@ -979,4 +979,28 @@ class StringsDe implements StringsBase {
 
   @override
   String get boltLock => "Riegelschloss";
+
+  @override
+  String get doorLockFitting => "Türschlossbeschlag";
+
+  @override
+  String get doorHingeFitting => "Türscharnierbeschlag";
+
+  @override
+  String get slidingSystemFitting => "Schiebebeschläge";
+
+  @override
+  String get windowsFitting => "Fensterbeschläge";
+
+  @override
+  String get yes => "Ja";
+
+  @override
+  String get dimensionBarrel => "Dimension Lauf";
+
+  @override
+  String get dimensionSurface => "Bemaßungsfläche";
+
+  @override
+  String get schucoSystem => "Schüco-System";
 }

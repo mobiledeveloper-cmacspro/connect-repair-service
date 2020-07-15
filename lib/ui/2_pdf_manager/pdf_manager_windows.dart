@@ -2,18 +2,19 @@ import 'dart:io';
 import 'package:repairservices/models/Windows.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager.dart';
 
 class PDFManagerWindow {
   static List<PDFCell> _getListCells(Windows model) {
     List<PDFCell> list = [
       PDFCell(
-          title: "Part number of defective component",
+          title: R.string.partNumberDefectiveComponent,
           value: "${model.number}"),
-      PDFCell(title: "Year of construction", value: model.year),
-      PDFCell(title: "Systen depth (mm)", value: model.systemDepth),
-      PDFCell(title: "Profile system / -serie", value: model.profileSystem),
-      PDFCell(title: "Description", value: model.description),
+      PDFCell(title: R.string.yearConstruction, value: model.year),
+      PDFCell(title: R.string.systemDepthMM, value: model.systemDepth),
+      PDFCell(title: R.string.profileSystemSerie, value: model.profileSystem),
+      PDFCell(title: R.string.description, value: model.description),
     ];
     return list;
   }
@@ -43,7 +44,7 @@ class PDFManagerWindow {
 
       ///Adding all views together in a column
       pw.Container detailsRowSection =
-          PDFManager.getRowSection("Article details", ttfBold);
+          PDFManager.getRowSection(R.string.articleDetails, ttfBold);
       List<pw.Widget> children = [];
       children.add(detailsRowSection);
       children.addAll(rows);

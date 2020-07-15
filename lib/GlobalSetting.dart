@@ -447,7 +447,6 @@ class _LanguageState extends State<Language> {
               //await FlutterI18n.refresh(context, Locale('en'));
               //await _sharedPreferences.setLanguage('en');
               await allTranslations.setNewLanguage('en');
-              setState((){});
               Navigator.pop(context);
             },
           ),
@@ -476,7 +475,6 @@ class _LanguageState extends State<Language> {
               //await FlutterI18n.refresh(context, Locale('de'));
               //await _sharedPreferences.setLanguage('de');
               await allTranslations.setNewLanguage('de');
-              setState((){});
               Navigator.pop(context);
             },
           ),

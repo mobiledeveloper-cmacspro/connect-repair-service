@@ -641,7 +641,7 @@ class LockDimensionsState extends State<LockDimensions> {
               ),
               onTap: allViewsVisited ? () {
                 final doorLock = DoorLock.withData(
-                    "Door Lock Fitting",
+                    R.string.doorLockFitting,
                     DateTime.now(),
                     aCtr.text,
                     bCtr.text,

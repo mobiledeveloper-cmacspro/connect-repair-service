@@ -979,4 +979,28 @@ class StringsEn implements StringsBase {
 
   @override
   String get boltLock => "Bolt Lock";
+
+  @override
+  String get doorHingeFitting => "Door Hinge Fitting";
+
+  @override
+  String get doorLockFitting => "Door Lock Fitting";
+
+  @override
+  String get slidingSystemFitting => "Sliding system fittings";
+
+  @override
+  String get windowsFitting => "Windows fittings";
+
+  @override
+  String get yes => "Yes";
+
+  @override
+  String get dimensionBarrel => "Dimension barrel";
+
+  @override
+  String get dimensionSurface => "Dimension surface";
+
+  @override
+  String get schucoSystem => "Schüco system";
 }

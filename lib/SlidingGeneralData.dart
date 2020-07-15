@@ -81,7 +81,7 @@ class SlidingGeneralDataState extends State<SlidingGeneralData> {
   _goNextData() async {
     if (filled) {
       final sliding = Sliding.withData(
-          'Sliding system fittings',
+          R.string.slidingSystemFitting,
           DateTime.now(),
           yearCtr.text,
           materialCtr.text,

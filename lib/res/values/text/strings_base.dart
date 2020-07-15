@@ -86,8 +86,6 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get other;
 
-  String get sunShadingScreening;
-
   String get chooseFromGallery;
 
   String get photoOfPart;
@@ -644,9 +642,27 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get otherFitting;
 
+  String get doorLockFitting;
+
+  String get doorHingeFitting;
+
+  String get slidingSystemFitting;
+
+  String get sunShadingScreening;
+
+  String get windowsFitting;
+
   String get audio;
 
   String get video;
 
   String get boltLock;
+
+  String get yes;
+
+  String get schucoSystem;
+
+  String get dimensionSurface;
+
+  String get dimensionBarrel;
 }

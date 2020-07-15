@@ -193,7 +193,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
             ),
             onTap: () async{
               await takeScreenShoot1();
-              final doorHinge = DoorHinge.withData('Door Hinge Fitting', DateTime.now(), aCtr.text, bCtr.text, cCtr.text, dCtr.text, imagePath1);
+              final doorHinge = DoorHinge.withData(R.string.doorHingeFitting, DateTime.now(), aCtr.text, bCtr.text, cCtr.text, dCtr.text, imagePath1);
               Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData(doorHinge)));
             },
           )

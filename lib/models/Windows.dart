@@ -9,6 +9,7 @@ import 'package:repairservices/domain/article_base.dart';
 //import 'package:path_provider/path_provider.dart';
 //import 'package:path/path.dart';
 import 'package:repairservices/models/Company.dart';
+import 'package:repairservices/res/R.dart';
 
 final String tableWindows = 'windows';
 final String columnId = '_id';
@@ -28,6 +29,20 @@ class Fitting extends ArticleBase {
   int id;
   String name;
   DateTime created;
+
+  String get getNamei18N => (name.contains('Andere Armatur') || name.contains('Other fitting'))
+      ? R.string.otherFitting
+      : (name.contains('Fensterbeschläge') || name.contains('Windows fittings'))
+          ? R.string.windowsFitting
+          : (name.contains('Sonnenschutz') || name.contains('Sun shading and screening'))
+              ? R.string.sunShadingScreening
+              : (name.contains('Schiebebeschläge') || name.contains('Sliding system fittings'))
+                  ? R.string.slidingSystemFitting
+                  : (name.contains('Türschlossbeschlag') || name.contains('Door Lock Fitting'))
+                      ? R.string.doorLockFitting
+                      : (name.contains('Türscharnierbeschlag') || name.contains('Door Hinge Fitting'))
+                          ? R.string.doorHingeFitting
+                          : R.string.otherFitting;
 
   String year;
   String pdfPath;

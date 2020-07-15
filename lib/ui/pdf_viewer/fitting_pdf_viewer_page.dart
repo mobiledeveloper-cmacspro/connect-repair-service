@@ -68,7 +68,7 @@ class _FittingPDFViewerState
                       onLeadingTap: () {
                         _navBack();
                       },
-                      title: widget.model.name ??
+                      title: widget.model.getNamei18N ??
                           R.string.pdfViewer,
                       body: Container(
                         width: double.infinity,
@@ -102,7 +102,7 @@ class _FittingPDFViewerState
                         title: TXTextWidget(
                           size: 18,
                           color: Colors.black,
-                          text: widget.model.name ??
+                          text: widget.model.getNamei18N ??
                               R.string.pdfViewer,
                         ),
                         actions: <Widget>[

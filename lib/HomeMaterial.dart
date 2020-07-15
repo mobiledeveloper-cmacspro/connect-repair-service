@@ -59,7 +59,7 @@ class HomeState extends State<HomeM> {
     //_localizationDelegate.load(Locale('de'));
     //_sharedPreferences.setLanguage('de');
 
-    allTranslations.init();
+//    allTranslations.init();
 
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
@@ -69,13 +69,13 @@ class HomeState extends State<HomeM> {
     _readCompanys();
     _isPhysicalDevice();
 
-    allTranslations.onLocaleChangedCallback = _onLocaleChanged;
+//    allTranslations.onLocaleChangedCallback = _onLocaleChanged;
   }
 
-  _onLocaleChanged() async {
-    // do anything you need to do if the language changes
-    print('Language has been changed to: ${allTranslations.currentLanguage}');
-  }
+//  _onLocaleChanged() async {
+//    // do anything you need to do if the language changes
+//    print('Language has been changed to: ${allTranslations.currentLanguage}');
+//  }
 
   _readAllProductsInCart() async {
     final productList = await helper.queryAllProducts(true);

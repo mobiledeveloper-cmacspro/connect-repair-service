@@ -5,18 +5,19 @@ import 'package:flutter/services.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager.dart';
 
 class PDFManagerSliding {
   static List<PDFCell> _getListCells(Sliding model) {
     List<PDFCell> list = [
-      PDFCell(title: "Year of construction", value: model.year),
-      PDFCell(title: "Fittings manufacturer", value: "${model.manufacturer}"),
-      PDFCell(title: "Direction opening", value: model.directionOpening),
-      PDFCell(title: "Material", value: "${model.material}"),
-      PDFCell(title: "System", value: "${model.system}"),
-      PDFCell(title: "Vent overlap (mm)", value: "${model.ventOverlap}"),
-      PDFCell(title: "Tilt / sliding fittings", value: "${model.tiltSlide}"),
+      PDFCell(title: R.string.yearConstruction, value: model.year),
+      PDFCell(title: R.string.fittingManufacturer, value: "${model.manufacturer}"),
+      PDFCell(title: R.string.openingDirection, value: model.directionOpening),
+      PDFCell(title: R.string.material, value: "${model.material}"),
+      PDFCell(title: R.string.system, value: "${model.system}"),
+      PDFCell(title: R.string.ventOverlapMM, value: "${model.ventOverlap}"),
+      PDFCell(title: R.string.tiltSlidingFittings, value: "${model.tiltSlide}"),
     ];
     return list;
   }
@@ -54,7 +55,7 @@ class PDFManagerSliding {
 
       ///Adding all views together in a column
       pw.Container detailsRowSection =
-          PDFManager.getRowSection("Article details", ttfBold);
+          PDFManager.getRowSection(R.string.articleDetails, ttfBold);
 
       List<pw.Widget> children = [];
       children.add(

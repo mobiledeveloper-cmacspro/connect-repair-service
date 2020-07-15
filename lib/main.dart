@@ -6,6 +6,7 @@ import 'package:repairservices/crashlytics.dart';
 import 'package:repairservices/di/injector.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/res/values/text/custom_localizations_delegate.dart';
+import 'package:rxdart/subjects.dart';
 import 'all_translations.dart';
 
 //import 'Home.dart';
@@ -20,8 +21,29 @@ void main() {
 //  runAppWithCrashlytics(app: MyApp(), debugMode: false);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget{
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final localizationDelegate = CustomLocalizationsDelegate();
+  String currentLocale = "de";
+
+  @override
+  void initState() {
+    super.initState();
+    iniLocaleListener();
+  }
+
+  iniLocaleListener() async {
+    await allTranslations.init();
+    allTranslations.onLocaleChangedCallback = () {
+      setState(() {
+        currentLocale = allTranslations.currentLanguage;
+      });
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +53,7 @@ class MyApp extends StatelessWidget {
     ]);
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.white));
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: R.string.appName,
@@ -43,15 +66,15 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: localizationDelegate.supportedLocales,
       localeResolutionCallback: localizationDelegate.resolution(
-        fallback: Locale("de"),
+        fallback: Locale(currentLocale),
       ),
-
+      locale: Locale(currentLocale),
       theme: _getThemeData(),
       darkTheme: _getThemeData(),
     );
   }
 
-  ThemeData _getThemeData(){
+  ThemeData _getThemeData() {
     return ThemeData(
       // Define the default brightness and colors.
       brightness: Brightness.light,
@@ -66,7 +89,7 @@ class MyApp extends StatelessWidget {
         headline5: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
         headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
         bodyText2:
-        TextStyle(fontSize: 17.0, color: Color.fromRGBO(38, 38, 38, 1.0)),
+            TextStyle(fontSize: 17.0, color: Color.fromRGBO(38, 38, 38, 1.0)),
         bodyText1: TextStyle(
             fontSize: 12.0, color: Color.fromRGBO(153, 153, 153, 1.0)),
         subtitle1: TextStyle(

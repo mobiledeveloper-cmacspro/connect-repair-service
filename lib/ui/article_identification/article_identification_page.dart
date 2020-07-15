@@ -285,7 +285,7 @@ class _ArticleIdentificationState
                 isChecked: articleBase.isSelected,
                 title: articleBase is ArticleLocalModel
                     ? articleBase.displayName
-                    : (articleBase as Fitting).name,
+                    : (articleBase as Fitting).getNamei18N,
                 subtitle: CalendarUtils.showInFormat(
                     "dd/MM/yyyy",
                     articleBase is ArticleLocalModel

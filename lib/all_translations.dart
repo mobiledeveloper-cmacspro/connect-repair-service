@@ -35,11 +35,11 @@ class GlobalTranslations {
   /// ----------------------------------------------------------
   /// Method that saves/restores the preferred language
   /// ----------------------------------------------------------
-  getPreferredLanguage() async {
-    return _sharedPreferences.getLanguage();
+  Future<String> getPreferredLanguage() async {
+    return await _sharedPreferences.getLanguage();
   }
-  setPreferredLanguage(String lang) async {
-    return _sharedPreferences.setLanguage(lang);
+  Future<void> setPreferredLanguage(String lang) async {
+    return await _sharedPreferences.setLanguage(lang);
   }
 
   ///

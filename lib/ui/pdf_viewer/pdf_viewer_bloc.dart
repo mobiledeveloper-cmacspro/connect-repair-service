@@ -45,7 +45,7 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   void sendPdfByEmail(ArticleBase articleBase) async {
     isLoading = true;
     final name = (articleBase is Fitting)
-        ? articleBase.name
+        ? articleBase.getNamei18N
         : (articleBase as ArticleLocalModel).displayName;
     final List<String> attachments = [
       articleBase is ArticleLocalModel

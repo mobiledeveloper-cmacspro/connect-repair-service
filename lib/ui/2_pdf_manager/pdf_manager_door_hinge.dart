@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:repairservices/models/DoorHinge.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -9,33 +10,33 @@ import 'package:pdf/widgets.dart' as pw;
 class PDFManagerDoorHinge {
   static List<PDFCell> _getListCells(DoorHinge model, {int type}) {
     List<PDFCell> list = [
-      PDFCell(title: "Year of construction", value: model.year),
+      PDFCell(title: R.string.yearConstruction, value: model.year),
       PDFCell(
-          title: "Basic depth of door leaf (mm)",
+          title: R.string.basicDepthDoorLeafMM,
           value: model.basicDepthOfDoorLeaf),
-      PDFCell(title: "Schüco system", value: model.systemHinge),
-      PDFCell(title: "Material", value: model.material),
-      PDFCell(title: "Thermally", value: model.thermally),
-      PDFCell(title: "Door opening", value: model.doorOpening),
-      PDFCell(title: "Fitted", value: model.fitted),
-      PDFCell(title: "Dimension surface", value: ""),
-      PDFCell(title: "Hinge type", value: model.hingeType),
+      PDFCell(title: R.string.schucoSystem, value: model.systemHinge),
+      PDFCell(title: R.string.material, value: model.material),
+      PDFCell(title: R.string.thermally, value: model.thermally),
+      PDFCell(title: R.string.doorOpening, value: model.doorOpening),
+      PDFCell(title: R.string.fitted, value: model.fitted),
+      PDFCell(title: R.string.dimensionSurface, value: ""),
+      PDFCell(title: R.string.hingeType, value: model.hingeType),
     ];
 
     if (type == 2) {
       list.add(PDFCell(
-          title: "Door hinge details: ${model.doorHingeDetailsIm}", value: ""));
+          title: "${R.string.doorHingeDetails}: ${model.doorHingeDetailsIm}", value: ""));
       list.add(
           PDFCell(
-              title: "Cover caps of the door hinge", value: model.coverCaps));
+              title: R.string.coverCapsDoorHinge, value: model.coverCaps));
     }
     
     if(type == 1){
-      list.add(PDFCell(title: "Door leaf (mm)", value: model.doorLeafBarrel));
-      list.add(PDFCell(title: "System", value: model.systemDoorLeaf));
-      list.add(PDFCell(title: "Door frame (mm)", value: model.doorFrame));
-      list.add(PDFCell(title: "System", value: model.systemDoorFrame));
-      list.add(PDFCell(title: "Dimension barrel", value: ""));
+      list.add(PDFCell(title: R.string.doorLeafMM, value: model.doorLeafBarrel));
+      list.add(PDFCell(title: R.string.system, value: model.systemDoorLeaf));
+      list.add(PDFCell(title: R.string.doorFrameMM, value: model.doorFrame));
+      list.add(PDFCell(title: R.string.system, value: model.systemDoorFrame));
+      list.add(PDFCell(title: R.string.dimensionBarrel, value: ""));
     }
 
     return list;
@@ -62,7 +63,7 @@ class PDFManagerDoorHinge {
 
       ///Adding all views together in a column
       pw.Container detailsRowSection =
-      PDFManager.getRowSection("General Data", ttfBold);
+      PDFManager.getRowSection(R.string.generalData, ttfBold);
 
       ///List of associates images
       List<pw.Container> associatedImages =

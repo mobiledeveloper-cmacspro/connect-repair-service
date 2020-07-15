@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Windows.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -13,37 +14,37 @@ abstract class PDFManagerDoorLock {
   static List<PDFCell> _getListCells(DoorLock model) {
     List<PDFCell> list = [
       PDFCell(
-          title: "Schüco logo visible on face place",
+          title: R.string.logoVisibleFacePlate,
           value: "${model.logoVisible}"),
-      PDFCell(title: "Year of manufactoring", value: model.year),
-      PDFCell(title: "Profile insulation", value: model.profile),
-      PDFCell(title: "Protection", value: model.protection),
+      PDFCell(title: R.string.yearOfManufacturing, value: model.year),
+      PDFCell(title: R.string.profileInsulation, value: model.profile),
+      PDFCell(title: R.string.protection, value: model.protection),
       PDFCell(
-          title: "Basic depth of door profile (mm)",
+          title: R.string.basicDepthDoorProfileMM,
           value: model.basicDepthDoor),
-      PDFCell(title: "Opening direction", value: model.openingDirection),
-      PDFCell(title: "Leaf", value: model.leafDoor),
+      PDFCell(title: R.string.openingDirection, value: model.openingDirection),
+      PDFCell(title: R.string.leaf, value: model.leafDoor),
 
 
-      PDFCell(title: "DIN direction", value: model.dinDirection),
-      PDFCell(title: "Type", value: model.type),
-      PDFCell(title: "Panic function", value: model.panicFunction),
-      PDFCell(title: "Electric strike", value: model.electricStrike),
-      PDFCell(title: "Lock with top locking", value: model.lockWithTopLocking),
+      PDFCell(title: R.string.dinDirection, value: model.dinDirection),
+      PDFCell(title: R.string.type, value: model.type),
+      PDFCell(title: R.string.panicFunction, value: model.panicFunction),
+      PDFCell(title: R.string.electricStrike, value: model.electricStrike),
+      PDFCell(title: R.string.lockTopLocking, value: model.lockWithTopLocking),
     ];
 
-    if(model.leafDoor != 'Single'){
-      list.insert(7, PDFCell(title: "Bolt", value: model.bolt));
+    if(model.leafDoor != R.string.single){
+      list.insert(7, PDFCell(title: R.string.bolt, value: model.bolt));
     }
 
-    if (model.lockWithTopLocking == 'Yes') {
+    if (model.lockWithTopLocking == R.string.yes) {
       list.add(
-          PDFCell(title: "Shoot bolt lock", value: model.shootBoltLock));
+          PDFCell(title: R.string.shootBoltLock, value: model.shootBoltLock));
       list.add(
-          PDFCell(title: "Handle height", value: model.handleHeight));
+          PDFCell(title: R.string.handleHeight, value: model.handleHeight));
       list.add(
-          PDFCell(title: "Door leaf height", value: model.doorLeafHight));
-      list.add(PDFCell(title: "Restrictor", value: model.restrictor));
+          PDFCell(title: R.string.doorLeafHeight, value: model.doorLeafHight));
+      list.add(PDFCell(title: R.string.restrictor, value: model.restrictor));
     }
     return list;
   }
@@ -111,11 +112,11 @@ abstract class PDFManagerDoorLock {
 
       ///Adding all views together in a column
       pw.Container generalDataRowSection =
-      PDFManager.getRowSection("General data", ttfBold);
+      PDFManager.getRowSection(R.string.generalData, ttfBold);
       pw.Container lockDataRowSection =
-      PDFManager.getRowSection("Lock data", ttfBold);
+      PDFManager.getRowSection(R.string.lockData, ttfBold);
       pw.Container lockDimensionsRowSection =
-      PDFManager.getRowSection("Lock dimensions", ttfBold);
+      PDFManager.getRowSection(R.string.lockDimensions, ttfBold);
 
       List<pw.Widget> children = [];
       children.add(
@@ -123,7 +124,7 @@ abstract class PDFManagerDoorLock {
       );
       children.addAll(rows);
 
-      final int lockDataPos = model.leafDoor != 'Single' ? 9 : 8;
+      final int lockDataPos = model.leafDoor != R.string.single ? 9 : 8;
       children.insert(lockDataPos, lockDataRowSection);
       children.add(pw.Container(
           margin: pw.EdgeInsets.only(bottom: 10),
@@ -134,7 +135,7 @@ abstract class PDFManagerDoorLock {
                   pw.Expanded(
                     flex: 1,
                     child: pw.Container(
-                        child: pw.Text("Lock type",
+                        child: pw.Text(R.string.lockType,
                             textAlign: pw.TextAlign.left,
                             style: pw.TextStyle(
                                 fontSize: PDFManager.textFontSizeMin,
@@ -148,7 +149,7 @@ abstract class PDFManagerDoorLock {
                   pw.Expanded(
                     flex: 1,
                     child: pw.Container(
-                        child: pw.Text("Face plate type",
+                        child: pw.Text(R.string.facePlateType,
                             textAlign: pw.TextAlign.center,
                             style: pw.TextStyle(
                                 fontSize: PDFManager.textFontSizeMin,
@@ -162,7 +163,7 @@ abstract class PDFManagerDoorLock {
                   pw.Expanded(
                     flex: 1,
                     child: pw.Container(
-                        child: pw.Text("Face plate fixing",
+                        child: pw.Text(R.string.facePlateFixing,
                             textAlign: pw.TextAlign.right,
                             style: pw.TextStyle(
                                 fontSize: PDFManager.textFontSizeMin,
@@ -176,7 +177,7 @@ abstract class PDFManagerDoorLock {
                   pw.Expanded(
                     flex: 1,
                     child: pw.Container(
-                        child: pw.Text("Multi-point locking",
+                        child: pw.Text(R.string.multiPointLocking,
                             textAlign: pw.TextAlign.right,
                             style: pw.TextStyle(
                                 fontSize: PDFManager.textFontSizeMin,
