@@ -62,7 +62,7 @@ class CompanyProfileState extends State<CompanyProfileV> {
         child:  Text(
           company.additionalInf,
           textAlign: TextAlign.left,
-          style: Theme.of(context).textTheme.body2,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       );
     }
@@ -74,7 +74,7 @@ class CompanyProfileState extends State<CompanyProfileV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.companyProfile,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.companyProfile,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -100,14 +100,14 @@ class CompanyProfileState extends State<CompanyProfileV> {
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 20.0,top: 16.0),
-                            child: Text(R.string.createCompanyProfile,style: Theme.of(context).textTheme.body1),
+                            child: Text(R.string.createCompanyProfile,style: Theme.of(context).textTheme.bodyText2),
                           )
                         ],
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 8,left: 60, bottom: 8),
                         child: Text(R.string.createPersonalCompanyProfileTo,
-                            style: Theme.of(context).textTheme.body2),
+                            style: Theme.of(context).textTheme.bodyText1),
                       ),
                       Divider()
                     ],
@@ -139,7 +139,7 @@ class CompanyProfileState extends State<CompanyProfileV> {
                             margin: EdgeInsets.only(top: 0, left: 8),
                             child: Text(
                                 companyList[index].name,
-                                style:  Theme.of(context).textTheme.body1
+                                style:  Theme.of(context).textTheme.bodyText2
                             ),
                         ),
                         subtitle: new Column(

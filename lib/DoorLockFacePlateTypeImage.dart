@@ -40,7 +40,7 @@ class DoorLockFacePlateTypeImage extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(R.string.facePlateType,style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.facePlateType,style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

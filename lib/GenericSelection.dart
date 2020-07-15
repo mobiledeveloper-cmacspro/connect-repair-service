@@ -13,7 +13,7 @@ class GenericSelection extends StatelessWidget {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(title,style: Theme.of(context).textTheme.body1),
+        title: Text(title,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -37,7 +37,7 @@ class GenericSelection extends StatelessWidget {
                     padding: EdgeInsets.only(top:16,left:16),
                     child: Text(
                         myOptions[index],
-                        style:  Theme.of(context).textTheme.body1
+                        style:  Theme.of(context).textTheme.bodyText2
                     ),
                   )
                 ),

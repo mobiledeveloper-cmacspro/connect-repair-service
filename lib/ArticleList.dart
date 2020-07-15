@@ -203,7 +203,7 @@ class ArticleListState extends State<ArticleListV> {
                             child: new TextField(
                               focusNode: numberNode,
                               textAlign: TextAlign.left,
-                              style: Theme.of(context).textTheme.body1,
+                              style: Theme.of(context).textTheme.bodyText2,
                               maxLines: 1,
                               controller: numberController,
                               textInputAction: TextInputAction.search,
@@ -291,7 +291,7 @@ class ArticleListState extends State<ArticleListV> {
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     title: Text(articlesList[index],
-                        style: Theme.of(context).textTheme.body1),
+                        style: Theme.of(context).textTheme.bodyText2),
                     trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey),
                     onTap: () {
                       _getArticleDetails(articlesList[index]);

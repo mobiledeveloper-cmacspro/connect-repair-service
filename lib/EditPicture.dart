@@ -104,14 +104,14 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
                     context: context,
                     builder: (BuildContext context) => CupertinoAlertDialog(
                           title: new Text(R.string.changeArticleName,
-                              style: Theme.of(context).textTheme.subhead),
+                              style: Theme.of(context).textTheme.subtitle1),
                           content: Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 8),
                               child: new CupertinoTextField(
                                 textAlign: TextAlign.left,
                                 expands: false,
-                                style: Theme.of(context).textTheme.body1,
+                                style: Theme.of(context).textTheme.bodyText2,
                                 keyboardType: TextInputType.number,
                                 maxLines: 1,
                                 controller: titleCtr,
@@ -329,7 +329,7 @@ class _EditPictureState extends StateWithBloC<EditPicture, DrawerToolBloc> with 
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.editPicture, style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.editPicture, style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {

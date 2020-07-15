@@ -47,7 +47,7 @@ class ArticleWebPreviewState extends State<ArticleWebPreview> {
   Widget _getTitle() {
 //    _loadHtmlFromAssets();
     return Text(R.string.articlePreview,
-        style: Theme.of(context).textTheme.body1);
+        style: Theme.of(context).textTheme.bodyText2);
   }
 
   _loadHtmlFromAssets() async {

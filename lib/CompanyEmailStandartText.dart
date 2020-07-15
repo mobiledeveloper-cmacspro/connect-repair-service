@@ -16,7 +16,7 @@ class CompanyEmailStandartTextV extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Colors.grey),
-          title: Text(R.string.emailStandardText,style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.emailStandardText,style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -50,7 +50,7 @@ class CompanyEmailStandartTextV extends StatelessWidget {
                   minLines: 10,
                   maxLines: 10,
                   controller: emailText..text = comp.textExportEmail,
-                  style: Theme.of(context).textTheme.body1,
+                  style: Theme.of(context).textTheme.bodyText2,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: R.string.myCompany,

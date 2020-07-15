@@ -79,7 +79,7 @@ class LockDimensionsState extends State<LockDimensions> {
         builder: (BuildContext context) => CupertinoAlertDialog(
               title: new Text(
                 title,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
               actions: <Widget>[
                 CupertinoDialogAction(
@@ -110,7 +110,7 @@ class LockDimensionsState extends State<LockDimensions> {
                   child: new CupertinoTextField(
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     keyboardType: TextInputType.number,
                     maxLines: 1,
                     controller: dimensionCtr,
@@ -300,8 +300,8 @@ class LockDimensionsState extends State<LockDimensions> {
                       padding: EdgeInsets.only(left: 16, top: 8),
                       child: Text('A',
                           style: aCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -310,7 +310,7 @@ class LockDimensionsState extends State<LockDimensions> {
                         focusNode: aNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: aCtr,
                         textInputAction: TextInputAction.next,
@@ -331,8 +331,8 @@ class LockDimensionsState extends State<LockDimensions> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('B',
                           style: bCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -341,7 +341,7 @@ class LockDimensionsState extends State<LockDimensions> {
                         focusNode: bNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: bCtr,
                         textInputAction: TextInputAction.next,
@@ -362,8 +362,8 @@ class LockDimensionsState extends State<LockDimensions> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('C',
                           style: cCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -372,7 +372,7 @@ class LockDimensionsState extends State<LockDimensions> {
                         focusNode: cNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: cCtr,
                         keyboardType: TextInputType.number,
@@ -467,8 +467,8 @@ class LockDimensionsState extends State<LockDimensions> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('D',
                           style: dCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -477,7 +477,7 @@ class LockDimensionsState extends State<LockDimensions> {
                         focusNode: dNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: dCtr,
                         textInputAction: TextInputAction.next,
@@ -498,8 +498,8 @@ class LockDimensionsState extends State<LockDimensions> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('E',
                           style: eCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -508,7 +508,7 @@ class LockDimensionsState extends State<LockDimensions> {
                         focusNode: eNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: eCtr,
                         keyboardType: TextInputType.number,
@@ -585,8 +585,8 @@ class LockDimensionsState extends State<LockDimensions> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('F',
                           style: fCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -595,7 +595,7 @@ class LockDimensionsState extends State<LockDimensions> {
                         focusNode: fNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         keyboardType: TextInputType.number,
                         controller: fCtr,
@@ -625,7 +625,7 @@ class LockDimensionsState extends State<LockDimensions> {
           actionsIconTheme:
               IconThemeData(color: Theme.of(context).primaryColor),
           title: Text(R.string.lockDimensions,
-              style: Theme.of(context).textTheme.body1),
+              style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

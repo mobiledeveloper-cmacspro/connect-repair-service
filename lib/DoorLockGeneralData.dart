@@ -118,7 +118,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
 //                      mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(title,
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText2,
                           textAlign: TextAlign.left),
                       _getMandatory(mandatory)
                     ],
@@ -132,7 +132,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
                   enabled: false,
                   textAlign: TextAlign.left,
                   expands: false,
-                  style: Theme.of(context).textTheme.body1,
+                  style: Theme.of(context).textTheme.bodyText2,
                   maxLines: 1,
                   controller: controller,
                   textInputAction: TextInputAction.next,
@@ -244,7 +244,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.generalData,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -273,7 +273,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
             child: Text(R.string.yearOfManufacturing,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.left),
           ),
           Padding(
@@ -282,7 +282,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
               focusNode: yearNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: yearCtr,
               keyboardType: TextInputType.number,

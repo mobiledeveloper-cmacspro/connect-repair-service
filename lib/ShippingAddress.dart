@@ -57,7 +57,7 @@ class ShippingAddressState extends State<ShippingAddress> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(title, style: Theme.of(context).textTheme.body1),
+          title: new Text(title, style: Theme.of(context).textTheme.bodyText2),
           actions: <Widget>[
             CupertinoDialogAction(
               child: new Text("OK"),
@@ -94,7 +94,7 @@ class ShippingAddressState extends State<ShippingAddress> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(R.string.shippingAddress,style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.shippingAddress,style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -108,7 +108,7 @@ class ShippingAddressState extends State<ShippingAddress> {
             Padding(
               padding: EdgeInsets.only(top: 30),
               child: Center(
-                child: Text(R.string.selectShippingAddress,style: Theme.of(context).textTheme.subhead)
+                child: Text(R.string.selectShippingAddress,style: Theme.of(context).textTheme.subtitle1)
               )
             ),
             GestureDetector(
@@ -124,7 +124,7 @@ class ShippingAddressState extends State<ShippingAddress> {
                             selectedAddress != null ? '${selectedAddress.companyName}, ${selectedAddress.street} '
                                 '${selectedAddress.houseNumber}, ${selectedAddress.postCode} ${selectedAddress.city}, ${selectedAddress.country}' :
                             R.string.selectAddress,
-                            style: Theme.of(context).textTheme.body1, maxLines: 2, textAlign: TextAlign.center),
+                            style: Theme.of(context).textTheme.bodyText2, maxLines: 2, textAlign: TextAlign.center),
                       )
                     ),
                     Padding(

@@ -258,7 +258,7 @@ class ArticleInCartState extends State<ArticleInCart> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(title, style: Theme.of(context).textTheme.body1),
+          title: new Text(title, style: Theme.of(context).textTheme.bodyText2),
           actions: <Widget>[
             CupertinoDialogAction(
               child: new Text("OK"),
@@ -310,7 +310,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                   CupertinoTextField(
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     keyboardType: TextInputType.url,
                     maxLines: 1,
                     controller: cardNameController,
@@ -479,7 +479,7 @@ class ArticleInCartState extends State<ArticleInCart> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.articleInCart,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.articleInCart,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -529,14 +529,14 @@ class ArticleInCartState extends State<ArticleInCart> {
                                       padding: EdgeInsets.only(left: 16,top: 10),
                                       child: Text(
                                           productList[index].shortText.value,
-                                          style:  Theme.of(context).textTheme.body1
+                                          style:  Theme.of(context).textTheme.bodyText2
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(left: 16,top: 4),
                                       child: Text(
                                           productList[index].number.value,
-                                          style: Theme.of(context).textTheme.body2
+                                          style: Theme.of(context).textTheme.bodyText1
                                       ),
                                     )
                                   ],

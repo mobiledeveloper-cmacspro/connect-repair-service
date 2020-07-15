@@ -64,7 +64,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
               child: new CupertinoTextField(
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 keyboardType: TextInputType.url,
                 maxLines: 1,
                 controller: weblinkController,
@@ -103,14 +103,14 @@ class CreateCompanyState extends State<CreateCompanyV> {
 //        message: const Text('Please select the best dessert from the options below.'),
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text(R.string.chooseFromGallery, style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.chooseFromGallery, style: Theme.of(context).textTheme.headline4),
             onPressed: (){
               Navigator.pop(context, 'weblink');
               getImageFromGallery();
             },
           ),
           CupertinoActionSheetAction(
-            child: new Text(R.string.importFromWeblink, style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.importFromWeblink, style: Theme.of(context).textTheme.headline4),
             onPressed: () {
               Navigator.pop(context, 'weblink');
               this.showAlertDialogWeblink(context);
@@ -175,7 +175,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Colors.grey),
-        title: Text(this.newCompany == false ? R.string.companyDetails : R.string.createCompany,style: Theme.of(context).textTheme.body1),
+        title: Text(this.newCompany == false ? R.string.companyDetails : R.string.createCompany,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -202,7 +202,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           ListTile(
             title: Text(
               R.string.companyData,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
@@ -224,7 +224,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           ListTile(
             title: Text(
               R.string.companyLogo,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
@@ -235,7 +235,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           ListTile(
             title: Text(
               R.string.layoutPreview,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {
@@ -246,7 +246,7 @@ class CreateCompanyState extends State<CreateCompanyV> {
           ListTile(
             title: Text(
               R.string.emailStandardText,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             trailing: Icon(Icons.arrow_forward_ios),
             onTap: () {

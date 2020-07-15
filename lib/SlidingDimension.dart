@@ -74,7 +74,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
                   child: new CupertinoTextField(
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     keyboardType: TextInputType.number,
                     maxLines: 1,
                     controller: dimensionCtr,
@@ -165,7 +165,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-              title: new Text(title, style: Theme.of(context).textTheme.body1),
+              title: new Text(title, style: Theme.of(context).textTheme.bodyText2),
               actions: <Widget>[
                 CupertinoDialogAction(
                   child: new Text(textButton,
@@ -206,7 +206,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.slidingDimensions,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -336,8 +336,8 @@ class SlidingDimensionState extends State<SlidingDimension> {
                       padding: EdgeInsets.only(left: 16, top: 8),
                       child: Text('A',
                           style: aCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -346,7 +346,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
                         focusNode: aNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: aCtr,
                         textInputAction: TextInputAction.next,
@@ -367,8 +367,8 @@ class SlidingDimensionState extends State<SlidingDimension> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('B',
                           style: bCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -377,7 +377,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
                         focusNode: bNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: bCtr,
                         textInputAction: TextInputAction.next,
@@ -398,8 +398,8 @@ class SlidingDimensionState extends State<SlidingDimension> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('C',
                           style: cCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -408,7 +408,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
                         focusNode: cNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: cCtr,
                         keyboardType: TextInputType.number,
@@ -428,8 +428,8 @@ class SlidingDimensionState extends State<SlidingDimension> {
                       padding: EdgeInsets.only(left: 16),
                       child: Text('D',
                           style: dCtr.text == ""
-                              ? Theme.of(context).textTheme.body1
-                              : Theme.of(context).textTheme.subtitle,
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
                           textAlign: TextAlign.left),
                     ),
                     new Padding(
@@ -438,7 +438,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
                         focusNode: dNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: dCtr,
                         keyboardType: TextInputType.number,

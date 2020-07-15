@@ -69,7 +69,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(title, style: Theme.of(context).textTheme.body1),
+          title: new Text(title, style: Theme.of(context).textTheme.bodyText2),
           actions: <Widget>[
             CupertinoDialogAction(
               child: new Text(textButton, style: TextStyle(color: Theme.of(context).primaryColor)),
@@ -101,7 +101,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
               child: new CupertinoTextField(
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 keyboardType: TextInputType.number,
                 maxLines: 1,
                 controller: dimensionCtr,
@@ -175,7 +175,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.hingeDimensions,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.hingeDimensions,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -238,7 +238,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                                     child: InkWell(
                                       onTap: () => _changeDimension(context,'A'),
                                       child: FittedBox(
-                                        child: Text(aCtr.text != "" ? aCtr.text : "A",style: Theme.of(context).textTheme.body1),
+                                        child: Text(aCtr.text != "" ? aCtr.text : "A",style: Theme.of(context).textTheme.bodyText2),
                                       ),
                                     ),
                                   ),
@@ -253,7 +253,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                                     child: InkWell(
                                       onTap: () => _changeDimension(context,'B'),
                                       child: FittedBox(
-                                        child: Text(bCtr.text != "" ? bCtr.text : "B",style: Theme.of(context).textTheme.body1),
+                                        child: Text(bCtr.text != "" ? bCtr.text : "B",style: Theme.of(context).textTheme.bodyText2),
                                       ),
                                     ),
                                   ),
@@ -267,7 +267,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16,top: 8),
-                      child: Text('A',style: aCtr.text == "" ? Theme.of(context).textTheme.body1 : Theme.of(context).textTheme.subtitle, textAlign: TextAlign.left),
+                      child: Text('A',style: aCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16,right: 16),
@@ -275,7 +275,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                         focusNode: aNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: aCtr,
                         textInputAction: TextInputAction.next,
@@ -294,7 +294,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('B',style: bCtr.text == "" ? Theme.of(context).textTheme.body1 : Theme.of(context).textTheme.subtitle, textAlign: TextAlign.left),
+                      child: Text('B',style: bCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16,right: 16,top: 0),
@@ -302,7 +302,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                         focusNode: bNode,
                         textAlign: TextAlign.left,
                         expands: false,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         maxLines: 1,
                         controller: bCtr,
                         textInputAction: TextInputAction.go,

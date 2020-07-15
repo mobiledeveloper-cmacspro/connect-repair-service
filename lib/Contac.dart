@@ -12,7 +12,7 @@ class Contact extends StatelessWidget {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title:
-          Text(R.string.contact, style: Theme.of(context).textTheme.body1),
+          Text(R.string.contact, style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -35,14 +35,14 @@ class Contact extends StatelessWidget {
             padding: EdgeInsets.only(top: 16,left: 16),
             child: Text(
               R.string.phoneNumberDE,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 4,left: 16,bottom: 4),
             child: Text(
               "+49 521 783400",
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Divider(height: 1),
@@ -50,21 +50,21 @@ class Contact extends StatelessWidget {
             padding: EdgeInsets.only(top: 4,left: 16),
             child: Text(
               R.string.serviceTimes,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 4,left: 16),
             child: Text(
               R.string.mondayThursday8am5pm,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 8,left: 16,bottom: 4),
             child: Text(
               R.string.friday8am3pm,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Divider(height: 1),
@@ -72,14 +72,14 @@ class Contact extends StatelessWidget {
             padding: EdgeInsets.only(top: 4,left: 16),
             child: Text(
               R.string.email,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 4,left: 16,bottom: 4),
             child: Text(
               "cst@schueco.com",
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Divider(height: 1),

@@ -33,33 +33,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: R.string.appName,
-      theme: ThemeData(
-        // Define the default brightness and colors.
-//        brightness: Brightness.dark,
-//        primaryColor: Colors.lightGreen[500],
-        primaryColor: Color.fromRGBO(120, 185, 40, 1.0),
-        // Define the default font family.
-        fontFamily: 'Montserrat',
-        backgroundColor: Colors.white,
-        // Define the default TextTheme. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
-        textTheme: TextTheme(
-          headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-          title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-          body1:
-              TextStyle(fontSize: 17.0, color: Color.fromRGBO(38, 38, 38, 1.0)),
-          body2: TextStyle(
-              fontSize: 12.0, color: Color.fromRGBO(153, 153, 153, 1.0)),
-          subhead: TextStyle(
-              fontSize: 17.0,
-              color: Color.fromRGBO(38, 38, 38, 1.0),
-              fontWeight: FontWeight.w600),
-          display1: TextStyle(fontSize: 22.0, color: Colors.lightGreen[500]),
-          display2: TextStyle(fontSize: 22.0, color: Colors.grey),
-          subtitle: TextStyle(
-              fontSize: 14.0, color: Color.fromRGBO(153, 153, 153, 1.0)),
-        ),
-      ),
       home: HomeM(),
       localizationsDelegates: [
         localizationDelegate,
@@ -70,6 +43,39 @@ class MyApp extends StatelessWidget {
       supportedLocales: localizationDelegate.supportedLocales,
       localeResolutionCallback: localizationDelegate.resolution(
         fallback: Locale("de"),
+      ),
+
+      theme: _getThemeData(),
+      darkTheme: _getThemeData(),
+    );
+  }
+
+  ThemeData _getThemeData(){
+    return ThemeData(
+      // Define the default brightness and colors.
+      brightness: Brightness.light,
+//        primaryColor: Colors.lightGreen[500],
+      primaryColor: Color.fromRGBO(120, 185, 40, 1.0),
+      // Define the default font family.
+      fontFamily: 'Montserrat',
+      backgroundColor: Colors.white,
+      // Define the default TextTheme. Use this to specify the default
+      // text styling for headlines, titles, bodies of text, and more.
+      textTheme: TextTheme(
+        headline5: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+        headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+        bodyText2:
+        TextStyle(fontSize: 17.0, color: Color.fromRGBO(38, 38, 38, 1.0)),
+        bodyText1: TextStyle(
+            fontSize: 12.0, color: Color.fromRGBO(153, 153, 153, 1.0)),
+        subtitle1: TextStyle(
+            fontSize: 17.0,
+            color: Color.fromRGBO(38, 38, 38, 1.0),
+            fontWeight: FontWeight.w600),
+        headline4: TextStyle(fontSize: 22.0, color: Colors.lightGreen[500]),
+        headline3: TextStyle(fontSize: 22.0, color: Colors.grey),
+        subtitle2: TextStyle(
+            fontSize: 14.0, color: Color.fromRGBO(153, 153, 153, 1.0)),
       ),
     );
   }
