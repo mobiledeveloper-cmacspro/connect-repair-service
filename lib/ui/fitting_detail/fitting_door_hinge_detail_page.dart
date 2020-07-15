@@ -15,6 +15,7 @@ import 'package:repairservices/ui/fitting_detail/fitting_resource_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
 import 'package:repairservices/ui/fitting_dimensions/door_hinge/fitting_door_hinge_dimension_page.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/utils/mail_mananger.dart';
 
 class FittingDoorHingeDetailPage extends StatefulWidget {
   final DoorHinge model;
@@ -106,9 +107,7 @@ class _FittingDoorHingeDetailState
               value: widget.model.hingeType,
             ),
             TXDividerWidget(),
-
             _getHingeTypeCells(),
-
             TXDividerWidget(),
           ]),
         ),
@@ -116,47 +115,48 @@ class _FittingDoorHingeDetailState
     );
   }
 
-  Widget _getHingeTypeCells(){
-    if(widget.model.hingeType == R.string.barrelHinge){
-      return Column(children: <Widget>[
-        TXItemCellEditWidget(
-          title: R.string.doorLeafMM,
-          value: widget.model.doorLeafBarrel,
-        ),
-        TXDividerWidget(),
-        TXItemCellEditWidget(
-          title: R.string.system,
-          value: widget.model.systemDoorLeaf,
-        ),
-        TXDividerWidget(),
-        TXItemCellEditWidget(
-          title: R.string.doorFrameMM,
-          value: widget.model.doorFrame,
-        ),
-        TXDividerWidget(),
-        TXItemCellEditWidget(
-          title: R.string.system,
-          value: widget.model.systemDoorFrame,
-        ),
-        TXDividerWidget(),
-        TXItemCellEditWidget(
-          title: "",
-          value: R.string.dimensions,
-          cellEditMode: CellEditMode.selector,
-          onSubmitted: (value) {
-            NavigationUtils.pushCupertino(
-              context,
-              FittingDoorHingeDimensionPage(
-                model: widget.model,
-                isEditable: false,
-                dimensionType: DoorHingeDimensionType.barrel,
-              ),
-            );
-          },
-        ),
-      ],);
-    }else if(widget.model.hingeType == R.string.surfaceMountedDoorHinge){
-
+  Widget _getHingeTypeCells() {
+    if (widget.model.hingeType == R.string.barrelHinge) {
+      return Column(
+        children: <Widget>[
+          TXItemCellEditWidget(
+            title: R.string.doorLeafMM,
+            value: widget.model.doorLeafBarrel,
+          ),
+          TXDividerWidget(),
+          TXItemCellEditWidget(
+            title: R.string.system,
+            value: widget.model.systemDoorLeaf,
+          ),
+          TXDividerWidget(),
+          TXItemCellEditWidget(
+            title: R.string.doorFrameMM,
+            value: widget.model.doorFrame,
+          ),
+          TXDividerWidget(),
+          TXItemCellEditWidget(
+            title: R.string.system,
+            value: widget.model.systemDoorFrame,
+          ),
+          TXDividerWidget(),
+          TXItemCellEditWidget(
+            title: "",
+            value: R.string.dimensions,
+            cellEditMode: CellEditMode.selector,
+            onSubmitted: (value) {
+              NavigationUtils.pushCupertino(
+                context,
+                FittingDoorHingeDimensionPage(
+                  model: widget.model,
+                  isEditable: false,
+                  dimensionType: DoorHingeDimensionType.barrel,
+                ),
+              );
+            },
+          ),
+        ],
+      );
+    } else if (widget.model.hingeType == R.string.surfaceMountedDoorHinge) {
       return Column(
         children: <Widget>[
           TXItemCellEditWidget(
@@ -169,7 +169,8 @@ class _FittingDoorHingeDetailState
                   FittingResourcePage(
                     title: R.string.doorHingeDetails,
                     resourceTitle: "",
-                    resource: bloc.getSurfaceType(widget.model.doorHingeDetailsIm),
+                    resource:
+                        bloc.getSurfaceType(widget.model.doorHingeDetailsIm),
                   ));
             },
           ),
@@ -180,7 +181,7 @@ class _FittingDoorHingeDetailState
           ),
         ],
       );
-    }else{
+    } else {
       return Container();
     }
   }
@@ -192,8 +193,8 @@ class _FittingDoorHingeDetailState
           return TXCupertinoActionSheetWidget(
             onActionTap: (action) async {
               if (action.key == 'Print' || action.key == 'Email') {
-                Future.delayed(Duration(milliseconds: 100), () {
-                  NavigationUtils.pushCupertino(
+                Future.delayed(Duration(milliseconds: 100), () async {
+                  final res = await NavigationUtils.pushCupertino(
                       context,
                       FittingPDFViewerPage(
                         navigateFromDetail: true,
@@ -201,6 +202,15 @@ class _FittingDoorHingeDetailState
                         isForMail: action.key == 'Email',
                         isForPrint: action.key == 'Print',
                       ));
+                  if (res is MailModel) {
+                    final sendResult = await MailManager.sendEmail(res);
+                    if (sendResult != 'OK') {
+                      Fluttertoast.showToast(
+                          msg: "$res",
+                          toastLength: Toast.LENGTH_LONG,
+                          textColor: Colors.red);
+                    }
+                  }
                 });
               } else if (action.key == 'Remove') {
                 bloc.delete(widget.model);
@@ -216,9 +226,7 @@ class _FittingDoorHingeDetailState
                   title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Remove",
-                  title: R.string.remove,
-                  color: Colors.red)
+                  key: "Remove", title: R.string.remove, color: Colors.red)
             ],
           );
         });

@@ -15,6 +15,7 @@ import 'package:repairservices/ui/fitting_detail/fitting_resource_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
 import 'package:repairservices/ui/fitting_dimensions/door_lock/fitting_door_lock_dimension_page.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/utils/mail_mananger.dart';
 
 class FittingDoorLockDetailPage extends StatefulWidget {
   final DoorLock model;
@@ -225,8 +226,8 @@ class _FittingDoorLockDetailState
           return TXCupertinoActionSheetWidget(
             onActionTap: (action) async {
               if (action.key == 'Print' || action.key == 'Email') {
-                Future.delayed(Duration(milliseconds: 100), () {
-                  NavigationUtils.pushCupertino(
+                Future.delayed(Duration(milliseconds: 100), () async{
+                  final res = await NavigationUtils.pushCupertino(
                       context,
                       FittingPDFViewerPage(
                         navigateFromDetail: true,
@@ -234,6 +235,15 @@ class _FittingDoorLockDetailState
                         isForMail: action.key == 'Email',
                         isForPrint: action.key == 'Print',
                       ));
+                  if (res is MailModel) {
+                    final sendResult = await MailManager.sendEmail(res);
+                    if (sendResult != 'OK') {
+                      Fluttertoast.showToast(
+                          msg: "$res",
+                          toastLength: Toast.LENGTH_LONG,
+                          textColor: Colors.red);
+                    }
+                  }
                 });
               } else if (action.key == 'Remove') {
                 bloc.delete(widget.model);

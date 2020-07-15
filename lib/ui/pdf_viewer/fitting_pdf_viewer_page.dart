@@ -45,6 +45,9 @@ class _FittingPDFViewerState
   void initState() {
     super.initState();
     bloc.loadPDF(widget.model);
+    bloc.sendEmailResult.listen((event) {
+      NavigationUtils.pop(context, result: event);
+    });
   }
 
   @override

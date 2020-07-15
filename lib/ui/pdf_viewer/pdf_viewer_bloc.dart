@@ -7,6 +7,7 @@ import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/models/Windows.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/0_base/bloc_error_handler.dart';
 import 'package:repairservices/ui/0_base/bloc_loading.dart';
@@ -21,6 +22,10 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   BehaviorSubject<String> _pdfPathController = new BehaviorSubject();
 
   Stream<String> get pdfPathResult => _pdfPathController.stream;
+
+  BehaviorSubject<MailModel> _sendEmailController = new BehaviorSubject();
+
+  Stream<MailModel> get sendEmailResult => _sendEmailController.stream;
 
   void loadPDF(Fitting model) async {
     isLoading = true;
@@ -47,15 +52,18 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
           ? articleBase.filePath
           : (articleBase as Fitting).pdfPath
     ];
-    final MailModel mailModel =
-    MailModel(subject: name, body: name, attachments: attachments);
+    final MailModel mailModel = MailModel(recipients: [
+      name.contains(R.string.otherFitting)
+          ? "ersatzteile@schueco.com"
+          : "connect-app@schueco.com"
+    ], subject: name, body: name, attachments: attachments);
 
-    final res = await MailManager.sendEmail(mailModel);
+//    _sendEmailController.sinkAddSafe(mailModel);
+
+      final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {
       Fluttertoast.showToast(
-          msg: "$res",
-          toastLength: Toast.LENGTH_LONG,
-          textColor: Colors.red);
+          msg: "$res", toastLength: Toast.LENGTH_LONG, textColor: Colors.red);
     }
     isLoading = false;
   }
@@ -63,6 +71,7 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   @override
   void dispose() {
     _pdfPathController.close();
+    _sendEmailController.close();
     disposeLoadingBloC();
     disposeErrorHandlerBloC();
   }
