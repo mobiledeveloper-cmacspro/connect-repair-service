@@ -100,7 +100,7 @@ class SlidingComponentsState extends State<SlidingComponents>{
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.fittingComponentsToBeReplaced,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.fittingComponentsToBeReplaced,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -132,7 +132,7 @@ class SlidingComponentsState extends State<SlidingComponents>{
                       Expanded(
                        child: Padding(
                          padding: EdgeInsets.only(left: 16),
-                         child: Text(componentsList[index].component,style: Theme.of(context).textTheme.body1),
+                         child: Text(componentsList[index].component,style: Theme.of(context).textTheme.bodyText2),
                        ),
                       ),
                       Padding(

@@ -120,7 +120,7 @@ class ProfileState extends State<Profile> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.userInfo,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.userInfo,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -136,24 +136,11 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(R.string.name, style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.name, style: Theme.of(context).textTheme.subtitle1),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(User.current != null ? User.current.firstName + " " + User.current.lastName: '', style: Theme.of(context).textTheme.body1),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(R.string.country+':', style: Theme.of(context).textTheme.subhead),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(User.current != null ? User.current.country : '', style: Theme.of(context).textTheme.body1),
+                child: Text(User.current != null ? User.current.firstName + " " + User.current.lastName: '', style: Theme.of(context).textTheme.bodyText2),
               ),
             ],
           ),
@@ -162,11 +149,11 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(R.string.city+':', style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.country+':', style: Theme.of(context).textTheme.subtitle1),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(User.current != null ? User.current.city : '', style: Theme.of(context).textTheme.body1),
+                child: Text(User.current != null ? User.current.country : '', style: Theme.of(context).textTheme.bodyText2),
               ),
             ],
           ),
@@ -175,11 +162,24 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(R.string.street+':', style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.city+':', style: Theme.of(context).textTheme.subtitle1),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(User.current != null ? User.current.street : '', style: Theme.of(context).textTheme.body1),
+                child: Text(User.current != null ? User.current.city : '', style: Theme.of(context).textTheme.bodyText2),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
+                child: Text(R.string.street+':', style: Theme.of(context).textTheme.subtitle1),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
+                child: Text(User.current != null ? User.current.street : '', style: Theme.of(context).textTheme.bodyText2),
               ),
             ],
           ),
@@ -189,12 +189,12 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(R.string.email+':', style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.email+':', style: Theme.of(context).textTheme.subtitle1),
               ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                  child: Text(User.current != null ? User.current.email : '', style: Theme.of(context).textTheme.body1,maxLines: 2),
+                  child: Text(User.current != null ? User.current.email : '', style: Theme.of(context).textTheme.bodyText2,maxLines: 2),
                 )
               ),
             ],
@@ -204,12 +204,12 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(R.string.gender, style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.gender, style: Theme.of(context).textTheme.subtitle1),
               ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                  child: Text(User.current != null ? User.current.gender : '', style: Theme.of(context).textTheme.body1),
+                  child: Text(User.current != null ? User.current.gender : '', style: Theme.of(context).textTheme.bodyText2),
                 )
               )
             ],
@@ -219,12 +219,12 @@ class ProfileState extends State<Profile> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(R.string.activeB2BUnit, style: Theme.of(context).textTheme.subhead),
+                child: Text(R.string.activeB2BUnit, style: Theme.of(context).textTheme.subtitle1),
               ),
               Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                    child: Text(activeB2bUnit, style: Theme.of(context).textTheme.body1),
+                    child: Text(activeB2bUnit, style: Theme.of(context).textTheme.bodyText2),
                   )
               )
             ],

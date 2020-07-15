@@ -72,7 +72,7 @@ class DoorLockDataState extends State<DoorLockData> {
 //                      mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(title,
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText2,
                           textAlign: TextAlign.left),
                       _getMandatory(mandatory)
                     ],
@@ -86,7 +86,7 @@ class DoorLockDataState extends State<DoorLockData> {
                   enabled: false,
                   textAlign: TextAlign.left,
                   expands: false,
-                  style: Theme.of(context).textTheme.body1,
+                  style: Theme.of(context).textTheme.bodyText2,
                   maxLines: 1,
                   controller: controller,
                   textInputAction: TextInputAction.next,
@@ -231,7 +231,7 @@ class DoorLockDataState extends State<DoorLockData> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.lockData,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -332,7 +332,7 @@ class DoorLockDataState extends State<DoorLockData> {
                           children: <Widget>[
                             Text(
                                 R.string.selectLockType,
-                                style: Theme.of(context).textTheme.body1,
+                                style: Theme.of(context).textTheme.bodyText2,
                                 textAlign: TextAlign.left),
                             _getMandatory(true)
                           ],
@@ -372,7 +372,7 @@ class DoorLockDataState extends State<DoorLockData> {
                           children: <Widget>[
                             Text(
                                 R.string.selectFacePlateType,
-                                style: Theme.of(context).textTheme.body1,
+                                style: Theme.of(context).textTheme.bodyText2,
                                 textAlign: TextAlign.left),
                             _getMandatory(true)
                           ],
@@ -412,7 +412,7 @@ class DoorLockDataState extends State<DoorLockData> {
                           children: <Widget>[
                             Text(
                                 R.string.selectFacePlateFixing,
-                                style: Theme.of(context).textTheme.body1,
+                                style: Theme.of(context).textTheme.bodyText2,
                                 textAlign: TextAlign.left),
                             _getMandatory(true)
                           ],
@@ -452,7 +452,7 @@ class DoorLockDataState extends State<DoorLockData> {
                           children: <Widget>[
                             Text(
                                 R.string.multiPointLocking,
-                                style: Theme.of(context).textTheme.body1,
+                                style: Theme.of(context).textTheme.bodyText2,
                                 textAlign: TextAlign.left),
                             _getMandatory(false)
                           ],

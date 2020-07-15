@@ -203,7 +203,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
 //                      mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(title,
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText2,
                           textAlign: TextAlign.left),
                       _getMandatory(mandatory)
                     ],
@@ -217,7 +217,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                   enabled: false,
                   textAlign: TextAlign.left,
                   expands: false,
-                  style: Theme.of(context).textTheme.body1,
+                  style: Theme.of(context).textTheme.bodyText2,
                   maxLines: 1,
                   controller: controller,
                   textInputAction: TextInputAction.next,
@@ -300,7 +300,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                 children: <Widget>[
                   Text(
                       R.string.surfaceMountedDoorHingeDetails,
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   Expanded(
                     child: _getMandatory(true),
@@ -352,7 +352,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               child: Row(
                 children: <Widget>[
                   Text(R.string.doorLeafMM,
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
                 ],
@@ -363,7 +363,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               focusNode: doorLeafNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: doorLeafCtr,
               keyboardType: TextInputType.number,
@@ -417,7 +417,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               child: Row(
                 children: <Widget>[
                   Text(R.string.doorFrameMM,
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
                 ],
@@ -428,7 +428,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               focusNode: doorFrameNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: doorFrameCtr,
               keyboardType: TextInputType.number,
@@ -484,7 +484,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                 child: Row(
                   children: <Widget>[
                     Text(R.string.dimension,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                         textAlign: TextAlign.left),
                     Expanded(
                       child: _getMandatory(true),
@@ -522,7 +522,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.generalData,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -552,7 +552,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               child: Row(
                 children: <Widget>[
                   Text(R.string.yearConstruction,
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
                 ],
@@ -563,7 +563,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               focusNode: yearNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: yearCtr,
               keyboardType: TextInputType.number,
@@ -581,7 +581,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                 children: <Widget>[
                   Text(
                       R.string.basicDepthDoorLeafMM,
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
                 ],
@@ -592,7 +592,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               focusNode: basicDepthDoorNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: basicDepthDoorCtr,
               keyboardType: TextInputType.number,
@@ -608,7 +608,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               child: Row(
                 children: <Widget>[
                   Text('Schüco system',
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
                 ],
@@ -619,7 +619,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               focusNode: hingeSystemNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: hingeSystemCtr,
               decoration: InputDecoration.collapsed(

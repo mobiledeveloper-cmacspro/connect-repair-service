@@ -72,7 +72,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(title, style: Theme.of(context).textTheme.body1),
+          title: new Text(title, style: Theme.of(context).textTheme.bodyText2),
           actions: <Widget>[
             CupertinoDialogAction(
               child: new Text("OK"),
@@ -122,7 +122,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(R.string.addAddress,style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.addAddress,style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -153,7 +153,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 focusNode: companyNode,
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 maxLines: 1,
                 controller: companyNameController,
                 textInputAction: TextInputAction.next,
@@ -175,7 +175,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 focusNode: streetNode,
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 maxLines: 1,
                 controller: streetController,
                 textInputAction: TextInputAction.next,
@@ -197,7 +197,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 focusNode: numberNode,
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 maxLines: 1,
                 controller: numberController,
                 textInputAction: TextInputAction.next,
@@ -220,7 +220,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 focusNode: cityNode,
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 maxLines: 1,
                 controller: cityController,
                 textInputAction: TextInputAction.next,
@@ -242,7 +242,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 focusNode: postCodeNode,
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 maxLines: 1,
                 controller: postCodeController,
                 textInputAction: TextInputAction.next,
@@ -266,7 +266,7 @@ class AddOrderAddressState extends State<AddOrderAddress> {
                 focusNode: countryNode,
                 textAlign: TextAlign.left,
                 expands: false,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 maxLines: 1,
                 controller: countryController,
                 decoration: InputDecoration(

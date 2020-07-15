@@ -50,7 +50,7 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.setting,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.setting,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -83,7 +83,7 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
                     margin: EdgeInsets.only(left: 16,top: 4),
                       child: Text(
                         R.string.showTipsEditing,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                       )
                   ),
 
@@ -110,7 +110,7 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
                       margin: EdgeInsets.only(left: 16,top: 4),
                       child: Text(
                         R.string.gpsTagsPhotos,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                       )
                   ),
 
@@ -137,7 +137,7 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
                       margin: EdgeInsets.only(left: 16,top: 4),
                       child: Text(
                         R.string.savePhotosGallery,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                       )
                   ),
 
@@ -164,7 +164,7 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
                       margin: EdgeInsets.only(left: 16,top: 4),
                       child: Text(
                         R.string.showTutorialsAtStart,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText2,
                       )
                   ),
 

@@ -33,7 +33,7 @@ class CompanyDataState extends State<CompanyDataV> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(title, style: Theme.of(context).textTheme.body1,),
+          title: new Text(title, style: Theme.of(context).textTheme.bodyText2,),
           actions: <Widget>[
             CupertinoDialogAction(
               child: new Text(textButton, style: TextStyle(color: Theme.of(context).primaryColor)),
@@ -96,7 +96,7 @@ class CompanyDataState extends State<CompanyDataV> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Colors.grey),
-        title: Text(R.string.companyData,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.companyData,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -153,7 +153,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(R.string.companyName,style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.companyName,style: Theme.of(context).textTheme.bodyText2),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 2,bottom: 0),
@@ -168,7 +168,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     focusNode: nameNode,
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     controller: nameController,
                     textInputAction: TextInputAction.next,
@@ -198,7 +198,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(R.string.aditionalInformation,style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.aditionalInformation,style: Theme.of(context).textTheme.bodyText2),
                     ),
                   ],
                 ),
@@ -209,7 +209,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     focusNode: informationNode,
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     controller: aditionalInformationController,
                     textInputAction: TextInputAction.next,
@@ -247,7 +247,7 @@ class CompanyDataState extends State<CompanyDataV> {
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                              child: new Text(R.string.address,style: Theme.of(context).textTheme.body1),
+                              child: new Text(R.string.address,style: Theme.of(context).textTheme.bodyText2),
                             ),
                           ],
                         ),
@@ -289,7 +289,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(R.string.phoneNumber,style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.phoneNumber,style: Theme.of(context).textTheme.bodyText2),
                     ),
                   ],
                 ),
@@ -300,7 +300,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     focusNode: phoneNode,
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     keyboardType: TextInputType.phone,
                     controller: phoneController,
@@ -331,7 +331,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(R.string.emailAddress,style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.emailAddress,style: Theme.of(context).textTheme.bodyText2),
                     ),
                   ],
                 ),
@@ -342,7 +342,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     focusNode: emailNode,
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -373,7 +373,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(R.string.fax,style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.fax,style: Theme.of(context).textTheme.bodyText2),
                     ),
                   ],
                 ),
@@ -384,7 +384,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     focusNode: faxNode,
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     keyboardType: TextInputType.phone,
                     controller: faxController,
@@ -415,7 +415,7 @@ class CompanyDataState extends State<CompanyDataV> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(top: 4, left: 16,bottom: 0),
-                      child: new Text(R.string.website,style: Theme.of(context).textTheme.body1),
+                      child: new Text(R.string.website,style: Theme.of(context).textTheme.bodyText2),
                     ),
                   ],
                 ),
@@ -426,7 +426,7 @@ class CompanyDataState extends State<CompanyDataV> {
                     focusNode: websiteNode,
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     controller: websiteController,
                     decoration: InputDecoration.collapsed(

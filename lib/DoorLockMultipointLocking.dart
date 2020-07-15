@@ -294,7 +294,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
       child: CupertinoActionSheet(
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child: new Text(R.string.emergencyExists, style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.emergencyExists, style: Theme.of(context).textTheme.headline4),
             onPressed: (){
               Navigator.pop(context);
               setState(() {
@@ -303,7 +303,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
             },
           ),
           CupertinoActionSheetAction(
-            child: new Text(R.string.standardDoors, style: Theme.of(context).textTheme.display1),
+            child: new Text(R.string.standardDoors, style: Theme.of(context).textTheme.headline4),
             onPressed: () {
               Navigator.pop(context);
               setState(() {
@@ -323,7 +323,7 @@ class DoorLockMultipointLockingState extends State<DoorLockMultipointLocking>{
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.multiPointLocking,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.multiPointLocking,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {

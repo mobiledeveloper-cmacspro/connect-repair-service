@@ -68,7 +68,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
               title: new Text(R.string.sendByEmail,
-                  style: Theme.of(context).textTheme.subhead),
+                  style: Theme.of(context).textTheme.subtitle1),
               content: Padding(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 child: Text(
@@ -120,7 +120,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.identificationType,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -150,7 +150,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                         child: new Text(
                             R.string.camera,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.body1),
+                            style: Theme.of(context).textTheme.bodyText2),
                         margin: EdgeInsets.only(top: 26),
                       )
                     ],
@@ -180,7 +180,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
                         child: new Text(
                             R.string.recordProduct,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.body1),
+                            style: Theme.of(context).textTheme.bodyText2),
                         margin: EdgeInsets.only(top: 26),
                       )
                     ],
@@ -217,7 +217,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
 //                      new Container(
 //                        child: new Text(R.string.video,
 //                            textAlign: TextAlign.center,
-//                            style: Theme.of(context).textTheme.body1),
+//                            style: Theme.of(context).textTheme.bodyText2),
 //                        margin: EdgeInsets.only(top: 26),
 //                      )
 //                    ],
@@ -247,7 +247,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
 //                      new Container(
 //                        child: new Text(R.string.audio,
 //                            textAlign: TextAlign.center,
-//                            style: Theme.of(context).textTheme.body1),
+//                            style: Theme.of(context).textTheme.bodyText2),
 //                        margin: EdgeInsets.only(top: 26),
 //                      )
 //                    ],

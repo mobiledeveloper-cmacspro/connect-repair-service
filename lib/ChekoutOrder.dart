@@ -127,7 +127,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(title, style: Theme.of(context).textTheme.body1),
+          title: new Text(title, style: Theme.of(context).textTheme.bodyText2),
           actions: <Widget>[
             CupertinoDialogAction(
               child: new Text("OK"),
@@ -198,7 +198,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          title: Text(R.string.checkOrder,style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.checkOrder,style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -212,7 +212,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
             Padding(
               padding: EdgeInsets.only(top: 20,bottom: 16),
               child: Center(
-                child: Text(R.string.shippingAddress, style: Theme.of(context).textTheme.subhead)
+                child: Text(R.string.shippingAddress, style: Theme.of(context).textTheme.subtitle1)
               )
             ),
             Container(
@@ -225,7 +225,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                       child: Text(
                         '${shippingAddress.companyName}, ${shippingAddress.street} ${shippingAddress.houseNumber}, '
                             '${shippingAddress.postCode} ${shippingAddress.city}, ${shippingAddress.country}',
-                        style: Theme.of(context).textTheme.body1, maxLines: 2, textAlign: TextAlign.center
+                        style: Theme.of(context).textTheme.bodyText2, maxLines: 2, textAlign: TextAlign.center
                       )
                     )
                   ),
@@ -247,7 +247,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                   Padding(
                     padding: EdgeInsets.only(right: 30),
                     child: Center(
-                      child: Text(R.string.expressDelivery,style: Theme.of(context).textTheme.body1),
+                      child: Text(R.string.expressDelivery,style: Theme.of(context).textTheme.bodyText2),
                     ),
                   ),
                   Transform.scale(
@@ -271,7 +271,7 @@ class CheckoutOrderState extends State<CheckoutOrder> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(R.string.products,style: Theme.of(context).textTheme.subhead),
+                  Text(R.string.products,style: Theme.of(context).textTheme.subtitle1),
                   Text(R.string.clickHereToEditCart,style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 14))
                 ],
               ),
@@ -306,14 +306,14 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                                         padding: EdgeInsets.only(left: 16,top: 10),
                                         child: Text(
                                             productList[index].shortText.value,
-                                            style:  Theme.of(context).textTheme.body1
+                                            style:  Theme.of(context).textTheme.bodyText2
                                         ),
                                       ),
                                       Padding(
                                         padding: EdgeInsets.only(left: 16,top: 4),
                                         child: Text(
                                             productList[index].number.value,
-                                            style: Theme.of(context).textTheme.body2
+                                            style: Theme.of(context).textTheme.bodyText1
                                         ),
                                       )
                                     ],

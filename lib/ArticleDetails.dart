@@ -433,7 +433,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
 //        actionsIconTheme: IconThemeData(color: Colors.red),
-          title: Text(R.string.articleDetails,style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.articleDetails,style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

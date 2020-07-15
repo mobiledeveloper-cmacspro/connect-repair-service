@@ -26,7 +26,7 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 16,left: 16,right: 16),
             child: Text(
               R.string.faqAnswer1,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.justify,
             )
           );
@@ -38,7 +38,7 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 16,left: 16,right: 16),
             child: Text(
               R.string.faqAnswer2,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.justify,
             )
           );
@@ -50,7 +50,7 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 16,left: 16,right: 16),
             child: Text(
               R.string.faqAnswer3,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.justify,
             )
           );
@@ -62,7 +62,7 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 16,left: 16,right: 16),
             child: Text(
               R.string.faqAnswer4,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.justify,
             )
           );
@@ -74,7 +74,7 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 16,left: 16,right: 16),
             child: Text(
               R.string.faqAnswer5,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.justify,
             )
           );
@@ -99,7 +99,7 @@ class FAQState extends State<FAQ> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.service,style: Theme.of(context).textTheme.body1),
+        title: Text(R.string.service,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -121,7 +121,7 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 16,left: 16,right: 16),
             child: Text(
               R.string.firstTextFaq,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Padding(
@@ -131,7 +131,7 @@ class FAQState extends State<FAQ> {
                 children: <Widget>[
                   Text(
                     R.string.toTheSparePartsShop,
-                    style: Theme.of(context).textTheme.display1,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -297,14 +297,14 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 16,left: 16),
             child: Text(
               R.string.phoneNumberDE,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 4,left: 16,bottom: 4),
             child: Text(
               "+49 521 783400",
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Divider(height: 1),
@@ -312,21 +312,21 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 4,left: 16),
             child: Text(
               R.string.serviceTimes,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 4,left: 16),
             child: Text(
               R.string.mondayThursday8am5pm,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 8,left: 16,bottom: 4),
             child: Text(
               R.string.friday8am3pm,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Divider(height: 1),
@@ -334,14 +334,14 @@ class FAQState extends State<FAQ> {
             padding: EdgeInsets.only(top: 4,left: 16),
             child: Text(
               R.string.email,
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 4,left: 16,bottom: 4),
             child: Text(
               "technische-hotline@schueco.com",
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           Divider(height: 1),

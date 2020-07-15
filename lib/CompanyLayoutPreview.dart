@@ -29,7 +29,7 @@ class CompanyLayoutPreview extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
           actionsIconTheme: IconThemeData(color: Colors.grey),
-          title: Text(R.string.layoutPreview,style: Theme.of(context).textTheme.body1),
+          title: Text(R.string.layoutPreview,style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -52,9 +52,9 @@ class CompanyLayoutPreview extends StatelessWidget {
                         child: new Text(
                           comp.name != null ? comp.name : "",
                           style: TextStyle(
-                            color: Theme.of(context).textTheme.subhead.color,
+                            color: Theme.of(context).textTheme.subtitle1.color,
                             fontSize: 18,
-                            fontWeight: Theme.of(context).textTheme.subhead.fontWeight
+                            fontWeight: Theme.of(context).textTheme.subtitle1.fontWeight
                           ),
                         ),
                       )
@@ -70,7 +70,7 @@ class CompanyLayoutPreview extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(left: 16,bottom: 8),
-              child: Text(R.string.companyData,style: Theme.of(context).textTheme.subhead,textAlign: TextAlign.left),
+              child: Text(R.string.companyData,style: Theme.of(context).textTheme.subtitle1,textAlign: TextAlign.left),
             ),
             Divider(height: 1),
             Container(
@@ -79,9 +79,9 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(R.string.address+': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.address+': ',style: Theme.of(context).textTheme.bodyText2),
                   Expanded(
-                    child: Text(_componeAddress() !=null ? _componeAddress() : "",style: Theme.of(context).textTheme.body1,maxLines: 2),
+                    child: Text(_componeAddress() !=null ? _componeAddress() : "",style: Theme.of(context).textTheme.bodyText2,maxLines: 2),
                   ),
                 ],
               ),
@@ -93,9 +93,9 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(R.string.aditionalInformation + ': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.aditionalInformation + ': ',style: Theme.of(context).textTheme.bodyText2),
                   Expanded(
-                    child: Text(comp.additionalInf != null ? comp.additionalInf : "",style: Theme.of(context).textTheme.body1),
+                    child: Text(comp.additionalInf != null ? comp.additionalInf : "",style: Theme.of(context).textTheme.bodyText2),
                   ),
                 ],
               ),
@@ -106,9 +106,9 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(R.string.phoneNumber + ': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.phoneNumber + ': ',style: Theme.of(context).textTheme.bodyText2),
                   Expanded(
-                    child: Text(comp.phone != null ? comp.phone: "",style: Theme.of(context).textTheme.body1),
+                    child: Text(comp.phone != null ? comp.phone: "",style: Theme.of(context).textTheme.bodyText2),
                   ),
                 ],
               ),
@@ -119,9 +119,9 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(R.string.emailAddress + ': ',style: Theme.of(context).textTheme.body1),
+                  Text(R.string.emailAddress + ': ',style: Theme.of(context).textTheme.bodyText2),
                   Expanded(
-                    child: Text(comp.email!= null ? comp.email: "",style: Theme.of(context).textTheme.body1),
+                    child: Text(comp.email!= null ? comp.email: "",style: Theme.of(context).textTheme.bodyText2),
                   ),
                 ],
               ),
@@ -132,9 +132,9 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Fax: ',style: Theme.of(context).textTheme.body1),
+                  Text('Fax: ',style: Theme.of(context).textTheme.bodyText2),
                   Expanded(
-                    child: Text(comp.fax != null ? comp.fax: "",style: Theme.of(context).textTheme.body1),
+                    child: Text(comp.fax != null ? comp.fax: "",style: Theme.of(context).textTheme.bodyText2),
                   ),
                 ],
               ),
@@ -145,23 +145,23 @@ class CompanyLayoutPreview extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Website: ', style: Theme.of(context).textTheme.body1),
+                  Text('Website: ', style: Theme.of(context).textTheme.bodyText2),
                   Expanded(
-                    child: Text(comp.website != null ? comp.website: "",style: Theme.of(context).textTheme.body1),
+                    child: Text(comp.website != null ? comp.website: "",style: Theme.of(context).textTheme.bodyText2),
                   ),
                 ],
               ),
             ),
             Container(
               margin: EdgeInsets.only(left: 16,bottom: 8,top: 8),
-              child: Text(R.string.emailStandardText,style: Theme.of(context).textTheme.subhead,textAlign: TextAlign.left),
+              child: Text(R.string.emailStandardText,style: Theme.of(context).textTheme.subtitle1,textAlign: TextAlign.left),
             ),
             Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
                 scrollDirection: Axis.vertical,
-                child: Text(comp.textExportEmail != null ? comp.textExportEmail : "",style: Theme.of(context).textTheme.body1),
+                child: Text(comp.textExportEmail != null ? comp.textExportEmail : "",style: Theme.of(context).textTheme.bodyText2),
               )
             ),
           ],

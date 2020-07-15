@@ -18,7 +18,7 @@ class GlobalSettings extends StatelessWidget {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.setting,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -42,7 +42,7 @@ class GlobalSettings extends StatelessWidget {
         children: <Widget>[
           ListTile(
               title: Text(R.string.legalInformation,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
               onTap: () {
@@ -54,7 +54,7 @@ class GlobalSettings extends StatelessWidget {
           Divider(height: 1),
           ListTile(
               title: Text(R.string.signature,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
               onTap: () {
@@ -64,7 +64,7 @@ class GlobalSettings extends StatelessWidget {
           Divider(height: 1),
           ListTile(
               title: Text(R.string.imprint,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
               onTap: () {
@@ -74,7 +74,7 @@ class GlobalSettings extends StatelessWidget {
           Divider(height: 1),
           ListTile(
               title: Text(R.string.language,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               trailing: Icon(CupertinoIcons.forward),
               onTap: () {
@@ -97,7 +97,7 @@ class LegalInformation extends StatelessWidget {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.legalInformation,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -113,7 +113,7 @@ class LegalInformation extends StatelessWidget {
             child: Center(
               child: Text(
                 R.string.legalInformationDetails,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -166,7 +166,7 @@ class SignatureState extends State<Signature> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.signature,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -198,7 +198,7 @@ class SignatureState extends State<Signature> {
                   minLines: 10,
                   maxLines: 10,
                   controller: emailText,
-                  style: Theme.of(context).textTheme.body1,
+                  style: Theme.of(context).textTheme.bodyText2,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: R.string.standardTextExportEmail,
@@ -221,7 +221,7 @@ class Impressum extends StatelessWidget {
           actionsIconTheme:
               IconThemeData(color: Theme.of(context).primaryColor),
           title: Text(R.string.imprint,
-              style: Theme.of(context).textTheme.body1),
+              style: Theme.of(context).textTheme.bodyText2),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -236,73 +236,73 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Text(
                   R.string.shucoServiceAppProvidedBy,
-                  style: Theme.of(context).textTheme.display2),
+                  style: Theme.of(context).textTheme.headline3),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Text(
                   R.string.schucoInternational,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
                   R.string.karolinenstrasse,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
                   R.string.bielefeld33609,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
                   R.string.germany,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
                   R.string.mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith +
                   R.string.germanInterstateBroadcastingTreaty+".",
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
                   R.string.executiveManagementBoard,
-                  style: Theme.of(context).textTheme.display2),
+                  style: Theme.of(context).textTheme.headline3),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Text(
                   R.string.andreasEngelhardtCEOAndManaging,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(R.string.partner,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(R.string.philipNeuhausCFO,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
                   R.string.drWalterStadlbauerCOOandCTO,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Row(
                 children: <Widget>[
                   Text(R.string.tel,
-                      style: Theme.of(context).textTheme.body1),
+                      style: Theme.of(context).textTheme.bodyText2),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text('+49 (0)521 78 30',
@@ -317,7 +317,7 @@ class Impressum extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Text(R.string.fax,
-                      style: Theme.of(context).textTheme.body1),
+                      style: Theme.of(context).textTheme.bodyText2),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text('+49 (0)521 78 34 51',
@@ -332,7 +332,7 @@ class Impressum extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Text(R.string.eMail,
-                      style: Theme.of(context).textTheme.body1),
+                      style: Theme.of(context).textTheme.bodyText2),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text('info@schueco.com',
@@ -352,23 +352,23 @@ class Impressum extends StatelessWidget {
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
                   R.string.vatId,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
                   R.string.registeredOfficeCourtOfRecord,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(R.string.limitedPartnership,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(R.string.bielefeld,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -378,7 +378,7 @@ class Impressum extends StatelessWidget {
               ),
               child: Text(
                   R.string.commercialRegister,
-                  style: Theme.of(context).textTheme.body1),
+                  style: Theme.of(context).textTheme.bodyText2),
             ),
             SizedBox(
               height: 20,
@@ -412,7 +412,7 @@ class _LanguageState extends State<Language> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.language,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -432,7 +432,7 @@ class _LanguageState extends State<Language> {
                 children: <Widget>[
                   Expanded(
                     child: Text(R.string.english,
-                        style: Theme.of(context).textTheme.body1),
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
                   _currentLanguage == 'en'
                       ? Icon(
@@ -461,7 +461,7 @@ class _LanguageState extends State<Language> {
                 children: <Widget>[
                   Expanded(
                     child: Text(R.string.deutsch,
-                        style: Theme.of(context).textTheme.body1),
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
                   _currentLanguage == 'de'
                       ? Icon(

@@ -213,7 +213,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           CupertinoActionSheetAction(
             child:
                 new Text(R.string.camera,
-                style: Theme.of(context).textTheme.display1),
+                style: Theme.of(context).textTheme.headline4),
             onPressed: () {
               Navigator.pop(context);
               _getImageFromSource(ImageSource.camera);
@@ -222,7 +222,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           CupertinoActionSheetAction(
             child: new Text(
                 R.string.chooseFromGallery,
-                style: Theme.of(context).textTheme.display1),
+                style: Theme.of(context).textTheme.headline4),
             onPressed: () {
               Navigator.pop(context);
               _getImageFromSource(ImageSource.gallery);
@@ -252,7 +252,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
         actions: <Widget>[
           CupertinoActionSheetAction(
             child: new Text(R.string.photoOfPart,
-                style: Theme.of(context).textTheme.display1),
+                style: Theme.of(context).textTheme.headline4),
             onPressed: () {
               Navigator.pop(context);
               _onPhotoOfPartPress(context);
@@ -261,7 +261,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           CupertinoActionSheetAction(
             child: new Text(
                 R.string.invoiceOfProduct,
-                style: Theme.of(context).textTheme.display1),
+                style: Theme.of(context).textTheme.headline4),
             onPressed: () {
               Navigator.pop(context);
               _getDocuments();
@@ -337,7 +337,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
                   padding: EdgeInsets.only(left: 16, top: 8),
                   child: Text(
                       R.string.systemDepthMM,
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                 ),
                 new Padding(
@@ -349,7 +349,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
                     enabled: false,
                     textAlign: TextAlign.left,
                     expands: false,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     controller: systemCtr,
                     textInputAction: TextInputAction.next,
@@ -402,7 +402,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
             padding: EdgeInsets.only(left: 16, top: 8),
             child: Text(
                 R.string.profileSystemSerie,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.left),
           ),
           new Padding(
@@ -411,7 +411,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               focusNode: profileSystemNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: profileCtr,
               textInputAction: TextInputAction.next,
@@ -439,7 +439,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         title: Text(R.string.generalData,
-            style: Theme.of(context).textTheme.body1),
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -469,7 +469,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
             padding: EdgeInsets.only(left: 16, top: 8),
             child: Text(
                 R.string.partNumberDefectiveComponent,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.left),
           ),
           Padding(
@@ -478,7 +478,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               focusNode: numberNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: numberCtr,
               textInputAction: TextInputAction.next,
@@ -496,7 +496,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
             child: Text(R.string.yearConstruction,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.left),
           ),
           Padding(
@@ -505,7 +505,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               focusNode: yearNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: yearCtr,
               textInputAction: TextInputAction.next,
@@ -532,7 +532,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),
             child: Text(R.string.description,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.left),
           ),
           new Padding(
@@ -541,7 +541,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
               focusNode: descriptionNode,
               textAlign: TextAlign.left,
               expands: false,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText2,
               maxLines: 1,
               controller: descriptionCtr,
               textInputAction: TextInputAction.go,

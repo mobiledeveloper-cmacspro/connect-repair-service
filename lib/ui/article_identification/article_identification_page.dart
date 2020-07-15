@@ -74,12 +74,12 @@ class _ArticleIdentificationState
           CupertinoActionSheetAction(
             child:
                 new Text(R.string.print,
-                style: Theme.of(context).textTheme.display1),
+                style: Theme.of(context).textTheme.headline4),
             onPressed: () => Navigator.pop(context, 'Print'),
           ),
           CupertinoActionSheetAction(
             child: new Text(R.string.email,
-                style: Theme.of(context).textTheme.display1),
+                style: Theme.of(context).textTheme.headline4),
             onPressed: () => Navigator.pop(context, 'Email'),
           ),
           CupertinoActionSheetAction(
