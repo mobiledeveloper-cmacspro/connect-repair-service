@@ -1,11 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesManager {
-  final _language = 'language';
+  final _language = 'languaje';
 
   Future<bool> setLanguage(String language) async {
-    return (await SharedPreferences.getInstance())
-        .setString(_language, language);
+    return (await SharedPreferences.getInstance()).setString(_language, language);
   }
 
   Future<String> getLanguage() async {

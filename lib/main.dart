@@ -6,6 +6,7 @@ import 'package:repairservices/crashlytics.dart';
 import 'package:repairservices/di/injector.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/res/values/text/custom_localizations_delegate.dart';
+import 'all_translations.dart';
 
 //import 'Home.dart';
 //import 'package:flutter_crashlytics/flutter_crashlytics.dart';
