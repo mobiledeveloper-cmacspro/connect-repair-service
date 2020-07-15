@@ -85,17 +85,17 @@ class HomeState extends State<HomeM> {
     });
   }
 
-  Widget _displayGridItem(String value, String imageUrl, Function action) {
+  Widget _displayGridItem(String value, String imageUrl, Function action, {double marginTop = 16, double width = 80, double height = 80 }) {
     return new GestureDetector(
         onTap: action,
         child: new Container(
           child: new Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Image.asset(
                 imageUrl,
-                width: 60,
-                height: 60,
+                width: width,
+                height: height,
               ),
               new Container(
                 child: new Text(
@@ -107,7 +107,7 @@ class HomeState extends State<HomeM> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                margin: EdgeInsets.only(top: 8),
+                margin: EdgeInsets.only(top: marginTop),
               )
             ],
           ),
@@ -282,398 +282,384 @@ class HomeState extends State<HomeM> {
     );
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Center(
-            child: Container(
-              child: Image.asset(
-                'assets/schuco.png',
-                fit: BoxFit.contain,
-                height: 36,
-              ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Center(
+          child: Container(
+            child: Image.asset(
+              'assets/schuco.png',
+              fit: BoxFit.contain,
+              height: 36,
             ),
           ),
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          actions: <Widget>[
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => ArticleInCart())).then((value) {
+        ),
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        actions: <Widget>[
+          GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => ArticleInCart())).then((value) {
+                  ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                    this.loggued = loggued;
+                    setState(() {});
+                  });
+                });
+              },
+              child: Container(
+                  margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
+                  child: Center(
+                    child: new Stack(children: <Widget>[
+                      Container(
+                        height: 40,
+                        child: Image.asset(
+                          'assets/shopping-cart.png',
+                          height: 25,
+                        ),
+                      ),
+                      new Positioned(
+                        right: 0,
+                        child: new Container(
+                            padding: EdgeInsets.all(1),
+                            decoration: new BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(9),
+                            ),
+                            constraints: BoxConstraints(
+                              minWidth: 18,
+                              minHeight: 18,
+                            ),
+                            child: Center(
+                              child: new Text(
+                                '$cantProductsInCart',
+                                style: new TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                      )
+                    ]),
+                  ))),
+          _profileButton()
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/homeGreen.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.home,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/articleIdentificationGreen1.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.artIdentServ,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                NavigationUtils.pushCupertinoWithRoute(
+                    context,
+                    ArticleIdentificationV(),
+                    NavigationUtils.ArticleIdentificationPage);
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/documentListGreen1.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.artBookMarkList,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => ArticleBookMark()),
+                ).then((_) {
+                  _readAllProductsInCart();
+                });
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/documentGrey.png',
+                    width: 20,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    child: Text(R.string.home3,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/docucenter1.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.docCenter,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () async {
+                String url = Platt.Platform.isIOS
+                    ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                    : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+                Navigator.pop(context);
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/buildingGreenHome.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.companyProfile,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => CompanyProfileV()),
+                );
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/informationGreen.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.serviceFaq,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => FAQ()),
+                );
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/phoneGreen.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.contact,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => Contact()),
+                );
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/gearGreen1.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(R.string.setting,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    prefix0.CupertinoPageRoute(
+                        builder: (context) => GlobalSettings()));
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/headSetGreen.png',
+                    height: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text('Feedback',
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                _sendFeedBackByEmail();
+              },
+            ),
+            divider,
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Image.asset(
+                    'assets/logOnGreen.png',
+                    width: 25,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16),
+                    child: Text(!loggued ? R.string.login : R.string.logoff,
+                        style: TextStyle(
+                            color: Color.fromRGBO(38, 38, 38, 1.0),
+                            fontSize: 17)),
+                  )
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                if (!loggued) {
+                  Navigator.push(context,
+                          CupertinoPageRoute(builder: (context) => LoginV()))
+                      .then((value) {
                     ISClientO.instance.isTokenAvailable().then((bool loggued) {
                       this.loggued = loggued;
                       setState(() {});
                     });
                   });
-                },
-                child: Container(
-                    margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
-                    child: Center(
-                      child: new Stack(children: <Widget>[
-                        Container(
-                          height: 40,
-                          child: Image.asset(
-                            'assets/shopping-cart.png',
-                            height: 25,
-                          ),
-                        ),
-                        new Positioned(
-                          right: 0,
-                          child: new Container(
-                              padding: EdgeInsets.all(1),
-                              decoration: new BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              constraints: BoxConstraints(
-                                minWidth: 18,
-                                minHeight: 18,
-                              ),
-                              child: Center(
-                                child: new Text(
-                                  '$cantProductsInCart',
-                                  style: new TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
-                        )
-                      ]),
-                    ))),
-            _profileButton()
-          ],
-        ),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/homeGreen.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.home,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/articleIdentificationGreen1.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.artIdentServ,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  NavigationUtils.pushCupertinoWithRoute(
-                      context,
-                      ArticleIdentificationV(),
-                      NavigationUtils.ArticleIdentificationPage);
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/documentListGreen1.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.artBookMarkList,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => ArticleBookMark()),
-                  ).then((_) {
-                    _readAllProductsInCart();
+                } else {
+                  ISClientO.instance.clearToken().then((_) {
+                    setState(() {
+                      this.loggued = false;
+                    });
                   });
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/documentGrey.png',
-                      width: 20,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 20),
-                      child: Text(
-                          R.string.home3,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/docucenter1.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.docCenter,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () async {
-                  String url = Platt.Platform.isIOS
-                      ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                      : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw 'Could not launch $url';
-                  }
-                  Navigator.pop(context);
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/buildingGreenHome.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.companyProfile,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => CompanyProfileV()),
-                  );
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/informationGreen.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.serviceFaq,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => FAQ()),
-                  );
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/phoneGreen.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.contact,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => Contact()),
-                  );
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/gearGreen1.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          R.string.setting,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      prefix0.CupertinoPageRoute(
-                          builder: (context) => GlobalSettings()));
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/headSetGreen.png',
-                      height: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text('Feedback',
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  _sendFeedBackByEmail();
-                },
-              ),
-              divider,
-              ListTile(
-                title: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/logOnGreen.png',
-                      width: 25,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 16),
-                      child: Text(
-                          !loggued
-                              ? R.string.login
-                              : R.string.logoff,
-                          style: TextStyle(
-                              color: Color.fromRGBO(38, 38, 38, 1.0),
-                              fontSize: 17)),
-                    )
-                  ],
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  if (!loggued) {
-                    Navigator.push(context,
-                            CupertinoPageRoute(builder: (context) => LoginV()))
-                        .then((value) {
-                      ISClientO.instance
-                          .isTokenAvailable()
-                          .then((bool loggued) {
-                        this.loggued = loggued;
-                        setState(() {});
-                      });
-                    });
-                  } else {
-                    ISClientO.instance.clearToken().then((_) {
-                      setState(() {
-                        this.loggued = false;
-                      });
-                    });
-                  }
-                },
-              ),
-              divider,
-            ],
-          ),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            TXDividerWidget(),
-            TXSearchBarWidget(
-              defaultModel: true,
-              onQRScanTap: () {},
-              onSearchTap: () async {
-                final res = await NavigationUtils.pushCupertino(
-                    context, ArticleListV());
-                ISClientO.instance.isTokenAvailable().then((bool loggued) {
-                  this.loggued = loggued;
-                  _readAllProductsInCart();
-                  setState(() {});
-                });
+                }
               },
             ),
+            divider,
+          ],
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          TXDividerWidget(),
+          TXSearchBarWidget(
+            defaultModel: true,
+            onQRScanTap: () {},
+            onSearchTap: () async {
+              final res =
+                  await NavigationUtils.pushCupertino(context, ArticleListV());
+              ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                this.loggued = loggued;
+                _readAllProductsInCart();
+                setState(() {});
+              });
+            },
+          ),
 //                  searchBar(context),
             Expanded(
               child: SingleChildScrollView(
@@ -763,7 +749,7 @@ class HomeState extends State<HomeM> {
                                     } else {
                                       throw 'Could not launch $url';
                                     }
-                                  }),
+                                  }, marginTop: 24),
                             ),
                           ),
                           flex: 1,
@@ -807,7 +793,7 @@ class HomeState extends State<HomeM> {
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) => FAQ()));
-                                }),
+                                },marginTop: 0),
                               ),
                             )),
                       ],
