@@ -525,7 +525,7 @@ class StringsEn implements StringsBase {
   String get addToCart => "Add to Cart";
 
   @override
-  String get availability => "avability";
+  String get availability => "availability";
 
   @override
   String get toSeePricesAvailabilityLogIn => "To see prices and availability, please log in.";
@@ -1003,4 +1003,10 @@ class StringsEn implements StringsBase {
 
   @override
   String get schucoSystem => "Schüco system";
+
+  @override
+  String get unitText => "Sales unit";
+
+  @override
+  String get unitTextValue => "Piece, Pack, Pair";
 }

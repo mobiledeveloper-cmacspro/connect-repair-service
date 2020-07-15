@@ -665,4 +665,8 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get dimensionSurface;
 
   String get dimensionBarrel;
+
+  String get unitText;
+
+  String get unitTextValue;
 }

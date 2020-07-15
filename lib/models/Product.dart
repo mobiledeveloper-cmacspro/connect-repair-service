@@ -2,6 +2,7 @@
 
 //import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
+import 'package:repairservices/res/R.dart';
 
 final String tableProduct = 'product';
 final String tableProductInCart = 'productInCart';
@@ -93,7 +94,7 @@ class Product {
       } else if (values.split(":")[0] == "ISOUnit") {
         final tupla = values.split(":");
         product.isoUnit =
-            TupleData(en: tupla[0], de: tupla[1], value: tupla[2]);
+            TupleData(en: "Sales unit", de: "Verkaufsmengeneinheit", value: tupla[2]);
       } else if (values.split(":")[0] == "unitText") {
         final tupla = values.split(":");
         product.unitText =

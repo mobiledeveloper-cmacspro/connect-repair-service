@@ -90,17 +90,19 @@ class HomeState extends State<HomeM> {
         onTap: action,
         child: new Container(
           child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Image.asset(
                 imageUrl,
+                width: 60,
+                height: 60,
               ),
               new Container(
                 child: new Text(
                   value,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
                   ),
@@ -674,119 +676,28 @@ class HomeState extends State<HomeM> {
             ),
 //                  searchBar(context),
             Expanded(
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: topButtonPadding,
-                                  bottom: bottomButtonPadding),
-                              child: _displayGridItem(
-                                  R.string.home1,
-                                  'assets/articleIdentificationService.png', () {
-                                NavigationUtils.pushCupertinoWithRoute(
-                                    context,
-                                    ArticleIdentificationV(),
-                                    NavigationUtils.ArticleIdentificationPage);
-                              }),
-                            ),
-                          )),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                                left: BorderSide(
-                                    color: Color.fromARGB(100, 191, 191, 191),
-                                    width: 1)),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(
-                                R.string.home2,
-                                'assets/articleBookmarkList.png', () {
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => ArticleBookMark()),
-                              ).then((_) {
-                                _readAllProductsInCart();
-                              });
-                            }),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Divider(height: 1),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: topButtonPadding,
-                                  bottom: bottomButtonPadding),
-                              child: _displayGridItem(
-                                  R.string.home3,
-                                  'assets/projectDocumentation.png',
-                                      () {}),
-                            ),
-                          )),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                                left: BorderSide(
-                                    color: Color.fromARGB(100, 191, 191, 191),
-                                    width: 1)),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(
-                                R.string.docCenter + " \n", 'assets/docucenter.png',
-                                    () async {
-                                  String url = Platt.Platform.isIOS
-                                      ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                                      : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                                  if (await canLaunch(url)) {
-                                    await launch(url);
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: topButtonPadding,
+                                    bottom: bottomButtonPadding),
+                                child: _displayGridItem(
+                                    R.string.home1,
+                                    'assets/articleIdentificationService.png', () {
+                                  NavigationUtils.pushCupertinoWithRoute(
+                                      context,
+                                      ArticleIdentificationV(),
+                                      NavigationUtils.ArticleIdentificationPage);
                                 }),
-                          ),
-                        ),
-                        flex: 1,
-                      ),
-                    ],
-                  ),
-                  Divider(height: 1),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: topButtonPadding,
-                                  bottom: bottomButtonPadding),
-                              child: _displayGridItem(
-                                  R.string.home4,
-                                  'assets/companyProfile.png', () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => CompanyProfileV()));
-                              }),
-                            ),
-                          )),
-                      Expanded(
+                              ),
+                            )),
+                        Expanded(
                           child: Container(
                             decoration: BoxDecoration(
                               border: Border(
@@ -799,18 +710,111 @@ class HomeState extends State<HomeM> {
                                   top: topButtonPadding,
                                   bottom: bottomButtonPadding),
                               child: _displayGridItem(
-                                  R.string.serviceFaq, 'assets/FAQ.png', () {
+                                  R.string.home2,
+                                  'assets/articleBookmarkList.png', () {
                                 Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => FAQ()));
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => ArticleBookMark()),
+                                ).then((_) {
+                                  _readAllProductsInCart();
+                                });
                               }),
                             ),
-                          )),
-                    ],
-                  ),
-                  Divider(height: 1)
-                ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(height: 1),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: topButtonPadding,
+                                    bottom: bottomButtonPadding),
+                                child: _displayGridItem(
+                                    R.string.home3,
+                                    'assets/projectDocumentation.png',
+                                        () {}),
+                              ),
+                            )),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  left: BorderSide(
+                                      color: Color.fromARGB(100, 191, 191, 191),
+                                      width: 1)),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: topButtonPadding,
+                                  bottom: bottomButtonPadding),
+                              child: _displayGridItem(
+                                  R.string.docCenter + " \n", 'assets/docucenter.png',
+                                      () async {
+                                    String url = Platt.Platform.isIOS
+                                        ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                                        : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                                    if (await canLaunch(url)) {
+                                      await launch(url);
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
+                                  }),
+                            ),
+                          ),
+                          flex: 1,
+                        ),
+                      ],
+                    ),
+                    Divider(height: 1),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: topButtonPadding,
+                                    bottom: bottomButtonPadding),
+                                child: _displayGridItem(
+                                    R.string.home4,
+                                    'assets/companyProfile.png', () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => CompanyProfileV()));
+                                }),
+                              ),
+                            )),
+                        Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                    left: BorderSide(
+                                        color: Color.fromARGB(100, 191, 191, 191),
+                                        width: 1)),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: topButtonPadding,
+                                    bottom: bottomButtonPadding),
+                                child: _displayGridItem(
+                                    R.string.serviceFaq, 'assets/FAQ.png', () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => FAQ()));
+                                }),
+                              ),
+                            )),
+                      ],
+                    ),
+                    Divider(height: 1)
+                  ],
+                ),
               ),
             ),
             _loginBt()

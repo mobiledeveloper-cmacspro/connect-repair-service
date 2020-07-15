@@ -798,7 +798,7 @@ class StringsDe implements StringsBase {
   String get deselectAll => "Alle entmarkieren";
 
   @override
-  String get removeSelected => "Remove selected ones";
+  String get removeSelected => "Entfernen Sie ausgewählte";
 
   @override
   String get schucoInternational => "Schüco International KG";
@@ -1003,4 +1003,10 @@ class StringsDe implements StringsBase {
 
   @override
   String get schucoSystem => "Schüco-System";
+
+  @override
+  String get unitText => "Verkaufsmengeneinheit";
+
+  @override
+  String get unitTextValue => "Stück, Pack, Paar";
 }

@@ -100,9 +100,11 @@ class LoginState extends State<LoginV> {
   _showSelectB2bUnit(BuildContext context) {
     showDemoActionSheet(
         context: context,
-        child: CupertinoActionSheet(
-            title: Text(R.string.selectB2BUnit),
-            actions: _actionItems(context)));
+        child: SingleChildScrollView(
+          child: CupertinoActionSheet(
+              title: Text(R.string.selectB2BUnit),
+              actions: _actionItems(context)),
+        ));
   }
 
   Future _login(BuildContext context) async {
