@@ -5,6 +5,9 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:repairservices/res/values/text/custom_localizations_delegate.dart';
+import 'all_translations.dart';
+
 
 class GlobalSettings extends StatelessWidget {
   @override
@@ -442,7 +445,9 @@ class _LanguageState extends State<Language> {
             ),
             onTap: () async {
               //await FlutterI18n.refresh(context, Locale('en'));
-              await _sharedPreferences.setLanguage('en');
+              //await _sharedPreferences.setLanguage('en');
+              await allTranslations.setNewLanguage('en');
+              setState((){});
               Navigator.pop(context);
             },
           ),
@@ -469,7 +474,9 @@ class _LanguageState extends State<Language> {
             ),
             onTap: () async {
               //await FlutterI18n.refresh(context, Locale('de'));
-              await _sharedPreferences.setLanguage('de');
+              //await _sharedPreferences.setLanguage('de');
+              await allTranslations.setNewLanguage('de');
+              setState((){});
               Navigator.pop(context);
             },
           ),

@@ -36,6 +36,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' as Platt;
 import 'package:devicelocale/devicelocale.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:repairservices/res/values/text/custom_localizations_delegate.dart';
+import 'all_translations.dart';
 
 class HomeM extends StatefulWidget {
   @override
@@ -49,11 +51,16 @@ class HomeState extends State<HomeM> {
   bool loggued = false;
   int cantProductsInCart = 0;
   final _sharedPreferences = SharedPreferencesManager();
+  final _localizationDelegate = CustomLocalizationsDelegate();
 
   @override
   void initState() {
     super.initState();
-    _sharedPreferences.setLanguage('de');
+    //_localizationDelegate.load(Locale('de'));
+    //_sharedPreferences.setLanguage('de');
+
+    allTranslations.init();
+
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
       setState(() {});
@@ -61,6 +68,13 @@ class HomeState extends State<HomeM> {
     _readAllProductsInCart();
     _readCompanys();
     _isPhysicalDevice();
+
+    allTranslations.onLocaleChangedCallback = _onLocaleChanged;
+  }
+
+  _onLocaleChanged() async {
+    // do anything you need to do if the language changes
+    print('Language has been changed to: ${allTranslations.currentLanguage}');
   }
 
   _readAllProductsInCart() async {
