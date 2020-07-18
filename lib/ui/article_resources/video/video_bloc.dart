@@ -17,7 +17,7 @@ class VideoBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
     final appRootFiles = await FileUtils.getRootFilesDir();
 
     String newFilePath = "$appRootFiles/$fileName.mp4";
-    File newFile = await currentFile.copy('${newFilePath}');
+    File newFile = await currentFile.copy(newFilePath);
 
     return newFile;
   }
