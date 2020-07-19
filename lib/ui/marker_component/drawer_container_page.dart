@@ -525,9 +525,11 @@ class _DrawerContainerPageState
 //      _showDialogVideoPicker(option: (opt) async {
 //
 //      });
-      final file = await ImagePicker.pickVideo(source: ImageSource.camera);
-      if (file.existsSync()) {
-        model.filePath = file.path;
+
+      if(model.filePath.isEmpty){
+        model.filePath = (await ImagePicker.pickVideo(source: ImageSource.camera)).path;
+      }
+      if (model.filePath.isNotEmpty){
         final res = await NavigationUtils.push(
             context,
             VideoPage(
