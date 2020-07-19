@@ -79,12 +79,14 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
     _isPlaying = false;
     _controller = VideoPlayerController.file(File(widget.model.filePath));
     _controller.addListener(_onVideoControllerUpdate);
+
+    _initializeVideoPlayerFuture = _controller.initialize();
     //
-    if (widget.model.filePath.isEmpty) {
-      _takeVideo(ImageSource.camera);
-    } else {
-      _initializeVideoPlayerFuture = _controller.initialize();
-    }
+    //if (widget.model.filePath.isEmpty) {
+    //  _takeVideo(ImageSource.camera);
+    //} else {
+    //  _initializeVideoPlayerFuture = _controller.initialize();
+    //}
   }
 
   @override
