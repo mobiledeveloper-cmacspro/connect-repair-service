@@ -521,16 +521,23 @@ class _DrawerContainerPageState
             model: model,
           ));
       bloc.syncMemo(res);
-    } else {
+    } else if (model is MemoVideoModel) {
 //      _showDialogVideoPicker(option: (opt) async {
 //
 //      });
-      final res = await NavigationUtils.push(
-          context,
-          VideoPage(
-            model: model,
-          ));
-      bloc.syncMemo(res);
+
+      if(model.filePath.isEmpty){
+        model.filePath = (await ImagePicker.pickVideo(source: ImageSource.camera)).path;
+      }
+      if (model.filePath.isNotEmpty){
+        final res = await NavigationUtils.push(
+            context,
+            VideoPage(
+              model: model,
+            ));
+        bloc.syncMemo(res);
+      }
+
     }
   }
 

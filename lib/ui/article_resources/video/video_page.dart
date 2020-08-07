@@ -46,14 +46,17 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
   void _takeVideo(ImageSource source) async {
     final file = await ImagePicker.pickVideo(source: source);
     if (file != null && mounted) {
-      await bloc.saveVideo(file, widget.model.id);
-      _controller = VideoPlayerController.file(file);
-      _controller.initialize();
+      final newFile = await bloc.saveVideo(file, widget.model.id);
+      _controller = VideoPlayerController.file(newFile);
+
       _controller.addListener(_onVideoControllerUpdate);
+
+      _initializeVideoPlayerFuture = _controller.initialize();
+
 //        ..setVolume(1.0)
 //        ..initialize()
 //        ..play();
-      widget.model.filePath = file.path;
+      widget.model.filePath = newFile.path;
       setState(() {
         _isPlaying = false;
       });
@@ -76,10 +79,14 @@ class _VideoState extends StateWithBloC<VideoPage, VideoBloC> {
     _isPlaying = false;
     _controller = VideoPlayerController.file(File(widget.model.filePath));
     _controller.addListener(_onVideoControllerUpdate);
+
     _initializeVideoPlayerFuture = _controller.initialize();
-    if (widget.model.filePath.isEmpty) {
-      _takeVideo(ImageSource.camera);
-    }
+    //
+    //if (widget.model.filePath.isEmpty) {
+    //  _takeVideo(ImageSource.camera);
+    //} else {
+    //  _initializeVideoPlayerFuture = _controller.initialize();
+    //}
   }
 
   @override
