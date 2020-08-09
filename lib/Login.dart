@@ -153,6 +153,13 @@ class LoginState extends State<LoginV> {
     super.initState();
     usernameNode = FocusNode();
     passwordNode = FocusNode();
+    usernameController.addListener(() {
+      setState(() {
+        if(usernameController.text.contains(' ')){
+          usernameController.text = usernameController.text.trim();
+        }
+      });
+    });
   }
 
   @override
