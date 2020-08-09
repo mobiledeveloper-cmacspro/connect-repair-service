@@ -669,4 +669,28 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get unitText;
 
   String get unitTextValue;
+
+  String get add;
+
+  String get color;
+
+  String get text;
+
+  String get done;
+
+  String get changeText;
+
+  String get takeVideo;
+
+  String get arrow1;
+
+  String get arrow2;
+
+  String get tapImageAddText;
+
+  String get tapImageAddRecord;
+
+  String get tapImageAddVideo;
+
+  String get addMemo;
 }

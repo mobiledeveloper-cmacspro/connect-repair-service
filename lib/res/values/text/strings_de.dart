@@ -1009,4 +1009,40 @@ class StringsDe implements StringsBase {
 
   @override
   String get unitTextValue => "Stück, Pack, Paar";
+
+  @override
+  String get add => "Hinzufügen";
+
+  @override
+  String get color => "Color";
+
+  @override
+  String get done => "Done";
+
+  @override
+  String get text => "Text";
+
+  @override
+  String get changeText => "Change Text";
+
+  @override
+  String get takeVideo => "Take Video";
+
+  @override
+  String get arrow1 => "1 Arrow";
+
+  @override
+  String get arrow2 => "2 Arrows";
+
+  @override
+  String get tapImageAddText => "Tap in the image for add a text note";
+
+  @override
+  String get tapImageAddRecord => "Tap in the image for add a record note";
+
+  @override
+  String get tapImageAddVideo => "Tap in the image for add a video note";
+
+  @override
+  String get addMemo => "Add Memo";
 }
