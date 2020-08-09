@@ -78,7 +78,7 @@ class LoginState extends State<LoginV> {
                   : Container(),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: const Text("OK"),
+                  child: Text(R.string.ok),
                   isDefaultAction: true,
                   onPressed: () {
                     Navigator.pop(context);
@@ -117,9 +117,9 @@ class LoginState extends State<LoginV> {
         _saving = true;
       });
       try {
-        final loggued = await ISClientO.instance
-            .loginUser(usernameController.text, passwordController.text);
-        if (loggued is int && loggued == 200) {
+        final logged = await ISClientO.instance
+            .loginUser(usernameController.text.trim(), passwordController.text);
+        if (logged is int && logged == 200) {
           final bool userUpdated =
               await ISClientO.instance.getUserInformation();
           if (userUpdated) {
