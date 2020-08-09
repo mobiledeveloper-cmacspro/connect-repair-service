@@ -228,6 +228,7 @@ class LoginState extends State<LoginV> {
                   child: Padding(
                     padding: EdgeInsets.only(left: 16, right: 16),
                     child: TextField(
+                      keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       controller: usernameController,
                       focusNode: usernameNode,
