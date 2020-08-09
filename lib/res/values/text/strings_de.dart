@@ -1045,4 +1045,5 @@ class StringsDe implements StringsBase {
 
   @override
   String get addMemo => "Add Memo";
+
 }

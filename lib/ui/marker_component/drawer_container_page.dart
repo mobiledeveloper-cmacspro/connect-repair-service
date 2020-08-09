@@ -62,7 +62,7 @@ class _DrawerContainerPageState
   @override
   Widget buildWidget(BuildContext context) {
     return TXMainBarWidget(
-      title: "Edit picture",
+      title: R.string.editPicture,
       onLeadingTap: () {
         NavigationUtils.pop(context);
       },
@@ -210,13 +210,13 @@ class _DrawerContainerPageState
         children: [
           getActionItem(
             icon: MdiIcons.arrowRightBoldOutline,
-            text: '1 Arrow',
+            text: R.string.arrow1,
             onTap: () {
               bloc.viewMode = ViewMode.NOTHING;
               bloc.addLine(
                 ItemLine(
                   color: Colors.green,
-                  creatingText: 'Draw the line',
+                  creatingText: R.string.drawTheLine,
                   startArrow: false,
                   endArrow: true,
                 ),
@@ -225,13 +225,13 @@ class _DrawerContainerPageState
           ),
           getActionItem(
             icon: MdiIcons.arrowLeftRightBoldOutline,
-            text: '2 Arrows',
+            text: R.string.arrow2,
             onTap: () {
               bloc.viewMode = ViewMode.NOTHING;
               bloc.addLine(
                 ItemLine(
                   color: Colors.green,
-                  creatingText: 'Draw the line',
+                  creatingText: R.string.drawTheLine,
                   startArrow: true,
                   endArrow: true,
                 ),
@@ -240,20 +240,20 @@ class _DrawerContainerPageState
           ),
           getActionItem(
             icon: MdiIcons.angleAcute,
-            text: 'Angle',
+            text: R.string.angle,
             onTap: () {
               bloc.viewMode = ViewMode.NOTHING;
               bloc.addLine(
                 ItemAngle(
                   color: Colors.green,
-                  creatingText: 'Draw the line',
+                  creatingText: R.string.drawTheLine,
                 ),
               );
             },
           ),
           getActionItem(
             icon: MdiIcons.noteOutline,
-            text: 'Memo',
+            text: R.string.memo,
             onTap: () {
               bloc.viewMode = ViewMode.NOTHING;
               bloc.currentDrawerMode = DrawerMode.nothing();
@@ -316,17 +316,20 @@ class _DrawerContainerPageState
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            getActionItem(
-              icon: Icons.add,
-              text: 'Add',
-              onTap: () {
-                bloc.viewMode = bloc.viewMode == ViewMode.ADD
-                    ? ViewMode.NOTHING
-                    : ViewMode.ADD;
-                setState(() {
-                  bloc.addingMemo = false;
-                });
-              },
+            Container(
+              margin: EdgeInsets.only(bottom: 0.0),
+              child: getActionItem(
+                icon: Icons.add,
+                text: R.string.add,
+                onTap: () {
+                  bloc.viewMode = bloc.viewMode == ViewMode.ADD
+                      ? ViewMode.NOTHING
+                      : ViewMode.ADD;
+                  setState(() {
+                    bloc.addingMemo = false;
+                  });
+                },
+              ),
             ),
           ],
         ),
@@ -340,25 +343,25 @@ class _DrawerContainerPageState
           children: [
             getActionItem(
                 icon: Icons.delete,
-                text: 'Delete',
+                text: R.string.delete,
                 onTap: () {
                   bloc.deleteCurrentItem();
                 }),
             getActionItem(
                 icon: Icons.color_lens,
-                text: 'Color',
+                text: R.string.color,
                 onTap: () {
                   bloc.viewMode = ViewMode.COLOR;
                 }),
             getActionItem(
                 icon: Icons.text_fields,
-                text: 'Text',
+                text: R.string.text,
                 onTap: () {
                   showTextDialog(bloc.itemsToDraw.selectedItem?.text);
                 }),
             getActionItem(
                 icon: Icons.done,
-                text: 'Done',
+                text: R.string.done,
                 onTap: () {
                   bloc.viewMode = ViewMode.NOTHING;
                   bloc.currentDrawerMode = DrawerMode.nothing();
@@ -376,8 +379,8 @@ class _DrawerContainerPageState
       InkWell(
         onTap: onTap,
         child: Container(
-          width: 80,
-          height: 50,
+          width: 100,
+          height: 70,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -436,19 +439,19 @@ class _DrawerContainerPageState
       context: context,
       builder: (c) {
         return AlertDialog(
-          title: Text('Change Text'),
+          title: Text(R.string.changeText),
           content: TextField(
             controller: controller,
           ),
           actions: [
             FlatButton(
-              child: Text('Cancel'),
+              child: Text(R.string.cancel),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             FlatButton(
-              child: Text('Ok'),
+              child: Text(R.string.ok),
               onPressed: () {
                 bloc.updateText(controller.text);
                 Navigator.of(context).pop();
@@ -555,7 +558,7 @@ class _DrawerContainerPageState
                 onPressed: () async {
                   bloc.currentMemoType = MemoType.Note;
                   _showDialogInfo(
-                      content: "Tap in the image for add a text note");
+                      content: R.string.tapImageAddText);
                 },
               )),
           Expanded(
@@ -566,7 +569,7 @@ class _DrawerContainerPageState
                 onPressed: () async {
                   bloc.currentMemoType = MemoType.Audio;
                   _showDialogInfo(
-                      content: "Tap in the image for add a record note");
+                      content: R.string.tapImageAddRecord);
                 },
               )),
           Expanded(
@@ -579,7 +582,7 @@ class _DrawerContainerPageState
                 onPressed: () async {
                   bloc.currentMemoType = MemoType.Video;
                   _showDialogInfo(
-                      content: "Tap in the image for add a video note");
+                      content: R.string.tapImageAddVideo);
                 },
               )),
         ],
@@ -591,7 +594,7 @@ class _DrawerContainerPageState
     showCupertinoDialog<String>(
       context: context,
       builder: (BuildContext context) => TXCupertinoDialogWidget(
-        title: "Add Memo",
+        title: R.string.addMemo,
         content: content,
         onOK: () {
           NavigationUtils.pop(context);
@@ -607,7 +610,7 @@ class _DrawerContainerPageState
         title: CupertinoDialogAction(
           child: Container(
             child: TXTextWidget(
-              text: "Choose from gallery",
+              text: R.string.chooseFromGallery,
             ),
           ),
           onPressed: () {
@@ -620,7 +623,7 @@ class _DrawerContainerPageState
             child: Container(
               margin: EdgeInsets.only(top: 10),
               child: TXTextWidget(
-                text: "Take video",
+                text: R.string.takeVideo,
               ),
             ),
             onPressed: () {
