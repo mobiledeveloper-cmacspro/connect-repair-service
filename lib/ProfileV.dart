@@ -164,10 +164,10 @@ class ProfileState extends State<Profile> {
                 padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
                 child: Text(R.string.city+':', style: Theme.of(context).textTheme.subtitle1),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
-                child: Text(User.current != null ? User.current.city : '', style: Theme.of(context).textTheme.bodyText2),
-              ),
+              //Padding(
+              //  padding: EdgeInsets.only(left: 16,top: 8, bottom: 8),
+              //  child: Text(User.current != null ? User.current.city : '', style: Theme.of(context).textTheme.bodyText2),
+              //),
             ],
           ),
           Row(

@@ -6,11 +6,14 @@ import 'package:repairservices/ArticleBookMarkV.dart';
 import 'package:repairservices/ArticleInCart.dart';
 import 'package:repairservices/NetworkImageSSL.dart';
 import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/all_translations.dart';
 import 'package:repairservices/models/Product.dart';
 import 'Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/res/R.dart';
+
+import 'data/dao/shared_preferences_manager.dart';
 
 class ArticleDetailsV extends StatefulWidget {
   final Product product;
@@ -33,6 +36,8 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
   List<TupleData> sourceProduct;
   DatabaseHelper helper = DatabaseHelper.instance;
   int cantProductsInCart = 0;
+  final _sharedPreferences = new SharedPreferencesManager();
+  String lang = 'de';
 
   _refillSourceProduct() async {
     final prefs = await SharedPreferences.getInstance();
@@ -49,7 +54,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
 //      sourceProduct.add(TupleData(en: "Quantity:", de: "Menge:",value: product.quantity.value));
 //    }
     if(product.unitText != null && product.unitText.value != "") {
-      sourceProduct.add(product.unitText);
+      sourceProduct.add(TupleData(en: "Sales unit", de: "Verkaufsmengeneinheit", value: _translateUnitText(product.unitText.value)));
     }
     if(product.listPrice != null && product.listPrice.value != "" && seePrices) {
       sourceProduct.add(TupleData(en: "listprice", de: "Listenpreis/VKME",value: product.listPrice.value.replaceAll(",", ",")));
@@ -64,6 +69,17 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
           value: double.parse(product.discount.value).toStringAsFixed(2).replaceAll(((".")),",") + " %"));
     }
     setState(() {});
+  }
+
+  String _translateUnitText(String value) {
+    switch (value) {
+      case 'piece':
+        return lang == 'de' ? 'Stück' : 'Piece';
+      case 'Pair':
+        return lang == 'de' ? 'Paar' : 'Pair';
+      default:
+        return 'Pack';
+    }
   }
 
   String _getTextByAvability(String avability) {
@@ -259,7 +275,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(left: 34),
-                          child: Text(sourceProduct[index].en + ":",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                          child: Text(lang == 'de' ? sourceProduct[index].de : sourceProduct[index].en + ":",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 11),
@@ -395,7 +411,8 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
     super.initState();
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
-      setState(() {
+      setState(() async {
+        lang = await _sharedPreferences.getLanguage();
         _refillSourceProduct();
         _getImage();
         _readAllProductsInCart();
