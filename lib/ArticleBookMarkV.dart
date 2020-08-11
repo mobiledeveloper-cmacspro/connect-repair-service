@@ -39,7 +39,6 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
   _readAllProducts() async {
     this.productList = await helper.queryAllProducts(false);
     debugPrint(productList.length.toString());
-    this.setState(() {});
   }
 
   _readAllProductsInCart() async {
@@ -50,11 +49,9 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
     });
   }
 
-//  _removeProduct(int id){
-//    helper.deleteProduct(id,false).then((_) {
-//      _readAllProducts();
-//    });
-//  }
+  _removeProduct(int id){
+    helper.deleteProduct(id,false);
+  }
 
   @override
   void initState() {
@@ -397,8 +394,16 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                             return TXCupertinoActionSheetWidget(
                               onActionTap: (action) {
                                 if (action.key == 'Remove selected ones') {
+                                  setState(() { _loading = true; });
+                                    productList.forEach((product) {
+                                      if(product.selected){
+                                        _removeProduct(product.id);
+                                      }
+                                    });
                                   setState(() {
-                                    productList.removeWhere((p) => p.selected);
+                                    _readAllProducts();
+                                    productList.removeWhere((element) => element.selected);
+                                    _loading = false;
                                   });
                                 } else if (action.key == 'Deselect all') {
                                   setState(() {
