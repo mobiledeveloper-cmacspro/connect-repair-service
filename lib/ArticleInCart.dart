@@ -549,7 +549,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                                   child: Image.asset('assets/trashRed.png'),
                                 ),
                                 onTap: (){
-                                  _removeProduct(index);
+                                  _removeProduct(productList[index].id);
                                 },
                               ),
                             ],
