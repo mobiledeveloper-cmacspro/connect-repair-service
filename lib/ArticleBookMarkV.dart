@@ -401,8 +401,8 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                       }
                                     });
                                   setState(() {
-                                    _readAllProducts();
                                     productList.removeWhere((element) => element.selected);
+                                    _readAllProducts();
                                     _loading = false;
                                   });
                                 } else if (action.key == 'Deselect all') {

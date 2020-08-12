@@ -40,8 +40,8 @@ class TXCupertinoActionSheetWidget extends StatelessWidget {
     actions.forEach((a) {
       final action = CupertinoActionSheetAction(
         onPressed: (){
-          onActionTap(a);
           NavigationUtils.pop(context);
+          onActionTap(a);
         },
         child: TXTextWidget(
           size: 18,
