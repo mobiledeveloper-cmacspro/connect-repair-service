@@ -5,6 +5,8 @@ import 'package:repairservices/DoorHingeDimension.dart';
 import 'package:repairservices/LockDimensions.dart';
 import 'package:repairservices/res/R.dart';
 
+import 'DoorHingeGeneralData.dart';
+
 class DoorFitting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class DoorFitting extends StatelessWidget {
                           )
                         ],
                       ),
-                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeDimension())),
+                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData())),
                     ),
                     GestureDetector(
                       child: Column(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/ArticleWebPreview.dart';
+import 'package:repairservices/DoorHingeDimension.dart';
 import 'package:repairservices/DoorHingeDimensionBarrel.dart';
 import 'package:repairservices/DoorHingeSurfaceDetails.dart';
 import 'package:repairservices/DoorLockData.dart';
@@ -14,20 +15,15 @@ import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 import 'package:repairservices/res/R.dart';
 
 class DoorHingeGeneralData extends StatefulWidget {
-  final DoorHinge doorHinge;
-
-  DoorHingeGeneralData(this.doorHinge);
 
   @override
   State<StatefulWidget> createState() {
-    return DoorHingeGeneralDataState(this.doorHinge);
+    return DoorHingeGeneralDataState();
   }
 }
 
 class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
   DoorHinge doorHinge;
-
-  DoorHingeGeneralDataState(this.doorHinge);
 
   final yearCtr = TextEditingController();
   final basicDepthDoorCtr = TextEditingController();
@@ -75,6 +71,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     systemLeadNode = FocusNode();
     doorFrameNode = FocusNode();
     systemFrameNode = FocusNode();
+    doorHinge = DoorHinge();
   }
 
   @override
@@ -119,7 +116,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
   }
 
   Widget _checkImage() {
-    debugPrint('cheking image');
+    debugPrint('checking image');
     if (yearCtr.text != "" &&
         basicDepthDoorCtr.text != "" &&
         hingeSystemCtr.text != "" &&
@@ -131,8 +128,8 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
       if (hingeTypeCtr.text ==
           R.string.surfaceMountedDoorHinge) {
         if (coverCapsCtr.text != '' &&
-            this.doorHinge.doorHingeDetailsIm != '' &&
-            this.doorHinge.doorHingeDetailsIm != null) {
+            this.doorHinge.doorHingeDetailsIm != null &&
+            this.doorHinge.doorHingeDetailsIm != '') {
           filled = true;
           return Image.asset(
             'assets/checkGreen.png',
@@ -149,8 +146,8 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           R.string.barrelHinge) {
         if (doorLeafCtr.text != '' &&
             doorFrameCtr.text != '' &&
-            doorHinge.dimensionBarrelIm != '' &&
-            doorHinge.dimensionBarrelIm != null) {
+            doorHinge.dimensionBarrelIm != null &&
+            doorHinge.dimensionBarrelIm != '') {
           filled = true;
           return Image.asset(
             'assets/checkGreen.png',
@@ -249,8 +246,8 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     );
   }
 
-  _goNextData() async {
-    debugPrint('Saving Door Hinge');
+  _goNextData() {
+
     doorHinge.year = yearCtr.text;
     doorHinge.basicDepthOfDoorLeaf = basicDepthDoorCtr.text;
     doorHinge.systemHinge = hingeSystemCtr.text;
@@ -265,28 +262,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     doorHinge.doorFrame = doorFrameCtr.text;
     doorHinge.systemDoorFrame = systemDoorFrameCtr.text;
 
-    int type = 0;
-    if (doorHinge.hingeType == R.string.barrelHinge) {
-      type = 1;
-    } else if (doorHinge.hingeType ==
-        R.string.surfaceMountedDoorHinge) {
-      type = 2;
-    }
-    doorHinge.pdfPath =
-        await PDFManagerDoorHinge.getPDFPath(doorHinge, type: type);
-
-    int id = await helper.insertDoorHinge(doorHinge);
-    print('inserted row: $id');
-    if (id != null) {
-      NavigationUtils.pushCupertino(
-        context,
-        FittingPDFViewerPage(
-          model: doorHinge,
-        ),
-      );
-
-//      Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleWebPreview(doorHinge)));
-    }
+    Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeDimension(doorHinge)));
   }
 
   Widget _getSurface() {

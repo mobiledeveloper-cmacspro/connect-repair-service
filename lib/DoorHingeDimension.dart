@@ -13,15 +13,25 @@ import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
+import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+
+import 'database_helpers.dart';
 
 class DoorHingeDimension extends StatefulWidget {
+  final DoorHinge doorHinge;
+
+  const DoorHingeDimension(this.doorHinge);
+
   @override
   State<StatefulWidget> createState() {
-    return DoorHingeDimensionState();
+    return DoorHingeDimensionState(doorHinge);
   }
 }
 
 class DoorHingeDimensionState extends State<DoorHingeDimension>{
+  DoorHinge doorHinge;
   FocusNode aNode,bNode,cNode;
   final aCtr = TextEditingController();
   final bCtr = TextEditingController();
@@ -31,6 +41,9 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
   var imageKey1 = new GlobalKey();
   String imagePath1;
   File dimensionImage1;
+  DatabaseHelper helper = DatabaseHelper.instance;
+
+  DoorHingeDimensionState(this.doorHinge);
 
   @override
   void initState() {
@@ -193,8 +206,42 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
             ),
             onTap: () async{
               await takeScreenShoot1();
-              final doorHinge = DoorHinge.withData(R.string.doorHingeFitting, DateTime.now(), aCtr.text, bCtr.text, cCtr.text, dCtr.text, imagePath1);
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData(doorHinge)));
+              doorHinge.name = R.string.doorHingeFitting;
+              doorHinge.created = DateTime.now();
+              doorHinge.dimensionsSurfaceA = aCtr.text;
+              doorHinge.dimensionsSurfaceB = bCtr.text;
+              doorHinge.dimensionsSurfaceC = cCtr.text;
+              doorHinge.dimensionsSurfaceD = dCtr.text;
+              doorHinge.dimensionSurfaceIm = imagePath1;
+
+              //doorHinge = DoorHinge.withData(R.string.doorHingeFitting, DateTime.now(), aCtr.text, bCtr.text, cCtr.text, dCtr.text, imagePath1);
+
+              debugPrint('Saving Door Hinge');
+              int type = 0;
+              if (doorHinge.hingeType == R.string.barrelHinge) {
+                type = 1;
+              } else if (doorHinge.hingeType ==
+                  R.string.surfaceMountedDoorHinge) {
+                type = 2;
+              }
+              doorHinge.pdfPath =
+              await PDFManagerDoorHinge.getPDFPath(doorHinge, type: type);
+
+              int id = await helper.insertDoorHinge(doorHinge);
+              print('inserted row: $id');
+              if (id != null) {
+                NavigationUtils.pushCupertino(
+                  context,
+                  FittingPDFViewerPage(
+                    model: doorHinge,
+                  ),
+                );
+
+//      Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleWebPreview(doorHinge)));
+              }
+
+
+              //Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData(doorHinge)));
             },
           )
         ],
@@ -434,5 +481,4 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
       ),
     );
   }
-
 }
