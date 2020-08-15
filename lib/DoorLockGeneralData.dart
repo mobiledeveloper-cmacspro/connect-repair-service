@@ -9,20 +9,15 @@ import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/res/R.dart';
 
 class DoorLockGeneralData extends StatefulWidget {
-  final DoorLock doorLock;
-
-  DoorLockGeneralData(this.doorLock);
 
   @override
   State<StatefulWidget> createState() {
-    return DoorLockGeneralDataState(this.doorLock);
+    return DoorLockGeneralDataState();
   }
 }
 
 class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
   DoorLock doorLock;
-
-  DoorLockGeneralDataState(this.doorLock);
 
   FocusNode logoVisibleNode,
       yearNode,
@@ -42,7 +37,6 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
   final leafCtr = TextEditingController();
   final boltCtr = TextEditingController();
 
-  DatabaseHelper helper = DatabaseHelper.instance;
   bool filled = false;
 
   @override
@@ -56,6 +50,7 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
     openingDirNode = FocusNode();
     leafNode = FocusNode();
     boltNode = FocusNode();
+    doorLock = DoorLock();
   }
 
   @override

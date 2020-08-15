@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/DoorHingeDimension.dart';
+import 'package:repairservices/DoorLockGeneralData.dart';
 import 'package:repairservices/LockDimensions.dart';
 import 'package:repairservices/res/R.dart';
 
@@ -42,7 +43,7 @@ class DoorFitting extends StatelessWidget {
                           )
                         ],
                       ),
-                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => LockDimensions())),
+                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorLockGeneralData())),
                     ),
                     GestureDetector(
                       child: Column(

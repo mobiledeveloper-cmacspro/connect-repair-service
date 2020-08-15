@@ -8,6 +8,7 @@ import 'package:repairservices/DoorLockFacePlateTypeImage.dart';
 import 'package:repairservices/DoorLockMultipointLocking.dart';
 import 'package:repairservices/DoorLockTypeImage.dart';
 import 'package:repairservices/GenericSelection.dart';
+import 'package:repairservices/LockDimensions.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -45,7 +46,6 @@ class DoorLockDataState extends State<DoorLockData> {
   final doorLeafHeightCtr = TextEditingController();
   final restrictorCtr = TextEditingController();
 
-  DatabaseHelper helper = DatabaseHelper.instance;
   bool filled = false;
 
   Widget _getMandatory(bool mandatory) {
@@ -206,22 +206,13 @@ class DoorLockDataState extends State<DoorLockData> {
       doorLock.handleHeight = handleHeightCtr.text;
       doorLock.doorLeafHight = doorLeafHeightCtr.text;
       doorLock.restrictor = restrictorCtr.text;
-      _saveArticle();
+      debugPrint('next');
+      Navigator.push(context,
+          CupertinoPageRoute(builder: (context) => LockDimensions(doorLock)));
     }
   }
 
-  _saveArticle() async {
-    doorLock.pdfPath = await PDFManagerDoorLock.getPDFPath(doorLock);
-    int id = await helper.insertDoorLock(doorLock);
-    print('inserted row: $id');
-    if (id != null) {
-      NavigationUtils.pushCupertino(context, FittingPDFViewerPage(model: doorLock,));
-//      Navigator.push(
-//          context,
-//          CupertinoPageRoute(
-//              builder: (context) => ArticleWebPreview(doorLock)));
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
