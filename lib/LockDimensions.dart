@@ -11,15 +11,28 @@ import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:flutter/rendering.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
+import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+
+import 'database_helpers.dart';
 
 class LockDimensions extends StatefulWidget {
+  final DoorLock doorLock;
+
+  const LockDimensions(this.doorLock);
+
   @override
   State<StatefulWidget> createState() {
-    return LockDimensionsState();
+    return LockDimensionsState(this.doorLock);
   }
 }
 
 class LockDimensionsState extends State<LockDimensions> {
+  DoorLock doorLock;
+
+  LockDimensionsState(this.doorLock);
+
 //  bool filled = false;
   PageController pageController;
   FocusNode aNode, bNode, cNode, dNode, eNode, fNode;
@@ -36,6 +49,8 @@ class LockDimensionsState extends State<LockDimensions> {
   String imagePath1, imagePath2, imagePath3;
   File dimensionImage1, dimensionImage2, dimensionImage3;
   bool allViewsVisited = false;
+
+  DatabaseHelper helper = DatabaseHelper.instance;
 
   @override
   void initState() {
@@ -201,6 +216,20 @@ class LockDimensionsState extends State<LockDimensions> {
       default:
         imagePath3 = path;
         break;
+    }
+  }
+
+  _saveArticle() async {
+    doorLock.pdfPath = await PDFManagerDoorLock.getPDFPath(doorLock);
+    debugPrint(doorLock.pdfPath);
+    int id = await helper.insertDoorLock(doorLock);
+    print('inserted row: $id');
+    if (id != null) {
+      NavigationUtils.pushCupertino(context, FittingPDFViewerPage(model: doorLock,));
+//      Navigator.push(
+//          context,
+//          CupertinoPageRoute(
+//              builder: (context) => ArticleWebPreview(doorLock)));
     }
   }
 
@@ -640,7 +669,7 @@ class LockDimensionsState extends State<LockDimensions> {
                 height: 25,
               ),
               onTap: allViewsVisited ? () {
-                final doorLock = DoorLock.withData(
+               /* final doorLock = DoorLock.withData(
                     R.string.doorLockFitting,
                     DateTime.now(),
                     aCtr.text,
@@ -651,11 +680,22 @@ class LockDimensionsState extends State<LockDimensions> {
                     fCtr.text,
                     imagePath1,
                     imagePath2,
-                    imagePath3);
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => DoorLockGeneralData(doorLock)));
+                    imagePath3);*/
+                doorLock.name = R.string.doorLockFitting;
+                doorLock.created = DateTime.now();
+                doorLock.dimensionA = aCtr.text;
+                doorLock.dimensionB = bCtr.text;
+                doorLock.dimensionC = cCtr.text;
+                doorLock.dimensionD = dCtr.text;
+                doorLock.dimensionE = eCtr.text;
+                doorLock.dimensionF = fCtr.text;
+                doorLock.dimensionImage1Path = imagePath1;
+                doorLock.dimensionImage2Path = imagePath2;
+                doorLock.dimensionImage3Path = imagePath3;
+
+                //Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorLockGeneralData(doorLock)));
+
+                _saveArticle();
               } : null,
             )
           ],
