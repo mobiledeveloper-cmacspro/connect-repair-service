@@ -694,4 +694,6 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get addMemo;
 
+  String get picture;
+
 }

@@ -1046,4 +1046,7 @@ class StringsEn implements StringsBase {
   @override
   String get addMemo => "Add Memo";
 
+  @override
+  String get picture => "Picture";
+
 }

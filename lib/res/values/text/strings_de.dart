@@ -1014,16 +1014,16 @@ class StringsDe implements StringsBase {
   String get add => "Hinzufügen";
 
   @override
-  String get color => "Color";
+  String get color => "Farbe";
 
   @override
-  String get done => "Done";
+  String get done => "Fertig";
 
   @override
   String get text => "Text";
 
   @override
-  String get changeText => "Change Text";
+  String get changeText => "Text ändern";
 
   @override
   String get takeVideo => "Take Video";
@@ -1035,15 +1035,18 @@ class StringsDe implements StringsBase {
   String get arrow2 => "2 Arrows";
 
   @override
-  String get tapImageAddText => "Tap in the image for add a text note";
+  String get tapImageAddText => "Tippen Sie auf das Bild, um eine Textnotiz hinzuzufügen";
 
   @override
-  String get tapImageAddRecord => "Tap in the image for add a record note";
+  String get tapImageAddRecord => "Tippen Sie auf das Bild, um eine Sprachmemo hinzuzufügen";
 
   @override
-  String get tapImageAddVideo => "Tap in the image for add a video note";
+  String get tapImageAddVideo => "Tippen Sie auf das Bild, um eine Videonotiz hinzuzufügen";
 
   @override
-  String get addMemo => "Add Memo";
+  String get addMemo => "Memo hinzufügen";
+
+  @override
+  String get picture => "Bild";
 
 }
