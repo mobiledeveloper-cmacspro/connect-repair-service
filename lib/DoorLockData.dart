@@ -344,7 +344,9 @@ class DoorLockDataState extends State<DoorLockData> {
                       builder: (context) =>
                           DoorLockTypeImage(doorLock.lockType))).then((type) {
                 if (type != null && type != '') {
-                  doorLock.lockType = type;
+                  setState(() {
+                    doorLock.lockType = type;
+                  });
                 }
               });
             },
@@ -384,7 +386,9 @@ class DoorLockDataState extends State<DoorLockData> {
                       builder: (context) => DoorLockFacePlateTypeImage(
                           doorLock.facePlateType))).then((type) {
                 if (type != null && type != '') {
-                  doorLock.facePlateType = type;
+                  setState(() {
+                    doorLock.facePlateType = type;
+                  });
                 }
               });
             },
@@ -424,7 +428,9 @@ class DoorLockDataState extends State<DoorLockData> {
                       builder: (context) => DoorLockFacePlateFixingImage(
                           doorLock.facePlateFixing))).then((type) {
                 if (type != null && type != '') {
-                  doorLock.facePlateFixing = type;
+                  setState(() {
+                    doorLock.facePlateFixing = type;
+                  });
                 }
               });
             },
