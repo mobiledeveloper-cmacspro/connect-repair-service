@@ -85,6 +85,7 @@ class LockDimensionsState extends State<LockDimensions> {
   }
 
   _changeDimension(BuildContext context, String dimension) {
+    dimensionCtr.text = "";
     showAlertDialogDimension(context, dimension);
   }
 
@@ -144,26 +145,32 @@ class LockDimensionsState extends State<LockDimensions> {
                         switch (dimension) {
                           case 'A':
                             aCtr.text = int.parse(dimensionCtr.text).toString();
+                            setState(() {});
                             await takeScreenShoot(imageKey1, 1);
                             break;
                           case 'B':
                             bCtr.text = int.parse(dimensionCtr.text).toString();
+                            setState(() {});
                             await takeScreenShoot(imageKey1, 1);
                             break;
                           case 'C':
                             cCtr.text = int.parse(dimensionCtr.text).toString();
+                            setState(() {});
                             await takeScreenShoot(imageKey1, 1);
                             break;
                           case 'D':
                             dCtr.text = int.parse(dimensionCtr.text).toString();
+                            setState(() {});
                             await takeScreenShoot(imageKey2, 2);
                             break;
                           case 'E':
                             eCtr.text = int.parse(dimensionCtr.text).toString();
+                            setState(() {});
                             await takeScreenShoot(imageKey2, 2);
                             break;
                           default:
                             fCtr.text = int.parse(dimensionCtr.text).toString();
+                            setState(() {});
                             await takeScreenShoot(imageKey3, 3);
                         }
                       } else {
@@ -336,6 +343,10 @@ class LockDimensionsState extends State<LockDimensions> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
+                        onChanged: (value) async {
+                          setState(() {});
+                          await takeScreenShoot(imageKey1, 1);
+                        },
                         focusNode: aNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -367,6 +378,10 @@ class LockDimensionsState extends State<LockDimensions> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) async {
+                          setState(() {});
+                          await takeScreenShoot(imageKey1, 1);
+                        },
                         focusNode: bNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -398,6 +413,10 @@ class LockDimensionsState extends State<LockDimensions> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) async {
+                          setState(() {});
+                          await takeScreenShoot(imageKey1, 1);
+                        },
                         focusNode: cNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -503,6 +522,10 @@ class LockDimensionsState extends State<LockDimensions> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
+                        onChanged: (value) async {
+                          setState(() {});
+                          await takeScreenShoot(imageKey2, 2);
+                        },
                         focusNode: dNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -534,6 +557,10 @@ class LockDimensionsState extends State<LockDimensions> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) async {
+                          setState(() {});
+                          await takeScreenShoot(imageKey2, 2);
+                        },
                         focusNode: eNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -621,6 +648,10 @@ class LockDimensionsState extends State<LockDimensions> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) async {
+                          setState(() {});
+                          await takeScreenShoot(imageKey3, 3);
+                        },
                         focusNode: fNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -709,15 +740,13 @@ class LockDimensionsState extends State<LockDimensions> {
                 onPageChanged: (index) async {
                   if (index == pages.length - 1){
                     allViewsVisited = true;
-                    setState(() {
-                    
-                    });
                   }
                   if (index == 1 && imagePath2 == null) {
                     await takeScreenShoot(imageKey2, 2);
                   } else if (index == 2 && imagePath3 == null) {
                     await takeScreenShoot(imageKey3, 3);
                   }
+                  setState(() {});
                 },
                 itemBuilder: (context, index) {
                   return pages[index];
