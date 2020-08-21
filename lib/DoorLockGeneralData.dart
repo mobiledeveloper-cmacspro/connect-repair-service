@@ -261,9 +261,9 @@ class DoorLockGeneralDataState extends State<DoorLockGeneralData> {
           _constructGenericOption(
               R.string.schucoLogoVisibleOnFacePlate,
               true,
-              ['Yes', 'No'],
+              [R.string.yes, R.string.no],
               logoVisibleCtr,
-              'Yes'),
+              R.string.yes),
           Divider(height: 1),
           Padding(
             padding: EdgeInsets.only(left: 16, top: 8),

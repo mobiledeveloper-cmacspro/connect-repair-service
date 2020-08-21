@@ -696,4 +696,16 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get picture;
 
+  String get no;
+
+  String get standard1050mm;
+
+  String get under2500mm;
+
+  String get over2500mm;
+
+  String get dinEn1125PushBar;
+
+  String get dinEn179Handle;
+
 }

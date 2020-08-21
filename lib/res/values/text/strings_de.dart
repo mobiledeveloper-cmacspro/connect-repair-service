@@ -1049,4 +1049,22 @@ class StringsDe implements StringsBase {
   @override
   String get picture => "Bild";
 
+  @override
+  String get no => "Nein";
+
+  @override
+  String get dinEn1125PushBar => 'DIN EN 1125 Schubstange';
+
+  @override
+  String get dinEn179Handle => 'DIN EN 179 Griff';
+
+  @override
+  String get over2500mm => 'Über 2500 mm';
+
+  @override
+  String get standard1050mm => 'Standard 1050 mm';
+
+  @override
+  String get under2500mm => 'Unter 2500 mm';
+
 }

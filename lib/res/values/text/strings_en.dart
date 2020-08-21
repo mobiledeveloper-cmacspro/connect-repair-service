@@ -1049,4 +1049,22 @@ class StringsEn implements StringsBase {
   @override
   String get picture => "Picture";
 
+  @override
+  String get no => "No";
+
+  @override
+  String get dinEn1125PushBar => 'DIN EN 1125 push bar';
+
+  @override
+  String get dinEn179Handle => 'DIN EN 179 handle';
+
+  @override
+  String get over2500mm => 'Over 2500 mm';
+
+  @override
+  String get standard1050mm => 'Standard 1050 mm';
+
+  @override
+  String get under2500mm => 'Under 2500 mm';
+
 }

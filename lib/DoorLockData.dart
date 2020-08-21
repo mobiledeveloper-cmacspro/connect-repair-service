@@ -119,15 +119,15 @@ class DoorLockDataState extends State<DoorLockData> {
   }
 
   Widget _getDaytime() {
-    if (electricStrikeCtr.text == 'Yes') {
+    if (electricStrikeCtr.text == R.string.yes) {
       return Column(
         children: <Widget>[
           _constructGenericOption(
               R.string.daytimeSetting,
               false,
-              ['Yes', 'No'],
+              [R.string.yes, R.string.no],
               daytimeCtr,
-              'Yes'),
+              R.string.yes),
           Divider(height: 1),
         ],
       );
@@ -136,32 +136,32 @@ class DoorLockDataState extends State<DoorLockData> {
   }
 
   Widget _getLockWithTopLockingOptions() {
-    if (lockWithTopLockingCtr.text == 'Yes') {
+    if (lockWithTopLockingCtr.text == R.string.yes) {
       return Column(
         children: <Widget>[
           _constructGenericOption(
               R.string.shootBoltLock,
               false,
-              ['DIN EN 1125 push bar', 'DIN EN 179 handle'],
+              [R.string.dinEn1125PushBar, R.string.dinEn179Handle],
               shootBoltLockCtr,
-              'DIN EN 179 handle'),
+              R.string.dinEn179Handle),
           Divider(height: 1),
           _constructGenericOption(
               R.string.handleHeight,
               false,
-              ['Standard 1050 mm', '850 mm', '1500'],
+              [R.string.standard1050mm, '850 mm', '1500'],
               handleHeightCtr,
-              'Standard 1050 mm'),
+              R.string.standard1050mm),
           Divider(height: 1),
           _constructGenericOption(
               R.string.doorLeafHeight,
               false,
-              ['Under 2500 mm', 'Over 2500 mm'],
+              [R.string.under2500mm, R.string.over2500mm],
               doorLeafHeightCtr,
-              'Under 2500 mm'),
+              R.string.under2500mm),
           Divider(height: 1),
           _constructGenericOption(R.string.restrictor,
-              false, ['Yes', 'No'], restrictorCtr, 'Yes'),
+              false, [R.string.yes, R.string.no], restrictorCtr, R.string.yes),
           Divider(height: 1),
         ],
       );
@@ -265,47 +265,47 @@ class DoorLockDataState extends State<DoorLockData> {
           _constructGenericOption(
               R.string.panicFunction,
               true,
-              ['Yes', 'No'],
+              [R.string.yes, R.string.no],
               panicFuncCtr,
-              'None'
+              R.string.none
           ),
           Divider(height: 1),
           _constructGenericOption(
               R.string.selfLocking,
               false,
-              ['Yes', 'No'],
+              [R.string.yes, R.string.no],
               selfLockingCtr,
-              'Yes'
+              R.string.yes
           ),
           Divider(height: 1),
           _constructGenericOption(
               R.string.secureLatchBoltStop,
               false,
-              ['Yes', 'No'],
+              [R.string.yes, R.string.no],
               secureLatchCtr,
-              'Yes'
+              R.string.yes
           ),
           Divider(height: 1),
           _constructGenericOption(
               R.string.monitoring,
-              false, ['Yes', 'No'], monitoringCtr, 'Yes'
+              false, [R.string.yes, R.string.no], monitoringCtr, R.string.yes
           ),
           Divider(height: 1),
           _constructGenericOption(
               R.string.electricStrike,
               false,
-              ['Yes', 'No'],
+              [R.string.yes, R.string.no],
               electricStrikeCtr,
-              'Yes'
+              R.string.yes
           ),
           Divider(height: 1),
           _getDaytime(),
           _constructGenericOption(
               R.string.lockTopLocking,
               true,
-              ['Yes', 'No'],
+              [R.string.yes, R.string.no],
               lockWithTopLockingCtr,
-              'No'
+              R.string.yes
           ),
           Divider(height: 1),
           _getLockWithTopLockingOptions(),
