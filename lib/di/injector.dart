@@ -1,6 +1,7 @@
 export 'package:repairservices/di/bloc_provider.dart';
 
 import 'package:kiwi/kiwi.dart';
+import 'package:repairservices/DoorHingeDimensionBloc.dart';
 import 'package:repairservices/LockDimensionsBlock.dart';
 import 'package:repairservices/data/dao/article_local_dao.dart';
 import 'package:repairservices/data/dao/common_dao.dart';
@@ -108,6 +109,7 @@ class Injector {
     container.registerFactory((c) => AudioBloC());
     container.registerFactory((c) => VideoBloC());
     container.registerFactory((c) => LockDimensionsBloc());
+    container.registerFactory((c) => DoorHingeDimensionBloc());
   }
 
   _registerModelConverters() {

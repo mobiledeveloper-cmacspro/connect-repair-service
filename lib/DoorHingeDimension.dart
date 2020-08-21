@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:repairservices/DoorHingeDimensionBloc.dart';
 import 'package:repairservices/DoorHingeGeneralData.dart';
 import 'package:repairservices/DoorLockData.dart';
 import 'package:repairservices/GenericSelection.dart';
@@ -13,6 +14,7 @@ import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
@@ -30,9 +32,10 @@ class DoorHingeDimension extends StatefulWidget {
   }
 }
 
-class DoorHingeDimensionState extends State<DoorHingeDimension>{
+class DoorHingeDimensionState
+    extends StateWithBloC<DoorHingeDimension, DoorHingeDimensionBloc> {
   DoorHinge doorHinge;
-  FocusNode aNode,bNode,cNode;
+  FocusNode aNode, bNode, cNode;
   final aCtr = TextEditingController();
   final bCtr = TextEditingController();
   final cCtr = TextEditingController();
@@ -61,107 +64,111 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
     super.dispose();
   }
 
-  void _changeFocus(BuildContext context, FocusNode currentNode, FocusNode nextNode) {
+  void _changeFocus(
+      BuildContext context, FocusNode currentNode, FocusNode nextNode) {
     currentNode.unfocus();
     FocusScope.of(context).requestFocus(nextNode);
   }
 
-  _changeDimension(BuildContext context,String dimension) {
-    showAlertDialogDimension(context,dimension);
+  _changeDimension(BuildContext context, String dimension) {
+    dimensionCtr.text = "";
+    showAlertDialogDimension(context, dimension);
   }
 
   void showAlertDialog(BuildContext context, String title, String textButton) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(title, style: Theme.of(context).textTheme.bodyText2),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: new Text(textButton, style: TextStyle(color: Theme.of(context).primaryColor)),
-              isDefaultAction: true,
-              onPressed: (){
-                Navigator.pop(context);
-                setState(() {});
-              },
-            ),
-            CupertinoDialogAction(
-              child: new Text(R.string.cancel),
-              isDestructiveAction: true,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        )
-    );
+        builder: (BuildContext context) => CupertinoAlertDialog(
+              title:
+                  new Text(title, style: Theme.of(context).textTheme.bodyText2),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: new Text(textButton,
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    setState(() {});
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: new Text(R.string.cancel),
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ));
   }
 
   void showAlertDialogDimension(BuildContext context, String dimension) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context ) => CupertinoAlertDialog(
-          title: new Text(R.string.dimension + ' $dimension'),
-          content: new Container(
-              margin: EdgeInsets.only(top: 16),
-              child: new CupertinoTextField(
-                textAlign: TextAlign.left,
-                expands: false,
-                style: Theme.of(context).textTheme.bodyText2,
-                keyboardType: TextInputType.number,
-                maxLines: 1,
-                controller: dimensionCtr,
-                placeholder: 'mm',
-              )
-          ),
-          actions: <Widget>[
-            CupertinoDialogAction(
-                child: new Text('OK', style: TextStyle(color: Theme.of(context).primaryColor)),
-                isDefaultAction: true,
-                onPressed: () {
-                  Navigator.pop(context);
-                  if (dimensionCtr.text != "" && int.parse(dimensionCtr.text) != 0){
-                    switch(dimension){
-                      case 'A':
-                        setState(() {
-                          aCtr.text = int.parse(dimensionCtr.text).toString();
-                        });
+        builder: (BuildContext context) => CupertinoAlertDialog(
+              title: new Text(R.string.dimension + ' $dimension'),
+              content: new Container(
+                  margin: EdgeInsets.only(top: 16),
+                  child: new CupertinoTextField(
+                    textAlign: TextAlign.left,
+                    expands: false,
+                    style: Theme.of(context).textTheme.bodyText2,
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    controller: dimensionCtr,
+                    placeholder: 'mm',
+                  )),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                    child: new Text('OK',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor)),
+                    isDefaultAction: true,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      if (dimensionCtr.text != "" &&
+                          int.parse(dimensionCtr.text) != 0) {
+                        switch (dimension) {
+                          case 'A':
+                            aCtr.text = int.parse(dimensionCtr.text).toString();
+                            bloc.dimA(aCtr.text);
+                            setState(() {});
 //                        takeScreenShoot();
-                        break;
-                      case 'B':
-                        setState(() {
-                          bCtr.text = int.parse(dimensionCtr.text).toString();
-                        });
+                            break;
+                          case 'B':
+                            bCtr.text = int.parse(dimensionCtr.text).toString();
+                            bloc.dimB(bCtr.text);
+                            setState(() {});
 //                        takeScreenShoot();
-                        break;
-                      default:
-                        setState(() {
-                          cCtr.text = int.parse(dimensionCtr.text).toString();
-                        });
+                            break;
+                          default:
+                            cCtr.text = int.parse(dimensionCtr.text).toString();
+                            bloc.dimC(cCtr.text);
+                            setState(() {});
 //                        takeScreenShoot();
-                    }
-                  }
-                  else {
+                        }
+                      } else {
+                        Navigator.pop(context);
+                        showAlertDialog(
+                            context, R.string.zeroNotValueForDimension, "OK");
+                      }
+                    }),
+                CupertinoDialogAction(
+                  child: new Text(R.string.cancel),
+                  isDestructiveAction: true,
+                  onPressed: () {
                     Navigator.pop(context);
-                    showAlertDialog(context, R.string.zeroNotValueForDimension, "OK");
-                  }
-                }
-            ),
-            CupertinoDialogAction(
-              child: new Text(R.string.cancel),
-              isDestructiveAction: true,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        )
-    );
+                  },
+                )
+              ],
+            ));
   }
 
   Future<void> takeScreenShoot1() async {
 //    setState(() {});
     debugPrint('taking screenshot');
-    RenderRepaintBoundary boundary = imageKey1.currentContext.findRenderObject();
+    RenderRepaintBoundary boundary =
+        imageKey1.currentContext.findRenderObject();
     var image = await boundary.toImage();
     var byteData = await image.toByteData(format: ImageByteFormat.png);
     final buffer = byteData.buffer;
@@ -169,7 +176,8 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
     final fileName = CalendarUtils.getTimeIdBasedSeconds(withTempPrefix: true);
     final path = '$directory/$fileName.png';
 
-    File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
+    File(path).writeAsBytesSync(
+        buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
 
     ///Removing previous screen shoot if exist
     if (imagePath1?.isNotEmpty == true &&
@@ -184,13 +192,14 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.hingeDimensions,style: Theme.of(context).textTheme.bodyText2),
+        title: Text(R.string.hingeDimensions,
+            style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -204,7 +213,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
               'assets/checkGreen.png',
               height: 25,
             ),
-            onTap: () async{
+            onTap: () async {
               await takeScreenShoot1();
               doorHinge.name = R.string.doorHingeFitting;
               doorHinge.created = DateTime.now();
@@ -225,7 +234,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                 type = 2;
               }
               doorHinge.pdfPath =
-              await PDFManagerDoorHinge.getPDFPath(doorHinge, type: type);
+                  await PDFManagerDoorHinge.getPDFPath(doorHinge, type: type);
 
               int id = await helper.insertDoorHinge(doorHinge);
               print('inserted row: $id');
@@ -239,7 +248,6 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
 
 //      Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleWebPreview(doorHinge)));
               }
-
 
               //Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData(doorHinge)));
             },
@@ -262,12 +270,13 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                           Container(
                             width: 320,
                             height: 344,
-                            margin: EdgeInsets.only(top: 16,bottom: 8),
+                            margin: EdgeInsets.only(top: 16, bottom: 8),
                             child: Stack(
                               children: <Widget>[
                                 Container(
                                   child: Center(
-                                    child: Image.asset('assets/hingeDimension.png'),
+                                    child: Image.asset(
+                                        'assets/hingeDimension.png'),
                                   ),
                                 ),
                                 Positioned(
@@ -277,9 +286,22 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                                     width: 30,
                                     height: 25,
                                     child: InkWell(
-                                      onTap: () => _changeDimension(context,'A'),
+                                      onTap: () =>
+                                          _changeDimension(context, 'A'),
                                       child: FittedBox(
-                                        child: Text(aCtr.text != "" ? aCtr.text : "A",style: Theme.of(context).textTheme.bodyText2),
+                                        child: StreamBuilder<String>(
+                                          stream: bloc.dimAStream,
+                                          initialData: "",
+                                          builder: (context, snapshot) {
+                                            return Text(
+                                                snapshot.data != ""
+                                                    ? aCtr.text
+                                                    : "A",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2);
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -291,9 +313,22 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                                     width: 39,
                                     height: 25,
                                     child: InkWell(
-                                      onTap: () => _changeDimension(context,'B'),
+                                      onTap: () =>
+                                          _changeDimension(context, 'B'),
                                       child: FittedBox(
-                                        child: Text(bCtr.text != "" ? bCtr.text : "B",style: Theme.of(context).textTheme.bodyText2),
+                                        child: StreamBuilder<String>(
+                                          stream: bloc.dimBStream,
+                                          initialData: "",
+                                          builder: (context, snapshot) {
+                                            return Text(
+                                                snapshot.data != ""
+                                                    ? snapshot.data
+                                                    : "B",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2);
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -305,11 +340,21 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                                     width: 38,
                                     height: 25,
                                     child: InkWell(
-                                        onTap: () => _changeDimension(context,'C'),
+                                        onTap: () =>
+                                            _changeDimension(context, 'C'),
                                         child: FittedBox(
-                                          child: Text(cCtr.text != "" ? cCtr.text : "C",style: Theme.of(context).textTheme.bodyText2),
-                                        )
-                                    ),
+                                          child: StreamBuilder<String>(
+                                            stream: bloc.dimCStream,
+                                            initialData: "",
+                                            builder: (context, snapshot) {
+                                              return Text(
+                                                  snapshot.data != "" ? snapshot.data : "C",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2);
+                                            },
+                                          ),
+                                        )),
                                   ),
                                 ),
                                 Positioned(
@@ -320,18 +365,28 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                                     width: 21,
                                     height: 44,
                                     child: InkWell(
-                                        onTap: (){
-                                          Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(R.string.dimension + ' D', ['22','36']))).then((selectedOption){
-                                            setState(() {
-                                              dCtr.text = selectedOption;
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                  builder: (context) =>
+                                                      GenericSelection(
+                                                          R.string.dimension +
+                                                              ' D',
+                                                          ['22', '36']))).then(
+                                              (selectedOption) {
+                                            dCtr.text = selectedOption;
+                                            setState(() {});
 //                                              takeScreenShoot();
-                                            });
                                           });
                                         },
                                         child: FittedBox(
-                                          child: Text(dCtr.text != "" ? dCtr.text : "D",style: Theme.of(context).textTheme.bodyText2),
-                                        )
-                                    ),
+                                          child: Text(
+                                              dCtr.text != "" ? dCtr.text : "D",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2),
+                                        )),
                                   ),
                                 )
                               ],
@@ -342,12 +397,19 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                     ),
                     Divider(height: 1),
                     Padding(
-                      padding: EdgeInsets.only(left: 16,top: 8),
-                      child: Text('A',style: aCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                      padding: EdgeInsets.only(left: 16, top: 8),
+                      child: Text('A',
+                          style: aCtr.text == ""
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
+                          textAlign: TextAlign.left),
                     ),
                     new Padding(
-                      padding: EdgeInsets.only(left: 16,right: 16),
+                      padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimA(value);
+                        },
                         focusNode: aNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -356,28 +418,33 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         controller: aCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next){
+                        onSubmitted: (next) {
                           _changeFocus(context, aNode, bNode);
-                          setState(() {
-
-                          });
+                          setState(() {});
 //                          takeScreenShoot();
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
-                            hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-                        ),
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 14)),
                       ),
                     ),
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('B',style: bCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                      child: Text('B',
+                          style: bCtr.text == ""
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
+                          textAlign: TextAlign.left),
                     ),
                     new Padding(
-                      padding: EdgeInsets.only(left: 16,right: 16,top: 0),
+                      padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimB(value);
+                        },
                         focusNode: bNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -386,25 +453,32 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         controller: bCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next){
+                        onSubmitted: (next) {
                           _changeFocus(context, bNode, cNode);
 //                          takeScreenShoot();
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
-                            hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-                        ),
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 14)),
                       ),
                     ),
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('C',style: cCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                      child: Text('C',
+                          style: cCtr.text == ""
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context).textTheme.subtitle2,
+                          textAlign: TextAlign.left),
                     ),
                     new Padding(
-                      padding: EdgeInsets.only(left: 16,right: 16,top: 0),
+                      padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimC(value);
+                        },
                         focusNode: cNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -412,21 +486,20 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                         maxLines: 1,
                         controller: cCtr,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (_){
+                        onSubmitted: (_) {
 //                          setState(() {});
 //                          takeScreenShoot();
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
-                            hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-                        ),
+                            hintStyle:
+                                TextStyle(color: Colors.grey, fontSize: 14)),
                       ),
                     ),
                     Divider(height: 1),
                     InkWell(
                       child: Row(
-
                         children: <Widget>[
                           Expanded(
                             child: Column(
@@ -434,23 +507,32 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                               children: <Widget>[
                                 Padding(
                                   padding: EdgeInsets.only(left: 16),
-                                  child: Text('D',style: dCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                                  child: Text('D',
+                                      style: dCtr.text == ""
+                                          ? Theme.of(context)
+                                              .textTheme
+                                              .bodyText2
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                      textAlign: TextAlign.left),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 16,top: 0),
+                                  padding: EdgeInsets.only(left: 16, top: 0),
                                   child: new TextField(
                                     focusNode: AlwaysDisabledFocusNode(),
                                     textAlign: TextAlign.left,
                                     expands: false,
-                                    style: Theme.of(context).textTheme.bodyText2,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
                                     maxLines: 1,
                                     controller: dCtr,
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration.collapsed(
                                         border: InputBorder.none,
                                         hintText: 'mm',
-                                        hintStyle: TextStyle(color: Colors.grey,fontSize: 14)
-                                    ),
+                                        hintStyle: TextStyle(
+                                            color: Colors.grey, fontSize: 14)),
                                   ),
                                 ),
                               ],
@@ -458,16 +540,21 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                           ),
                           Padding(
                             padding: EdgeInsets.only(right: 8),
-                            child: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
+                            child: Icon(Icons.arrow_forward_ios,
+                                color: Colors.grey, size: 20),
                           )
                         ],
                       ),
-                      onTap: (){
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => GenericSelection(R.string.dimension + ' D', ['22','36']))).then((selectedOption){
-                          setState(() {
-                            dCtr.text = selectedOption;
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => GenericSelection(
+                                    R.string.dimension + ' D',
+                                    ['22', '36']))).then((selectedOption) {
+                          dCtr.text = selectedOption;
+                          setState(() {});
 //                            takeScreenShoot();
-                          });
                         });
                       },
                     ),
@@ -476,9 +563,7 @@ class DoorHingeDimensionState extends State<DoorHingeDimension>{
                 ),
               )
             ],
-
-          )
-      ),
+          )),
     );
   }
 }
