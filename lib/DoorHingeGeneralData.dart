@@ -336,6 +336,9 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
             child: new TextField(
+              onChanged: (value) {
+                setState(() {});
+              },
               focusNode: doorLeafNode,
               textAlign: TextAlign.left,
               expands: false,
@@ -401,6 +404,9 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
             child: new TextField(
+              onChanged: (value) {
+                setState(() {});
+              },
               focusNode: doorFrameNode,
               textAlign: TextAlign.left,
               expands: false,
@@ -480,6 +486,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                               DoorHingeDimensionBarrel(this.doorHinge)))
                   .then((doorHinge) {
                 this.doorHinge = doorHinge;
+                setState(() {});
               });
             },
           ),
@@ -565,6 +572,9 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
             child: new TextField(
+              onChanged: (value) {
+                setState(() {});
+              },
               focusNode: basicDepthDoorNode,
               textAlign: TextAlign.left,
               expands: false,
@@ -592,6 +602,9 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
             child: new TextField(
+              onChanged: (value) {
+                setState(() {});
+              },
               focusNode: hingeSystemNode,
               textAlign: TextAlign.left,
               expands: false,
