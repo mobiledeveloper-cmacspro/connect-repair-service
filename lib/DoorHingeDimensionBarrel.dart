@@ -62,6 +62,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
   }
 
   _changeDimension(BuildContext context,String dimension) {
+    dimensionCtr.text = "";
     showAlertDialogDimension(context,dimension);
   }
 
@@ -117,15 +118,13 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                   if (dimensionCtr.text != "" && int.parse(dimensionCtr.text) != 0){
                     switch(dimension){
                       case 'A':
-                        setState(() {
-                          aCtr.text = int.parse(dimensionCtr.text).toString();
-                        });
+                        aCtr.text = int.parse(dimensionCtr.text).toString();
+                        setState(() {});
 //                        takeScreenShoot();
                         break;
                       default:
-                        setState(() {
-                          bCtr.text = int.parse(dimensionCtr.text).toString();
-                        });
+                        bCtr.text = int.parse(dimensionCtr.text).toString();
+                        setState(() {});
 //                        takeScreenShoot();
                     }
                   }
@@ -146,14 +145,13 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
         )
     );
   }
-  _getDimensionImage(){
-    if (doorHinge.dimensionBarrelIm != null && doorHinge.dimensionBarrelIm != '') {
-      Image.file(File(doorHinge.dimensionBarrelIm));
-    }
-    else {
-      return Image.asset('assets/hingeDimensionBarril.png');
-    }
+  Widget _getDimensionImage(){
+//    if (doorHinge.dimensionBarrelIm != null && doorHinge.dimensionBarrelIm != '') {
+//      return Image.file(File(doorHinge.dimensionBarrelIm));
+//    }
+    return Image.asset('assets/hingeDimensionBarril.png');
   }
+
   Future<void> takeScreenShoot() async {
     debugPrint('Taking screenshot');
     RenderRepaintBoundary boundary = imageKey1.currentContext.findRenderObject();
@@ -272,6 +270,9 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16,right: 16),
                       child: new TextField(
+                        onChanged: (value) {
+                          setState(() {});
+                        },
                         focusNode: aNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -299,6 +300,9 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                     new Padding(
                       padding: EdgeInsets.only(left: 16,right: 16,top: 0),
                       child: new TextField(
+                        onChanged: (value) {
+                          setState(() {});
+                        },
                         focusNode: bNode,
                         textAlign: TextAlign.left,
                         expands: false,
