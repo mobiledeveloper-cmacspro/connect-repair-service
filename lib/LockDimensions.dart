@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/DoorLockGeneralData.dart';
+import 'package:repairservices/LockDimensionsBlock.dart';
 import 'package:repairservices/Utils/calendar_utils.dart';
 import 'package:repairservices/Utils/file_utils.dart';
 import 'package:repairservices/models/DoorLock.dart';
 import 'package:flutter/rendering.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
@@ -28,7 +30,7 @@ class LockDimensions extends StatefulWidget {
   }
 }
 
-class LockDimensionsState extends State<LockDimensions> {
+class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBloc> {
   DoorLock doorLock;
 
   LockDimensionsState(this.doorLock);
@@ -48,7 +50,6 @@ class LockDimensionsState extends State<LockDimensions> {
   var imageKey3 = new GlobalKey();
   String imagePath1, imagePath2, imagePath3;
   File dimensionImage1, dimensionImage2, dimensionImage3;
-  bool allViewsVisited = false;
 
   DatabaseHelper helper = DatabaseHelper.instance;
 
@@ -85,6 +86,7 @@ class LockDimensionsState extends State<LockDimensions> {
   }
 
   _changeDimension(BuildContext context, String dimension) {
+    dimensionCtr.text = "";
     showAlertDialogDimension(context, dimension);
   }
 
@@ -137,34 +139,58 @@ class LockDimensionsState extends State<LockDimensions> {
                         style:
                             TextStyle(color: Theme.of(context).primaryColor)),
                     isDefaultAction: true,
-                    onPressed: () async {
+                    onPressed: () {
                       Navigator.pop(context);
                       if (dimensionCtr.text != "" &&
                           int.parse(dimensionCtr.text) != 0) {
                         switch (dimension) {
                           case 'A':
                             aCtr.text = int.parse(dimensionCtr.text).toString();
-                            await takeScreenShoot(imageKey1, 1);
+                            bloc.dimA(aCtr.text);
+                            setState(() {});
+                            Future.delayed(Duration(seconds: 1), () async {
+                              await takeScreenShoot(imageKey1, 1);
+                            });
                             break;
                           case 'B':
                             bCtr.text = int.parse(dimensionCtr.text).toString();
-                            await takeScreenShoot(imageKey1, 1);
+                            bloc.dimB(bCtr.text);
+                            setState(() {});
+                            Future.delayed(Duration(seconds: 1), () async {
+                              await takeScreenShoot(imageKey1, 1);
+                            });
                             break;
                           case 'C':
                             cCtr.text = int.parse(dimensionCtr.text).toString();
-                            await takeScreenShoot(imageKey1, 1);
+                            bloc.dimC(cCtr.text);
+                            setState(() {});
+                            Future.delayed(Duration(seconds: 1), () async {
+                              await takeScreenShoot(imageKey1, 1);
+                            });
                             break;
                           case 'D':
                             dCtr.text = int.parse(dimensionCtr.text).toString();
-                            await takeScreenShoot(imageKey2, 2);
+                            bloc.dimD(dCtr.text);
+                            setState(() {});
+                            Future.delayed(Duration(seconds: 1), () async {
+                              await takeScreenShoot(imageKey2, 2);
+                            });
                             break;
                           case 'E':
                             eCtr.text = int.parse(dimensionCtr.text).toString();
-                            await takeScreenShoot(imageKey2, 2);
+                            bloc.dimE(eCtr.text);
+                            setState(() {});
+                            Future.delayed(Duration(seconds: 1), () async {
+                              await takeScreenShoot(imageKey2, 2);
+                            });
                             break;
                           default:
                             fCtr.text = int.parse(dimensionCtr.text).toString();
-                            await takeScreenShoot(imageKey3, 3);
+                            bloc.dimF(fCtr.text);
+                            setState(() {});
+                            Future.delayed(Duration(seconds: 1), () async {
+                              await takeScreenShoot(imageKey3, 3);
+                            });
                         }
                       } else {
 //                    Navigator.pop(context);
@@ -234,7 +260,7 @@ class LockDimensionsState extends State<LockDimensions> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     List<Widget> pages = [
       //First Page
       Container(
@@ -272,11 +298,17 @@ class LockDimensionsState extends State<LockDimensions> {
                                       onTap: () =>
                                           _changeDimension(context, 'A'),
                                       child: FittedBox(
-                                        child: Text(
-                                            aCtr.text != "" ? aCtr.text : "A",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .body1),
+                                        child: StreamBuilder<String>(
+                                          stream: bloc.dimAStream,
+                                          initialData: "",
+                                          builder: (context, snapshot){
+                                            return Text(
+                                                snapshot.data != "" ? snapshot.data : "A",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .body1);
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -291,11 +323,17 @@ class LockDimensionsState extends State<LockDimensions> {
                                       onTap: () =>
                                           _changeDimension(context, 'B'),
                                       child: FittedBox(
-                                        child: Text(
-                                            bCtr.text != "" ? bCtr.text : "B",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .body1),
+                                        child: StreamBuilder<String>(
+                                          stream: bloc.dimBStream,
+                                          initialData: "",
+                                          builder: (context, snapshot) {
+                                            return Text(
+                                                snapshot.data != "" ? snapshot.data : "B",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .body1);
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -310,11 +348,17 @@ class LockDimensionsState extends State<LockDimensions> {
                                         onTap: () =>
                                             _changeDimension(context, 'C'),
                                         child: FittedBox(
-                                          child: Text(
-                                              cCtr.text != "" ? cCtr.text : "C",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .body1),
+                                          child: StreamBuilder<String>(
+                                            stream: bloc.dimCStream,
+                                            initialData: "",
+                                            builder: (context, snapshot){
+                                              return Text(
+                                                  snapshot.data != "" ? snapshot.data : "C",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .body1);
+                                            },
+                                          ),
                                         )),
                                   ),
                                 )
@@ -327,15 +371,27 @@ class LockDimensionsState extends State<LockDimensions> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16, top: 8),
-                      child: Text('A',
-                          style: aCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: StreamBuilder<String>(
+                        stream: bloc.dimAStream,
+                        initialData: "",
+                        builder: (context, snapshot){
+                          return Text('A',
+                              style: snapshot.data == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left);
+                        },
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimA(value);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey1, 1);
+                          });
+                        },
                         focusNode: aNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -344,9 +400,12 @@ class LockDimensionsState extends State<LockDimensions> {
                         controller: aCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next) async {
+                        onSubmitted: (next) {
+                          bloc.dimA(aCtr.text);
                           _changeFocus(context, aNode, bNode);
-                          await takeScreenShoot(imageKey1, 1);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey1, 1);
+                          });
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -358,15 +417,27 @@ class LockDimensionsState extends State<LockDimensions> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('B',
-                          style: bCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: StreamBuilder<String>(
+                        stream: bloc.dimBStream,
+                        initialData: "",
+                        builder: (context, snapshot){
+                          return Text('B',
+                              style: snapshot.data == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left);
+                        },
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimB(value);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey1, 1);
+                          });
+                        },
                         focusNode: bNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -375,9 +446,12 @@ class LockDimensionsState extends State<LockDimensions> {
                         controller: bCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next) async {
+                        onSubmitted: (next) {
+                          bloc.dimB(bCtr.text);
                           _changeFocus(context, bNode, cNode);
-                          await takeScreenShoot(imageKey1, 1);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey1, 1);
+                          });
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -389,15 +463,27 @@ class LockDimensionsState extends State<LockDimensions> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('C',
-                          style: cCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: StreamBuilder<String>(
+                        stream: bloc.dimCStream,
+                        initialData: "",
+                        builder: (context, snapshot){
+                          return Text('C',
+                              style: snapshot.data == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left);
+                        }
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimC(value);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey1, 1);
+                          });
+                        },
                         focusNode: cNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -405,9 +491,11 @@ class LockDimensionsState extends State<LockDimensions> {
                         maxLines: 1,
                         controller: cCtr,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (_) async {
-                          setState(() {});
-                          await takeScreenShoot(imageKey1, 1);
+                        onSubmitted: (_) {
+                          bloc.dimC(cCtr.text);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey1, 1);
+                          });
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -459,11 +547,17 @@ class LockDimensionsState extends State<LockDimensions> {
                                         onTap: () =>
                                             _changeDimension(context, 'D'),
                                         child: FittedBox(
-                                          child: Text(
-                                              dCtr.text != "" ? dCtr.text : "D",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .body1),
+                                          child: StreamBuilder<String>(
+                                            stream: bloc.dimDStream,
+                                            initialData: "",
+                                            builder: (context, snapshot) {
+                                              return Text(
+                                                  snapshot.data != "" ? snapshot.data : "D",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .body1);
+                                            },
+                                          ),
                                         )),
                                   ),
                                 ),
@@ -477,11 +571,17 @@ class LockDimensionsState extends State<LockDimensions> {
                                         onTap: () =>
                                             _changeDimension(context, 'E'),
                                         child: FittedBox(
-                                          child: Text(
-                                              eCtr.text != "" ? eCtr.text : "E",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .body1),
+                                          child: StreamBuilder<String>(
+                                            stream: bloc.dimEStream,
+                                            initialData: "",
+                                           builder: (context, snapshot) {
+                                              return Text(
+                                                  snapshot.data != "" ? snapshot.data : "E",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .body1);
+                                           }
+                                          ),
                                         )),
                                   ),
                                 ),
@@ -494,15 +594,27 @@ class LockDimensionsState extends State<LockDimensions> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('D',
-                          style: dCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: StreamBuilder<String>(
+                        stream: bloc.dimDStream,
+                        initialData: "",
+                        builder: (context, snapshot) {
+                          return Text('D',
+                              style: snapshot.data == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left);
+                        }
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimD(value);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey2, 2);
+                          });
+                        },
                         focusNode: dNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -511,9 +623,12 @@ class LockDimensionsState extends State<LockDimensions> {
                         controller: dCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next) async {
+                        onSubmitted: (next) {
+                          bloc.dimD(dCtr.text);
                           _changeFocus(context, dNode, eNode);
-                          await takeScreenShoot(imageKey2, 2);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey2, 2);
+                          });
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -525,15 +640,27 @@ class LockDimensionsState extends State<LockDimensions> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('E',
-                          style: eCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: StreamBuilder<String>(
+                        stream: bloc.dimEStream,
+                        initialData: "",
+                        builder: (context, snapshot){
+                          return Text('E',
+                              style: snapshot.data == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left);
+                        },
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) async {
+                          bloc.dimE(value);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey2, 2);
+                          });
+                        },
                         focusNode: eNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -541,9 +668,11 @@ class LockDimensionsState extends State<LockDimensions> {
                         maxLines: 1,
                         controller: eCtr,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (_) async {
-                          setState(() {});
-                          await takeScreenShoot(imageKey2, 2);
+                        onSubmitted: (_) {
+                          bloc.dimE(eCtr.text);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey2, 2);
+                          });
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
@@ -595,11 +724,17 @@ class LockDimensionsState extends State<LockDimensions> {
                                         onTap: () =>
                                             _changeDimension(context, 'F'),
                                         child: FittedBox(
-                                          child: Text(
-                                              fCtr.text != "" ? fCtr.text : "F",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .body1),
+                                          child: StreamBuilder<String>(
+                                            stream: bloc.dimFStream,
+                                            initialData: "",
+                                            builder: (context, snapshot) {
+                                              return Text(
+                                                  snapshot.data != "" ? snapshot.data : "F",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .body1);
+                                            },
+                                          ),
                                         )),
                                   ),
                                 ),
@@ -612,15 +747,27 @@ class LockDimensionsState extends State<LockDimensions> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('F',
-                          style: fCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: StreamBuilder<String>(
+                        stream: bloc.dimFStream,
+                        initialData: "",
+                        builder: (context, snapshot) {
+                          return Text('F',
+                              style: snapshot.data == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left);
+                        },
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
+                        onChanged: (value) {
+                          bloc.dimF(value);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey3, 3);
+                          });
+                        },
                         focusNode: fNode,
                         textAlign: TextAlign.left,
                         expands: false,
@@ -628,15 +775,17 @@ class LockDimensionsState extends State<LockDimensions> {
                         maxLines: 1,
                         keyboardType: TextInputType.number,
                         controller: fCtr,
-                        onSubmitted: (_) async {
-                          setState(() {});
-                          await takeScreenShoot(imageKey3, 3);
+                        onSubmitted: (_) {
+                          bloc.dimF(fCtr.text);
+                          Future.delayed(Duration(seconds: 1), () async {
+                            await takeScreenShoot(imageKey3, 3);
+                          });
                         },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
                             hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 14)),
+                            TextStyle(color: Colors.grey, fontSize: 14)),
                       ),
                     ),
                     Divider(height: 1),
@@ -663,13 +812,17 @@ class LockDimensionsState extends State<LockDimensions> {
             color: Theme.of(context).primaryColor,
           ),
           actions: <Widget>[
-            InkWell(
-              child: Image.asset(
-                allViewsVisited ? 'assets/checkGreen.png' : 'assets/checkGrey.png',
-                height: 25,
-              ),
-              onTap: allViewsVisited ? () {
-               /* final doorLock = DoorLock.withData(
+            StreamBuilder<bool>(
+              stream: bloc.pagesVisitedStream,
+              initialData: false,
+              builder: (context, snapshot) {
+                return InkWell(
+                  child: Image.asset(
+                    snapshot.data ? 'assets/checkGreen.png' : 'assets/checkGrey.png',
+                    height: 25,
+                  ),
+                  onTap: snapshot.data ? () {
+                    /* final doorLock = DoorLock.withData(
                     R.string.doorLockFitting,
                     DateTime.now(),
                     aCtr.text,
@@ -681,23 +834,25 @@ class LockDimensionsState extends State<LockDimensions> {
                     imagePath1,
                     imagePath2,
                     imagePath3);*/
-                doorLock.name = R.string.doorLockFitting;
-                doorLock.created = DateTime.now();
-                doorLock.dimensionA = aCtr.text;
-                doorLock.dimensionB = bCtr.text;
-                doorLock.dimensionC = cCtr.text;
-                doorLock.dimensionD = dCtr.text;
-                doorLock.dimensionE = eCtr.text;
-                doorLock.dimensionF = fCtr.text;
-                doorLock.dimensionImage1Path = imagePath1;
-                doorLock.dimensionImage2Path = imagePath2;
-                doorLock.dimensionImage3Path = imagePath3;
+                    doorLock.name = R.string.doorLockFitting;
+                    doorLock.created = DateTime.now();
+                    doorLock.dimensionA = aCtr.text;
+                    doorLock.dimensionB = bCtr.text;
+                    doorLock.dimensionC = cCtr.text;
+                    doorLock.dimensionD = dCtr.text;
+                    doorLock.dimensionE = eCtr.text;
+                    doorLock.dimensionF = fCtr.text;
+                    doorLock.dimensionImage1Path = imagePath1;
+                    doorLock.dimensionImage2Path = imagePath2;
+                    doorLock.dimensionImage3Path = imagePath3;
 
-                //Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorLockGeneralData(doorLock)));
+                    //Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorLockGeneralData(doorLock)));
 
-                _saveArticle();
-              } : null,
-            )
+                    _saveArticle();
+                  } : null,
+                );
+              },
+            ),
           ],
         ),
         body: Column(
@@ -706,18 +861,20 @@ class LockDimensionsState extends State<LockDimensions> {
               child: PageView.builder(
                 controller: pageController,
                 itemCount: pages.length,
-                onPageChanged: (index) async {
+                onPageChanged: (index) {
                   if (index == pages.length - 1){
-                    allViewsVisited = true;
-                    setState(() {
-                    
-                    });
+                    bloc.pagesVisited(true);
                   }
                   if (index == 1 && imagePath2 == null) {
-                    await takeScreenShoot(imageKey2, 2);
+                    Future.delayed(Duration(seconds: 1), () async {
+                      await takeScreenShoot(imageKey2, 2);
+                    });
                   } else if (index == 2 && imagePath3 == null) {
-                    await takeScreenShoot(imageKey3, 3);
+                    Future.delayed(Duration(seconds: 1), () async {
+                      await takeScreenShoot(imageKey3, 3);
+                    });
                   }
+                  bloc.pageIndex(index);
                 },
                 itemBuilder: (context, index) {
                   return pages[index];
@@ -728,79 +885,60 @@ class LockDimensionsState extends State<LockDimensions> {
               color: Colors.white,
               height: 40,
               child: Center(
-                  child: Indicator(
-                controller: pageController,
-                itemCount: pages.length,
-                dotSizeBorder: 1,
-                normalColor: Colors.white,
-                selectedColor: Theme.of(context).primaryColor,
-              )),
+ //                 child: Indicator(
+ //               controller: pageController,
+ //               itemCount: pages.length,
+ //               dotSizeBorder: 1,
+ //               normalColor: Colors.white,
+ //               selectedColor: Theme.of(context).primaryColor,
+ //             )
+                 child: _createIndicator(pages.length, Colors.white, Theme.of(context).primaryColor, 1),
+              ),
             )
           ],
         ));
   }
-}
 
-class Indicator extends StatelessWidget {
-  Indicator(
-      {this.controller,
-      this.itemCount: 0,
-      this.normalColor,
-      this.selectedColor,
-      this.dotSizeBorder})
-      : assert(controller != null);
-
-  /// PageView Controller
-  final PageController controller;
-
-  /// Number of indicators
-  final int itemCount;
-
-  /// Ordinary colours
-  final Color normalColor;
-
-  /// Selected color
-  final Color selectedColor;
-
-  /// Dot border Size
-  final double dotSizeBorder;
-
-  /// Size of points
-  final double size = 8.0;
-
-  /// Spacing of points
-  final double spacing = 4.0;
-
-  /// Point Widget
   Widget _buildIndicator(
-      int index, int pageCount, double dotSize, double spacing) {
+      int index, int pageCount, double dotSize, double size, double spacing, double dotSizeBorder, Color normalColor, Color selectedColor) {
     // Is the current page selected?
-    bool isCurrentPageSelected = index ==
-        (controller.page != null ? controller.page.round() % pageCount : 0);
+    //bool isCurrentPageSelected = index == (widget.controller.page != null ? widget.controller.page.round() % pageCount : 0);
 
     return new Container(
       height: size,
       width: size + (2 * spacing),
       child: new Center(
-        child: Container(
-          width: dotSize,
-          height: dotSize,
-          decoration: BoxDecoration(
-              border: Border.all(color: selectedColor, width: dotSizeBorder),
-              color: isCurrentPageSelected ? selectedColor : normalColor,
-              borderRadius: BorderRadius.circular(dotSize / 2)),
+        child: StreamBuilder<int>(
+          stream: bloc.pageIndexStream,
+          initialData: 0,
+          builder: (context, snapshot) {
+            return Container(
+              width: dotSize,
+              height: dotSize,
+              decoration: BoxDecoration(
+                  border: Border.all(color: selectedColor, width: dotSizeBorder),
+                  color: snapshot.data == index ? selectedColor : normalColor,
+                  borderRadius: BorderRadius.circular(dotSize / 2)),
+            );
+          },
         ),
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _createIndicator(int itemCount, Color normalColor, Color selectedColor, double dotSizeBorder) {
+    /// Size of points
+    final double size = 8.0;
+
+    /// Spacing of points
+    final double spacing = 4.0;
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: new List<Widget>.generate(itemCount, (int index) {
-        return _buildIndicator(index, itemCount, size, spacing);
+        return _buildIndicator(index, itemCount, size, size, spacing, dotSizeBorder, normalColor, selectedColor);
       }),
     );
   }
+
 }
+
