@@ -90,7 +90,7 @@ class ArticleInCartState extends State<ArticleInCart> {
     if (canSeePrice && productList[pos].totalAmount != null && productList[pos].totalAmount.value != "" && productList[pos].currency != null && productList[pos].currency.value != "") {
       return Container(
         margin: EdgeInsets.only(right: 16),
-        width: 120,
+        width: 140,
         child: Row(
           children: <Widget>[
             Text(R.string.price, style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
