@@ -38,6 +38,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
   int cantProductsInCart = 0;
   final _sharedPreferences = new SharedPreferencesManager();
   String lang = 'de';
+  final _scrollController = ScrollController();
 
   _refillSourceProduct() async {
     final prefs = await SharedPreferences.getInstance();
@@ -54,13 +55,13 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
 //      sourceProduct.add(TupleData(en: "Quantity:", de: "Menge:",value: product.quantity.value));
 //    }
     if(product.unitText != null && product.unitText.value != "") {
-      sourceProduct.add(TupleData(en: "Sales unit", de: "Einheit", value: _translateUnitText(product.unitText.value)));
+      sourceProduct.add(TupleData(en: "sales unit", de: "Einheit", value: _translateUnitText(product.unitText.value)));
     }
     if(product.listPrice != null && product.listPrice.value != "" && seePrices) {
-      sourceProduct.add(TupleData(en: "listprice", de: "Listenpreis/VKME",value: product.listPrice.value.replaceAll(",", ",")));
+      sourceProduct.add(TupleData(en: "list price", de: "Listenpreis/VKME",value: product.listPrice.value.replaceAll(",", ",")));
     }
     if(product.netPrice != null && product.netPrice.value != "" && seePrices) {
-      sourceProduct.add(TupleData(en: "netprice", de: product.netPrice.de, value: product.netPrice.value.replaceAll(".", ",")));
+      sourceProduct.add(TupleData(en: "net price", de: product.netPrice.de, value: product.netPrice.value.replaceAll(".", ",")));
     }
     if(product.discount != null  && product.discount.value != "" && seePrices) {
       sourceProduct.add(TupleData(
@@ -264,29 +265,34 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
               ),
             ),
             Expanded(
-              child: ListView.separated(
-                itemCount: sourceProduct == null ? 0 : sourceProduct.length,
-                itemBuilder:(BuildContext context, int index) {
-                  return Container(
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(left: 34),
-                          child: Text(lang == 'de' ? sourceProduct[index].de : sourceProduct[index].en + ":",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 11),
-                          child: Text(sourceProduct[index].value),
-                        )
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) => Divider(height: 1),
-              )
+              child: Scrollbar(
+                controller: _scrollController,
+                isAlwaysShown: true,
+                child: ListView.separated(
+                  controller: _scrollController,
+                  itemCount: sourceProduct == null ? 0 : sourceProduct.length,
+                  itemBuilder:(BuildContext context, int index) {
+                    return Container(
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(left: 34),
+                            child: Text(lang == 'de' ? sourceProduct[index].de + ":" : sourceProduct[index].en + ":",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 11),
+                            child: Text(sourceProduct[index].value),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => Divider(height: 1),
+                ),
+              ),
             ),
             Container(
               width: 140,
@@ -411,13 +417,16 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
     super.initState();
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
-      setState(() async {
-        lang = await _sharedPreferences.getLanguage();
-        _refillSourceProduct();
-        _getImage();
-        _readAllProductsInCart();
-      });
+      _loadLang();
+      _refillSourceProduct();
+      _getImage();
+      _readAllProductsInCart();
+      setState(()  {});
     });
+  }
+
+  Future<void> _loadLang() async {
+    lang = await _sharedPreferences.getLanguage();
   }
 
   _getImage() async{
