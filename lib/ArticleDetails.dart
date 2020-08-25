@@ -54,7 +54,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
 //      sourceProduct.add(TupleData(en: "Quantity:", de: "Menge:",value: product.quantity.value));
 //    }
     if(product.unitText != null && product.unitText.value != "") {
-      sourceProduct.add(TupleData(en: "Sales unit", de: "Verkaufsmengeneinheit", value: _translateUnitText(product.unitText.value)));
+      sourceProduct.add(TupleData(en: "Sales unit", de: "Einheit", value: _translateUnitText(product.unitText.value)));
     }
     if(product.listPrice != null && product.listPrice.value != "" && seePrices) {
       sourceProduct.add(TupleData(en: "listprice", de: "Listenpreis/VKME",value: product.listPrice.value.replaceAll(",", ",")));
