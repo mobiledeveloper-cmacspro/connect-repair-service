@@ -54,7 +54,7 @@ class ArticleListState extends State<ArticleListV> {
     if (number != "") {
       articlesList =
           await ISClientO.instance.getProductNumberAutocompletion(number);
-      debugPrint('Artices count: ${articlesList.length}');
+      debugPrint('Articles count: ${articlesList.length}');
       setState(() {});
     }
   }

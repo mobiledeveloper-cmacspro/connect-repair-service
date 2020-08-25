@@ -58,7 +58,7 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
                 color: R.color.gray_darkest,
               ),
               autofocus: true,
-              placeholder: "search...",
+              placeholder: "${R.string.search}...",
               onSubmitted: widget.onSubmitted,
               fontSize: 18,
               onChanged: widget.onChanged,
@@ -71,7 +71,7 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
         InkWell(
           onTap: widget.onCancelTap,
           child: TXTextWidget(
-            text: "Cancel",
+            text: R.string.cancel,
             color: R.color.primary_color,
           ),
         ),
