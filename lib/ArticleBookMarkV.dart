@@ -13,6 +13,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
+import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
 import 'package:pdf/pdf.dart';
@@ -35,6 +36,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
   int selected = 0;
   int cantProductsInCart = 0;
   final pdf = pw.Document();
+  final _scrollController = ScrollController();
 
   _readAllProducts() async {
     this.productList = await helper.queryAllProducts(false);
@@ -281,84 +283,89 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
             ),
 //            _searchBar(context),
             Expanded(
-              child: new ListView.builder(
-                itemCount: productList == null ? 0 : productList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return new GestureDetector(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            height: 50,
-                            color: Color.fromRGBO(249, 249, 249, 1.0),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(left: 16),
-                                  height: 29,
-                                  width: 36,
-                                  child: baseUrl == null
-                                      ? Image.asset('assets/productImage.png')
-                                      : Image(
-                                          image: NetworkImageSSL(baseUrl +
-                                              productList[index].url.value)),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 16, top: 10),
-                                        child: Text(
-                                            productList[index].shortText.value,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .body1),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 16, top: 4),
-                                        child: Text(
-                                            productList[index].number.value,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .body2),
-                                      )
-                                    ],
+              child: SingleChildScrollViewWithScrollbar(
+                scrollbarColor: Colors.grey.withOpacity(0.6),
+                controller: _scrollController,
+                child: new ListView.builder(
+                  controller: _scrollController,
+                  itemCount: productList == null ? 0 : productList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return new GestureDetector(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                              height: 50,
+                              color: Color.fromRGBO(249, 249, 249, 1.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(left: 16),
+                                    height: 29,
+                                    width: 36,
+                                    child: baseUrl == null
+                                        ? Image.asset('assets/productImage.png')
+                                        : Image(
+                                        image: NetworkImageSSL(baseUrl +
+                                            productList[index].url.value)),
                                   ),
-                                ),
-                                InkWell(
-                                  child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: 16, left: 16, bottom: 0, top: 0),
-                                    height: 22,
-                                    child: productList[index].selected
-                                        ? Image.asset('assets/check_filled.png')
-                                        : Image.asset('assets/check_empty.png'),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding:
+                                          EdgeInsets.only(left: 16, top: 10),
+                                          child: Text(
+                                              productList[index].shortText.value,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .body1),
+                                        ),
+                                        Padding(
+                                          padding:
+                                          EdgeInsets.only(left: 16, top: 4),
+                                          child: Text(
+                                              productList[index].number.value,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .body2),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  onTap: () {
-                                    setState(() {
-                                      productList[index].selected =
-                                          !productList[index].selected;
-                                    });
-                                  },
-                                ),
-                              ],
-                            )),
-                        Divider(
-                          height: 1,
-                          color: Color.fromRGBO(191, 191, 191, 1.0),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      _getArticleDetails(productList[index].number.value);
-                    },
-                  );
-                },
-                shrinkWrap: true,
+                                  InkWell(
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          right: 16, left: 16, bottom: 0, top: 0),
+                                      height: 22,
+                                      child: productList[index].selected
+                                          ? Image.asset('assets/check_filled.png')
+                                          : Image.asset('assets/check_empty.png'),
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        productList[index].selected =
+                                        !productList[index].selected;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              )),
+                          Divider(
+                            height: 1,
+                            color: Color.fromRGBO(191, 191, 191, 1.0),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        _getArticleDetails(productList[index].number.value);
+                      },
+                    );
+                  },
+                  shrinkWrap: true,
+                ),
               ),
             ),
             new Container(

@@ -7,6 +7,7 @@ import 'package:repairservices/Login.dart';
 import 'package:repairservices/ShippingAddress.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/NetworkImageSSL.dart';
+import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
@@ -28,6 +29,7 @@ class ArticleInCartState extends State<ArticleInCart> {
   bool canBuy = false;
   int selected = 0;
   bool _loading = false;
+  final _scrollController = ScrollController();
 
   final cardNameController = TextEditingController();
 
@@ -501,154 +503,159 @@ class ArticleInCartState extends State<ArticleInCart> {
         children: <Widget>[
           _searchBar(context),
           Expanded(
-            child: new ListView.builder(
-              itemCount: productList == null ? 0 : productList.length,
-              itemBuilder: (BuildContext context, int index){
-                return new GestureDetector(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          height: 50,
-                          color: Color.fromRGBO(249, 249, 249, 1.0),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(left: 16),
-                                height: 29,
-                                width: 36,
-                                child: baseUrl == null ?
-                                Image.asset('assets/productImage.png') :
-                                Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 16,top: 10),
-                                      child: Text(
-                                          productList[index].shortText.value,
-                                          style:  Theme.of(context).textTheme.bodyText2
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 16,top: 4),
-                                      child: Text(
-                                          productList[index].number.value,
-                                          style: Theme.of(context).textTheme.bodyText1
-                                      ),
-                                    )
-                                  ],
+            child: SingleChildScrollViewWithScrollbar(
+              controller: _scrollController,
+              scrollbarColor: Colors.grey.withOpacity(0.6),
+              child: new ListView.builder(
+                controller: _scrollController,
+                itemCount: productList == null ? 0 : productList.length,
+                itemBuilder: (BuildContext context, int index){
+                  return new GestureDetector(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            height: 50,
+                            color: Color.fromRGBO(249, 249, 249, 1.0),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(left: 16),
+                                  height: 29,
+                                  width: 36,
+                                  child: baseUrl == null ?
+                                  Image.asset('assets/productImage.png') :
+                                  Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
                                 ),
-                              ),
-                              InkWell(
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 16,left: 16,bottom: 0,top: 0),
-                                  height: 30,
-                                  child: Image.asset('assets/trashRed.png'),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 16,top: 10),
+                                        child: Text(
+                                            productList[index].shortText.value,
+                                            style:  Theme.of(context).textTheme.bodyText2
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 16,top: 4),
+                                        child: Text(
+                                            productList[index].number.value,
+                                            style: Theme.of(context).textTheme.bodyText1
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                onTap: (){
-                                  _removeProduct(productList[index].id);
-                                },
-                              ),
-                            ],
-                          )
-                      ),
-                      Container(
-                          height: 50,
-                          color: Color.fromRGBO(249, 249, 249, 1.0),
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 140,
-                                height: 35,
-                                margin: EdgeInsets.only(left: 52),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    IconButton(
-                                      icon:  Image.asset('assets/Minus.png',color: Theme.of(context).primaryColor),
-                                      onPressed: () {
-                                        if(int.parse(productList[index].quantity.value)  > 1) {
-                                          ISClientO.instance.getProductDetails(productList[index].number.value, int.parse(productList[index].quantity.value) - 1).then((Product product){
+                                InkWell(
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: 16,left: 16,bottom: 0,top: 0),
+                                    height: 30,
+                                    child: Image.asset('assets/trashRed.png'),
+                                  ),
+                                  onTap: (){
+                                    _removeProduct(productList[index].id);
+                                  },
+                                ),
+                              ],
+                            )
+                        ),
+                        Container(
+                            height: 50,
+                            color: Color.fromRGBO(249, 249, 249, 1.0),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 140,
+                                  height: 35,
+                                  margin: EdgeInsets.only(left: 52),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      IconButton(
+                                        icon:  Image.asset('assets/Minus.png',color: Theme.of(context).primaryColor),
+                                        onPressed: () {
+                                          if(int.parse(productList[index].quantity.value)  > 1) {
+                                            ISClientO.instance.getProductDetails(productList[index].number.value, int.parse(productList[index].quantity.value) - 1).then((Product product){
+                                              setState(() {
+                                                int id = this.productList[index].id;
+                                                productList[index] = product;
+                                                productList[index].id = id;
+                                                helper.updateProduct(productList[index], true);
+                                              });
+                                            });
+                                          }
+                                        },
+                                      ),
+                                      Expanded(
+                                          child: Center(
+                                              child: Container(
+                                                height: 22,
+                                                width: 52,
+                                                child: Center(
+                                                    child: Text(productList[index].quantity != null ? productList[index].quantity.value : "1")
+                                                ),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: Color.fromRGBO(121, 121, 121, 1),width: 0.3)
+                                                ),
+                                              )
+                                          )
+                                      ),
+                                      IconButton(
+                                        icon:  Image.asset('assets/Plus.png',color: Theme.of(context).primaryColor),
+                                        onPressed: () {
+                                          ISClientO.instance.getProductDetails(productList[index].number.value, int.parse(productList[index].quantity.value) + 1).then((Product product){
                                             setState(() {
                                               int id = this.productList[index].id;
-                                              productList[index] = product;
-                                              productList[index].id = id;
+                                              this.productList[index] = product;
+                                              this.productList[index].id = id;
                                               helper.updateProduct(productList[index], true);
                                             });
                                           });
-                                        }
-                                      },
-                                    ),
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(),
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    _priceDetails(context, index),
                                     Expanded(
-                                        child: Center(
-                                            child: Container(
-                                              height: 22,
-                                              width: 52,
-                                              child: Center(
-                                                  child: Text(productList[index].quantity != null ? productList[index].quantity.value : "1")
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(color: Color.fromRGBO(121, 121, 121, 1),width: 0.3)
+                                        child: Padding(
+                                            padding: EdgeInsets.only(right: 16,top: 8),
+                                            child: Text(
+                                              R.string.availability,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: _getColorByAvability(productList[index].avability == null ? "1" : productList[index].avability.value ),
+                                                  fontWeight: FontWeight.bold
                                               ),
                                             )
                                         )
-                                    ),
-                                    IconButton(
-                                      icon:  Image.asset('assets/Plus.png',color: Theme.of(context).primaryColor),
-                                      onPressed: () {
-                                        ISClientO.instance.getProductDetails(productList[index].number.value, int.parse(productList[index].quantity.value) + 1).then((Product product){
-                                          setState(() {
-                                            int id = this.productList[index].id;
-                                            this.productList[index] = product;
-                                            this.productList[index].id = id;
-                                            helper.updateProduct(productList[index], true);
-                                          });
-                                        });
-                                      },
-                                    ),
+                                    )
                                   ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(),
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  _priceDetails(context, index),
-                                  Expanded(
-                                      child: Padding(
-                                          padding: EdgeInsets.only(right: 16,top: 8),
-                                          child: Text(
-                                            R.string.availability,
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: _getColorByAvability(productList[index].avability == null ? "1" : productList[index].avability.value ),
-                                                fontWeight: FontWeight.bold
-                                            ),
-                                          )
-                                      )
-                                  )
-                                ],
-                              )
-                            ],
-                          )
-                      ),
-                      Divider(
-                        height: 1,
-                        color: Color.fromRGBO(191, 191, 191, 1.0),
-                      )
-                    ],
-                  ),
-                  onTap: () {
-                    debugPrint('tap index: $index');
+                                )
+                              ],
+                            )
+                        ),
+                        Divider(
+                          height: 1,
+                          color: Color.fromRGBO(191, 191, 191, 1.0),
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      debugPrint('tap index: $index');
 //                    _getArticleDetails(productList[index].number.value);
-                  },
-                );
-              },
-              shrinkWrap: true,
+                    },
+                  );
+                },
+                shrinkWrap: true,
+              ),
             ),
           ),
           _loginBt(context)
