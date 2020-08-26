@@ -70,25 +70,6 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
           de: product.discount.de,
           value: double.parse(product.discount.value).toStringAsFixed(2).replaceAll(((".")),",") + " %"));
     }
-
-    if(product.unitText != null && product.unitText.value != "") {
-      sourceProduct.add(TupleData(en: "sales unit", de: "Einheit", value: _translateUnitText(product.unitText.value)));
-    }
-    if(product.listPrice != null && product.listPrice.value != "" && seePrices) {
-      sourceProduct.add(TupleData(en: "list price", de: "Listenpreis/VKME",value: product.listPrice.value.replaceAll(",", ",")));
-    }
-    if(product.netPrice != null && product.netPrice.value != "" && seePrices) {
-      sourceProduct.add(TupleData(en: "net price", de: product.netPrice.de, value: product.netPrice.value.replaceAll(".", ",")));
-    }
-    if(product.discount != null  && product.discount.value != "" && seePrices) {
-      sourceProduct.add(TupleData(
-          en: product.discount.en,
-          de: product.discount.de,
-          value: double.parse(product.discount.value).toStringAsFixed(2).replaceAll(((".")),",") + " %"));
-    }
-
-    
-
     setState(() {});
   }
 
