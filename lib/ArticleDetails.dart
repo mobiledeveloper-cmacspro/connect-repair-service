@@ -215,9 +215,11 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
                 context,
                 CupertinoPageRoute(builder: (context) => LoginV()),
               ).then((value){
-                ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                ISClientO.instance.isTokenAvailable().then((bool loggued) async {
                   this.loggued = loggued;
-                  _getArticleDetails(product.number.value);
+                  await _getArticleDetails(product.number.value);
+                  await _scrollController.position.animateTo(1.0, duration: Duration(seconds: 1), curve: Threshold(1.0));
+                  setState(()  {});
                 });
               });
             },

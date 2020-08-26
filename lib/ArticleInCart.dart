@@ -7,6 +7,9 @@ import 'package:repairservices/Login.dart';
 import 'package:repairservices/ShippingAddress.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/NetworkImageSSL.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Utils/ISClient.dart';
@@ -92,13 +95,10 @@ class ArticleInCartState extends State<ArticleInCart> {
     if (canSeePrice && productList[pos].totalAmount != null && productList[pos].totalAmount.value != "" && productList[pos].currency != null && productList[pos].currency.value != "") {
       return Container(
         margin: EdgeInsets.only(right: 16),
-        width: 140,
         child: Row(
           children: <Widget>[
             Text(R.string.price, style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
-            Expanded(
-              child: Text(productList[pos].totalAmount.value + " " + productList[pos].currency.value,style: TextStyle(fontSize: 14)),
-            )
+            Text(productList[pos].totalAmount.value + " " + productList[pos].currency.value,style: TextStyle(fontSize: 14)),
           ],
         ),
       );
@@ -501,11 +501,19 @@ class ArticleInCartState extends State<ArticleInCart> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          _searchBar(context),
+          //_searchBar(context),
+          TXDividerWidget(),
+          TXSearchBarWidget(
+            defaultModel: true,
+            onQRScanTap: () {},
+            onSearchTap: () async {
+              NavigationUtils.pushCupertino(context, ArticleListV());
+            },
+          ),
           Expanded(
             child: SingleChildScrollViewWithScrollbar(
               controller: _scrollController,
-              scrollbarColor: Colors.grey.withOpacity(0.6),
+              scrollbarColor: Colors.grey.withOpacity(0.75),
               child: new ListView.builder(
                 controller: _scrollController,
                 itemCount: productList == null ? 0 : productList.length,
@@ -622,21 +630,20 @@ class ArticleInCartState extends State<ArticleInCart> {
                                   child: Container(),
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
                                     _priceDetails(context, index),
-                                    Expanded(
-                                        child: Padding(
-                                            padding: EdgeInsets.only(right: 16,top: 8),
-                                            child: Text(
-                                              R.string.availability,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: _getColorByAvability(productList[index].avability == null ? "1" : productList[index].avability.value ),
-                                                  fontWeight: FontWeight.bold
-                                              ),
-                                            )
-                                        )
-                                    )
+                                    Container(
+                                      margin: EdgeInsets.only(right: 16, bottom: 10,top: 5),
+                                      child: Text(
+                                        R.string.availability,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: _getColorByAvability(productList[index].avability == null ? "1" : productList[index].avability.value ),
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 )
                               ],

@@ -284,7 +284,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
 //            _searchBar(context),
             Expanded(
               child: SingleChildScrollViewWithScrollbar(
-                scrollbarColor: Colors.grey.withOpacity(0.6),
+                scrollbarColor: Colors.grey.withOpacity(0.75),
                 controller: _scrollController,
                 child: new ListView.builder(
                   controller: _scrollController,
