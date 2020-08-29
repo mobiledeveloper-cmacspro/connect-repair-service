@@ -13,6 +13,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
+import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
@@ -40,9 +41,10 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
 
   _readAllProducts() async {
     this.productList = await helper.queryAllProducts(false);
-    debugPrint(productList.length.toString());
+    debugPrint("Product list in BookMark: ${productList.length.toString()}");
   }
 
+  /*
   _readAllProductsInCart() async {
     final productList = await helper.queryAllProducts(true);
     debugPrint('Cant products in Cart: ${productList.length}');
@@ -50,6 +52,8 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
       this.cantProductsInCart = productList.length;
     });
   }
+
+   */
 
   _removeProduct(int id){
     helper.deleteProduct(id,false);
@@ -63,7 +67,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
       this.setState(() {
         _readAllProducts();
         _updateBaseUrl();
-        _readAllProductsInCart();
+        //_readAllProductsInCart();
       });
     });
   }
@@ -218,49 +222,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
             color: Theme.of(context).primaryColor,
           ),
           actions: <Widget>[
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => ArticleInCart()));
-                },
-                child: Container(
-                    margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
-                    child: Center(
-                      child: new Stack(children: <Widget>[
-                        Container(
-                          height: 40,
-                          child: Image.asset(
-                            'assets/shopping-cart.png',
-                            height: 25,
-                          ),
-                        ),
-                        new Positioned(
-                          right: 0,
-                          child: new Container(
-                              padding: EdgeInsets.all(1),
-                              decoration: new BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              constraints: BoxConstraints(
-                                minWidth: 18,
-                                minHeight: 18,
-                              ),
-                              child: Center(
-                                child: new Text(
-                                  '$cantProductsInCart',
-                                  style: new TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
-                        )
-                      ]),
-                    ))),
+            CartIcon(this.loggued),
             _profileButton()
           ],
         ),
@@ -276,7 +238,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                     context, ArticleListV());
                 ISClientO.instance.isTokenAvailable().then((bool loggued) {
                   this.loggued = loggued;
-                  _readAllProductsInCart();
+                  //_readAllProductsInCart();
                   setState(() {});
                 });
               },

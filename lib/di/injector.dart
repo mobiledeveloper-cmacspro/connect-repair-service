@@ -12,6 +12,7 @@ import 'package:repairservices/domain/article_local_model/i_article_local_reposi
 import 'package:repairservices/domain/i_common_dao.dart';
 import 'package:repairservices/local/app_database.dart';
 import 'package:repairservices/repositories/article_local_repository.dart';
+import 'package:repairservices/ui/Cart/ArticleInCartBloc.dart';
 import 'package:repairservices/ui/article_detail/article_detail_bloc.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
 import 'package:repairservices/ui/article_local_detail/article_local_detail_bloc.dart';
@@ -110,6 +111,7 @@ class Injector {
     container.registerFactory((c) => VideoBloC());
     container.registerFactory((c) => LockDimensionsBloc());
     container.registerFactory((c) => DoorHingeDimensionBloc());
+    container.registerFactory((c) => ArticleInCartBloc());
   }
 
   _registerModelConverters() {

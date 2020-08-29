@@ -8,6 +8,7 @@ import 'package:repairservices/NetworkImageSSL.dart';
 import 'package:repairservices/Utils/ISClient.dart';
 import 'package:repairservices/all_translations.dart';
 import 'package:repairservices/models/Product.dart';
+import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -155,6 +156,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
     }
   }
 
+  /*
   _readAllProductsInCart() async {
     final productList = await helper.queryAllProducts(true);
     debugPrint('Cant products in Cart: ${productList.length}');
@@ -162,6 +164,8 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
       this.cantProductsInCart = productList.length;
     });
   }
+
+   */
 
   Widget _loginBt() {
     if (loggued) {
@@ -403,17 +407,16 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
 
   _addToCart() async {
     await helper.insertProduct(product,true).then((int id){
+      CartIconState.addToCart();
       print('inserted row: $id to Cart');
       Navigator.push(
           context,
           CupertinoPageRoute(builder: (context) => ArticleInCart())
-      ).then((_){
-        setState(() {
-          _readAllProductsInCart();
-        });
-      });
+      );
     });
   }
+
+
   @override
   void initState() {
     super.initState();
@@ -422,7 +425,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
       _loadLang();
       _refillSourceProduct();
       _getImage();
-      _readAllProductsInCart();
+      //_readAllProductsInCart();
       setState(()  {});
     });
   }
@@ -433,7 +436,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
 
   _getImage() async{
     debugPrint('getting Image');
-    if (product.url.value != null && product.url.value != "") {
+    if (product.url?.value != null && product.url?.value != "") {
       final baseUrl = await ISClientO.instance.baseUrl;
       productImage = Image(image: NetworkImageSSL(baseUrl + product.url.value),height: 100);
       setState((){});
@@ -470,55 +473,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
             color: Theme.of(context).primaryColor,
           ),
           actions: <Widget>[
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(builder: (context) => ArticleInCart())
-                  );
-                },
-                child: Container(
-                    margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
-                    child: Center(
-                      child: new Stack(
-                          children: <Widget>[
-                            Container(
-                              height: 40,
-                              child: Image.asset(
-                                'assets/shopping-cart.png',
-                                height: 25,
-                              ),
-                            ),
-
-                            new Positioned(
-                              right: 0,
-                              child: new Container(
-                                  padding: EdgeInsets.all(1),
-                                  decoration: new BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(9),
-                                  ),
-                                  constraints: BoxConstraints(
-                                    minWidth: 18,
-                                    minHeight: 18,
-                                  ),
-                                  child: Center(
-                                    child: new Text(
-                                      '$cantProductsInCart',
-                                      style: new TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  )
-                              ),
-                            )
-                          ]
-                      ),
-                    )
-                )
-            ),
+            CartIcon(this.loggued),
             _bookMarkButton()
           ]
       ),

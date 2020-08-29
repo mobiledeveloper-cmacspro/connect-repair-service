@@ -22,6 +22,7 @@ import 'package:repairservices/models/Company.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
+import 'package:repairservices/ui/Cart/CartIcon.dart';
 
 //import 'package:repairservices/translations.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -65,7 +66,7 @@ class HomeState extends State<HomeM> {
       this.loggued = loggued;
       setState(() {});
     });
-    _readAllProductsInCart();
+    //_readAllProductsInCart();
     _readCompanys();
     _isPhysicalDevice();
 
@@ -77,6 +78,7 @@ class HomeState extends State<HomeM> {
 //    print('Language has been changed to: ${allTranslations.currentLanguage}');
 //  }
 
+  /*
   _readAllProductsInCart() async {
     final productList = await helper.queryAllProducts(true);
     debugPrint('Cant products in Cart: ${productList.length}');
@@ -84,6 +86,7 @@ class HomeState extends State<HomeM> {
       this.cantProductsInCart = productList.length;
     });
   }
+   */
 
   Widget _displayGridItem(String value, String imageUrl, Function action,
       {double marginTop = 16, double marginBottom = 10, double width = 80, double height = 80}) {
@@ -258,7 +261,7 @@ class HomeState extends State<HomeM> {
                           .isTokenAvailable()
                           .then((bool loggued) {
                         this.loggued = loggued;
-                        _readAllProductsInCart();
+                        //_readAllProductsInCart();
                         setState(() {});
                       });
                     });
@@ -311,54 +314,7 @@ class HomeState extends State<HomeM> {
         ),
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         actions: <Widget>[
-          GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => ArticleInCart())).then((value) {
-                  ISClientO.instance.isTokenAvailable().then((bool loggued) {
-                    this.loggued = loggued;
-                    setState(() {});
-                  });
-                });
-              },
-              child: Container(
-                  margin: EdgeInsets.only(right: this.loggued ? 0 : 8),
-                  child: Center(
-                    child: new Stack(children: <Widget>[
-                      Container(
-                        height: 40,
-                        child: Image.asset(
-                          'assets/shopping-cart.png',
-                          height: 25,
-                        ),
-                      ),
-                      new Positioned(
-                        right: 0,
-                        child: new Container(
-                            padding: EdgeInsets.all(1),
-                            decoration: new BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(9),
-                            ),
-                            constraints: BoxConstraints(
-                              minWidth: 18,
-                              minHeight: 18,
-                            ),
-                            child: Center(
-                              child: new Text(
-                                '$cantProductsInCart',
-                                style: new TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            )),
-                      )
-                    ]),
-                  ))),
+          new CartIcon(this.loggued),
           _profileButton()
         ],
       ),
@@ -408,7 +364,7 @@ class HomeState extends State<HomeM> {
                 context,
                 CupertinoPageRoute(builder: (context) => ArticleBookMark()),
               ).then((_) {
-                _readAllProductsInCart();
+                //_readAllProductsInCart();
               });
             }),
             divider,
@@ -568,7 +524,7 @@ class HomeState extends State<HomeM> {
                   await NavigationUtils.pushCupertino(context, ArticleListV());
               ISClientO.instance.isTokenAvailable().then((bool loggued) {
                 this.loggued = loggued;
-                _readAllProductsInCart();
+                //_readAllProductsInCart();
                 setState(() {});
               });
             },
@@ -613,7 +569,7 @@ class HomeState extends State<HomeM> {
                                   CupertinoPageRoute(
                                       builder: (context) => ArticleBookMark()),
                                 ).then((_) {
-                                  _readAllProductsInCart();
+                                  //_readAllProductsInCart();
                                 });
                               }),
                         ),
