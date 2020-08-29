@@ -14,14 +14,6 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get artBookMarkList;
 
-  String get home1;
-
-  String get home2;
-
-  String get home3;
-
-  String get home4;
-
   String get docCenter;
 
   String get companyProfile;

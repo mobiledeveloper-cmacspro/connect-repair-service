@@ -85,7 +85,8 @@ class HomeState extends State<HomeM> {
     });
   }
 
-  Widget _displayGridItem(String value, String imageUrl, Function action, {double marginTop = 16, double width = 80, double height = 80 }) {
+  Widget _displayGridItem(String value, String imageUrl, Function action,
+      {double marginTop = 16, double marginBottom = 10, double width = 80, double height = 80}) {
     return new GestureDetector(
         onTap: action,
         child: new Container(
@@ -107,7 +108,7 @@ class HomeState extends State<HomeM> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                margin: EdgeInsets.only(top: marginTop),
+                margin: EdgeInsets.only(top: marginTop, bottom: marginBottom),
               )
             ],
           ),
@@ -206,6 +207,21 @@ class HomeState extends State<HomeM> {
     final res = await MailManager.sendEmail(model);
     if (res != 'OK')
       Fluttertoast.showToast(msg: res, toastLength: Toast.LENGTH_LONG);
+  }
+
+  Widget _createDrawerItem(Image icon, Text text, GestureTapCallback onTap) {
+    return ListTile(
+      onTap: onTap,
+      title: Row(
+        children: <Widget>[
+          icon,
+          Padding(
+            padding: EdgeInsets.only(left: 14),
+            child: text,
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -347,303 +363,195 @@ class HomeState extends State<HomeM> {
         ],
       ),
       drawer: Drawer(
-        child: Row(
-          children: [
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/homeGreen.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.home,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      // Update the state of the app
-                      // ...
-                      // Then close the drawer
-                      Navigator.pop(context);
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/articleIdentificationGreen1.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.artIdentServ,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      NavigationUtils.pushCupertinoWithRoute(
-                          context,
-                          ArticleIdentificationV(),
-                          NavigationUtils.ArticleIdentificationPage);
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/documentListGreen1.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.artBookMarkList,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(builder: (context) => ArticleBookMark()),
-                      ).then((_) {
-                        _readAllProductsInCart();
-                      });
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/documentGrey.png',
-                          width: 20,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 18),
-                          child: Text(R.string.home3,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      // Update the state of the app
-                      // ...
-                      // Then close the drawer
-                      Navigator.pop(context);
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/docucenter1.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.docCenter,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () async {
-                      String url = Platt.Platform.isIOS
-                          ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                          : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                      Navigator.pop(context);
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/buildingGreenHome.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.companyProfile,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(builder: (context) => CompanyProfileV()),
-                      );
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/informationGreen.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.serviceFaq,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(builder: (context) => FAQ()),
-                      );
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/phoneGreen.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.contact,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(builder: (context) => Contact()),
-                      );
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/gearGreen1.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(R.string.setting,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          prefix0.CupertinoPageRoute(
-                              builder: (context) => GlobalSettings()));
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/headSetGreen.png',
-                          height: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text('Feedback',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _sendFeedBackByEmail();
-                    },
-                  ),
-                  divider,
-                  ListTile(
-                    title: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/logOnGreen.png',
-                          width: 25,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 14),
-                          child: Text(!loggued ? R.string.login : R.string.logoff,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(38, 38, 38, 1.0),
-                                  fontSize: 17)),
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      if (!loggued) {
-                        Navigator.push(context,
-                            CupertinoPageRoute(builder: (context) => LoginV()))
-                            .then((value) {
-                          ISClientO.instance.isTokenAvailable().then((bool loggued) {
-                            this.loggued = loggued;
-                            setState(() {});
-                          });
-                        });
-                      } else {
-                        ISClientO.instance.clearToken().then((_) {
-                          setState(() {
-                            this.loggued = false;
-                          });
-                        });
-                      }
-                    },
-                  ),
-                  divider,
-                ],
-              ),
-            ),
+        child: ListView(
+          children: <Widget>[
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/homeGreen.png',
+                  width: 25,
+                ),
+                Text(R.string.home,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              NavigationUtils.pop(context);
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/articleIdentificationGreen1.png',
+                  width: 25,
+                ),
+                Text(R.string.artIdentServ,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              NavigationUtils.pushCupertinoWithRoute(
+                  context,
+                  ArticleIdentificationV(),
+                  NavigationUtils.ArticleIdentificationPage);
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/documentListGreen1.png',
+                  width: 25,
+                ),
+                Text(R.string.artBookMarkList,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => ArticleBookMark()),
+              ).then((_) {
+                _readAllProductsInCart();
+              });
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/documentGrey.png',
+                  width: 20,
+                ),
+                Text(R.string.projectDoc,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              Navigator.pop(context);
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/docucenter1.png',
+                  width: 25,
+                ),
+                Text(R.string.docCenter,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () async {
+              Navigator.pop(context);
+              String url = Platt.Platform.isIOS
+                  ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                  : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/buildingGreenHome.png',
+                  width: 25,
+                ),
+                Text(R.string.companyProfile,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => CompanyProfileV()),
+              );
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/informationGreen.png',
+                  width: 25,
+                ),
+                Text(R.string.serviceFaq,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => FAQ()),
+              );
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/phoneGreen.png',
+                  width: 25,
+                ),
+                Text(R.string.contact,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                CupertinoPageRoute(builder: (context) => Contact()),
+              );
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/gearGreen1.png',
+                  width: 25,
+                ),
+                Text(R.string.setting,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  prefix0.CupertinoPageRoute(
+                      builder: (context) => GlobalSettings()));
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/headSetGreen.png',
+                  height: 25,
+                ),
+                Text('Feedback',
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              _sendFeedBackByEmail();
+            }),
+            divider,
+            _createDrawerItem(
+                Image.asset(
+                  'assets/logOnGreen.png',
+                  width: 25,
+                ),
+                Text(!loggued ? R.string.login : R.string.logoff,
+                    style: TextStyle(
+                        color: Color.fromRGBO(38, 38, 38, 1.0),
+                        fontSize: 17)), () {
+              Navigator.pop(context);
+              if (!loggued) {
+                Navigator.push(context,
+                        CupertinoPageRoute(builder: (context) => LoginV()))
+                    .then((value) {
+                  ISClientO.instance.isTokenAvailable().then((bool loggued) {
+                    this.loggued = loggued;
+                    setState(() {});
+                  });
+                });
+              } else {
+                ISClientO.instance.clearToken().then((_) {
+                  setState(() {
+                    this.loggued = false;
+                  });
+                });
+              }
+            }),
+            divider,
           ],
         ),
       ),
@@ -666,43 +574,40 @@ class HomeState extends State<HomeM> {
             },
           ),
 //                  searchBar(context),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Row(
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: topButtonPadding,
-                                    bottom: bottomButtonPadding),
-                                child: _displayGridItem(
-                                    R.string.home1,
-                                    'assets/articleIdentificationService.png', () {
+                    Expanded(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(R.string.artIdentServ,
+                                'assets/articleIdentificationService.png', () {
                                   NavigationUtils.pushCupertinoWithRoute(
                                       context,
                                       ArticleIdentificationV(),
                                       NavigationUtils.ArticleIdentificationPage);
                                 }),
-                              ),
-                            )),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  left: BorderSide(
-                                      color: Color.fromARGB(100, 191, 191, 191),
-                                      width: 1)),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: topButtonPadding,
-                                  bottom: bottomButtonPadding),
-                              child: _displayGridItem(
-                                  R.string.home2,
-                                  'assets/articleBookmarkList.png', () {
+                          ),
+                        )),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(
+                                  color: Color.fromARGB(100, 191, 191, 191),
+                                  width: 1)),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: topButtonPadding,
+                              bottom: bottomButtonPadding),
+                          child: _displayGridItem(R.string.artBookMarkList,
+                              'assets/articleBookmarkList.png', () {
                                 Navigator.push(
                                   context,
                                   CupertinoPageRoute(
@@ -711,105 +616,103 @@ class HomeState extends State<HomeM> {
                                   _readAllProductsInCart();
                                 });
                               }),
-                            ),
-                          ),
                         ),
-                      ],
+                      ),
                     ),
-                    Divider(height: 1),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: topButtonPadding,
-                                    bottom: bottomButtonPadding),
-                                child: _displayGridItem(
-                                    R.string.home3,
-                                    'assets/projectDocumentation.png',
-                                        () {}),
-                              ),
-                            )),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  left: BorderSide(
-                                      color: Color.fromARGB(100, 191, 191, 191),
-                                      width: 1)),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: topButtonPadding,
-                                  bottom: bottomButtonPadding),
-                              child: _displayGridItem(
-                                  R.string.docCenter + " \n", 'assets/docucenter.png',
-                                      () async {
-                                    String url = Platt.Platform.isIOS
-                                        ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                                        : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                                    if (await canLaunch(url)) {
-                                      await launch(url);
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  }, marginTop: 24),
-                            ),
-                          ),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                    Divider(height: 1),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: topButtonPadding,
-                                    bottom: bottomButtonPadding),
-                                child: _displayGridItem(
-                                    R.string.home4,
-                                    'assets/companyProfile.png', () {
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => CompanyProfileV()));
-                                }),
-                              ),
-                            )),
-                        Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                    left: BorderSide(
-                                        color: Color.fromARGB(100, 191, 191, 191),
-                                        width: 1)),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: topButtonPadding,
-                                    bottom: bottomButtonPadding),
-                                child: _displayGridItem(
-                                    R.string.serviceFaq, 'assets/FAQ.png', () {
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => FAQ()));
-                                },marginTop: 0),
-                              ),
-                            )),
-                      ],
-                    ),
-                    Divider(height: 1)
                   ],
                 ),
-              ),
+                Divider(height: 1),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(R.string.projectDoc,
+                                'assets/projectDocumentation.png', () {}),
+                          ),
+                        )),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(
+                                  color: Color.fromARGB(100, 191, 191, 191),
+                                  width: 1)),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: topButtonPadding,
+                              bottom: bottomButtonPadding),
+                          child: _displayGridItem(R.string.docCenter,
+                              'assets/docucenter.png', () async {
+                                String url = Platt.Platform.isIOS
+                                    ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                                    : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
+                              },width: 60),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(height: 1),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(
+                                R.string.companyProfile, 'assets/companyProfile.png', () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => CompanyProfileV()));
+                            }),
+                          ),
+                        )),
+                    Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                                left: BorderSide(
+                                    color: Color.fromARGB(100, 191, 191, 191),
+                                    width: 1)),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: topButtonPadding,
+                                bottom: bottomButtonPadding),
+                            child: _displayGridItem(
+                                R.string.serviceFaq, 'assets/FAQ.png', () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => FAQ()));
+                            }),
+                          ),
+                        )),
+                  ],
+                ),
+                Divider(height: 1)
+              ],
             ),
-            _loginBt()
-          ],
-        ),);
+          ),
+          Expanded(
+            child: Container(),
+          ),
+          _loginBt()
+        ],
+      ),
+    );
   }
 }

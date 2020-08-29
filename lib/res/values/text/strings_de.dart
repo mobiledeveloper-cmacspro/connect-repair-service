@@ -21,22 +21,13 @@ class StringsDe implements StringsBase {
   String get home => "Startseite";
 
   @override
-  String get artIdentServ => "Artikel-Identifikationsdienst";
+  String get projectDoc => "Projekt Doku";
+
+  @override
+  String get artIdentServ => "Artikel-Identifikation";
 
   @override
   String get artBookMarkList => "Artikel-Merkliste";
-
-  @override
-  String get home1 => "Artikel-Identifikations\n-dienst";
-
-  @override
-  String get home2 => "Artikel-Merkliste\n";
-
-  @override
-  String get home3 => "ProjektDokumentation";
-
-  @override
-  String get home4 => "Firmenprofil\n";
 
   @override
   String get docCenter => "Docu Center";
@@ -961,9 +952,6 @@ class StringsDe implements StringsBase {
 
   @override
   String get logIn => "Log In";
-
-  @override
-  String get projectDoc => "Projekt \n Dokumentation";
 
   @override
   String get profile => "Profil";

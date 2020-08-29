@@ -21,22 +21,10 @@ class StringsEn implements StringsBase {
   String get home => 'Home';
 
   @override
-  String get artIdentServ => "Article Identification Service";
+  String get artIdentServ => "Article Identification";
 
   @override
   String get artBookMarkList => "Article Bookmark List";
-
-  @override
-  String get home1 => "Article Identification\nService";
-
-  @override
-  String get home2 => "Article Bookmark\nList";
-
-  @override
-  String get home3 => "Project Documentation";
-
-  @override
-  String get home4 => "Company profile\n";
 
   @override
   String get docCenter => "Docu Center";
@@ -963,7 +951,7 @@ class StringsEn implements StringsBase {
   String get logIn => "Log In";
 
   @override
-  String get projectDoc => "Project \n Documentation";
+  String get projectDoc => "Project Documentation";
 
   @override
   String get profile => "Profile";

@@ -248,7 +248,7 @@ class HomeBody extends StatelessWidget {
 //                    ),
                     child: Padding(
                       padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                      child: _displayGridItem(R.string.home1,'assets/article-identification.png'),
+                      child: _displayGridItem(R.string.artIdentServ,'assets/article-identification.png'),
                     ),
                   )
                 ),
@@ -263,7 +263,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(R.string.home2,'assets/document-list-green.png'),
+                        child: _displayGridItem(R.string.artBookMarkList,'assets/document-list-green.png'),
                       ),
                     ),
                 ),
@@ -315,7 +315,7 @@ class HomeBody extends StatelessWidget {
 //                      ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(R.string.home4,'assets/buildingGreenHome.png'),
+                        child: _displayGridItem(R.string.companyProfile,'assets/buildingGreenHome.png'),
                       ),
                     )
                 ),
