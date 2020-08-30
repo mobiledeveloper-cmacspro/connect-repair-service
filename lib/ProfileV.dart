@@ -70,6 +70,7 @@ class ProfileState extends State<Profile> {
         )
     );
   }
+
   List<CupertinoActionSheetAction> _actionItems(BuildContext context) {
     List<CupertinoActionSheetAction> items = [];
     for (B2bUnit b2bUnit in User.current.b2BUnits) {
@@ -107,6 +108,7 @@ class ProfileState extends State<Profile> {
     }
     return items;
   }
+
   @override
   initState(){
     super.initState();

@@ -62,8 +62,11 @@ class HomeState extends State<HomeM> {
 
 //    allTranslations.init();
 
-    ISClientO.instance.isTokenAvailable().then((bool loggued) {
+    ISClientO.instance.isTokenAvailable().then((bool loggued) async {
       this.loggued = loggued;
+      if(loggued){
+        await ISClientO.instance.getUserInformation();
+      }
       setState(() {});
     });
     //_readAllProductsInCart();
