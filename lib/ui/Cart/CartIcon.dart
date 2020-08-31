@@ -8,7 +8,7 @@ import '../../ArticleInCart.dart';
 import '../../database_helpers.dart';
 
 class CartIcon extends StatefulWidget {
-  bool loggued;
+  final bool loggued;
 
   CartIcon(this.loggued);
 
@@ -17,7 +17,7 @@ class CartIcon extends StatefulWidget {
 }
 
 class CartIconState extends StateWithBloC<CartIcon, ArticleInCartBloc> {
-  static int cantProd = 0;
+  static int prodQuantity = 0;
   bool loggued;
   DatabaseHelper helper = DatabaseHelper.instance;
 
@@ -32,8 +32,8 @@ class CartIconState extends StateWithBloC<CartIcon, ArticleInCartBloc> {
   _readAllProductsInCart() async {
     final productList = await helper.queryAllProducts(true);
     debugPrint('Products in Cart: ${productList.length}');
-    cantProd = productList.length;
-    ArticleInCartBloc.setInCart(cantProd);
+    prodQuantity = productList.length;
+    ArticleInCartBloc.setInCart(prodQuantity);
   }
 
   @override
@@ -93,6 +93,15 @@ class CartIconState extends StateWithBloC<CartIcon, ArticleInCartBloc> {
   }
 
   static void addToCart() {
-    ArticleInCartBloc.setInCart(++cantProd);
+    ArticleInCartBloc.setInCart(++prodQuantity);
+  }
+
+  static void removeFromCart() {
+    ArticleInCartBloc.setInCart(--prodQuantity);
+  }
+
+  static void removeAllFromCart() {
+    prodQuantity = 0;
+    ArticleInCartBloc.setInCart(prodQuantity);
   }
 }

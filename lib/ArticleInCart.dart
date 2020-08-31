@@ -10,6 +10,7 @@ import 'package:repairservices/NetworkImageSSL.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
+import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Utils/ISClient.dart';
@@ -54,6 +55,7 @@ class ArticleInCartState extends State<ArticleInCart> {
 
   _removeProduct(int id){
     helper.deleteProduct(id,true).then((_) {
+      CartIconState.removeFromCart();
       _readAllProducts();
     });
   }
