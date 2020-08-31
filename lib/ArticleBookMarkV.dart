@@ -55,8 +55,8 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
 
    */
 
-  _removeProduct(int id){
-    helper.deleteProduct(id,false);
+  _removeProduct(int id) {
+    helper.deleteProduct(id, false);
   }
 
   @override
@@ -221,10 +221,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
             },
             color: Theme.of(context).primaryColor,
           ),
-          actions: <Widget>[
-            CartIcon(this.loggued),
-            _profileButton()
-          ],
+          actions: <Widget>[CartIcon(this.loggued), _profileButton()],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -264,30 +261,39 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                     margin: EdgeInsets.only(left: 16),
                                     height: 29,
                                     width: 36,
-                                    child: baseUrl == null || productList[index].url.value == ""
+                                    child: baseUrl == null ||
+                                            productList[index].url == null
                                         ? Image.asset('assets/productImage.png')
-                                        : Image(
-                                        image: NetworkImageSSL(baseUrl +
-                                            productList[index].url.value)),
+                                        : productList[index].url.value == ""
+                                            ? Image.asset(
+                                                'assets/productImage.png')
+                                            : Image(
+                                                image: NetworkImageSSL(baseUrl +
+                                                    productList[index]
+                                                        .url
+                                                        .value)),
                                   ),
                                   Expanded(
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Padding(
-                                          padding:
-                                          EdgeInsets.only(left: 16, top: 10),
+                                          padding: EdgeInsets.only(
+                                              left: 16, top: 10),
                                           child: Text(
-                                              productList[index].shortText.value,
+                                              productList[index]
+                                                  .shortText
+                                                  .value,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .body1),
                                         ),
                                         Padding(
                                           padding:
-                                          EdgeInsets.only(left: 16, top: 4),
+                                              EdgeInsets.only(left: 16, top: 4),
                                           child: Text(
                                               productList[index].number.value,
                                               style: Theme.of(context)
@@ -300,16 +306,21 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                   InkWell(
                                     child: Container(
                                       margin: EdgeInsets.only(
-                                          right: 16, left: 16, bottom: 0, top: 0),
+                                          right: 16,
+                                          left: 16,
+                                          bottom: 0,
+                                          top: 0),
                                       height: 22,
                                       child: productList[index].selected
-                                          ? Image.asset('assets/check_filled.png')
-                                          : Image.asset('assets/check_empty.png'),
+                                          ? Image.asset(
+                                              'assets/check_filled.png')
+                                          : Image.asset(
+                                              'assets/check_empty.png'),
                                     ),
                                     onTap: () {
                                       setState(() {
                                         productList[index].selected =
-                                        !productList[index].selected;
+                                            !productList[index].selected;
                                       });
                                     },
                                   ),
@@ -363,14 +374,17 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                             return TXCupertinoActionSheetWidget(
                               onActionTap: (action) {
                                 if (action.key == 'Remove selected ones') {
-                                  setState(() { _loading = true; });
-                                    productList.forEach((product) {
-                                      if(product.selected){
-                                        _removeProduct(product.id);
-                                      }
-                                    });
                                   setState(() {
-                                    productList.removeWhere((element) => element.selected);
+                                    _loading = true;
+                                  });
+                                  productList.forEach((product) {
+                                    if (product.selected) {
+                                      _removeProduct(product.id);
+                                    }
+                                  });
+                                  setState(() {
+                                    productList.removeWhere(
+                                        (element) => element.selected);
                                     _readAllProducts();
                                     _loading = false;
                                   });

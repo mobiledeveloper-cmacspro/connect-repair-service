@@ -293,9 +293,11 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                                   margin: EdgeInsets.only(left: 16),
                                   height: 29,
                                   width: 36,
-                                  child: baseUrl == null ?
-                                  Image.asset('assets/productImage.png') :
-                                  Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
+                                  child: baseUrl == null || productList[index].url == null
+                                      ? Image.asset('assets/productImage.png')
+                                      : productList[index].url.value == ""
+                                      ? Image.asset('assets/productImage.png')
+                                      : Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
                                 ),
                                 Expanded(
                                   child: Column(

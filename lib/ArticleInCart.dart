@@ -530,9 +530,11 @@ class ArticleInCartState extends State<ArticleInCart> {
                                   margin: EdgeInsets.only(left: 16),
                                   height: 29,
                                   width: 36,
-                                  child: baseUrl == null || productList[index].url?.value == ""
+                                  child: baseUrl == null || productList[index].url == null
                                       ? Image.asset('assets/productImage.png')
-                                      : Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
+                                      : productList[index].url.value == ""
+                                        ? Image.asset('assets/productImage.png')
+                                        : Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
                                 ),
                                 Expanded(
                                   child: Column(
