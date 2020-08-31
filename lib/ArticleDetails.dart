@@ -20,11 +20,11 @@ import 'data/dao/shared_preferences_manager.dart';
 class ArticleDetailsV extends StatefulWidget {
   final Product product;
   final bool isFromBookMark;
-  ArticleDetailsV(this.product,this.isFromBookMark);
+  ArticleDetailsV(this.product, this.isFromBookMark);
 
   @override
   State<StatefulWidget> createState() {
-    return ArticleDetailsState(this.product,this.isFromBookMark);
+    return ArticleDetailsState(this.product, this.isFromBookMark);
   }
 }
 
@@ -33,7 +33,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
   Product product;
   bool isFromBookMark;
   Image productImage = Image.asset('assets/productImage.png');
-  ArticleDetailsState(this.product,this.isFromBookMark);
+  ArticleDetailsState(this.product, this.isFromBookMark);
   bool _loading = false;
   List<TupleData> sourceProduct;
   DatabaseHelper helper = DatabaseHelper.instance;
@@ -50,26 +50,40 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
 //    if(product.avability != null) {
 //      sourceProduct.add(product.avability);
 //    }
-    if(product.currency != null && product.currency.value != "" && seePrices) {
+    if (product.currency != null && product.currency.value != "" && seePrices) {
       sourceProduct.add(product.currency);
     }
 //    if(product.quantity != null) {
 //      sourceProduct.add(TupleData(en: "Quantity:", de: "Menge:",value: product.quantity.value));
 //    }
-    if(product.unitText != null && product.unitText.value != "") {
-      sourceProduct.add(TupleData(en: "sales unit", de: "Einheit", value: _translateUnitText(product.unitText.value)));
+    if (product.unitText != null && product.unitText.value != "") {
+      sourceProduct.add(TupleData(
+          en: "sales unit",
+          de: "Einheit",
+          value: _translateUnitText(product.unitText.value)));
     }
-    if(product.listPrice != null && product.listPrice.value != "" && seePrices) {
-      sourceProduct.add(TupleData(en: "list price", de: "Listenpreis/VKME",value: product.listPrice.value.replaceAll(",", ",")));
+    if (product.listPrice != null &&
+        product.listPrice.value != "" &&
+        seePrices) {
+      sourceProduct.add(TupleData(
+          en: "list price",
+          de: "Listenpreis/VKME",
+          value: product.listPrice.value.replaceAll(",", ",")));
     }
-    if(product.netPrice != null && product.netPrice.value != "" && seePrices) {
-      sourceProduct.add(TupleData(en: "net price", de: product.netPrice.de, value: product.netPrice.value.replaceAll(".", ",")));
+    if (product.netPrice != null && product.netPrice.value != "" && seePrices) {
+      sourceProduct.add(TupleData(
+          en: "net price",
+          de: product.netPrice.de,
+          value: product.netPrice.value.replaceAll(".", ",")));
     }
-    if(product.discount != null  && product.discount.value != "" && seePrices) {
+    if (product.discount != null && product.discount.value != "" && seePrices) {
       sourceProduct.add(TupleData(
           en: product.discount.en,
           de: product.discount.de,
-          value: double.parse(product.discount.value).toStringAsFixed(2).replaceAll(((".")),",") + " %"));
+          value: double.parse(product.discount.value)
+                  .toStringAsFixed(2)
+                  .replaceAll(((".")), ",") +
+              " %"));
     }
     setState(() {});
   }
@@ -120,7 +134,8 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
       _loading = true;
     });
     try {
-      Product product = await ISClientO.instance.getProductDetails(number,null);
+      Product product =
+          await ISClientO.instance.getProductDetails(number, null);
       if (product != null) {
         setState(() {
           _loading = false;
@@ -128,31 +143,29 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
           _refillSourceProduct();
         });
       }
-    }
-    catch (e) {
+    } catch (e) {
       setState(() {
         _loading = false;
       });
       print('Exception details:\n $e');
       showCupertinoDialog(
           context: context,
-          builder: (BuildContext context ) => CupertinoAlertDialog(
-            title: const Text("Error"),
-            content: Padding(
-              padding: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-              child: Text(e.toString(),style: TextStyle(fontSize: 17)),
-            ),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: const Text("OK"),
-                isDefaultAction: true,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          )
-      );
+          builder: (BuildContext context) => CupertinoAlertDialog(
+                title: const Text("Error"),
+                content: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                  child: Text(e.toString(), style: TextStyle(fontSize: 17)),
+                ),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: const Text("OK"),
+                    isDefaultAction: true,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ));
     }
   }
 
@@ -168,254 +181,265 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
    */
 
   Widget _loginBt() {
-    if (loggued) {
-      return Padding(
-          padding: EdgeInsets.only(left: 16,right: 16, bottom: 30),
-          child: GestureDetector(
-            child: Container(
-                height: 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Center(
-                  child: Text(
-                    R.string.addToCart,
-                    style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white
-                    ),
+    return loggued
+        ? Container()
+        : Padding(
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 10),
+            child: GestureDetector(
+              child: Container(
+                  height: loggued ? 0 : 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Theme.of(context).primaryColor,
                   ),
-                )
-            ),
-            onTap: (){
-              _addToCart();
-            },
-          )
-      );
-    }
-    else {
-      return Padding(
-          padding: EdgeInsets.only(left: 16,right: 16, bottom: 30),
-          child: GestureDetector(
-            child: Container(
-                height: loggued?0:30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Center(
-                  child: Text(
-                    R.string.login,
-                    style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.white
+                  child: Center(
+                    child: Text(
+                      R.string.login,
+                      style: TextStyle(fontSize: 17, color: Colors.white),
                     ),
-                  ),
-                )
-            ),
-            onTap: (){
-              Navigator.push(
-                context,
-                CupertinoPageRoute(builder: (context) => LoginV()),
-              ).then((value){
-                ISClientO.instance.isTokenAvailable().then((bool loggued) async {
-                  this.loggued = loggued;
-                  await _getArticleDetails(product.number.value);
-                  await _scrollController.position.animateTo(1.0, duration: Duration(seconds: 1), curve: Threshold(1.0));
-                  setState(()  {});
+                  )),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => LoginV()),
+                ).then((value) {
+                  ISClientO.instance
+                      .isTokenAvailable()
+                      .then((bool loggued) async {
+                    this.loggued = loggued;
+                    await _getArticleDetails(product.number.value);
+                    await _scrollController.position.animateTo(1.0,
+                        duration: Duration(seconds: 1), curve: Threshold(1.0));
+                    setState(() {});
+                  });
                 });
-              });
-            },
-          )
-      );
-    }
+              },
+            ));
   }
 
-  Widget _articleDetails(){
-    if(loggued) {
+  Widget _addToCartButton() {
+    return Padding(
+        padding: EdgeInsets.only(left: 16, right: 16, bottom: 5),
+        child: GestureDetector(
+          child: Container(
+              height: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Center(
+                child: Text(
+                  R.string.addToCart,
+                  style: TextStyle(fontSize: 17, color: Colors.white),
+                ),
+              )),
+          onTap: () {
+            _addToCart();
+          },
+        ));
+  }
+
+  Widget _articleDetails() {
+    if (loggued) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-            Container(
-              color: Color.fromRGBO(242, 242, 242, 1),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    height: 41,
-                    width: 154,
-                    child: Center(
-                      child: Text(
-                        R.string.availability, style: TextStyle(fontSize: 20,color: _getColorByAvability(product.avability != null ? product.avability.value : "1"),fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(4),bottomRight: Radius.circular(4)),
-                      color: Colors.white,
-                      border: Border.all(color: Theme.of(context).primaryColor,width: 1)
+          Container(
+            color: Color.fromRGBO(242, 242, 242, 1),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 41,
+                  width: 154,
+                  child: Center(
+                    child: Text(
+                      R.string.availability,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: _getColorByAvability(product.avability != null
+                              ? product.avability.value
+                              : "1"),
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Padding(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(4),
+                          bottomRight: Radius.circular(4)),
+                      color: Colors.white,
+                      border: Border.all(
+                          color: Theme.of(context).primaryColor, width: 1)),
+                ),
+                Padding(
                     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                     child: Text(
-                      _getTextByAvability(product.avability != null ? product.avability.value : "1"),
+                      _getTextByAvability(product.avability != null
+                          ? product.avability.value
+                          : "1"),
                       style: TextStyle(
-                        color: Color.fromRGBO(152, 152, 152, 1.0),
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
-                  )
-                ],
-              ),
+                          color: Color.fromRGBO(152, 152, 152, 1.0),
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ))
+              ],
             ),
-            Expanded(
-              child: Scrollbar(
+          ),
+          Expanded(
+            child: Scrollbar(
+              controller: _scrollController,
+              isAlwaysShown: true,
+              child: ListView.builder(
                 controller: _scrollController,
-                isAlwaysShown: true,
-                child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: sourceProduct == null ? 0 : sourceProduct.length,
-                  itemBuilder:(BuildContext context, int index) {
-                    return Container(
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(left: 34),
-                            child: Text(lang == 'de' ? sourceProduct[index].de + ":" : sourceProduct[index].en + ":",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                itemCount: sourceProduct == null ? 0 : sourceProduct.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(left: 34),
+                          child: Text(
+                            lang == 'de'
+                                ? sourceProduct[index].de + ":"
+                                : sourceProduct[index].en + ":",
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 11),
-                            child: Text(sourceProduct[index].value),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 11),
+                          child: Text(sourceProduct[index].value),
+                        )
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
-            Container(
-              width: 140,
-              height: 35,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon:  Image.asset('assets/Minus.png',color: Theme.of(context).primaryColor),
-                    onPressed: () {
-                      if(int.parse(product.quantity.value)  > 1) {
-                        setState(() {
-                          _loading = true;
-                        });
-                        ISClientO.instance.getProductDetails(product.number.value, int.parse(product.quantity.value) - 1).then((Product product){
-                          setState(() {
-                            _loading = false;
-                            this.product = product;
-                          });
-                        });
-                      }
-                    },
-                  ),
-                  Expanded(
-                    child: Center(
-                      child: Container(
-                        height: 22,
-                        width: 52,
-                        child: Center(
-                            child: Text(product.quantity != null ? product.quantity.value : "1")
-                        ),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Color.fromRGBO(121, 121, 121, 1),width: 0.3)
-                        ),
-                      )
-                    )
-                  ),
-                  IconButton(
-                    icon:  Image.asset('assets/Plus.png',color: Theme.of(context).primaryColor),
-                    onPressed: () {
+          ),
+          Container(
+            width: 140,
+            height: 35,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                  icon: Image.asset('assets/Minus.png',
+                      color: Theme.of(context).primaryColor),
+                  onPressed: () {
+                    if (int.parse(product.quantity.value) > 1) {
                       setState(() {
                         _loading = true;
                       });
-                      ISClientO.instance.getProductDetails(product.number.value, int.parse(product.quantity.value) + 1).then((Product product){
+                      ISClientO.instance
+                          .getProductDetails(product.number.value,
+                              int.parse(product.quantity.value) - 1)
+                          .then((Product product) {
                         setState(() {
                           _loading = false;
                           this.product = product;
                         });
                       });
-                    },
-                  ),
-                ],
-              ),
-            )
+                    }
+                  },
+                ),
+                Expanded(
+                    child: Center(
+                        child: Container(
+                  height: 22,
+                  width: 52,
+                  child: Center(
+                      child: Text(product.quantity != null
+                          ? product.quantity.value
+                          : "1")),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Color.fromRGBO(121, 121, 121, 1), width: 0.3)),
+                ))),
+                IconButton(
+                  icon: Image.asset('assets/Plus.png',
+                      color: Theme.of(context).primaryColor),
+                  onPressed: () {
+                    setState(() {
+                      _loading = true;
+                    });
+                    ISClientO.instance
+                        .getProductDetails(product.number.value,
+                            int.parse(product.quantity.value) + 1)
+                        .then((Product product) {
+                      setState(() {
+                        _loading = false;
+                        this.product = product;
+                      });
+                    });
+                  },
+                ),
+              ],
+            ),
+          )
         ],
       );
-    }
-    else {
+    } else {
       return Column(
         children: <Widget>[
           Expanded(
-            child: Container(
-              height: 40,
-              child: GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 16),
-                      child: Icon(CupertinoIcons.info,color: Theme.of(context).primaryColor),
-                    ),
-                    Expanded(
+              child: Container(
+            height: 40,
+            child: GestureDetector(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: Icon(CupertinoIcons.info,
+                        color: Theme.of(context).primaryColor),
+                  ),
+                  Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(right: 8,left: 4),
-                        child: Text(
-                          R.string.toSeePricesAvailabilityLogIn,
-                          style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 14,fontWeight: FontWeight.w400),
-                        ),
-                      )
+                    padding: EdgeInsets.only(right: 8, left: 4),
+                    child: Text(
+                      R.string.toSeePricesAvailabilityLogIn,
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
                     ),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context) => LoginV()),
-                  );
-                },
+                  )),
+                ],
               ),
-            )
-          )
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(builder: (context) => LoginV()),
+                );
+              },
+            ),
+          ))
         ],
       );
     }
   }
 
   _saveProduct() async {
-    int id = await helper.insertProduct(product,false);
+    int id = await helper.insertProduct(product, false);
     print('inserted row: $id');
     Navigator.push(
-      context,
-      CupertinoPageRoute(builder: (context) => ArticleBookMark())
-    );
+        context, CupertinoPageRoute(builder: (context) => ArticleBookMark()));
   }
 
   _addToCart() async {
-    await helper.insertProduct(product,true).then((int id){
+    await helper.insertProduct(product, true).then((int id) {
       CartIconState.addToCart();
       print('inserted row: $id to Cart');
       Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (context) => ArticleInCart())
-      );
+          context, CupertinoPageRoute(builder: (context) => ArticleInCart()));
     });
   }
-
 
   @override
   void initState() {
@@ -426,7 +450,7 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
       _refillSourceProduct();
       _getImage();
       //_readAllProductsInCart();
-      setState(()  {});
+      setState(() {});
     });
   }
 
@@ -434,112 +458,118 @@ class ArticleDetailsState extends State<ArticleDetailsV> {
     lang = await _sharedPreferences.getLanguage();
   }
 
-  _getImage() async{
+  _getImage() async {
     debugPrint('getting Image');
     if (product.url?.value != null && product.url?.value != "") {
       final baseUrl = await ISClientO.instance.baseUrl;
-      productImage = Image(image: NetworkImageSSL(baseUrl + product.url.value),height: 100);
-      setState((){});
+      productImage = Image(
+          image: NetworkImageSSL(baseUrl + product.url.value), height: 100);
+      setState(() {});
     }
   }
 
   _bookMarkButton() {
     if (!isFromBookMark) {
       return IconButton(
-        icon:  Image.asset('assets/bookmarkWhite.png',color: Theme.of(context).primaryColor),
+        icon: Image.asset('assets/bookmarkWhite.png',
+            color: Theme.of(context).primaryColor),
         onPressed: () {
           debugPrint('bookmark tapped');
           _saveProduct();
         },
       );
-    }
-    else {
+    } else {
       return Container();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-          backgroundColor: Colors.white,
+        appBar: AppBar(
+            iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+            backgroundColor: Colors.white,
 //        actionsIconTheme: IconThemeData(color: Colors.red),
-          title: Text(R.string.articleDetails,style: Theme.of(context).textTheme.bodyText2),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            color: Theme.of(context).primaryColor,
-          ),
-          actions: <Widget>[
-            CartIcon(this.loggued),
-            _bookMarkButton()
-          ]
-      ),
-      body: ModalProgressHUD(
-        inAsyncCall: _loading,
-        opacity: 0.5,
-        progressIndicator: CupertinoActivityIndicator(radius: 20),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 16, horizontal: 36),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Theme.of(context).primaryColor,width: 2.0),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: 100,
-                              child:  productImage,
-                            ),
-                            Expanded(
-                                child: Container(
-                                  height: 140,
-                                  color: Theme.of(context).primaryColor,
-                                  child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 16,right: 7,bottom: 16),
-                                          child: Text(product.shortText.value,
-                                              style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.bold,letterSpacing: 0)),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 16,right: 7,bottom: 25),
-                                          child: Text(product.number.value,
-                                              style: TextStyle(color: Colors.white,fontSize: 17,letterSpacing: 0)),
-                                        ),
-                                      ]
+            title: Text(R.string.articleDetails,
+                style: Theme.of(context).textTheme.bodyText2),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              color: Theme.of(context).primaryColor,
+            ),
+            actions: <Widget>[CartIcon(this.loggued), _bookMarkButton()]),
+        body: ModalProgressHUD(
+          inAsyncCall: _loading,
+          opacity: 0.5,
+          progressIndicator: CupertinoActivityIndicator(radius: 20),
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                    child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 16, horizontal: 36),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Theme.of(context).primaryColor, width: 2.0),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: 100,
+                            child: productImage,
+                          ),
+                          Expanded(
+                              child: Container(
+                            height: 140,
+                            color: Theme.of(context).primaryColor,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 16, right: 7, bottom: 16),
+                                    child: Text(product.shortText.value,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0)),
                                   ),
-                                )
-                            )
-                          ],
-                        ),
-                        Container(height: 2,color: Theme.of(context).primaryColor),
-                        Expanded(
-                          child: _articleDetails(),
-                        )
-                      ],
-                    ),
-                  )
-              ),
-              _loginBt(),
-            ],
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 16, right: 7, bottom: 25),
+                                    child: Text(product.number.value,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            letterSpacing: 0)),
+                                  ),
+                                ]),
+                          ))
+                        ],
+                      ),
+                      Container(
+                          height: 2, color: Theme.of(context).primaryColor),
+                      Expanded(
+                        child: _articleDetails(),
+                      )
+                    ],
+                  ),
+                )),
+                _addToCartButton(),
+                _loginBt(),
+              ],
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
-
 }

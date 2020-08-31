@@ -38,7 +38,7 @@ class ArticleInCartState extends State<ArticleInCart> {
 
   _readAllProducts() async {
     this.productList = await helper.queryAllProducts(true);
-    debugPrint(productList.length.toString());
+    debugPrint("Products in Cart: " + productList.length.toString());
     this.setState((){});
     if(loggued && canSeePrice) {
       for (int i = 0; i < productList.length; i++) {
@@ -530,9 +530,9 @@ class ArticleInCartState extends State<ArticleInCart> {
                                   margin: EdgeInsets.only(left: 16),
                                   height: 29,
                                   width: 36,
-                                  child: baseUrl == null ?
-                                  Image.asset('assets/productImage.png') :
-                                  Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
+                                  child: baseUrl == null || productList[index].url?.value == ""
+                                      ? Image.asset('assets/productImage.png')
+                                      : Image(image: NetworkImageSSL(baseUrl + productList[index].url.value)),
                                 ),
                                 Expanded(
                                   child: Column(

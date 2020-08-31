@@ -31,7 +31,7 @@ class CartIconState extends StateWithBloC<CartIcon, ArticleInCartBloc> {
 
   _readAllProductsInCart() async {
     final productList = await helper.queryAllProducts(true);
-    debugPrint('Cant products in Cart: ${productList.length}');
+    debugPrint('Products in Cart: ${productList.length}');
     cantProd = productList.length;
     ArticleInCartBloc.setInCart(cantProd);
   }

@@ -58,13 +58,15 @@ class Product {
   }
 
   Map<String, dynamic> toMap() {
+    String quantityValue = quantity == null ? "1" : quantity.value;
+    String urlValue = url == null ? "" : url.value;
     debugPrint(
-        'Product to map: ${shortText.value}, ${number.value}, ${url.value}, ${quantity.value}');
+        'Product to map: ${shortText.value}, $urlValue, $quantityValue');
     var map = <String, dynamic>{
       columnShortText: shortText.value,
       columnProductNumber: number.value,
-      columnProductUrl: url.value,
-      columnProductQuantity: quantity == null ? "1" : quantity.value
+      columnProductUrl: urlValue,
+      columnProductQuantity: quantityValue
     };
     if (id != null) {
       map[columnProductId] = id;

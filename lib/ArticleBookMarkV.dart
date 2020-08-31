@@ -264,7 +264,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                     margin: EdgeInsets.only(left: 16),
                                     height: 29,
                                     width: 36,
-                                    child: baseUrl == null
+                                    child: baseUrl == null || productList[index].url.value == ""
                                         ? Image.asset('assets/productImage.png')
                                         : Image(
                                         image: NetworkImageSSL(baseUrl +
