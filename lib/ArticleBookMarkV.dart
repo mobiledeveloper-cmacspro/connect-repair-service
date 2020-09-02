@@ -389,6 +389,19 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                     productList
                                         .forEach((p) => p.selected = true);
                                   });
+                                } else if (action.key ==
+                                    'Add selected to cart') {
+                                  setState(() {
+                                    _loading = true;
+                                  });
+                                  productList.forEach((element) {
+                                    if (element.selected) {
+                                      _addToCart(element);
+                                    }
+                                  });
+                                  setState(() {
+                                    _loading = false;
+                                  });
                                 }
                               },
                               actions: [
@@ -400,6 +413,11 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                     key: "Deselect all",
                                     title: R.string.deselectAll,
                                     color: Theme.of(context).primaryColor),
+                                ActionSheetModel(
+                                  key: "Add selected to cart",
+                                  title: R.string.addSelectedToCart,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                                 ActionSheetModel(
                                     key: "Remove selected ones",
                                     title: R.string.removeSelected,
@@ -416,5 +434,9 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
         ),
       ),
     );
+  }
+
+  void _addToCart(Product p) {
+
   }
 }

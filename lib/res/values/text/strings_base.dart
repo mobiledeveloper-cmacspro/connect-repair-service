@@ -700,4 +700,6 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get dinEn179Handle;
 
+  String get addSelectedToCart;
+
 }

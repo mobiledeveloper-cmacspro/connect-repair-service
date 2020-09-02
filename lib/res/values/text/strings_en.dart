@@ -1055,4 +1055,7 @@ class StringsEn implements StringsBase {
   @override
   String get under2500mm => 'Under 2500 mm';
 
+  @override
+  String get addSelectedToCart => "Add to Cart";
+
 }
