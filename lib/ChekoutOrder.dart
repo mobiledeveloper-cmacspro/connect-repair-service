@@ -107,13 +107,10 @@ class CheckoutOrderState extends State<CheckoutOrder> {
     if (canSeePrice && productList[pos].totalAmount != null && productList[pos].totalAmount.value != "" && productList[pos].currency != null && productList[pos].currency.value != "") {
       return Container(
         margin: EdgeInsets.only(right: 16),
-        width: 120,
         child: Row(
           children: <Widget>[
             Text(R.string.price, style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
-            Expanded(
-              child: Text(productList[pos].totalAmount.value + " " + productList[pos].currency.value,style: TextStyle(fontSize: 14)),
-            )
+            Text(productList[pos].totalAmount.value + " " + productList[pos].currency.value,style: TextStyle(fontSize: 14)),
           ],
         ),
       );
@@ -355,11 +352,12 @@ class CheckoutOrderState extends State<CheckoutOrder> {
                                   child: Container(),
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
                                     _priceDetails(context, index),
                                     Expanded(
                                         child: Padding(
-                                            padding: EdgeInsets.only(right: 16,top: 8),
+                                            padding: EdgeInsets.only(right: 16,bottom: 10,top: 5),
                                             child: Text(R.string.availability,
                                               style: TextStyle(
                                                   fontSize: 14,
