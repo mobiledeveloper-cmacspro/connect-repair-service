@@ -8,6 +8,8 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
+import 'package:repairservices/ui/Login/LoginIcon.dart';
+import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'Login.dart';
 import 'package:repairservices/Utils/ISClient.dart';
 import 'ArticleDetails.dart';
@@ -34,6 +36,7 @@ class ArticleListState extends State<ArticleListV> {
     super.initState();
     numberNode = FocusNode();
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
+      LoginIconBloc.changeLoggedInStatus(loggued);
       this.loggued = loggued;
       setState(() {});
     });
@@ -302,35 +305,7 @@ class ArticleListState extends State<ArticleListV> {
                 shrinkWrap: true,
               ),
             ),
-            Padding(
-                padding: EdgeInsets.all(16),
-                child: GestureDetector(
-                  child: Container(
-                      height: loggued ? 0 : 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: Center(
-                        child: Text(
-                          R.string.login,
-                          style: TextStyle(fontSize: 17, color: Colors.white),
-                        ),
-                      )),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(builder: (context) => LoginV()),
-                    ).then((value) {
-                      ISClientO.instance
-                          .isTokenAvailable()
-                          .then((bool loggued) {
-                        this.loggued = loggued;
-                        setState(() {});
-                      });
-                    });
-                  },
-                ))
+            LoginIcon(paddingBottom: 16, paddingTop: 16, paddingRight: 16, paddingLeft: 16),
           ],
         ),
       ),

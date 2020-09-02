@@ -8,6 +8,8 @@ import 'package:repairservices/FAQ.dart';
 import 'package:repairservices/Utils/ISClient.dart';
 import 'package:repairservices/models/User.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:repairservices/ui/Login/LoginIcon.dart';
+import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:repairservices/res/R.dart';
@@ -126,6 +128,7 @@ class LoginState extends State<LoginV> {
             setState(() {
               _saving = false;
             });
+            LoginIconBloc.changeLoggedInStatus(true);
             _showSelectB2bUnit(context);
           }
         }

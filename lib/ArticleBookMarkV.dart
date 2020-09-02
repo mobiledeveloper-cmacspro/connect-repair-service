@@ -14,6 +14,9 @@ import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'package:repairservices/ui/Cart/CartIcon.dart';
+import 'package:repairservices/ui/Login/LoginIcon.dart';
+import 'package:repairservices/ui/Login/LoginIconBloc.dart';
+import 'package:repairservices/ui/ProfileIcon.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
@@ -64,6 +67,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
     super.initState();
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
+      LoginIconBloc.changeLoggedInStatus(loggued);
       this.setState(() {
         _readAllProducts();
         _updateBaseUrl();
@@ -79,20 +83,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
   }
 
   Widget _profileButton() {
-    if (loggued) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, CupertinoPageRoute(builder: (context) => Profile()));
-        },
-        child: Image.asset(
-          'assets/user-icon.png',
-          height: 25,
-        ),
-      );
-    } else {
-      return Container();
-    }
+    return ProfileIcon();
   }
 
   Future _getArticleDetails(String number) async {
@@ -221,7 +212,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
             },
             color: Theme.of(context).primaryColor,
           ),
-          actions: <Widget>[CartIcon(this.loggued), _profileButton()],
+          actions: <Widget>[CartIcon(), _profileButton()],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,

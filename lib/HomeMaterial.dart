@@ -23,6 +23,9 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'package:repairservices/ui/Cart/CartIcon.dart';
+import 'package:repairservices/ui/Login/LoginIcon.dart';
+import 'package:repairservices/ui/Login/LoginIconBloc.dart';
+import 'package:repairservices/ui/ProfileIcon.dart';
 
 //import 'package:repairservices/translations.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -67,7 +70,8 @@ class HomeState extends State<HomeM> {
       if(loggued){
         await ISClientO.instance.getUserInformation();
       }
-      setState(() {});
+      LoginIconBloc.changeLoggedInStatus(loggued);
+      //setState(() {});
     });
     //_readAllProductsInCart();
     _readCompanys();
@@ -122,53 +126,11 @@ class HomeState extends State<HomeM> {
   }
 
   Widget _profileButton() {
-    if (loggued) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, CupertinoPageRoute(builder: (context) => Profile()));
-        },
-        child: Image.asset(
-          'assets/user-icon.png',
-          height: 25,
-        ),
-      );
-    } else {
-      return Container();
-    }
+    return ProfileIcon();
   }
 
   Widget _loginBt() {
-    if (!loggued) {
-      return Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 26),
-          child: GestureDetector(
-            child: Container(
-                height: 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Center(
-                  child: Text(
-                    R.string.login,
-                    style: TextStyle(fontSize: 17, color: Colors.white),
-                  ),
-                )),
-            onTap: () {
-              Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) => LoginV()))
-                  .then((value) {
-                ISClientO.instance.isTokenAvailable().then((bool loggued) {
-                  this.loggued = loggued;
-                  setState(() {});
-                });
-              });
-            },
-          ));
-    } else {
-      return Container(height: 0);
-    }
+    return new LoginIcon(paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 26);
   }
 
   _readCompanys() async {
@@ -317,7 +279,7 @@ class HomeState extends State<HomeM> {
         ),
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         actions: <Widget>[
-          new CartIcon(this.loggued),
+          CartIcon(),
           _profileButton()
         ],
       ),
@@ -483,33 +445,28 @@ class HomeState extends State<HomeM> {
               _sendFeedBackByEmail();
             }),
             divider,
-            _createDrawerItem(
-                Image.asset(
-                  'assets/logOnGreen.png',
-                  width: 25,
-                ),
-                Text(!loggued ? R.string.login : R.string.logoff,
-                    style: TextStyle(
-                        color: Color.fromRGBO(38, 38, 38, 1.0),
-                        fontSize: 17)), () {
-              Navigator.pop(context);
-              if (!loggued) {
-                Navigator.push(context,
-                        CupertinoPageRoute(builder: (context) => LoginV()))
-                    .then((value) {
-                  ISClientO.instance.isTokenAvailable().then((bool loggued) {
-                    this.loggued = loggued;
-                    setState(() {});
+            StreamBuilder<bool>(
+              stream: LoginIconBloc.loggedInStream,
+              initialData: false,
+              builder: (context, snapshot) => _createDrawerItem(
+                  Image.asset(
+                    'assets/logOnGreen.png',
+                    width: 25,
+                  ),
+                  Text(!snapshot.data ? R.string.login : R.string.logoff,
+                      style: TextStyle(
+                          color: Color.fromRGBO(38, 38, 38, 1.0), fontSize: 17)), () {
+                Navigator.pop(context);
+                if (!snapshot.data) {
+                  Navigator.push(
+                      context, CupertinoPageRoute(builder: (context) => LoginV()));
+                } else {
+                  ISClientO.instance.clearToken().then((_) {
+                    LoginIconBloc.changeLoggedInStatus(false);
                   });
-                });
-              } else {
-                ISClientO.instance.clearToken().then((_) {
-                  setState(() {
-                    this.loggued = false;
-                  });
-                });
-              }
-            }),
+                }
+              }),
+            ),
             divider,
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:repairservices/ArticleDetailsBloc.dart';
 //import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:repairservices/ArticleList.dart';
 import 'package:repairservices/Login.dart';
@@ -11,6 +12,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'package:repairservices/ui/Cart/CartIcon.dart';
+import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Utils/ISClient.dart';
@@ -18,6 +20,10 @@ import 'database_helpers.dart';
 import 'package:repairservices/res/R.dart';
 
 class ArticleInCart extends StatefulWidget {
+  final bool comeFromArtDetails;
+
+  ArticleInCart({this.comeFromArtDetails = false});
+
   @override
   State<StatefulWidget> createState() {
     return ArticleInCartState();
@@ -65,6 +71,7 @@ class ArticleInCartState extends State<ArticleInCart> {
     super.initState();
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
+      LoginIconBloc.changeLoggedInStatus(loggued);
       setState(() {
         _updateBaseUrl();
       });
@@ -487,6 +494,9 @@ class ArticleInCartState extends State<ArticleInCart> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
+            if(widget.comeFromArtDetails){
+              ArticleDetailsBloc.setNeedToReload(true);
+            }
             Navigator.pop(context);
           },
           color: Theme.of(context).primaryColor,
