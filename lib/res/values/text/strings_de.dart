@@ -1056,6 +1056,6 @@ class StringsDe implements StringsBase {
   String get under2500mm => 'Unter 2500 mm';
 
   @override
-  String get addSelectedToCart => "Add to Cart";
+  String get addSelectedToCart => "Markierte Warenkorb hinzufügen";
 
 }
