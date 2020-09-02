@@ -243,80 +243,173 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                     return new GestureDetector(
                       child: Column(
                         children: <Widget>[
-                          Container(
-                              height: 50,
-                              color: Color.fromRGBO(249, 249, 249, 1.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(left: 16),
-                                    height: 29,
-                                    width: 36,
-                                    child: baseUrl == null ||
-                                            productList[index].url == null
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(left: 16),
+                                height: 58,
+                                width: 72,
+                                child: baseUrl == null ||
+                                        productList[index].url == null
+                                    ? Image.asset('assets/productImage.png')
+                                    : productList[index].url.value == ""
                                         ? Image.asset('assets/productImage.png')
-                                        : productList[index].url.value == ""
-                                            ? Image.asset(
-                                                'assets/productImage.png')
-                                            : Image(
-                                                image: NetworkImageSSL(baseUrl +
-                                                    productList[index]
-                                                        .url
-                                                        .value)),
+                                        : Image(
+                                            image: NetworkImageSSL(baseUrl +
+                                                productList[index].url.value)),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 16, top: 10),
+                                    child: Text(
+                                        _solveTextLength(
+                                            productList[index].shortText.value,
+                                            23),
+                                        style:
+                                            Theme.of(context).textTheme.body1),
                                   ),
-                                  Expanded(
-                                    child: Column(
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 16, top: 4),
+                                    child: Text(productList[index].number.value,
+                                        style:
+                                            Theme.of(context).textTheme.body2),
+                                  ),
+                                  Container(
+                                    width: 140,
+                                    height: 35,
+                                    margin: EdgeInsets.only(
+                                        left:
+                                            MediaQuery.of(context).size.width /
+                                                    2 -
+                                                140),
+                                    child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 16, top: 10),
-                                          child: Text(
-                                              productList[index]
-                                                  .shortText
-                                                  .value,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .body1),
+                                        IconButton(
+                                          icon: Image.asset('assets/Minus.png',
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                          onPressed: () {
+                                            if (int.parse(productList[index]
+                                                    .quantity
+                                                    .value) >
+                                                1 && loggued) {
+                                              ISClientO.instance
+                                                  .getProductDetails(
+                                                      productList[index]
+                                                          .number
+                                                          .value,
+                                                      int.parse(
+                                                              productList[index]
+                                                                  .quantity
+                                                                  .value) -
+                                                          1)
+                                                  .then((Product product) {
+                                                setState(() {
+                                                  int id = this
+                                                      .productList[index]
+                                                      .id;
+                                                  bool selected = this
+                                                      .productList[index]
+                                                      .selected;
+                                                  this.productList[index] =
+                                                      product;
+                                                  this
+                                                      .productList[index]
+                                                      .selected = selected;
+                                                  this.productList[index].id =
+                                                      id;
+                                                  helper.updateProduct(
+                                                      productList[index],
+                                                      false);
+                                                });
+                                              });
+                                            }
+                                          },
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsets.only(left: 16, top: 4),
-                                          child: Text(
-                                              productList[index].number.value,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .body2),
-                                        )
+                                        Expanded(
+                                            child: Center(
+                                                child: Container(
+                                          height: 22,
+                                          width: 52,
+                                          child: Center(
+                                              child: Text(
+                                                  productList[index].quantity !=
+                                                          null
+                                                      ? productList[index]
+                                                          .quantity
+                                                          .value
+                                                      : "1")),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Color.fromRGBO(
+                                                      121, 121, 121, 1),
+                                                  width: 0.3)),
+                                        ))),
+                                        IconButton(
+                                          icon: Image.asset('assets/Plus.png',
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                          onPressed: () {
+                                            if(loggued){
+                                              ISClientO.instance
+                                                  .getProductDetails(
+                                                  productList[index]
+                                                      .number
+                                                      .value,
+                                                  int.parse(productList[index]
+                                                      .quantity
+                                                      .value) +
+                                                      1)
+                                                  .then((Product product) {
+                                                setState(() {
+                                                  int id =
+                                                      this.productList[index].id;
+                                                  bool selected = this
+                                                      .productList[index]
+                                                      .selected;
+                                                  this.productList[index] =
+                                                      product;
+                                                  this
+                                                      .productList[index]
+                                                      .selected = selected;
+                                                  this.productList[index].id = id;
+                                                  helper.updateProduct(
+                                                      productList[index], false);
+                                                });
+                                              });
+                                            }
+                                          },
+                                        ),
                                       ],
                                     ),
                                   ),
-                                  InkWell(
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          right: 16,
-                                          left: 16,
-                                          bottom: 0,
-                                          top: 0),
-                                      height: 22,
-                                      child: productList[index].selected
-                                          ? Image.asset(
-                                              'assets/check_filled.png')
-                                          : Image.asset(
-                                              'assets/check_empty.png'),
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        productList[index].selected =
-                                            !productList[index].selected;
-                                      });
-                                    },
-                                  ),
                                 ],
-                              )),
+                              ),
+                              Expanded(
+                                child: Container(),
+                              ),
+                              InkWell(
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 16),
+                                  height: 22,
+                                  child: productList[index].selected
+                                      ? Image.asset('assets/check_filled.png')
+                                      : Image.asset('assets/check_empty.png'),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    productList[index].selected =
+                                        !productList[index].selected;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
                           Divider(
                             height: 1,
                             color: Color.fromRGBO(191, 191, 191, 1.0),
@@ -436,7 +529,23 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
     );
   }
 
-  void _addToCart(Product p) {
+  void _addToCart(Product product) async {
+    int oldId = product.id;
+    product.id = null;
+    await helper.insertProduct(product, true).then((int id) {
+      print('inserted row: $id to Cart');
+      CartIconState.addToCart();
+    });
+    product.id = oldId;
+  }
 
+  String _solveTextLength(String text, int length) {
+    if (text != null && text != '') {
+      if (text.length > length) {
+        return text.substring(0, length - 1) + '...';
+      }
+      return text;
+    }
+    return '';
   }
 }
