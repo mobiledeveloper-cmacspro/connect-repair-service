@@ -598,7 +598,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                                       IconButton(
                                         icon:  Image.asset('assets/Minus.png',color: Theme.of(context).primaryColor),
                                         onPressed: () {
-                                          if(int.parse(productList[index].quantity.value)  > 1) {
+                                          if(int.parse(productList[index].quantity.value)  > 1 && loggued) {
                                             ISClientO.instance.getProductDetails(productList[index].number.value, int.parse(productList[index].quantity.value) - 1).then((Product product){
                                               setState(() {
                                                 int id = this.productList[index].id;
@@ -627,14 +627,16 @@ class ArticleInCartState extends State<ArticleInCart> {
                                       IconButton(
                                         icon:  Image.asset('assets/Plus.png',color: Theme.of(context).primaryColor),
                                         onPressed: () {
-                                          ISClientO.instance.getProductDetails(productList[index].number.value, int.parse(productList[index].quantity.value) + 1).then((Product product){
-                                            setState(() {
-                                              int id = this.productList[index].id;
-                                              this.productList[index] = product;
-                                              this.productList[index].id = id;
-                                              helper.updateProduct(productList[index], true);
+                                          if(loggued){
+                                            ISClientO.instance.getProductDetails(productList[index].number.value, int.parse(productList[index].quantity.value) + 1).then((Product product){
+                                              setState(() {
+                                                int id = this.productList[index].id;
+                                                this.productList[index] = product;
+                                                this.productList[index].id = id;
+                                                helper.updateProduct(productList[index], true);
+                                              });
                                             });
-                                          });
+                                          }
                                         },
                                       ),
                                     ],
