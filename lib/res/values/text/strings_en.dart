@@ -840,7 +840,7 @@ class StringsEn implements StringsBase {
   String get english => "English";
 
   @override
-  String get deutsch => "Deutsch";
+  String get deutsch => "German";
 
   @override
   String get objectNotRecognized => "Object not recognized";
