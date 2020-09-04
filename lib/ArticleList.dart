@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/ArticleBookMarkV.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -10,6 +11,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'package:repairservices/ui/Login/LoginIcon.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
+import 'package:repairservices/ui/qr_scan/qr_scan_page.dart';
 import 'Login.dart';
 import 'package:repairservices/Utils/ISClient.dart';
 import 'ArticleDetails.dart';
@@ -279,7 +281,13 @@ class ArticleListState extends State<ArticleListV> {
                 numberNode.unfocus();
                 setState(() {});
               },
-              onQRScanTap: () {},
+              onQRScanTap: () async {
+                bool permission = await Permission.camera.request().isGranted;
+                if(permission)
+                  NavigationUtils.push(context, QRScanPage());
+                else
+                  _showDialog(context, 'Exception', "Camera permissions required");
+              },
               onSearchTap: () {
                 isSearching = true;
                 setState(() {});

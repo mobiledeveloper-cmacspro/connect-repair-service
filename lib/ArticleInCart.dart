@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/ArticleDetailsBloc.dart';
 //import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:repairservices/ArticleList.dart';
@@ -13,6 +14,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
 import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
+import 'package:repairservices/ui/qr_scan/qr_scan_page.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Utils/ISClient.dart';
@@ -483,6 +485,30 @@ class ArticleInCartState extends State<ArticleInCart> {
     }
   }
 
+  _showDialog(BuildContext context, String title, String msg) {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: msg.isNotEmpty
+              ? Padding(
+            padding:
+            EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            child: Text(msg, style: TextStyle(fontSize: 17)),
+          )
+              : Container(),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: const Text("OK"),
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -517,7 +543,13 @@ class ArticleInCartState extends State<ArticleInCart> {
           TXDividerWidget(),
           TXSearchBarWidget(
             defaultModel: true,
-            onQRScanTap: () {},
+            onQRScanTap: () async {
+              bool permission = await Permission.camera.request().isGranted;
+              if(permission)
+                NavigationUtils.push(context, QRScanPage());
+              else
+                _showDialog(context, 'Exception', "Camera permissions required");
+            },
             onSearchTap: () async {
               NavigationUtils.pushCupertino(context, ArticleListV());
             },
