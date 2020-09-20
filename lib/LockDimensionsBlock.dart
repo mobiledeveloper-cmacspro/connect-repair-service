@@ -29,11 +29,14 @@ class LockDimensionsBloc extends BaseBloC {
   BehaviorSubject<bool> _pagesVisitedCtr = BehaviorSubject();
   Stream<bool> get pagesVisitedStream => _pagesVisitedCtr.stream;
 
+  int currentPage = 0;
+
   void pagesVisited(bool value) {
     _pagesVisitedCtr.sink.add(value);
   }
 
   void pageIndex(int idx) {
+    currentPage = idx;
     _pageIndexCtr.sink.add(idx);
   }
 

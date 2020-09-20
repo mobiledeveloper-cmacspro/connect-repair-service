@@ -13,6 +13,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 import 'package:repairservices/res/R.dart';
+import 'dart:io';
 
 class DoorHingeGeneralData extends StatefulWidget {
 
@@ -529,6 +530,14 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
       return Container();
   }
 
+  void _navBack() {
+    if(doorHinge.dimensionBarrelIm != null && doorHinge.dimensionBarrelIm.isNotEmpty && doorHinge.dimensionBarrelIm.endsWith('png')){
+      File f = File(doorHinge.dimensionBarrelIm);
+      if(f.existsSync()) f.deleteSync();
+    }
+    NavigationUtils.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -541,7 +550,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Navigator.pop(context);
+            _navBack();
           },
           color: Theme.of(context).primaryColor,
         ),
