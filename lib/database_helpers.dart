@@ -152,6 +152,7 @@ class DatabaseHelper {
                 $columnDoorHingeDoorOpening TEXT NOT NULL,
                 $columnDoorHingeFitted TEXT NOT NULL,
                 $columnDoorHingeHingeType TEXT NOT NULL,
+                $columnDoorHingeType TEXT NOT NULL,
                 $columnDoorHingeDoorHingeDetailsIm TEXT,
                 $columnDoorHingeCoverCaps TEXT,
                 $columnDoorHingeDoorLeafBarrel TEXT,

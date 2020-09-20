@@ -150,6 +150,34 @@ class ArticleIdentificationBloC extends BaseBloC
       await helper.deleteDoorHinge(fitting.id);
       await PDFManagerDoorHinge.removePDF(fitting);
     }
+    _deleteImages(fitting);
+  }
+
+  Future<void> _deleteImages(Fitting model) async {
+    if(model is DoorHinge) {
+      List<String> files = [
+        model.dimensionSurfaceIm,
+        model.dimensionBarrelIm,
+      ];
+      files.forEach((element) {
+        File f = File(element ?? '');
+        if(f.existsSync()) {
+          f.deleteSync();
+        }
+      });
+    } else if(model is DoorLock) {
+      List<String> files = [
+        model.dimensionImage1Path,
+        model.dimensionImage2Path,
+        model.dimensionImage3Path
+      ];
+      files.forEach((element) {
+        File f = File(element ?? '');
+        if(f.existsSync()) {
+          f.deleteSync();
+        }
+      });
+    }
   }
 
   void sendPdfByEmail(ArticleBase articleBase) async {

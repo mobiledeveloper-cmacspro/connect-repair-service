@@ -393,6 +393,7 @@ class _ArticleIdentificationState
           return TXCupertinoActionSheetWidget(
             onActionTap: (action) async {
               if (action.key == 'Print' || action.key == 'Email') {
+
               } else if (action.key == 'Remove') {
                 bloc.deleteArticle();
               }
@@ -413,5 +414,10 @@ class _ArticleIdentificationState
             ],
           );
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

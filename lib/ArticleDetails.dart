@@ -445,10 +445,10 @@ class ArticleDetailsState
   void initState() {
     super.initState();
     ISClientO.instance.isTokenAvailable().then((bool loggued) async {
+      await _loadLang();
       LoginIconBloc.changeLoggedInStatus(loggued);
       bloc.loadProduct(widget.product);
       _refillSourceProduct();
-      _loadLang();
       bloc.loadImage();
       //_readAllProductsInCart();
     });

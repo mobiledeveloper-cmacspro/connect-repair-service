@@ -45,6 +45,7 @@ class DoorHingeDimensionState
   String imagePath1;
   File dimensionImage1;
   DatabaseHelper helper = DatabaseHelper.instance;
+  bool filled = false;
 
   DoorHingeDimensionState(this.doorHinge);
 
@@ -173,7 +174,7 @@ class DoorHingeDimensionState
     var byteData = await image.toByteData(format: ImageByteFormat.png);
     final buffer = byteData.buffer;
     final directory = await FileUtils.getRootFilesDir();
-    final fileName = CalendarUtils.getTimeIdBasedSeconds(withTempPrefix: true);
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
     final path = '$directory/$fileName.png';
 
     File(path).writeAsBytesSync(
@@ -189,6 +190,31 @@ class DoorHingeDimensionState
     }
 
     imagePath1 = path;
+  }
+
+  Widget _getMandatory(bool mandatory) {
+    if (mandatory) {
+      return Padding(
+          padding: EdgeInsets.only(left: 4),
+          child: Text('*', style: TextStyle(color: Colors.red, fontSize: 17)));
+    } else
+      return Container();
+  }
+
+  Widget _checkImage() {
+    debugPrint('checking image');
+    if(aCtr.text != "" && bCtr.text != "" && cCtr.text != "") {
+      filled = true;
+      return Image.asset(
+        'assets/checkGreen.png',
+        height: 25,
+      );
+    }
+    filled = false;
+    return Image.asset(
+      'assets/checkGrey.png',
+      height: 25,
+    );
   }
 
   @override
@@ -209,47 +235,40 @@ class DoorHingeDimensionState
         ),
         actions: <Widget>[
           InkWell(
-            child: Image.asset(
-              'assets/checkGreen.png',
-              height: 25,
-            ),
+            child: _checkImage(),
             onTap: () async {
-              await takeScreenShoot1();
-              doorHinge.name = R.string.doorHingeFitting;
-              doorHinge.created = DateTime.now();
-              doorHinge.dimensionsSurfaceA = aCtr.text;
-              doorHinge.dimensionsSurfaceB = bCtr.text;
-              doorHinge.dimensionsSurfaceC = cCtr.text;
-              doorHinge.dimensionsSurfaceD = dCtr.text;
-              doorHinge.dimensionSurfaceIm = imagePath1;
+              if(filled) {
+                await takeScreenShoot1();
+                doorHinge.name = R.string.doorHingeFitting;
+                doorHinge.created = DateTime.now();
+                doorHinge.dimensionsSurfaceA = aCtr.text;
+                doorHinge.dimensionsSurfaceB = bCtr.text;
+                doorHinge.dimensionsSurfaceC = cCtr.text;
+                doorHinge.dimensionsSurfaceD = dCtr.text;
+                doorHinge.dimensionSurfaceIm = imagePath1;
 
-              //doorHinge = DoorHinge.withData(R.string.doorHingeFitting, DateTime.now(), aCtr.text, bCtr.text, cCtr.text, dCtr.text, imagePath1);
+                //doorHinge = DoorHinge.withData(R.string.doorHingeFitting, DateTime.now(), aCtr.text, bCtr.text, cCtr.text, dCtr.text, imagePath1);
 
-              debugPrint('Saving Door Hinge');
-              int type = 0;
-              if (doorHinge.hingeType == R.string.barrelHinge) {
-                type = 1;
-              } else if (doorHinge.hingeType ==
-                  R.string.surfaceMountedDoorHinge) {
-                type = 2;
-              }
-              doorHinge.pdfPath =
-                  await PDFManagerDoorHinge.getPDFPath(doorHinge, type: type);
+                debugPrint('Saving Door Hinge');
 
-              int id = await helper.insertDoorHinge(doorHinge);
-              print('inserted row: $id');
-              if (id != null) {
-                NavigationUtils.pushCupertino(
-                  context,
-                  FittingPDFViewerPage(
-                    model: doorHinge,
-                  ),
-                );
+                doorHinge.pdfPath =
+                await PDFManagerDoorHinge.getPDFPath(doorHinge, type: doorHinge.intType);
+
+                int id = await helper.insertDoorHinge(doorHinge);
+                print('inserted row: $id');
+                if (id != null) {
+                  NavigationUtils.pushCupertino(
+                    context,
+                    FittingPDFViewerPage(
+                      model: doorHinge,
+                    ),
+                  );
 
 //      Navigator.push(context, CupertinoPageRoute(builder: (context) => ArticleWebPreview(doorHinge)));
-              }
+                }
+                //Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData(doorHinge)));
 
-              //Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeGeneralData(doorHinge)));
+              }
             },
           )
         ],
@@ -397,18 +416,24 @@ class DoorHingeDimensionState
                     ),
                     Divider(height: 1),
                     Padding(
-                      padding: EdgeInsets.only(left: 16, top: 8),
-                      child: Text('A',
-                          style: aCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      padding: EdgeInsets.only(left: 16),
+                      child: Row(
+                        children: [
+                          Text('A',
+                              style: aCtr.text == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left),
+                          _getMandatory(true),
+                        ],
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
                         onChanged: (value) {
                           bloc.dimA(value);
+                          setState(() {});
                         },
                         focusNode: aNode,
                         textAlign: TextAlign.left,
@@ -433,17 +458,23 @@ class DoorHingeDimensionState
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('B',
-                          style: bCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: Row(
+                        children: [
+                          Text('B',
+                              style: bCtr.text == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left),
+                          _getMandatory(true),
+                        ],
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
                         onChanged: (value) {
                           bloc.dimB(value);
+                          setState(() {});
                         },
                         focusNode: bNode,
                         textAlign: TextAlign.left,
@@ -467,17 +498,23 @@ class DoorHingeDimensionState
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('C',
-                          style: cCtr.text == ""
-                              ? Theme.of(context).textTheme.bodyText2
-                              : Theme.of(context).textTheme.subtitle2,
-                          textAlign: TextAlign.left),
+                      child: Row(
+                        children: [
+                          Text('C',
+                              style: cCtr.text == ""
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context).textTheme.subtitle2,
+                              textAlign: TextAlign.left),
+                          _getMandatory(true)
+                        ],
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
                         onChanged: (value) {
                           bloc.dimC(value);
+                          setState(() {});
                         },
                         focusNode: cNode,
                         textAlign: TextAlign.left,

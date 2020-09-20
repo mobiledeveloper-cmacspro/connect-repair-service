@@ -76,7 +76,7 @@ class ArticleDetailsBloc extends BaseBloC{
         seePrices) {
       sourceProduct.add(TupleData(
           en: "list price",
-          de: "Listenpreis/VKME",
+          de: "Listenpreis",
           value: product.listPrice.value.replaceAll(",", ",")));
     }
     if (product.netPrice != null && product.netPrice.value != "" && seePrices) {

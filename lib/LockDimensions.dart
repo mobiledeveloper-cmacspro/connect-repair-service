@@ -49,7 +49,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
   var imageKey2 = new GlobalKey();
   var imageKey3 = new GlobalKey();
   String imagePath1, imagePath2, imagePath3;
-  File dimensionImage1, dimensionImage2, dimensionImage3;
 
   DatabaseHelper helper = DatabaseHelper.instance;
 
@@ -146,7 +145,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                         switch (dimension) {
                           case 'A':
                             aCtr.text = int.parse(dimensionCtr.text).toString();
-                            bloc.dimA(aCtr.text);
+                            bloc.dimA(dim: aCtr.text);
                             setState(() {});
                             Future.delayed(Duration(seconds: 1), () async {
                               await takeScreenShoot(imageKey1, 1);
@@ -154,7 +153,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                             break;
                           case 'B':
                             bCtr.text = int.parse(dimensionCtr.text).toString();
-                            bloc.dimB(bCtr.text);
+                            bloc.dimB(dim: bCtr.text);
                             setState(() {});
                             Future.delayed(Duration(seconds: 1), () async {
                               await takeScreenShoot(imageKey1, 1);
@@ -162,7 +161,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                             break;
                           case 'C':
                             cCtr.text = int.parse(dimensionCtr.text).toString();
-                            bloc.dimC(cCtr.text);
+                            bloc.dimC(dim: cCtr.text);
                             setState(() {});
                             Future.delayed(Duration(seconds: 1), () async {
                               await takeScreenShoot(imageKey1, 1);
@@ -170,7 +169,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                             break;
                           case 'D':
                             dCtr.text = int.parse(dimensionCtr.text).toString();
-                            bloc.dimD(dCtr.text);
+                            bloc.dimD(dim: dCtr.text);
                             setState(() {});
                             Future.delayed(Duration(seconds: 1), () async {
                               await takeScreenShoot(imageKey2, 2);
@@ -178,7 +177,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                             break;
                           case 'E':
                             eCtr.text = int.parse(dimensionCtr.text).toString();
-                            bloc.dimE(eCtr.text);
+                            bloc.dimE(dim: eCtr.text);
                             setState(() {});
                             Future.delayed(Duration(seconds: 1), () async {
                               await takeScreenShoot(imageKey2, 2);
@@ -186,7 +185,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                             break;
                           default:
                             fCtr.text = int.parse(dimensionCtr.text).toString();
-                            bloc.dimF(fCtr.text);
+                            bloc.dimF(dim: fCtr.text);
                             setState(() {});
                             Future.delayed(Duration(seconds: 1), () async {
                               await takeScreenShoot(imageKey3, 3);
@@ -214,7 +213,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
     var byteData = await image.toByteData(format: ImageByteFormat.png);
     final buffer = byteData.buffer;
     final directory = await FileUtils.getRootFilesDir();
-    final fileName = CalendarUtils.getTimeIdBasedSeconds(withTempPrefix: true);
+    final fileName = CalendarUtils.getTimeIdBasedSeconds();
     final path = '$directory/$fileName.png';
 
     File(path).writeAsBytesSync(
@@ -247,7 +246,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
 
   _saveArticle() async {
     doorLock.pdfPath = await PDFManagerDoorLock.getPDFPath(doorLock);
-    debugPrint(doorLock.pdfPath);
     int id = await helper.insertDoorLock(doorLock);
     print('inserted row: $id');
     if (id != null) {
@@ -370,7 +368,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                     ),
                     Divider(height: 1),
                     Padding(
-                      padding: EdgeInsets.only(left: 16, top: 8),
+                      padding: EdgeInsets.only(left: 16),
                       child: StreamBuilder<String>(
                         stream: bloc.dimAStream,
                         initialData: "",
@@ -387,7 +385,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
                         onChanged: (value) {
-                          bloc.dimA(value);
+                          bloc.dimA(dim: value);
                           Future.delayed(Duration(seconds: 1), () async {
                             await takeScreenShoot(imageKey1, 1);
                           });
@@ -400,13 +398,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                         controller: aCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next) {
-                          bloc.dimA(aCtr.text);
-                          _changeFocus(context, aNode, bNode);
-                          Future.delayed(Duration(seconds: 1), () async {
-                            await takeScreenShoot(imageKey1, 1);
-                          });
-                        },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
@@ -433,7 +424,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
                         onChanged: (value) {
-                          bloc.dimB(value);
+                          bloc.dimB(dim: value);
                           Future.delayed(Duration(seconds: 1), () async {
                             await takeScreenShoot(imageKey1, 1);
                           });
@@ -446,13 +437,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                         controller: bCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next) {
-                          bloc.dimB(bCtr.text);
-                          _changeFocus(context, bNode, cNode);
-                          Future.delayed(Duration(seconds: 1), () async {
-                            await takeScreenShoot(imageKey1, 1);
-                          });
-                        },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
@@ -479,7 +463,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
                         onChanged: (value) {
-                          bloc.dimC(value);
+                          bloc.dimC(dim: value);
                           Future.delayed(Duration(seconds: 1), () async {
                             await takeScreenShoot(imageKey1, 1);
                           });
@@ -491,12 +475,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                         maxLines: 1,
                         controller: cCtr,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (_) {
-                          bloc.dimC(cCtr.text);
-                          Future.delayed(Duration(seconds: 1), () async {
-                            await takeScreenShoot(imageKey1, 1);
-                          });
-                        },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
@@ -610,7 +588,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                       padding: EdgeInsets.only(left: 16, right: 16),
                       child: new TextField(
                         onChanged: (value) {
-                          bloc.dimD(value);
+                          bloc.dimD(dim: value);
                           Future.delayed(Duration(seconds: 1), () async {
                             await takeScreenShoot(imageKey2, 2);
                           });
@@ -623,13 +601,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                         controller: dCtr,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (next) {
-                          bloc.dimD(dCtr.text);
-                          _changeFocus(context, dNode, eNode);
-                          Future.delayed(Duration(seconds: 1), () async {
-                            await takeScreenShoot(imageKey2, 2);
-                          });
-                        },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
@@ -656,7 +627,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
                         onChanged: (value) async {
-                          bloc.dimE(value);
+                          bloc.dimE(dim: value);
                           Future.delayed(Duration(seconds: 1), () async {
                             await takeScreenShoot(imageKey2, 2);
                           });
@@ -668,12 +639,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                         maxLines: 1,
                         controller: eCtr,
                         keyboardType: TextInputType.number,
-                        onSubmitted: (_) {
-                          bloc.dimE(eCtr.text);
-                          Future.delayed(Duration(seconds: 1), () async {
-                            await takeScreenShoot(imageKey2, 2);
-                          });
-                        },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',
@@ -763,7 +728,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                       padding: EdgeInsets.only(left: 16, right: 16, top: 0),
                       child: new TextField(
                         onChanged: (value) {
-                          bloc.dimF(value);
+                          bloc.dimF(dim: value);
                           Future.delayed(Duration(seconds: 1), () async {
                             await takeScreenShoot(imageKey3, 3);
                           });
@@ -775,12 +740,6 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
                         maxLines: 1,
                         keyboardType: TextInputType.number,
                         controller: fCtr,
-                        onSubmitted: (_) {
-                          bloc.dimF(fCtr.text);
-                          Future.delayed(Duration(seconds: 1), () async {
-                            await takeScreenShoot(imageKey3, 3);
-                          });
-                        },
                         decoration: InputDecoration.collapsed(
                             border: InputBorder.none,
                             hintText: 'mm',

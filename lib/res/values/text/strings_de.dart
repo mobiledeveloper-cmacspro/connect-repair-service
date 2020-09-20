@@ -105,7 +105,7 @@ class StringsDe implements StringsBase {
   String get gpsTagsPhotos => "GPS-Tag für Fotos";
 
   @override
-  String get savePhotosGallery => "Speichern Sie Fotos in der Gerätegalerie";
+  String get savePhotosGallery => "Speichern Sie Fotos in der\nGerätegalerie";
 
   @override
   String get showTutorialsAtStart => "Zeige Tutorial bei jedem Start";
@@ -333,7 +333,7 @@ class StringsDe implements StringsBase {
   String get circularGeneration => "Rund (Generation 1 & 3)";
 
   @override
-  String get ovalGeneration => "Rund (Generation 2)";
+  String get ovalGeneration => "Oval (Generation 2)";
 
   @override
   String get doorLeafMM => "Türflügel (mm)";
@@ -364,6 +364,12 @@ class StringsDe implements StringsBase {
 
   @override
   String get thermallyNonBrokenDoor => "thermisch nicht-getrennte Tür";
+
+  @override
+  String get fireProtectionDoor => "Brandschutztür";
+
+  @override
+  String get smokeProtectionDoor => "Rauchschutztür";
 
   @override
   String get doorOpening => "Türöffnung";
@@ -1057,5 +1063,11 @@ class StringsDe implements StringsBase {
 
   @override
   String get addSelectedToCart => "Markierte Warenkorb hinzufügen";
+
+  @override
+  String get basicDepthDoorFrameMM => "Bautiefe des Türrahmen (mm)";
+
+  @override
+  String get barrelHingeDetails => "Rollentürband-Maße";
 
 }

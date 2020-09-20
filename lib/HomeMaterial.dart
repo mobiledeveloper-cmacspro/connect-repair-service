@@ -133,7 +133,7 @@ class HomeState extends State<HomeM> {
   }
 
   Widget _loginBt() {
-    return new LoginIcon(paddingLeft: 16, paddingRight: 16, paddingTop: 12, paddingBottom: 26);
+    return new LoginIcon(paddingLeft: 16, paddingRight: 16, paddingTop: 5, paddingBottom: 5);
   }
 
   _readCompanys() async {
