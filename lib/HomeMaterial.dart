@@ -133,7 +133,7 @@ class HomeState extends State<HomeM> {
   }
 
   Widget _loginBt() {
-    return new LoginIcon(paddingLeft: 16, paddingRight: 16, paddingTop: 5, paddingBottom: 5);
+    return new LoginIcon(paddingLeft: 16, paddingRight: 16, paddingTop: 5, paddingBottom: 20);
   }
 
   _readCompanys() async {
@@ -180,14 +180,14 @@ class HomeState extends State<HomeM> {
       Fluttertoast.showToast(msg: res, toastLength: Toast.LENGTH_LONG);
   }
 
-  Widget _createDrawerItem(Image icon, Text text, GestureTapCallback onTap) {
+  Widget _createDrawerItem(Image icon, Text text, GestureTapCallback onTap, {paddingLeft = 14.0}) {
     return ListTile(
       onTap: onTap,
       title: Row(
         children: <Widget>[
           icon,
           Padding(
-            padding: EdgeInsets.only(left: 14),
+            padding: EdgeInsets.only(left: paddingLeft),
             child: text,
           ),
         ],
@@ -349,7 +349,9 @@ class HomeState extends State<HomeM> {
               // ...
               // Then close the drawer
               Navigator.pop(context);
-            }),
+            },
+              paddingLeft: 18.0,
+            ),
             divider,
             _createDrawerItem(
                 Image.asset(
@@ -369,7 +371,8 @@ class HomeState extends State<HomeM> {
               } else {
                 throw 'Could not launch $url';
               }
-            }),
+            },
+            ),
             divider,
             _createDrawerItem(
                 Image.asset(

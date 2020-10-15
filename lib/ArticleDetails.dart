@@ -318,6 +318,7 @@ class ArticleDetailsState
                                         1)
                                     .then((Product product) {
                                   bloc.loadProduct(product);
+                                  _refillSourceProduct();
                                   bloc.unsetLoading();
                                 });
                               }
@@ -350,6 +351,7 @@ class ArticleDetailsState
                                       1)
                                   .then((Product product) {
                                 bloc.loadProduct(product);
+                                _refillSourceProduct();
                                 bloc.unsetLoading();
                               });
                             },
@@ -451,6 +453,11 @@ class ArticleDetailsState
       _refillSourceProduct();
       bloc.loadImage();
       //_readAllProductsInCart();
+      Future.delayed(Duration(milliseconds: 100)).then((value) async {
+        await _scrollController.position.animateTo(1.0,
+            duration: Duration(seconds: 1),
+            curve: Threshold(1.0));
+      });
     });
   }
 
@@ -544,7 +551,7 @@ class ArticleDetailsState
                                             child: snapshot.data == null
                                             ? Container()
                                             : Text(
-                                                snapshot.data.shortText.value,
+                                                snapshot.data.shortText.value ?? "",
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 17,

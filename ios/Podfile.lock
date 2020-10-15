@@ -271,7 +271,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 3b119bfe90e904851218159c9a4ecb847cc51d18
   FirebaseMLCommon: 5e1184cfdddbd097f55cad75b598881d348d900f
   FirebaseMLVision: 485358b97d3332669ecc4fed55ee360aaef2813d
-  FirebaseMLVisionBarcodeModel: 35cfeaa9494d8c6106423a4672055dd8e07ddbc3
+  FirebaseMLVisionBarcodeModel: 62e3dcf160ea8b5bbf1b89884e645bffb5847d3f
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_audio_recorder: eb998d4e75e59b39d9e3ca1818a5e0f3a82f5836
   flutter_full_pdf_viewer: 1b65139fc3236cde300ba6bea2a72669cb07f2e6
