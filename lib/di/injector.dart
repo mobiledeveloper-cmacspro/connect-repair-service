@@ -29,6 +29,8 @@ import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
+import 'package:repairservices/ui/qr_scan/qr_scan_page_bloc.dart';
+import 'package:repairservices/ui/qr_scan/qr_scan_widget_bloc.dart';
 
 ///Part dependency injector engine and Part service locator.
 ///The main purpose of [Injector] is to provide bloCs instances and initialize the app components depending the current scope.
@@ -116,6 +118,8 @@ class Injector {
     container.registerFactory((c) => ArticleInCartBloc());
     container.registerFactory((c) => LoginIconBloc());
     container.registerFactory((c) => ArticleDetailsBloc());
+    container.registerFactory((c) => QRScanWidgetBloC());
+    container.registerFactory((c) => QRScanPageBloc());
   }
 
   _registerModelConverters() {

@@ -10,6 +10,7 @@ import 'package:repairservices/Utils/ISClient.dart';
 import 'package:repairservices/all_translations.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
+import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
@@ -480,7 +481,7 @@ class ArticleDetailsState
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {
-                Navigator.pop(context);
+                NavigationUtils.pop(context);
               },
               color: Theme.of(context).primaryColor,
             ),

@@ -26,6 +26,7 @@ import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/ui/Login/LoginIcon.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/ui/ProfileIcon.dart';
+import 'package:repairservices/ui/qr_scan/qr_scan_page.dart';
 
 //import 'package:repairservices/translations.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -42,6 +43,8 @@ import 'package:devicelocale/devicelocale.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/res/values/text/custom_localizations_delegate.dart';
 import 'all_translations.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 class HomeM extends StatefulWidget {
   @override
@@ -478,7 +481,13 @@ class HomeState extends State<HomeM> {
           TXDividerWidget(),
           TXSearchBarWidget(
             defaultModel: true,
-            onQRScanTap: () {},
+            onQRScanTap: () async {
+              bool permission = await Permission.camera.request().isGranted;
+              if(permission)
+                NavigationUtils.push(context, QRScanPage());
+              else
+                _showDialog(context, 'Exception', "Camera permissions required");
+            },
             onSearchTap: () async {
               final res =
                   await NavigationUtils.pushCupertino(context, ArticleListV());
@@ -630,5 +639,29 @@ class HomeState extends State<HomeM> {
         ],
       ),
     );
+  }
+
+  _showDialog(BuildContext context, String title, String msg) {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: msg.isNotEmpty
+              ? Padding(
+            padding:
+            EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            child: Text(msg, style: TextStyle(fontSize: 17)),
+          )
+              : Container(),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: const Text("OK"),
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ));
   }
 }

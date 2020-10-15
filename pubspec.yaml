@@ -56,6 +56,8 @@ dependencies:
   flutter_audio_recorder: ^0.5.5
   video_player: ^0.10.11
   camera: ^0.5.8+1
+  flutter_qr_reader: ^1.0.3
+  native_device_orientation: ^0.3.0
 
 
 dev_dependencies:
