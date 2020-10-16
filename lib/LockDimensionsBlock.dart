@@ -29,35 +29,38 @@ class LockDimensionsBloc extends BaseBloC {
   BehaviorSubject<bool> _pagesVisitedCtr = BehaviorSubject();
   Stream<bool> get pagesVisitedStream => _pagesVisitedCtr.stream;
 
+  int currentPage = 0;
+
   void pagesVisited(bool value) {
     _pagesVisitedCtr.sink.add(value);
   }
 
   void pageIndex(int idx) {
+    currentPage = idx;
     _pageIndexCtr.sink.add(idx);
   }
 
-  void dimA(String dim){
+  void dimA({String dim = ''}){
     _dimACtr.sink.add(dim);
   }
 
-  void dimB(String dim){
+  void dimB({String dim = ''}){
     _dimBCtr.sink.add(dim);
   }
 
-  void dimC(String dim){
+  void dimC({String dim = ''}){
     _dimCCtr.sink.add(dim);
   }
 
-  void dimD(String dim){
+  void dimD({String dim = ''}){
     _dimDCtr.sink.add(dim);
   }
 
-  void dimE(String dim){
+  void dimE({String dim = ''}){
     _dimECtr.sink.add(dim);
   }
 
-  void dimF(String dim){
+  void dimF({String dim = ''}){
     _dimFCtr.sink.add(dim);
   }
 

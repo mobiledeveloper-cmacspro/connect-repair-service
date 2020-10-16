@@ -8,8 +8,8 @@ class FittingDoorLockDimensionBloC extends BaseBloC {
   Stream<int> get pageIndicatorResult => _pageIndicatorController.stream;
 
   int currentPage = 1;
-  double get heightArea => 400;
-  double get widthArea => 300;
+  double get heightArea => 300;
+  double get widthArea => 200;
 
   set setIndicatorPage(int page) {
     currentPage = page;

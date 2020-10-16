@@ -1058,4 +1058,16 @@ class StringsEn implements StringsBase {
   @override
   String get addSelectedToCart => "Add Selected to Cart";
 
+  @override
+  String get fireProtectionDoor => "Fire-protection door";
+
+  @override
+  String get smokeProtectionDoor => "Smoke-protection door";
+
+  @override
+  String get basicDepthDoorFrameMM => "Basic depth of the door frame (mm)";
+
+  @override
+  String get barrelHingeDetails => "Barrel hinge details";
+
 }

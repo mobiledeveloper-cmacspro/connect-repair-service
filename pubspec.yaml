@@ -14,7 +14,7 @@ description: RepairService for Flutter
 version: 1.0.32+32
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -58,6 +58,8 @@ dependencies:
   camera: ^0.5.8+1
   flutter_qr_reader: ^1.0.3
   native_device_orientation: ^0.3.0
+  screenshot: ^0.2.0
+  swipedetector: ^1.2.0
 
 
 dev_dependencies:

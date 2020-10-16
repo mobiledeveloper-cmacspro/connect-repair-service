@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/res/R.dart';
@@ -19,9 +20,11 @@ class PDFManagerDoorHinge {
       PDFCell(title: R.string.thermally, value: model.thermally),
       PDFCell(title: R.string.doorOpening, value: model.doorOpening),
       PDFCell(title: R.string.fitted, value: model.fitted),
-      PDFCell(title: R.string.dimensionSurface, value: ""),
-      PDFCell(title: R.string.hingeType, value: model.hingeType),
     ];
+
+    if(type == 2) list.add(PDFCell(title: R.string.dimensionSurface, value: ""));
+
+    list.add(PDFCell(title: R.string.hingeType, value: model.hingeType));
 
     if (type == 2) {
       list.add(PDFCell(
@@ -34,7 +37,7 @@ class PDFManagerDoorHinge {
     if(type == 1){
       list.add(PDFCell(title: R.string.doorLeafMM, value: model.doorLeafBarrel));
       list.add(PDFCell(title: R.string.system, value: model.systemDoorLeaf));
-      list.add(PDFCell(title: R.string.doorFrameMM, value: model.doorFrame));
+      list.add(PDFCell(title: R.string.basicDepthDoorFrameMM, value: model.doorFrame));
       list.add(PDFCell(title: R.string.system, value: model.systemDoorFrame));
       list.add(PDFCell(title: R.string.dimensionBarrel, value: ""));
     }
@@ -50,7 +53,7 @@ class PDFManagerDoorHinge {
           return model.pdfPath;
         }
       }
-
+      debugPrint("Type: ${model.intType}");
       ///Root
       final pdf = pw.Document();
       PdfImage logo = await PDFManager.getLogo(pdf);
@@ -77,10 +80,12 @@ class PDFManagerDoorHinge {
         detailsRowSection,
       );
       children.addAll(rows);
-      children.insert(9, associatedImages[0]);
+      if(type == 2) {
+        children.insert(9, associatedImages[0]);
+      }
 
       if(type == 1){
-        children.add(associatedImages[1]);
+        children.add(associatedImages[0]);
       }
 
       if(type == 2){

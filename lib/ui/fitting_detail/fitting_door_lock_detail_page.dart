@@ -247,6 +247,7 @@ class _FittingDoorLockDetailState
                 });
               } else if (action.key == 'Remove') {
                 bloc.delete(widget.model);
+                NavigationUtils.pop(context);
               }
             },
             actions: [
@@ -265,5 +266,10 @@ class _FittingDoorLockDetailState
             ],
           );
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

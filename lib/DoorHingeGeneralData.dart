@@ -13,6 +13,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 import 'package:repairservices/res/R.dart';
+import 'dart:io';
 
 class DoorHingeGeneralData extends StatefulWidget {
 
@@ -119,11 +120,11 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     debugPrint('checking image');
     if (yearCtr.text != "" &&
         basicDepthDoorCtr.text != "" &&
-        hingeSystemCtr.text != "" &&
+        //hingeSystemCtr.text != "" &&
         materialCtr.text != "" &&
         thermallyCtr.text != "" &&
         doorOpeningCtr.text != "" &&
-        fittedCtr.text != "" &&
+        //fittedCtr.text != "" &&
         hingeTypeCtr.text != "") {
       if (hingeTypeCtr.text ==
           R.string.surfaceMountedDoorHinge) {
@@ -144,7 +145,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         }
       } else if (hingeTypeCtr.text ==
           R.string.barrelHinge) {
-        if (doorLeafCtr.text != '' &&
+        if (//doorLeafCtr.text != '' &&
             doorFrameCtr.text != '' &&
             doorHinge.dimensionBarrelIm != null &&
             doorHinge.dimensionBarrelIm != '') {
@@ -246,7 +247,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     );
   }
 
-  _goNextData() {
+  _goNextData() async {
 
     doorHinge.year = yearCtr.text;
     doorHinge.basicDepthOfDoorLeaf = basicDepthDoorCtr.text;
@@ -262,7 +263,39 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     doorHinge.doorFrame = doorFrameCtr.text;
     doorHinge.systemDoorFrame = systemDoorFrameCtr.text;
 
-    Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeDimension(doorHinge)));
+
+    int type = 0;
+    if (doorHinge.hingeType == R.string.barrelHinge) {
+      type = 1;
+    } else if (doorHinge.hingeType ==
+        R.string.surfaceMountedDoorHinge) {
+      type = 2;
+    }
+    doorHinge.intType = type;
+
+    if(type == 2) {
+      Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeDimension(doorHinge)));
+    }else{
+      doorHinge.name = R.string.doorHingeFitting;
+      doorHinge.created = DateTime.now();
+
+      debugPrint('Saving Door Hinge');
+
+      doorHinge.pdfPath =
+          await PDFManagerDoorHinge.getPDFPath(doorHinge, type: doorHinge.intType);
+
+      int id = await helper.insertDoorHinge(doorHinge);
+      if(id != null) {
+        print('inserted row: $id');
+        NavigationUtils.pushCupertino(
+          context,
+          FittingPDFViewerPage(
+            model: doorHinge,
+          ),
+        );
+      }
+    }
+
   }
 
   Widget _getSurface() {
@@ -323,79 +356,79 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     if (hingeTypeCtr.text == R.string.barrelHinge) {
       return Column(
         children: <Widget>[
+//          Padding(
+//              padding: EdgeInsets.only(left: 16, top: 8),
+//              child: Row(
+//                children: <Widget>[
+//                  Text(R.string.doorLeafMM,
+//                      style: Theme.of(context).textTheme.bodyText2,
+//                      textAlign: TextAlign.left),
+//                  _getMandatory(true)
+//                ],
+//              )),
+//          Padding(
+//            padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
+//            child: new TextField(
+//              onChanged: (value) {
+//                setState(() {});
+//              },
+//              focusNode: doorLeafNode,
+//              textAlign: TextAlign.left,
+//              expands: false,
+//              style: Theme.of(context).textTheme.bodyText2,
+//              maxLines: 1,
+//              controller: doorLeafCtr,
+//              keyboardType: TextInputType.number,
+//              decoration: InputDecoration.collapsed(
+//                  border: InputBorder.none,
+//                  hintText: 'mm',
+//                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+//            ),
+//          ),
+//          Divider(height: 1),
+//          _constructGenericOption(
+//              'System',
+//              false,
+//              [
+//                'Schüco AWS 50',
+//                'Schüco AWS 50.NI',
+//                'Schüco AWS 50 SL',
+//                'Schüco AWS 50 RL',
+//                'Schüco AWS 60',
+//                'Schüco AWS 60 SL',
+//                'Schüco AWS 60 RL',
+//                'Schüco AWS 60.HI',
+//                'Schüco AWS 60 SL.HI',
+//                'Schüco AWS 60 BS',
+//                'Schüco AWS 65',
+//                'Schüco AWS 65 SL',
+//                'Schüco AWS 65 RL',
+//                'Schüco AWS 65 BS',
+//                'Schüco AWS 65 WF',
+//                'Schüco AWS 70.HI',
+//                'Schüco AWS 70 SL.HI',
+//                'Schüco AWS 70 RL.HI',
+//                'Schüco AWS 70 ST.HI',
+//                'Schüco AWS 70 BS.HI',
+//                'Schüco AWS 70 WF.HI',
+//                'Schüco AWS 75.SI+',
+//                'Schüco AWS 75 SL.SI+',
+//                'Schüco AWS 75 RL.SI+',
+//                'Schüco AWS 75 BS.HI+',
+//                'Schüco AWS 75 BS.SI+',
+//                'Schüco AWS 75 WF.SI+',
+//                'Schüco AWS 90.SI+',
+//                'Schüco AWS 90.SI+ Green',
+//                'Schüco AWS 90 BS.SI+'
+//              ],
+//              systemDoorLeafCtr,
+//              'Schüco AWS 50.NI'),
+//          Divider(height: 1),
           Padding(
               padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text(R.string.doorLeafMM,
-                      style: Theme.of(context).textTheme.bodyText2,
-                      textAlign: TextAlign.left),
-                  _getMandatory(true)
-                ],
-              )),
-          Padding(
-            padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
-            child: new TextField(
-              onChanged: (value) {
-                setState(() {});
-              },
-              focusNode: doorLeafNode,
-              textAlign: TextAlign.left,
-              expands: false,
-              style: Theme.of(context).textTheme.bodyText2,
-              maxLines: 1,
-              controller: doorLeafCtr,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration.collapsed(
-                  border: InputBorder.none,
-                  hintText: 'mm',
-                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
-            ),
-          ),
-          Divider(height: 1),
-          _constructGenericOption(
-              'System',
-              false,
-              [
-                'Schüco AWS 50',
-                'Schüco AWS 50.NI',
-                'Schüco AWS 50 SL',
-                'Schüco AWS 50 RL',
-                'Schüco AWS 60',
-                'Schüco AWS 60 SL',
-                'Schüco AWS 60 RL',
-                'Schüco AWS 60.HI',
-                'Schüco AWS 60 SL.HI',
-                'Schüco AWS 60 BS',
-                'Schüco AWS 65',
-                'Schüco AWS 65 SL',
-                'Schüco AWS 65 RL',
-                'Schüco AWS 65 BS',
-                'Schüco AWS 65 WF',
-                'Schüco AWS 70.HI',
-                'Schüco AWS 70 SL.HI',
-                'Schüco AWS 70 RL.HI',
-                'Schüco AWS 70 ST.HI',
-                'Schüco AWS 70 BS.HI',
-                'Schüco AWS 70 WF.HI',
-                'Schüco AWS 75.SI+',
-                'Schüco AWS 75 SL.SI+',
-                'Schüco AWS 75 RL.SI+',
-                'Schüco AWS 75 BS.HI+',
-                'Schüco AWS 75 BS.SI+',
-                'Schüco AWS 75 WF.SI+',
-                'Schüco AWS 90.SI+',
-                'Schüco AWS 90.SI+ Green',
-                'Schüco AWS 90 BS.SI+'
-              ],
-              systemDoorLeafCtr,
-              'Schüco AWS 50.NI'),
-          Divider(height: 1),
-          Padding(
-              padding: EdgeInsets.only(left: 16, top: 8),
-              child: Row(
-                children: <Widget>[
-                  Text(R.string.doorFrameMM,
+                  Text(R.string.basicDepthDoorFrameMM,
                       style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
@@ -420,44 +453,44 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
             ),
           ),
-          Divider(height: 1),
-          _constructGenericOption(
-              'System',
-              false,
-              [
-                'Schüco AWS 50',
-                'Schüco AWS 50.NI',
-                'Schüco AWS 50 SL',
-                'Schüco AWS 50 RL',
-                'Schüco AWS 60',
-                'Schüco AWS 60 SL',
-                'Schüco AWS 60 RL',
-                'Schüco AWS 60.HI',
-                'Schüco AWS 60 SL.HI',
-                'Schüco AWS 60 BS',
-                'Schüco AWS 65',
-                'Schüco AWS 65 SL',
-                'Schüco AWS 65 RL',
-                'Schüco AWS 65 BS',
-                'Schüco AWS 65 WF',
-                'Schüco AWS 70.HI',
-                'Schüco AWS 70 SL.HI',
-                'Schüco AWS 70 RL.HI',
-                'Schüco AWS 70 ST.HI',
-                'Schüco AWS 70 BS.HI',
-                'Schüco AWS 70 WF.HI',
-                'Schüco AWS 75.SI+',
-                'Schüco AWS 75 SL.SI+',
-                'Schüco AWS 75 RL.SI+',
-                'Schüco AWS 75 BS.HI+',
-                'Schüco AWS 75 BS.SI+',
-                'Schüco AWS 75 WF.SI+',
-                'Schüco AWS 90.SI+',
-                'Schüco AWS 90.SI+ Green',
-                'Schüco AWS 90 BS.SI+'
-              ],
-              systemDoorFrameCtr,
-              'Schüco AWS 50.NI'),
+//          Divider(height: 1),
+//          _constructGenericOption(
+//              'System',
+//              false,
+//              [
+//                'Schüco AWS 50',
+//                'Schüco AWS 50.NI',
+//                'Schüco AWS 50 SL',
+//                'Schüco AWS 50 RL',
+//                'Schüco AWS 60',
+//                'Schüco AWS 60 SL',
+//                'Schüco AWS 60 RL',
+//                'Schüco AWS 60.HI',
+//                'Schüco AWS 60 SL.HI',
+//                'Schüco AWS 60 BS',
+//                'Schüco AWS 65',
+//                'Schüco AWS 65 SL',
+//                'Schüco AWS 65 RL',
+//                'Schüco AWS 65 BS',
+//                'Schüco AWS 65 WF',
+//                'Schüco AWS 70.HI',
+//                'Schüco AWS 70 SL.HI',
+//                'Schüco AWS 70 RL.HI',
+//                'Schüco AWS 70 ST.HI',
+//                'Schüco AWS 70 BS.HI',
+//                'Schüco AWS 70 WF.HI',
+//                'Schüco AWS 75.SI+',
+//                'Schüco AWS 75 SL.SI+',
+//                'Schüco AWS 75 RL.SI+',
+//                'Schüco AWS 75 BS.HI+',
+//                'Schüco AWS 75 BS.SI+',
+//                'Schüco AWS 75 WF.SI+',
+//                'Schüco AWS 90.SI+',
+//                'Schüco AWS 90.SI+ Green',
+//                'Schüco AWS 90 BS.SI+'
+//              ],
+//              systemDoorFrameCtr,
+//              'Schüco AWS 50.NI'),
           Divider(height: 1),
           InkWell(
             child: Container(
@@ -497,6 +530,14 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
       return Container();
   }
 
+  void _navBack() {
+    if(doorHinge.dimensionBarrelIm != null && doorHinge.dimensionBarrelIm.isNotEmpty && doorHinge.dimensionBarrelIm.endsWith('png')){
+      File f = File(doorHinge.dimensionBarrelIm);
+      if(f.existsSync()) f.deleteSync();
+    }
+    NavigationUtils.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -509,7 +550,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Navigator.pop(context);
+            _navBack();
           },
           color: Theme.of(context).primaryColor,
         ),
@@ -596,7 +637,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                   Text('Schüco system',
                       style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
-                  _getMandatory(true)
+                  _getMandatory(false)
                 ],
               )),
           Padding(
@@ -635,7 +676,9 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               true,
               [
                 R.string.thermallyBrokenDoor,
-                R.string.thermallyNonBrokenDoor
+                R.string.thermallyNonBrokenDoor,
+                R.string.fireProtectionDoor,
+                R.string.smokeProtectionDoor
               ],
               thermallyCtr,
                 R.string.thermallyBrokenDoor
@@ -653,7 +696,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           Divider(height: 1),
           _constructGenericOption(
               R.string.fitted,
-              true,
+              false,
               [
               R.string.flushFitted,
                 R.string.faceFitted

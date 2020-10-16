@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -106,6 +108,14 @@ class _ArticleIdentificationState
   void initState() {
     super.initState();
     bloc.loadArticles();
+
+    Future.delayed(Duration(seconds: 1)).then((value) async {
+      Directory appDocDir = await FileUtils.getRootFilesDirectory();
+      final List<FileSystemEntity> files = appDocDir.listSync();
+      files.forEach((element) {
+        print(element.path);
+      });
+    });
   }
 
   @override
@@ -393,6 +403,7 @@ class _ArticleIdentificationState
           return TXCupertinoActionSheetWidget(
             onActionTap: (action) async {
               if (action.key == 'Print' || action.key == 'Email') {
+
               } else if (action.key == 'Remove') {
                 bloc.deleteArticle();
               }
@@ -413,5 +424,10 @@ class _ArticleIdentificationState
             ],
           );
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

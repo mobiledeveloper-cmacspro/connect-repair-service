@@ -10,6 +10,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_page_indicator_widget.dart';
 import 'package:repairservices/ui/fitting_dimensions/door_lock/fitting_door_lock_dimension_bloc.dart';
+import 'dart:io';
 
 class FittingDoorLockDimensionPage extends StatefulWidget {
   final DoorLock model;
@@ -25,6 +26,12 @@ class FittingDoorLockDimensionPage extends StatefulWidget {
 
 class _FittingDoorLockDimensionState extends StateWithBloC<
     FittingDoorLockDimensionPage, FittingDoorLockDimensionBloC> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget buildWidget(BuildContext context) {
     return Stack(
@@ -123,8 +130,8 @@ class _FittingDoorLockDimensionState extends StateWithBloC<
   }
 
   Widget _getDimension1() {
-    return Image.asset(
-      R.image.lockDimensionPage1,
+    return Image.file(
+      File(widget.model.dimensionImage1Path),
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.contain,
@@ -132,8 +139,8 @@ class _FittingDoorLockDimensionState extends StateWithBloC<
   }
 
   Widget _getDimension2() {
-    return Image.asset(
-      R.image.lockDimensionPage2,
+    return Image.file(
+      File(widget.model.dimensionImage2Path),
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.contain,
@@ -141,8 +148,8 @@ class _FittingDoorLockDimensionState extends StateWithBloC<
   }
 
   Widget _getDimension3() {
-    return Image.asset(
-      R.image.lockDimensionPage3,
+    return Image.file(
+      File(widget.model.dimensionImage3Path),
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.contain,
@@ -211,5 +218,10 @@ class _FittingDoorLockDimensionState extends StateWithBloC<
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

@@ -151,7 +151,7 @@ class DoorLock extends Fitting {
     dimensionE = map[columnDoorLockDimensionE];
     dimensionF = map[columnDoorLockDimensionF];
     dimensionImage1Path = map[columnDimensionImage1Path];
-    dimensionImage3Path = map[columnDimensionImage2Path];
+    dimensionImage2Path = map[columnDimensionImage2Path];
     dimensionImage3Path = map[columnDimensionImage3Path];
     pdfPath = map[columnDoorLockPDFPath];
   }

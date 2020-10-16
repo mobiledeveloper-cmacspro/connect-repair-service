@@ -208,6 +208,8 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get barrelHinge;
 
+  String get barrelHingeDetails;
+
   String get surfaceMountedDoorHingeDetails;
 
   String get coverCapsDoorHinge;
@@ -219,6 +221,8 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get doorLeafMM;
 
   String get doorFrameMM;
+
+  String get basicDepthDoorFrameMM;
 
   String get basicDepthDoorLeafMM;
 
@@ -235,6 +239,10 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get thermallyBrokenDoor;
 
   String get thermallyNonBrokenDoor;
+
+  String get fireProtectionDoor;
+
+  String get smokeProtectionDoor;
 
   String get doorOpening;
 

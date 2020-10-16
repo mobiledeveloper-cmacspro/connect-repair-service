@@ -22,6 +22,7 @@ final String columnDoorHingeThermally = 'thermally';
 final String columnDoorHingeDoorOpening = 'doorOpening';
 final String columnDoorHingeFitted = 'fitted';
 final String columnDoorHingeHingeType = 'hingeType';
+final String columnDoorHingeType = 'intType';
 final String columnDoorHingeDoorHingeDetailsIm = 'doorHingeDetailsIm';
 final String columnDoorHingeDimensionsSurfaceA = 'dimensionsSurfaceA';
 final String columnDoorHingeDimensionsSurfaceB = 'dimensionsSurfaceB';
@@ -60,6 +61,8 @@ class DoorHinge extends Fitting {
       dimensionsBarrelA,
       dimensionsBarrelB,
       dimensionBarrelIm;
+  // 0 for basic, 1 barrel, 2 surface
+  int intType;
 
   DoorHinge();
 
@@ -94,6 +97,7 @@ class DoorHinge extends Fitting {
     doorOpening = map[columnDoorHingeDoorOpening];
     fitted = map[columnDoorHingeFitted];
     hingeType = map[columnDoorHingeHingeType];
+    intType = int.parse(map[columnDoorHingeType]);
     doorHingeDetailsIm = map[columnDoorHingeDoorHingeDetailsIm];
     dimensionsSurfaceA = map[columnDoorHingeDimensionsSurfaceA];
     dimensionsSurfaceB = map[columnDoorHingeDimensionsSurfaceB];
@@ -124,6 +128,7 @@ class DoorHinge extends Fitting {
       columnDoorHingeDoorOpening: doorOpening,
       columnDoorHingeFitted: fitted,
       columnDoorHingeHingeType: hingeType,
+      columnDoorHingeType: intType.toString(),
       columnDoorHingeDoorHingeDetailsIm: doorHingeDetailsIm,
       columnDoorHingeDimensionsSurfaceA: dimensionsSurfaceA,
       columnDoorHingeDimensionsSurfaceB: dimensionsSurfaceB,

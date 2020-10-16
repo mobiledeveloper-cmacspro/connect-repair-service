@@ -28,6 +28,7 @@ class FittingDoorHingeDetailPage extends StatefulWidget {
 
 class _FittingDoorHingeDetailState
     extends StateWithBloC<FittingDoorHingeDetailPage, FittingWindowsBloC> {
+
   @override
   Widget buildWidget(BuildContext context) {
     return TXMainBarWidget(
@@ -87,22 +88,6 @@ class _FittingDoorHingeDetailState
             ),
             TXDividerWidget(),
             TXItemCellEditWidget(
-              title: "",
-              value: R.string.dimensions,
-              cellEditMode: CellEditMode.selector,
-              onSubmitted: (value) {
-                NavigationUtils.pushCupertino(
-                  context,
-                  FittingDoorHingeDimensionPage(
-                    model: widget.model,
-                    isEditable: false,
-                    dimensionType: DoorHingeDimensionType.surface,
-                  ),
-                );
-              },
-            ),
-            TXDividerWidget(),
-            TXItemCellEditWidget(
               title: R.string.hingeType,
               value: widget.model.hingeType,
             ),
@@ -116,7 +101,7 @@ class _FittingDoorHingeDetailState
   }
 
   Widget _getHingeTypeCells() {
-    if (widget.model.hingeType == R.string.barrelHinge) {
+    if (widget.model.intType == 1) {
       return Column(
         children: <Widget>[
           TXItemCellEditWidget(
@@ -130,7 +115,7 @@ class _FittingDoorHingeDetailState
           ),
           TXDividerWidget(),
           TXItemCellEditWidget(
-            title: R.string.doorFrameMM,
+            title: R.string.basicDepthDoorFrameMM,
             value: widget.model.doorFrame,
           ),
           TXDividerWidget(),
@@ -156,7 +141,7 @@ class _FittingDoorHingeDetailState
           ),
         ],
       );
-    } else if (widget.model.hingeType == R.string.surfaceMountedDoorHinge) {
+    } else if (widget.model.intType == 2) {
       return Column(
         children: <Widget>[
           TXItemCellEditWidget(
@@ -178,6 +163,22 @@ class _FittingDoorHingeDetailState
           TXItemCellEditWidget(
             title: R.string.coverCapsDoorHinge,
             value: widget.model.coverCaps,
+          ),
+          TXDividerWidget(),
+          TXItemCellEditWidget(
+            title: "",
+            value: R.string.dimensions,
+            cellEditMode: CellEditMode.selector,
+            onSubmitted: (value) {
+              NavigationUtils.pushCupertino(
+                context,
+                FittingDoorHingeDimensionPage(
+                  model: widget.model,
+                  isEditable: false,
+                  dimensionType: DoorHingeDimensionType.surface,
+                ),
+              );
+            },
           ),
         ],
       );
@@ -214,6 +215,7 @@ class _FittingDoorHingeDetailState
                 });
               } else if (action.key == 'Remove') {
                 bloc.delete(widget.model);
+                NavigationUtils.pop(context);
               }
             },
             actions: [
@@ -230,5 +232,10 @@ class _FittingDoorHingeDetailState
             ],
           );
         });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

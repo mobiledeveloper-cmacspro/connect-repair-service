@@ -73,19 +73,26 @@ class ArticleDetailsBloc extends BaseBloC{
     }
     if (product.listPrice != null &&
         product.listPrice.value != "" &&
+        double.parse(product.listPrice.value) != 0.0 &&
         seePrices) {
       sourceProduct.add(TupleData(
           en: "list price",
-          de: "Listenpreis/VKME",
+          de: "Listenpreis",
           value: product.listPrice.value.replaceAll(",", ",")));
     }
-    if (product.netPrice != null && product.netPrice.value != "" && seePrices) {
+    if (product.netPrice != null &&
+        product.netPrice.value != "" &&
+        double.parse(product.netPrice.value) != 0.0 &&
+        seePrices) {
       sourceProduct.add(TupleData(
           en: "net price",
           de: product.netPrice.de,
-          value: product.netPrice.value.replaceAll(".", ",")));
+          value: double.parse(product.netPrice.value).toStringAsFixed(2).replaceAll(".", ",")));
     }
-    if (product.discount != null && product.discount.value != "" && seePrices) {
+    if (product.discount != null &&
+        product.discount.value != "" &&
+        double.parse(product.discount.value) != 0.0 &&
+        seePrices) {
       sourceProduct.add(TupleData(
           en: product.discount.en,
           de: product.discount.de,
@@ -93,6 +100,15 @@ class ArticleDetailsBloc extends BaseBloC{
               .toStringAsFixed(2)
               .replaceAll(((".")), ",") +
               " %"));
+    }
+    if (product.totalAmount != null &&
+        product.totalAmount.value != "" &&
+        double.parse(product.totalAmount.value) != 0.0 &&
+        seePrices) {
+      sourceProduct.add(TupleData(
+          en: 'total net value',
+          de: 'Warenwert netto',
+          value: product.totalAmount.value.replaceAll('.', ',')));
     }
     _tupleDataController.sink.add(sourceProduct);
   }

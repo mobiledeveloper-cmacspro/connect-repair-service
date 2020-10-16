@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:ui' as prefix0;
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +30,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
   var imageKey1 = new GlobalKey();
   String imagePath1;
   File dimensionImage1;
+  bool filled = false;
 
   @override
   void initState() {
@@ -156,14 +157,49 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
     debugPrint('Taking screenshot');
     RenderRepaintBoundary boundary = imageKey1.currentContext.findRenderObject();
     var image = await boundary.toImage();
-    var byteData = await image.toByteData(format: prefix0.ImageByteFormat.png);
+    var byteData = await image.toByteData(format: ImageByteFormat.png);
     final buffer = byteData.buffer;
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
     final path = '$directory/$fileName.png';
 
     File(path).writeAsBytesSync(buffer.asUint8List(byteData.offsetInBytes,byteData.lengthInBytes));
+
+    ///Removing previous screen shoot if exist
+    if (imagePath1?.isNotEmpty == true &&
+        imagePath1?.endsWith('.png') == true) {
+      File preFile = File(imagePath1);
+      if (await preFile.exists()) {
+        await preFile.delete();
+      }
+    }
+
     imagePath1 = path;
+  }
+
+  Widget _getMandatory(bool mandatory) {
+    if (mandatory) {
+      return Padding(
+          padding: EdgeInsets.only(left: 4),
+          child: Text('*', style: TextStyle(color: Colors.red, fontSize: 17)));
+    } else
+      return Container();
+  }
+
+  Widget _checkImage() {
+    debugPrint('checking image');
+    if(aCtr.text != "" && bCtr.text != "") {
+      filled = true;
+      return Image.asset(
+        'assets/checkGreen.png',
+        height: 25,
+      );
+    }
+    filled = false;
+    return Image.asset(
+      'assets/checkGrey.png',
+      height: 25,
+    );
   }
 
   @override
@@ -173,7 +209,7 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         backgroundColor: Colors.white,
         actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.hingeDimensions,style: Theme.of(context).textTheme.bodyText2),
+        title: Text(R.string.barrelHingeDetails,style: Theme.of(context).textTheme.bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -183,20 +219,19 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
         ),
         actions: <Widget>[
           InkWell(
-            child: Image.asset(
-              'assets/checkGreen.png',
-              height: 25,
-            ),
+            child: _checkImage(),
             onTap: ()async{
-              doorHinge.dimensionsBarrelA = aCtr.text;
-              doorHinge.dimensionsBarrelB = bCtr.text;
-              aNode.unfocus();
-              bNode.unfocus();
-              await takeScreenShoot();
-              if (imagePath1 != '') {
-                doorHinge.dimensionBarrelIm = imagePath1;
+              if(filled) {
+                doorHinge.dimensionsBarrelA = aCtr.text;
+                doorHinge.dimensionsBarrelB = bCtr.text;
+                aNode.unfocus();
+                bNode.unfocus();
+                await takeScreenShoot();
+                if (imagePath1 != '') {
+                  doorHinge.dimensionBarrelIm = imagePath1;
+                }
+                Navigator.pop(context,doorHinge);
               }
-              Navigator.pop(context,doorHinge);
             },
           )
         ],
@@ -264,8 +299,13 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                     ),
                     Divider(height: 1),
                     Padding(
-                      padding: EdgeInsets.only(left: 16,top: 8),
-                      child: Text('A',style: aCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                      padding: EdgeInsets.only(left: 16),
+                      child: Row(
+                        children: [
+                          Text('A',style: aCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                          _getMandatory(true),
+                        ],
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16,right: 16),
@@ -295,7 +335,12 @@ class DoorHingeDimensionBarrelState extends State<DoorHingeDimensionBarrel> {
                     Divider(height: 1),
                     Padding(
                       padding: EdgeInsets.only(left: 16),
-                      child: Text('B',style: bCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                      child: Row(
+                        children: [
+                          Text('B',style: bCtr.text == "" ? Theme.of(context).textTheme.bodyText2 : Theme.of(context).textTheme.subtitle2, textAlign: TextAlign.left),
+                          _getMandatory(true),
+                        ],
+                      ),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(left: 16,right: 16,top: 0),

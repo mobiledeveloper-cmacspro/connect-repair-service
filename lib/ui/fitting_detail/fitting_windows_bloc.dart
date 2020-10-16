@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/models/DoorLock.dart';
@@ -12,6 +15,7 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
+import 'package:repairservices/utils/file_utils.dart';
 import 'package:rxdart/subjects.dart';
 
 class FittingWindowsBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
@@ -34,7 +38,36 @@ class FittingWindowsBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
       await helper.deleteDoorHinge(model.id);
       await PDFManagerDoorHinge.removePDF(model);
     }
+
+    _deleteImages(model);
     _deleteController.sinkAddSafe(true);
+  }
+
+  Future<void> _deleteImages(Fitting model) async {
+    if(model is DoorHinge) {
+      List<String> files = [
+        model.dimensionSurfaceIm,
+        model.dimensionBarrelIm,
+      ];
+      files.forEach((element) {
+        File f = File(element ?? '');
+        if(f.existsSync()) {
+          f.deleteSync();
+        }
+      });
+    } else if(model is DoorLock) {
+      List<String> files = [
+        model.dimensionImage1Path,
+        model.dimensionImage2Path,
+        model.dimensionImage3Path
+      ];
+      files.forEach((element) {
+        File f = File(element ?? '');
+        if(f.existsSync()) {
+          f.deleteSync();
+        }
+      });
+    }
   }
 
   String getDirectionOpening(String type) {

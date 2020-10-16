@@ -9,6 +9,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/fitting_dimensions/door_hinge/fitting_door_hinge_dimension_bloc.dart';
+import 'dart:io';
 
 enum DoorHingeDimensionType { barrel, surface }
 
@@ -82,10 +83,10 @@ class _FittingDoorHingeDimensionState extends StateWithBloC<
   }
 
   Widget _getDimension1() {
-    return Image.asset(
+    return Image.file(
       widget.dimensionType == DoorHingeDimensionType.barrel
-          ? R.image.hingeDimensionBarrel
-          : R.image.hingeDimensionSurface,
+          ? File(widget.model.dimensionBarrelIm)
+          : File(widget.model.dimensionSurfaceIm),
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.contain,
