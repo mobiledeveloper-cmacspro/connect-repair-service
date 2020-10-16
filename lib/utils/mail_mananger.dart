@@ -1,4 +1,6 @@
 import 'package:flutter_mailer/flutter_mailer.dart';
+import 'dart:io';
+import 'package:url_launcher/url_launcher.dart';
 
 class MailModel {
   List<String> attachments;
@@ -16,6 +18,11 @@ class MailModel {
 class MailManager {
   static Future<String> sendEmail(MailModel model) async {
     try {
+      final bool canSend = await FlutterMailer.canSendMail();
+      if(!canSend && Platform.isIOS) {
+        return "Mail app unavailable. Please set up default mail app on device.";
+      }
+
       final attachments =
           model.attachments.where((a) => a?.isNotEmpty == true).toList();
       final MailOptions options = MailOptions(
@@ -27,7 +34,7 @@ class MailManager {
       await FlutterMailer.send(options);
       return 'OK';
     } catch (ex) {
-      return "Error";
+      return "Error: $ex";
     }
   }
 }
