@@ -450,14 +450,16 @@ class ArticleDetailsState
       await _loadLang();
       LoginIconBloc.changeLoggedInStatus(loggued);
       bloc.loadProduct(widget.product);
-      _refillSourceProduct();
       bloc.loadImage();
       //_readAllProductsInCart();
-      Future.delayed(Duration(milliseconds: 100)).then((value) async {
-        await _scrollController.position.animateTo(1.0,
-            duration: Duration(seconds: 1),
-            curve: Threshold(1.0));
-      });
+      if(loggued){
+        _refillSourceProduct();
+        Future.delayed(Duration(milliseconds: 100)).then((value) async {
+          await _scrollController.position.animateTo(1.0,
+              duration: Duration(seconds: 1),
+              curve: Threshold(1.0));
+        });
+      }
     });
   }
 

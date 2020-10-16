@@ -45,7 +45,6 @@ import 'package:repairservices/res/values/text/custom_localizations_delegate.dar
 import 'all_translations.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 class HomeM extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -70,7 +69,7 @@ class HomeState extends State<HomeM> {
 
     ISClientO.instance.isTokenAvailable().then((bool loggued) async {
       this.loggued = loggued;
-      if(loggued){
+      if (loggued) {
         await ISClientO.instance.getUserInformation();
       }
       LoginIconBloc.changeLoggedInStatus(loggued);
@@ -99,7 +98,10 @@ class HomeState extends State<HomeM> {
    */
 
   Widget _displayGridItem(String value, String imageUrl, Function action,
-      {double marginTop = 16, double marginBottom = 10, double width = 80, double height = 80}) {
+      {double marginTop = 16,
+      double marginBottom = 10,
+      double width = 80,
+      double height = 80}) {
     return new GestureDetector(
         onTap: action,
         child: new Container(
@@ -116,7 +118,7 @@ class HomeState extends State<HomeM> {
                   value,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 14,
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
                   ),
@@ -133,7 +135,8 @@ class HomeState extends State<HomeM> {
   }
 
   Widget _loginBt() {
-    return new LoginIcon(paddingLeft: 16, paddingRight: 16, paddingTop: 5, paddingBottom: 20);
+    return new LoginIcon(
+        paddingLeft: 16, paddingRight: 16, paddingTop: 5, paddingBottom: 20);
   }
 
   _readCompanys() async {
@@ -180,7 +183,8 @@ class HomeState extends State<HomeM> {
       Fluttertoast.showToast(msg: res, toastLength: Toast.LENGTH_LONG);
   }
 
-  Widget _createDrawerItem(Image icon, Text text, GestureTapCallback onTap, {paddingLeft = 14.0}) {
+  Widget _createDrawerItem(Image icon, Text text, GestureTapCallback onTap,
+      {paddingLeft = 14.0}) {
     return ListTile(
       onTap: onTap,
       title: Row(
@@ -201,6 +205,7 @@ class HomeState extends State<HomeM> {
     final screenWidth = MediaQuery.of(context).size.width;
     final topButtonPadding = screenHeight * 0.020;
     final bottomButtonPadding = screenHeight * 0.010;
+    final iconSize = screenHeight * 0.108695652173913;
     final divider = Container(
       color: Color.fromRGBO(0, 0, 0, 0.3),
       height: 1,
@@ -281,10 +286,7 @@ class HomeState extends State<HomeM> {
           ),
         ),
         iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        actions: <Widget>[
-          CartIcon(),
-          _profileButton()
-        ],
+        actions: <Widget>[CartIcon(), _profileButton()],
       ),
       drawer: Drawer(
         child: ListView(
@@ -337,41 +339,41 @@ class HomeState extends State<HomeM> {
             }),
             divider,
             _createDrawerItem(
-                Image.asset(
-                  'assets/documentGrey.png',
-                  width: 20,
-                ),
-                Text(R.string.projectDoc,
-                    style: TextStyle(
-                        color: Color.fromRGBO(38, 38, 38, 1.0),
-                        fontSize: 17)), () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
+              Image.asset(
+                'assets/documentGrey.png',
+                width: 20,
+              ),
+              Text(R.string.projectDoc,
+                  style: TextStyle(
+                      color: Color.fromRGBO(38, 38, 38, 1.0), fontSize: 17)),
+              () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
               paddingLeft: 18.0,
             ),
             divider,
             _createDrawerItem(
-                Image.asset(
-                  'assets/docucenter1.png',
-                  width: 25,
-                ),
-                Text(R.string.docCenter,
-                    style: TextStyle(
-                        color: Color.fromRGBO(38, 38, 38, 1.0),
-                        fontSize: 17)), () async {
-              Navigator.pop(context);
-              String url = Platt.Platform.isIOS
-                  ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                  : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-              if (await canLaunch(url)) {
-                await launch(url);
-              } else {
-                throw 'Could not launch $url';
-              }
-            },
+              Image.asset(
+                'assets/docucenter1.png',
+                width: 25,
+              ),
+              Text(R.string.docCenter,
+                  style: TextStyle(
+                      color: Color.fromRGBO(38, 38, 38, 1.0), fontSize: 17)),
+              () async {
+                Navigator.pop(context);
+                String url = Platt.Platform.isIOS
+                    ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                    : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
             ),
             divider,
             _createDrawerItem(
@@ -461,11 +463,12 @@ class HomeState extends State<HomeM> {
                   ),
                   Text(!snapshot.data ? R.string.login : R.string.logoff,
                       style: TextStyle(
-                          color: Color.fromRGBO(38, 38, 38, 1.0), fontSize: 17)), () {
+                          color: Color.fromRGBO(38, 38, 38, 1.0),
+                          fontSize: 17)), () {
                 Navigator.pop(context);
                 if (!snapshot.data) {
-                  Navigator.push(
-                      context, CupertinoPageRoute(builder: (context) => LoginV()));
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) => LoginV()));
                 } else {
                   ISClientO.instance.clearToken().then((_) {
                     LoginIconBloc.changeLoggedInStatus(false);
@@ -486,10 +489,11 @@ class HomeState extends State<HomeM> {
             defaultModel: true,
             onQRScanTap: () async {
               bool permission = await Permission.camera.request().isGranted;
-              if(permission)
+              if (permission)
                 NavigationUtils.push(context, QRScanPage());
               else
-                _showDialog(context, 'Exception', "Camera permissions required");
+                _showDialog(
+                    context, 'Exception', "Camera permissions required");
             },
             onSearchTap: () async {
               final res =
@@ -509,19 +513,18 @@ class HomeState extends State<HomeM> {
                   children: <Widget>[
                     Expanded(
                         child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(R.string.artIdentServ,
-                                'assets/articleIdentificationService.png', () {
-                                  NavigationUtils.pushCupertinoWithRoute(
-                                      context,
-                                      ArticleIdentificationV(),
-                                      NavigationUtils.ArticleIdentificationPage);
-                                }),
-                          ),
-                        )),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: topButtonPadding, bottom: bottomButtonPadding),
+                        child: _displayGridItem(R.string.artIdentServ,
+                            'assets/articleIdentificationService.png', () {
+                          NavigationUtils.pushCupertinoWithRoute(
+                              context,
+                              ArticleIdentificationV(),
+                              NavigationUtils.ArticleIdentificationPage);
+                        },height: iconSize, width: iconSize ),
+                      ),
+                    )),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
@@ -536,14 +539,14 @@ class HomeState extends State<HomeM> {
                               bottom: bottomButtonPadding),
                           child: _displayGridItem(R.string.artBookMarkList,
                               'assets/articleBookmarkList.png', () {
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => ArticleBookMark()),
-                                ).then((_) {
-                                  //_readAllProductsInCart();
-                                });
-                              }),
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => ArticleBookMark()),
+                            ).then((_) {
+                              //_readAllProductsInCart();
+                            });
+                          }, height: iconSize, width: iconSize),
                         ),
                       ),
                     ),
@@ -554,14 +557,13 @@ class HomeState extends State<HomeM> {
                   children: <Widget>[
                     Expanded(
                         child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(R.string.projectDoc,
-                                'assets/projectDocumentation.png', () {}),
-                          ),
-                        )),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: topButtonPadding, bottom: bottomButtonPadding),
+                        child: _displayGridItem(R.string.projectDoc,
+                            'assets/projectDocumentation.png', () {}, height: iconSize, width: iconSize),
+                      ),
+                    )),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
@@ -574,17 +576,18 @@ class HomeState extends State<HomeM> {
                           padding: EdgeInsets.only(
                               top: topButtonPadding,
                               bottom: bottomButtonPadding),
-                          child: _displayGridItem(R.string.docCenter,
-                              'assets/docucenter.png', () async {
-                                String url = Platt.Platform.isIOS
-                                    ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
-                                    : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },width: 60),
+                          child: _displayGridItem(
+                              R.string.docCenter, 'assets/docucenter.png',
+                              () async {
+                            String url = Platt.Platform.isIOS
+                                ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
+                                : 'https://play.google.com/store/apps/details?id=com.schueco.tecdoc&hl=en_US';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          }, height: iconSize, width: iconSize - 20),
                         ),
                       ),
                     ),
@@ -595,40 +598,36 @@ class HomeState extends State<HomeM> {
                   children: <Widget>[
                     Expanded(
                         child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(
-                                R.string.companyProfile, 'assets/companyProfile.png', () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => CompanyProfileV()));
-                            }),
-                          ),
-                        )),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: topButtonPadding, bottom: bottomButtonPadding),
+                        child: _displayGridItem(R.string.companyProfile,
+                            'assets/companyProfile.png', () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => CompanyProfileV()));
+                        } , height: iconSize, width: iconSize),
+                      ),
+                    )),
                     Expanded(
                         child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                                left: BorderSide(
-                                    color: Color.fromARGB(100, 191, 191, 191),
-                                    width: 1)),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: topButtonPadding,
-                                bottom: bottomButtonPadding),
-                            child: _displayGridItem(
-                                R.string.serviceFaq, 'assets/FAQ.png', () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => FAQ()));
-                            }),
-                          ),
-                        )),
+                      decoration: BoxDecoration(
+                        border: Border(
+                            left: BorderSide(
+                                color: Color.fromARGB(100, 191, 191, 191),
+                                width: 1)),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: topButtonPadding, bottom: bottomButtonPadding),
+                        child: _displayGridItem(
+                            R.string.serviceFaq, 'assets/FAQ.png', () {
+                          Navigator.push(context,
+                              CupertinoPageRoute(builder: (context) => FAQ()));
+                        }, height: iconSize, width: iconSize),
+                      ),
+                    )),
                   ],
                 ),
                 Divider(height: 1)
@@ -648,23 +647,23 @@ class HomeState extends State<HomeM> {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Text(title),
-          content: msg.isNotEmpty
-              ? Padding(
-            padding:
-            EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-            child: Text(msg, style: TextStyle(fontSize: 17)),
-          )
-              : Container(),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: const Text("OK"),
-              isDefaultAction: true,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        ));
+              title: Text(title),
+              content: msg.isNotEmpty
+                  ? Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                      child: Text(msg, style: TextStyle(fontSize: 17)),
+                    )
+                  : Container(),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: const Text("OK"),
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ));
   }
 }
