@@ -26,17 +26,6 @@ class GlobalSettings extends StatelessWidget {
           },
           color: Theme.of(context).primaryColor,
         ),
-        actions: <Widget>[
-          InkWell(
-            child: Image.asset(
-              'assets/questionMarkGreen.png',
-              height: 25,
-            ),
-            onTap: () {
-              debugPrint('Help');
-            },
-          )
-        ],
       ),
       body: Column(
         children: <Widget>[
