@@ -403,7 +403,7 @@ class _ArticleIdentificationState
           return TXCupertinoActionSheetWidget(
             onActionTap: (action) async {
               if (action.key == 'Print' || action.key == 'Email') {
-
+                bloc.exportByEmail();
               } else if (action.key == 'Remove') {
                 bloc.deleteArticle();
               }
