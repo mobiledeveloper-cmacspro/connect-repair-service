@@ -58,18 +58,6 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
           },
           color: Theme.of(context).primaryColor,
         ),
-        actions: <Widget>[
-          GestureDetector(
-            onTap: () {
-              debugPrint('Help button taped taped');
-            },
-            child: Image.asset(
-              'assets/questionMarkGreen.png',
-              height: 25,
-            ),
-
-          ),
-        ],
       ),
       body: new Container(
           child: new Column(

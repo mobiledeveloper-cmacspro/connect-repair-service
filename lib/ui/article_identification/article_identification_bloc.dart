@@ -154,18 +154,18 @@ class ArticleIdentificationBloC extends BaseBloC
   }
 
   Future<void> _deleteImages(Fitting model) async {
-    if(model is DoorHinge) {
+    if (model is DoorHinge) {
       List<String> files = [
         model.dimensionSurfaceIm,
         model.dimensionBarrelIm,
       ];
       files.forEach((element) {
         File f = File(element ?? '');
-        if(f.existsSync()) {
+        if (f.existsSync()) {
           f.deleteSync();
         }
       });
-    } else if(model is DoorLock) {
+    } else if (model is DoorLock) {
       List<String> files = [
         model.dimensionImage1Path,
         model.dimensionImage2Path,
@@ -173,7 +173,7 @@ class ArticleIdentificationBloC extends BaseBloC
       ];
       files.forEach((element) {
         File f = File(element ?? '');
-        if(f.existsSync()) {
+        if (f.existsSync()) {
           f.deleteSync();
         }
       });
@@ -190,6 +190,29 @@ class ArticleIdentificationBloC extends BaseBloC
           ? articleBase.filePath
           : (articleBase as Fitting).pdfPath
     ];
+    final MailModel mailModel =
+        MailModel(subject: name, body: name, attachments: attachments);
+
+    final res = await MailManager.sendEmail(mailModel);
+    if (res != 'OK') {
+      Fluttertoast.showToast(
+          msg: "$res", toastLength: Toast.LENGTH_LONG, textColor: Colors.red);
+    }
+    isLoading = false;
+  }
+
+  void exportByEmail() async {
+    isLoading = true;
+    final name = 'export';
+    final List<String> attachments = [];
+    _articleLocalController.value.forEach((articleBase) async {
+      if (articleBase.isSelected) {
+        attachments.add(articleBase is ArticleLocalModel
+            ? articleBase.filePath
+            : (articleBase as Fitting).pdfPath);
+      }
+    });
+
     final MailModel mailModel =
         MailModel(subject: name, body: name, attachments: attachments);
 

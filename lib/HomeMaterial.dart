@@ -6,8 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-//import 'package:package_info/package_info.dart';
+import 'package:package_info/package_info.dart';
 import 'package:repairservices/ArticleBookMarkV.dart';
 import 'package:repairservices/ArticleInCart.dart';
 import 'package:repairservices/Contac.dart';
@@ -171,11 +170,16 @@ class HomeState extends State<HomeM> {
     String systemVersion = isIphone
         ? data['systemName'] + ' ' + data['systemVersion']
         : 'Android ' + data['version.release'];
-    String version = Platt.Platform.version;
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String version = packageInfo.version;
+    String buildNumber = packageInfo.buildNumber;
+
     final MailModel model = MailModel(
       subject: 'App feedback',
       body:
-          '<h3>Details</h3><br>V.$version</br><br>$deviceType</br><br>$systemVersion</br><br>$locale</br>',
+          '<h3>Details</h3><br>V.$version($buildNumber)</br><br>$deviceType</br><br>$systemVersion</br><br>$locale</br>',
     );
 
     final res = await MailManager.sendEmail(model);
