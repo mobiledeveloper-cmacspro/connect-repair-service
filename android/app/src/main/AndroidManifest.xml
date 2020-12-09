@@ -38,6 +38,9 @@
                 android:name="io.fabric.ApiKey"
                 android:value="0b6c93c0262e33b706b811f805dfd57e2cc21e17"
         />
+        <meta-data
+                android:name="flutterEmbedding"
+                android:value="2" />
     </application>
 </manifest>
         <!--    6a7ce1f6b703cc7a825c703c0b7bffbdaad45672-->
