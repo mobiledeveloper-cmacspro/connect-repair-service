@@ -1070,4 +1070,8 @@ class StringsDe implements StringsBase {
   @override
   String get barrelHingeDetails => "Rollentürband-Maße";
 
+  @override
+  // TODO: implement mailRecipients
+  String get mailRecipients => "ersatzteile@schueco.com";
+
 }

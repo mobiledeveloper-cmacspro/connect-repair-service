@@ -710,4 +710,6 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get addSelectedToCart;
 
+  String get mailRecipients;
+
 }

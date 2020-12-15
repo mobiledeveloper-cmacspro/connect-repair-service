@@ -1070,4 +1070,8 @@ class StringsEn implements StringsBase {
   @override
   String get barrelHingeDetails => "Barrel hinge details";
 
+  @override
+  // TODO: implement mailRecipients
+  String get mailRecipients => "spareparts@schueco.com";
+
 }

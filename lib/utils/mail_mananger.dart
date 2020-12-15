@@ -1,6 +1,7 @@
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'dart:io';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:repairservices/res/R.dart';
 
 class MailModel {
   List<String> attachments;
@@ -18,6 +19,8 @@ class MailModel {
 class MailManager {
   static Future<String> sendEmail(MailModel model) async {
     try {
+
+      model.recipients = [R.string.mailRecipients];
       final bool canSend = await FlutterMailer.canSendMail();
       if(!canSend && Platform.isIOS) {
         return "Mail app unavailable. Please set up default mail app on device.";
