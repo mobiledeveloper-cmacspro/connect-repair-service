@@ -687,7 +687,7 @@ class StringsEn implements StringsBase {
   String get faqAnswer5 => "In order to use the extended information and services of the app, a Schüco customer number and a Schüco-Connect user is required. You will receive a customer number with your first order from Schüco. If you already have a Schüco customer number, please contact the sales representative responsible for your customer number.";
 
   @override
-  String get shucoServiceAppProvidedBy => "The Schüco service app is provided by:";
+  String get shucoServiceAppProvidedBy => "The Schüco Site Connect App is provided by:";
 
   @override
   String get registeredOfficeCourtOfRecord => "Registered office and court of record:";

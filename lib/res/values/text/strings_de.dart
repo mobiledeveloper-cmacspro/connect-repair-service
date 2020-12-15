@@ -696,7 +696,7 @@ class StringsDe implements StringsBase {
   String get faqAnswer5 => "Um die erweiterten Informationen und Services der App nutzen zu können, ist eine Schüco-Kundennummer sowie ein Schüco-Connect-Benutzer erforderlich. Eine Kundennummer erhalten Sie mit Ihrer ersten Bestellung bei Schüco. Haben Sie bereits eine Schüco-Kundennummer, wenden Sie sich bitte an den für Ihre Kundennummer zuständigen Vertriebsmitarbeiter.";
 
   @override
-  String get shucoServiceAppProvidedBy => "Die Schüco Connect Service App wird bereitgestellt von:";
+  String get shucoServiceAppProvidedBy => "Die Schüco Site Connect App wird bereitgestellt von:";
 
   @override
   String get registeredOfficeCourtOfRecord => "Sitz und eingetragenes Gericht:";
