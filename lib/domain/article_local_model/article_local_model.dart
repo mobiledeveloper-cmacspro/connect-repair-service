@@ -1,4 +1,4 @@
-import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 

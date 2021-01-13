@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:repairservices/Utils/calendar_utils.dart';
-import 'package:repairservices/Utils/file_utils.dart';
+import 'package:repairservices/utils/calendar_utils.dart';
+import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/res/R.dart';
 

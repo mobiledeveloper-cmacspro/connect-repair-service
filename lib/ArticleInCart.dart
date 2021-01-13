@@ -17,7 +17,7 @@ import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_page.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Utils/ISClient.dart';
+import 'utils/ISClient.dart';
 import 'database_helpers.dart';
 import 'package:repairservices/res/R.dart';
 

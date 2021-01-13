@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/utils/ISClient.dart';
 import 'package:repairservices/res/R.dart';
 
 class AddOrderAddress extends StatefulWidget {

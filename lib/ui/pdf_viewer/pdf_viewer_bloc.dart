@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:repairservices/Utils/mail_mananger.dart';
+import 'package:repairservices/utils/mail_mananger.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/models/DoorHinge.dart';
@@ -16,7 +16,7 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:repairservices/Utils/extensions.dart';
+import 'package:repairservices/utils/extensions.dart';
 
 class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   BehaviorSubject<String> _pdfPathController = new BehaviorSubject();

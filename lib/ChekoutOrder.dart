@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:repairservices/NetworkImageSSL.dart';
-import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/utils/ISClient.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
 import 'package:repairservices/models/Product.dart';

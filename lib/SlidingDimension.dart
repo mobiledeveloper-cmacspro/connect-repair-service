@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/ArticleWebPreview.dart';
-import 'package:repairservices/Utils/calendar_utils.dart';
+import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
@@ -15,7 +15,7 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
 import 'package:repairservices/res/R.dart';
 
-import 'Utils/file_utils.dart';
+import 'utils/file_utils.dart';
 
 class SlidingDimension extends StatefulWidget {
   final Sliding sliding;

@@ -5,8 +5,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:repairservices/Utils/calendar_utils.dart';
-import 'package:repairservices/Utils/file_utils.dart';
+import 'package:repairservices/utils/calendar_utils.dart';
+import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/res/R.dart';
 
 class PDFCell {

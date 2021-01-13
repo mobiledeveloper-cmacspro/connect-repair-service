@@ -1,6 +1,6 @@
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:repairservices/Utils/extensions.dart';
+import 'package:repairservices/utils/extensions.dart';
 
 class FittingDoorLockDimensionBloC extends BaseBloC {
   BehaviorSubject<int> _pageIndicatorController = new BehaviorSubject();
