@@ -294,7 +294,7 @@ class HomeBody extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: EdgeInsets.only(top: topButtonPadding, bottom:bottomButtonPadding),
-                        child: _displayGridItem(R.string.docCenter + " \n",'assets/docucenter.png'),
+                        child: _displayGridItem(R.string.docCenter + " \n",'assets/docuCenter.png'),
                       ),
                     ),
                   flex: 1,

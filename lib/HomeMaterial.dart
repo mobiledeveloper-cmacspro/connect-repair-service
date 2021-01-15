@@ -581,7 +581,7 @@ class HomeState extends State<HomeM> {
                               top: topButtonPadding,
                               bottom: bottomButtonPadding),
                           child: _displayGridItem(
-                              R.string.docCenter, 'assets/docucenter.png',
+                              R.string.docCenter, 'assets/docuCenter.png',
                               () async {
                             String url = Platt.Platform.isIOS
                                 ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
