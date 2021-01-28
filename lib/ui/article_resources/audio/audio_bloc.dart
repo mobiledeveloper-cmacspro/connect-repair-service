@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_audio_recorder/flutter_audio_recorder.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:repairservices/Utils/calendar_utils.dart';
-import 'package:repairservices/Utils/file_utils.dart';
+import 'package:repairservices/utils/calendar_utils.dart';
+import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/0_base/bloc_error_handler.dart';
 import 'package:repairservices/ui/0_base/bloc_loading.dart';
-import 'package:repairservices/Utils/extensions.dart';
+import 'package:repairservices/utils/extensions.dart';
 import 'package:repairservices/ui/article_resources/article_resource_model.dart';
 import 'package:rxdart/subjects.dart';
 

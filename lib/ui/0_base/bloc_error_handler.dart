@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:repairservices/data/api/remote/result.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:repairservices/Utils/extensions.dart';
+import 'package:repairservices/utils/extensions.dart';
 
 class ErrorHandlerBloC {
   BehaviorSubject<String> _errorMessageController = new BehaviorSubject();

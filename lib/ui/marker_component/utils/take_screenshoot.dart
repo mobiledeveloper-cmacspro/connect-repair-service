@@ -6,8 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:repairservices/Utils/calendar_utils.dart';
-import 'package:repairservices/Utils/file_utils.dart';
+import 'package:repairservices/utils/calendar_utils.dart';
+import 'package:repairservices/utils/file_utils.dart';
 
 Future<void> takeScreenShot({
   GlobalKey previewContainer,

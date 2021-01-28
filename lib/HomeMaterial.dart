@@ -13,8 +13,8 @@ import 'package:repairservices/Contac.dart';
 import 'package:repairservices/FAQ.dart';
 import 'package:repairservices/GlobalSetting.dart';
 import 'package:repairservices/ProfileV.dart';
-import 'package:repairservices/Utils/ISClient.dart';
-import 'package:repairservices/Utils/mail_mananger.dart';
+import 'package:repairservices/utils/ISClient.dart';
+import 'package:repairservices/utils/mail_mananger.dart';
 import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Company.dart';
@@ -33,7 +33,7 @@ import 'Login.dart';
 import 'ui/article_identification/article_identification_page.dart';
 import 'CompanyProfile.dart';
 import 'ArticleList.dart';
-import 'package:repairservices/Utils/DeviceInfo.dart';
+import 'package:repairservices/utils/DeviceInfo.dart';
 
 //import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -581,7 +581,7 @@ class HomeState extends State<HomeM> {
                               top: topButtonPadding,
                               bottom: bottomButtonPadding),
                           child: _displayGridItem(
-                              R.string.docCenter, 'assets/docucenter.png',
+                              R.string.docCenter, 'assets/docuCenter.png',
                               () async {
                             String url = Platt.Platform.isIOS
                                 ? 'https://itunes.apple.com/de/app/docu-center/id586582319?mt=8'
