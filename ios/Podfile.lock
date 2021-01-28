@@ -140,7 +140,7 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
-  - "permission_handler (5.0.0+hotfix.6)":
+  - "permission_handler (5.0.1+1)":
     - Flutter
   - PromisesObjC (1.2.11)
   - Protobuf (3.14.0)
@@ -153,9 +153,9 @@ PODS:
   - SDWebImage/Core (5.10.0)
   - shared_preferences (0.0.1):
     - Flutter
-  - sqflite (0.0.1):
+  - sqflite (0.0.2):
     - Flutter
-    - FMDB (~> 2.7.2)
+    - FMDB (>= 2.7.5)
   - SwiftyGif (5.3.0)
   - url_launcher (0.0.1):
     - Flutter
@@ -254,7 +254,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audioplayers: 84f968cea3f2deab00ec4f8ff53358b3c0b3992c
-  camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
+  camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   devicelocale: feebbe5e7a30adb8c4f83185de1b50ff19b44f00
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
@@ -279,18 +279,18 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 1350d40e86a76f7863928d63bcb0b89c84c521c5
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  image_picker: 66aa71bc96850a90590a35d4c4a2907b0d823109
+  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   native_device_orientation: e24d00be281de72996640885d80e706142707660
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  permission_handler: b7a0953389e699927c6217933754cdcd0fa2c5a7
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Protobuf: 0cde852566359049847168e51bd1c690e0f70056
   qr_mobile_vision: b20aca10aa3f5d1651cb71efc09bfaea098df043
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
-  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   SwiftyGif: e466e86c660d343357ab944a819a101c4127cb40
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
