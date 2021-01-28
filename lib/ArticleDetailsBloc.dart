@@ -78,7 +78,7 @@ class ArticleDetailsBloc extends BaseBloC{
       sourceProduct.add(TupleData(
           en: "list price",
           de: "Listenpreis",
-          value: product.listPrice.value.replaceAll(",", ",")));
+          value: product.listPrice.value.replaceAll(".", ",")));
     }
     if (product.netPrice != null &&
         product.netPrice.value != "" &&
@@ -106,8 +106,8 @@ class ArticleDetailsBloc extends BaseBloC{
         double.parse(product.totalAmount.value) != 0.0 &&
         seePrices) {
       sourceProduct.add(TupleData(
-          en: 'total net value',
-          de: 'Warenwert netto',
+          en: 'net value',
+          de: 'Nettowert',
           value: product.totalAmount.value.replaceAll('.', ',')));
     }
     _tupleDataController.sink.add(sourceProduct);

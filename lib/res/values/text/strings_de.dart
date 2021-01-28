@@ -324,6 +324,12 @@ class StringsDe implements StringsBase {
   String get barrelHinge => "Rollentürband";
 
   @override
+  String get barrelHinge2part => "Rollentürband (2-teilig)";
+
+  @override
+  String get barrelHinge3part => "Rollentürband (3-teilig)";
+
+  @override
   String get surfaceMountedDoorHingeDetails => "Detail Aufsatztürband";
 
   @override
@@ -795,7 +801,7 @@ class StringsDe implements StringsBase {
   String get deselectAll => "Alle entmarkieren";
 
   @override
-  String get removeSelected => "Entfernen Sie ausgewählte";
+  String get removeSelected => "Markierte entfernen";
 
   @override
   String get schucoInternational => "Schüco International KG";
@@ -1071,7 +1077,18 @@ class StringsDe implements StringsBase {
   String get barrelHingeDetails => "Rollentürband-Maße";
 
   @override
-  // TODO: implement mailRecipients
   String get mailRecipients => "ersatzteile@schueco.com";
+
+  @override
+  String get netValue => "Nettowert: ";
+
+  @override
+  String get surfaceMountedDoorHinge2part => "Aufsatztürband (2-teilig)";
+
+  @override
+  String get surfaceMountedDoorHinge3part => "Aufsatztürband (3-teilig)";
+
+  @override
+  String get receivingMailAddressArticleIdentification => "ersatzteile@schueco.com";
 
 }

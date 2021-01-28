@@ -321,6 +321,12 @@ class StringsEn implements StringsBase {
   String get barrelHinge => "Barrel hinge";
 
   @override
+  String get barrelHinge2part => "Barrel hinge (2-part)";
+
+  @override
+  String get barrelHinge3part => "Barrel hinge (3-part)";
+
+  @override
   String get surfaceMountedDoorHingeDetails => "Surface-mounted door hinge details";
 
   @override
@@ -1071,7 +1077,18 @@ class StringsEn implements StringsBase {
   String get barrelHingeDetails => "Barrel hinge details";
 
   @override
-  // TODO: implement mailRecipients
   String get mailRecipients => "spareparts@schueco.com";
+
+  @override
+  String get netValue => "net value: ";
+
+  @override
+  String get surfaceMountedDoorHinge2part => "Surface-mounted door hinge (2-part)";
+
+  @override
+  String get surfaceMountedDoorHinge3part => "Surface-mounted door hinge (3-part)";
+
+  @override
+  String get receivingMailAddressArticleIdentification => "spareparts@schueco.com";
 
 }

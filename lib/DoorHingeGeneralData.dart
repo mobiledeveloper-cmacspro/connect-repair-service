@@ -16,7 +16,6 @@ import 'package:repairservices/res/R.dart';
 import 'dart:io';
 
 class DoorHingeGeneralData extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return DoorHingeGeneralDataState();
@@ -126,8 +125,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         doorOpeningCtr.text != "" &&
         //fittedCtr.text != "" &&
         hingeTypeCtr.text != "") {
-      if (hingeTypeCtr.text ==
-          R.string.surfaceMountedDoorHinge) {
+      if (hingeTypeCtr.text == R.string.surfaceMountedDoorHinge) {
         if (coverCapsCtr.text != '' &&
             this.doorHinge.doorHingeDetailsIm != null &&
             this.doorHinge.doorHingeDetailsIm != '') {
@@ -143,12 +141,11 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
             height: 25,
           );
         }
-      } else if (hingeTypeCtr.text ==
-          R.string.barrelHinge) {
-        if (//doorLeafCtr.text != '' &&
+      } else if (hingeTypeCtr.text == R.string.barrelHinge) {
+        if ( //doorLeafCtr.text != '' &&
             doorFrameCtr.text != '' &&
-            doorHinge.dimensionBarrelIm != null &&
-            doorHinge.dimensionBarrelIm != '') {
+                doorHinge.dimensionBarrelIm != null &&
+                doorHinge.dimensionBarrelIm != '') {
           filled = true;
           return Image.asset(
             'assets/checkGreen.png',
@@ -248,7 +245,6 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
   }
 
   _goNextData() async {
-
     doorHinge.year = yearCtr.text;
     doorHinge.basicDepthOfDoorLeaf = basicDepthDoorCtr.text;
     doorHinge.systemHinge = hingeSystemCtr.text;
@@ -263,29 +259,30 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     doorHinge.doorFrame = doorFrameCtr.text;
     doorHinge.systemDoorFrame = systemDoorFrameCtr.text;
 
-
     int type = 0;
     if (doorHinge.hingeType == R.string.barrelHinge) {
       type = 1;
-    } else if (doorHinge.hingeType ==
-        R.string.surfaceMountedDoorHinge) {
+    } else if (doorHinge.hingeType == R.string.surfaceMountedDoorHinge) {
       type = 2;
     }
     doorHinge.intType = type;
 
-    if(type == 2) {
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => DoorHingeDimension(doorHinge)));
-    }else{
+    if (type == 2) {
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+              builder: (context) => DoorHingeDimension(doorHinge)));
+    } else {
       doorHinge.name = R.string.doorHingeFitting;
       doorHinge.created = DateTime.now();
 
       debugPrint('Saving Door Hinge');
 
-      doorHinge.pdfPath =
-          await PDFManagerDoorHinge.getPDFPath(doorHinge, type: doorHinge.intType);
+      doorHinge.pdfPath = await PDFManagerDoorHinge.getPDFPath(doorHinge,
+          type: doorHinge.intType);
 
       int id = await helper.insertDoorHinge(doorHinge);
-      if(id != null) {
+      if (id != null) {
         print('inserted row: $id');
         NavigationUtils.pushCupertino(
           context,
@@ -295,7 +292,6 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         );
       }
     }
-
   }
 
   Widget _getSurface() {
@@ -307,8 +303,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               margin: EdgeInsets.only(left: 16),
               child: Row(
                 children: <Widget>[
-                  Text(
-                      R.string.surfaceMountedDoorHingeDetails,
+                  Text(R.string.surfaceMountedDoorHingeDetails,
                       style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   Expanded(
@@ -338,14 +333,11 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         ),
         Divider(height: 1),
         _constructGenericOption(
-            R.string.coverCapsDoorHinge,
-            true,
-            [
-              R.string.circularGeneration,
-              R.string.ovalGeneration
-            ],
-            coverCapsCtr,
-            R.string.circularGeneration,
+          R.string.coverCapsDoorHinge,
+          true,
+          [R.string.circularGeneration, R.string.ovalGeneration],
+          coverCapsCtr,
+          R.string.circularGeneration,
         ),
         Divider(height: 1),
       ],
@@ -353,9 +345,8 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
   }
 
   Widget _getBarrel() {
-    if (hingeTypeCtr.text == R.string.barrelHinge) {
-      return Column(
-        children: <Widget>[
+    return Column(
+      children: <Widget>[
 //          Padding(
 //              padding: EdgeInsets.only(left: 16, top: 8),
 //              child: Row(
@@ -424,35 +415,35 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
 //              systemDoorLeafCtr,
 //              'Schüco AWS 50.NI'),
 //          Divider(height: 1),
-          Padding(
-              padding: EdgeInsets.only(left: 16, top: 8),
-              child: Row(
-                children: <Widget>[
-                  Text(R.string.basicDepthDoorFrameMM,
-                      style: Theme.of(context).textTheme.bodyText2,
-                      textAlign: TextAlign.left),
-                  _getMandatory(true)
-                ],
-              )),
-          Padding(
-            padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
-            child: new TextField(
-              onChanged: (value) {
-                setState(() {});
-              },
-              focusNode: doorFrameNode,
-              textAlign: TextAlign.left,
-              expands: false,
-              style: Theme.of(context).textTheme.bodyText2,
-              maxLines: 1,
-              controller: doorFrameCtr,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration.collapsed(
-                  border: InputBorder.none,
-                  hintText: 'mm',
-                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
-            ),
+        Padding(
+            padding: EdgeInsets.only(left: 16, top: 8),
+            child: Row(
+              children: <Widget>[
+                Text(R.string.basicDepthDoorFrameMM,
+                    style: Theme.of(context).textTheme.bodyText2,
+                    textAlign: TextAlign.left),
+                _getMandatory(true)
+              ],
+            )),
+        Padding(
+          padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
+          child: new TextField(
+            onChanged: (value) {
+              setState(() {});
+            },
+            focusNode: doorFrameNode,
+            textAlign: TextAlign.left,
+            expands: false,
+            style: Theme.of(context).textTheme.bodyText2,
+            maxLines: 1,
+            controller: doorFrameCtr,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration.collapsed(
+                border: InputBorder.none,
+                hintText: 'mm',
+                hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
           ),
+        ),
 //          Divider(height: 1),
 //          _constructGenericOption(
 //              'System',
@@ -491,49 +482,49 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
 //              ],
 //              systemDoorFrameCtr,
 //              'Schüco AWS 50.NI'),
-          Divider(height: 1),
-          InkWell(
-            child: Container(
-                height: 50,
-                margin: EdgeInsets.only(left: 16),
-                child: Row(
-                  children: <Widget>[
-                    Text(R.string.dimension,
-                        style: Theme.of(context).textTheme.bodyText2,
-                        textAlign: TextAlign.left),
-                    Expanded(
-                      child: _getMandatory(true),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 8),
-                      child: Icon(Icons.arrow_forward_ios,
-                          color: Colors.grey, size: 20),
-                    )
-                  ],
-                )),
-            onTap: () {
-              Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) =>
-                              DoorHingeDimensionBarrel(this.doorHinge)))
-                  .then((doorHinge) {
-                this.doorHinge = doorHinge;
-                setState(() {});
-              });
-            },
-          ),
-          Divider(height: 1),
-        ],
-      );
-    } else
-      return Container();
+        Divider(height: 1),
+        InkWell(
+          child: Container(
+              height: 50,
+              margin: EdgeInsets.only(left: 16),
+              child: Row(
+                children: <Widget>[
+                  Text(R.string.dimension,
+                      style: Theme.of(context).textTheme.bodyText2,
+                      textAlign: TextAlign.left),
+                  Expanded(
+                    child: _getMandatory(true),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: Icon(Icons.arrow_forward_ios,
+                        color: Colors.grey, size: 20),
+                  )
+                ],
+              )),
+          onTap: () {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) =>
+                        DoorHingeDimensionBarrel(this.doorHinge)))
+                .then((doorHinge) {
+              this.doorHinge = doorHinge;
+              setState(() {});
+            });
+          },
+        ),
+        Divider(height: 1),
+      ],
+    );
   }
 
   void _navBack() {
-    if(doorHinge.dimensionBarrelIm != null && doorHinge.dimensionBarrelIm.isNotEmpty && doorHinge.dimensionBarrelIm.endsWith('png')){
+    if (doorHinge.dimensionBarrelIm != null &&
+        doorHinge.dimensionBarrelIm.isNotEmpty &&
+        doorHinge.dimensionBarrelIm.endsWith('png')) {
       File f = File(doorHinge.dimensionBarrelIm);
-      if(f.existsSync()) f.deleteSync();
+      if (f.existsSync()) f.deleteSync();
     }
     NavigationUtils.pop(context);
   }
@@ -603,8 +594,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               padding: EdgeInsets.only(left: 16, top: 8),
               child: Row(
                 children: <Widget>[
-                  Text(
-                      R.string.basicDepthDoorLeafMM,
+                  Text(R.string.basicDepthDoorLeafMM,
                       style: Theme.of(context).textTheme.bodyText2,
                       textAlign: TextAlign.left),
                   _getMandatory(true)
@@ -662,14 +652,9 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
           _constructGenericOption(
               R.string.material,
               true,
-              [
-                R.string.aluminium,
-                R.string.pvcU,
-                R.string.steel
-              ],
+              [R.string.aluminium, R.string.pvcU, R.string.steel],
               materialCtr,
-              R.string.aluminium
-          ),
+              R.string.aluminium),
           Divider(height: 1),
           _constructGenericOption(
               R.string.thermally,
@@ -681,26 +666,19 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                 R.string.smokeProtectionDoor
               ],
               thermallyCtr,
-                R.string.thermallyBrokenDoor
-          ),
+              R.string.thermallyBrokenDoor),
           Divider(height: 1),
           _constructGenericOption(
               R.string.doorOpening,
               true,
-              [
-                R.string.inward,
-                R.string.outward
-              ],
+              [R.string.inward, R.string.outward],
               doorOpeningCtr,
               R.string.inward),
           Divider(height: 1),
           _constructGenericOption(
               R.string.fitted,
               false,
-              [
-              R.string.flushFitted,
-                R.string.faceFitted
-              ],
+              [R.string.flushFitted, R.string.faceFitted],
               fittedCtr,
               R.string.flushFitted),
           Divider(height: 1),
@@ -708,8 +686,10 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
               R.string.hingeType,
               true,
               [
-                R.string.surfaceMountedDoorHinge,
-                R.string.barrelHinge,
+                R.string.surfaceMountedDoorHinge2part,
+                R.string.surfaceMountedDoorHinge3part,
+                R.string.barrelHinge2part,
+                R.string.barrelHinge3part,
                 R.string.weldOnHinge,
                 R.string.concealedHinge100,
                 R.string.concealedHinge180,
@@ -717,12 +697,13 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                 R.string.part3
               ],
               hingeTypeCtr,
-              R.string.surfaceMountedDoorHinge),
+              R.string.surfaceMountedDoorHinge2part),
           Divider(height: 1),
-          if(hingeTypeCtr.text == R.string.surfaceMountedDoorHinge)
+          if (hingeTypeCtr.text == R.string.surfaceMountedDoorHinge2part ||
+              hingeTypeCtr.text == R.string.surfaceMountedDoorHinge3part)
             _getSurface(),
-          if (hingeTypeCtr.text ==
-              R.string.barrelHinge)
+          if (hingeTypeCtr.text == R.string.barrelHinge2part ||
+              hingeTypeCtr.text == R.string.barrelHinge3part)
             _getBarrel()
         ],
       ),

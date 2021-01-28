@@ -53,9 +53,10 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
           : (articleBase as Fitting).pdfPath
     ];
     final MailModel mailModel = MailModel(recipients: [
-      name.contains(R.string.otherFitting)
-          ? "ersatzteile@schueco.com"
-          : "connect-app@schueco.com"
+      // name.contains(R.string.otherFitting)
+      //     ? "ersatzteile@schueco.com"
+      //     : "connect-app@schueco.com"
+      R.string.receivingMailAddressArticleIdentification
     ], subject: name, body: name, attachments: attachments);
 
 //    _sendEmailController.sinkAddSafe(mailModel);

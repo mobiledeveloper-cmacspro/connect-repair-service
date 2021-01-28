@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/ArticleDetails.dart';
 import 'package:repairservices/ArticleInCart.dart';
 import 'package:repairservices/ArticleList.dart';
@@ -17,6 +18,7 @@ import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/ui/Login/LoginIcon.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/ui/ProfileIcon.dart';
+import 'package:repairservices/ui/qr_scan/qr_scan_page.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
 import 'Utils/ISClient.dart';
 import 'database_helpers.dart';
@@ -220,7 +222,14 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
             TXDividerWidget(),
             TXSearchBarWidget(
               defaultModel: true,
-              onQRScanTap: () {},
+              onQRScanTap: () async {
+                bool permission = await Permission.camera.request().isGranted;
+                if (permission)
+                  NavigationUtils.push(context, QRScanPage());
+                else
+                  _showDialog(
+                      context, 'Exception', "Camera permissions required");
+              },
               onSearchTap: () async {
                 final res = await NavigationUtils.pushCupertino(
                     context, ArticleListV());
@@ -297,37 +306,50 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                             if (int.parse(productList[index]
                                                     .quantity
                                                     .value) >
-                                                1 && loggued) {
-                                              ISClientO.instance
-                                                  .getProductDetails(
-                                                      productList[index]
-                                                          .number
-                                                          .value,
-                                                      int.parse(
-                                                              productList[index]
-                                                                  .quantity
-                                                                  .value) -
-                                                          1)
-                                                  .then((Product product) {
+                                                1) {
+                                              if(loggued) {
+                                                ISClientO.instance
+                                                    .getProductDetails(
+                                                    productList[index]
+                                                        .number
+                                                        .value,
+                                                    int.parse(
+                                                        productList[index]
+                                                            .quantity
+                                                            .value) -
+                                                        1)
+                                                    .then((Product product) {
+                                                  setState(() {
+                                                    int id = this
+                                                        .productList[index]
+                                                        .id;
+                                                    bool selected = this
+                                                        .productList[index]
+                                                        .selected;
+                                                    this.productList[index] =
+                                                        product;
+                                                    this
+                                                        .productList[index]
+                                                        .selected = selected;
+                                                    this.productList[index].id =
+                                                        id;
+                                                    helper.updateProduct(
+                                                        productList[index],
+                                                        false);
+                                                  });
+                                                });
+                                              } else {
                                                 setState(() {
-                                                  int id = this
-                                                      .productList[index]
-                                                      .id;
-                                                  bool selected = this
-                                                      .productList[index]
-                                                      .selected;
-                                                  this.productList[index] =
-                                                      product;
-                                                  this
-                                                      .productList[index]
-                                                      .selected = selected;
-                                                  this.productList[index].id =
-                                                      id;
+                                                  this.productList[index].quantity.value = (int.parse(
+                                                      productList[index]
+                                                          .quantity
+                                                          .value) -
+                                                      1).toString();
                                                   helper.updateProduct(
                                                       productList[index],
                                                       false);
                                                 });
-                                              });
+                                              }
                                             }
                                           },
                                         ),
@@ -381,6 +403,17 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                                   helper.updateProduct(
                                                       productList[index], false);
                                                 });
+                                              });
+                                            } else {
+                                              setState(() {
+                                                this.productList[index].quantity.value = (int.parse(
+                                                    productList[index]
+                                                        .quantity
+                                                        .value) +
+                                                    1).toString();
+                                                helper.updateProduct(
+                                                    productList[index],
+                                                    false);
                                               });
                                             }
                                           },
@@ -514,7 +547,7 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
                                 ActionSheetModel(
                                     key: "Remove selected ones",
                                     title: R.string.removeSelected,
-                                    color: Colors.red)
+                                    color: Theme.of(context).primaryColor)
                               ],
                             );
                           });
@@ -527,6 +560,30 @@ class ArticleBookMarkState extends State<ArticleBookMark> {
         ),
       ),
     );
+  }
+
+  _showDialog(BuildContext context, String title, String msg) {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: msg.isNotEmpty
+              ? Padding(
+            padding:
+            EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            child: Text(msg, style: TextStyle(fontSize: 17)),
+          )
+              : Container(),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: const Text("OK"),
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ));
   }
 
   void _addToCart(Product product) async {

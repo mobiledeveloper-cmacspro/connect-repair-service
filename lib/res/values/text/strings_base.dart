@@ -206,7 +206,15 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get surfaceMountedDoorHinge;
 
+  String get surfaceMountedDoorHinge2part;
+
+  String get surfaceMountedDoorHinge3part;
+
   String get barrelHinge;
+
+  String get barrelHinge2part;
+
+  String get barrelHinge3part;
 
   String get barrelHingeDetails;
 
@@ -712,4 +720,7 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get mailRecipients;
 
+  String get netValue;
+
+  String get receivingMailAddressArticleIdentification;
 }

@@ -46,11 +46,13 @@ class ArticleIdentificationGalleryPage extends StatelessWidget {
   List<Widget> _articlesList(BuildContext context) {
     List<Widget> list = [];
     articles.forEach((a) {
-      final w = a is ArticleLocalModel
-          ? _getLocalArticle(context, a)
-          : _getFittings(context, a as Fitting);
-
-      list.add(w);
+      // final w = a is ArticleLocalModel
+      //     ? _getLocalArticle(context, a)
+      //     : _getFittings(context, a as Fitting);
+      //
+      // list.add(w);
+      if(a is ArticleLocalModel)
+        list.add(_getLocalArticle(context, a));
     });
     return list;
   }
