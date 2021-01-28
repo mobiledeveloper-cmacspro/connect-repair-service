@@ -29,6 +29,7 @@ import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
+import 'package:repairservices/ui/qr_scan/qr_result/qr_result_page_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_page_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_widget_bloc.dart';
 
@@ -120,6 +121,7 @@ class Injector {
     container.registerFactory((c) => ArticleDetailsBloc());
     container.registerFactory((c) => QRScanWidgetBloC());
     container.registerFactory((c) => QRScanPageBloc());
+    container.registerFactory((c) => QRResultPageBloc());
   }
 
   _registerModelConverters() {
