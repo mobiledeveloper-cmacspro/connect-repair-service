@@ -13,6 +13,7 @@ import 'package:repairservices/Contac.dart';
 import 'package:repairservices/FAQ.dart';
 import 'package:repairservices/GlobalSetting.dart';
 import 'package:repairservices/ProfileV.dart';
+import 'package:repairservices/ui/project_documentation/project_documentation_page.dart';
 import 'package:repairservices/utils/ISClient.dart';
 import 'package:repairservices/utils/mail_mananger.dart';
 import 'package:repairservices/data/dao/shared_preferences_manager.dart';
@@ -355,6 +356,10 @@ class HomeState extends State<HomeM> {
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
+                NavigationUtils.pushCupertino(
+                  context,
+                  ProjectDocumentationV(),
+                );
               },
               paddingLeft: 18.0,
             ),
@@ -526,7 +531,7 @@ class HomeState extends State<HomeM> {
                               context,
                               ArticleIdentificationV(),
                               NavigationUtils.ArticleIdentificationPage);
-                        },height: iconSize, width: iconSize ),
+                        }, height: iconSize, width: iconSize),
                       ),
                     )),
                     Expanded(
@@ -565,7 +570,13 @@ class HomeState extends State<HomeM> {
                         padding: EdgeInsets.only(
                             top: topButtonPadding, bottom: bottomButtonPadding),
                         child: _displayGridItem(R.string.projectDoc,
-                            'assets/projectDocumentation.png', () {}, height: iconSize, width: iconSize),
+                            'assets/projectDocumentation.png', () {
+                              NavigationUtils.pushCupertino(
+                                context,
+                                ProjectDocumentationV(),
+                              );
+                            },
+                            height: iconSize, width: iconSize),
                       ),
                     )),
                     Expanded(
@@ -611,7 +622,7 @@ class HomeState extends State<HomeM> {
                               context,
                               CupertinoPageRoute(
                                   builder: (context) => CompanyProfileV()));
-                        } , height: iconSize, width: iconSize),
+                        }, height: iconSize, width: iconSize),
                       ),
                     )),
                     Expanded(
