@@ -9,9 +9,13 @@ class ProjectDocumentationRepository
   ProjectDocumentationRepository(this._dao);
 
   @override
-  Future<bool> deleteProject(ProjectDocumentationModel project) {
-    // TODO: implement deleteProject
-    throw UnimplementedError();
+  Future<bool> deleteProject(ProjectDocumentationModel project) async {
+    try {
+      return await _dao.deleteProject(project);
+    } catch (ex) {
+      print(ex);
+      return null;
+    }
   }
 
   @override

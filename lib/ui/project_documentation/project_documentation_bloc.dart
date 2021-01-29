@@ -83,7 +83,7 @@ class ProjectDocumentationBloC extends BaseBloC
     List<ArticleBase> articleBaseList = await articlesResult.first;
     await Future.forEach(articleBaseList, (articleBase) async {
       if (articleBase.isSelected) {
-        if (articleBase is ArticleLocalModel) {
+        //if (articleBase is ArticleLocalModel) {
           await _iArticleLocalRepository
               .deleteProject(articleBase as ProjectDocumentationModel);
           /* if (articleBase.filePath.isNotEmpty) {
@@ -104,7 +104,7 @@ class ProjectDocumentationBloC extends BaseBloC
               if (file.existsSync()) file.deleteSync();
             }
           });*/
-        }
+        //}
       }
     });
     articleBaseList.removeWhere((a) => a.isSelected);

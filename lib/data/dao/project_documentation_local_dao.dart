@@ -11,9 +11,16 @@ class ProjectDocumentationLocalDao implements IProjectDocumentationDao {
   ProjectDocumentationLocalDao(this._converter);
 
   @override
-  Future<bool> deleteProject(ProjectDocumentationModel project) {
-    // TODO: implement deleteProject
-    throw UnimplementedError();
+  Future<bool> deleteProject(ProjectDocumentationModel project) async {
+    try {
+      var list = await getProjects();
+      list.removeWhere((element) => element.id.compareTo(project.id) == 0);
+      return (await SharedPreferences.getInstance())
+          .setStringList('projects_documentation', _fromProjects(list));
+    } catch (ex) {
+      print(ex);
+      return null;
+    }
   }
 
   @override
