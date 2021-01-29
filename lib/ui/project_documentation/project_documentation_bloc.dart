@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:repairservices/domain/project_documentation/i_project_documentation_repository.dart';
+import 'package:repairservices/domain/project_documentation/project_documentation.dart';
 import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/utils/mail_mananger.dart';
@@ -29,13 +31,13 @@ import 'package:repairservices/utils/extensions.dart';
 
 class ProjectDocumentationBloC extends BaseBloC
     with LoadingBloC, ErrorHandlerBloC {
-  final IArticleLocalRepository _iArticleLocalRepository;
+  final IProjectDocumentationRepository _iArticleLocalRepository;
   DatabaseHelper helper = DatabaseHelper.instance;
 
   ProjectDocumentationBloC(this._iArticleLocalRepository);
 
   BehaviorSubject<List<ArticleBase>> _articleLocalController =
-      new BehaviorSubject();
+  new BehaviorSubject();
 
   Stream<List<ArticleBase>> get articlesResult =>
       _articleLocalController.stream;
@@ -55,38 +57,12 @@ class ProjectDocumentationBloC extends BaseBloC
     isLoading = true;
     List<ArticleBase> sortedList = [];
     List<ArticleBase> articles = [];
-    List<Fitting> fittingList = [];
-    final articleWindows = await helper.queryAllWindows();
-    for (Windows windows in articleWindows) {
-      fittingList.add(windows);
-    }
-    final articleDoorLock = await helper.queryAllDoorLock();
-    for (DoorLock doorLock in articleDoorLock) {
-      fittingList.add(doorLock);
-    }
-    final articleDoorHinge = await helper.queryAllDoorHinge();
-    for (DoorHinge doorHinge in articleDoorHinge) {
-      fittingList.add(doorHinge);
-    }
-    final articleSliding = await helper.queryAllSliding();
-    for (Sliding sliding in articleSliding) {
-      fittingList.add(sliding);
-    }
-    fittingList.sort((a, b) => b.created.compareTo(a.created));
 
-    final articlesLocal = await _iArticleLocalRepository.getArticleLocalList();
+    final articlesLocal = await _iArticleLocalRepository.getProjects();
 
-    articles.addAll(fittingList);
     articles.addAll(articlesLocal);
 
-    articles.sort((a, b) => (a is Fitting
-            ? a.created
-            : (a as ArticleLocalModel).createdOnScreenShoot)
-        .compareTo(b is Fitting
-            ? b.created
-            : (b as ArticleLocalModel).createdOnScreenShoot));
     _articleLocalController.sinkAddSafe(articles.reversed.toList());
-
     articles.forEach((a) => a.isSelected = false);
     setSelectionMode = false;
     isLoading = false;
@@ -95,7 +71,7 @@ class ProjectDocumentationBloC extends BaseBloC
   void refreshList() async {
     List<ArticleBase> articleBaseList = (await articlesResult.first);
     final ArticleBase article =
-        articleBaseList.firstWhere((a) => a.isSelected, orElse: () {
+    articleBaseList.firstWhere((a) => a.isSelected, orElse: () {
       return null;
     });
     if (article == null) setSelectionMode = false;
@@ -108,8 +84,9 @@ class ProjectDocumentationBloC extends BaseBloC
     await Future.forEach(articleBaseList, (articleBase) async {
       if (articleBase.isSelected) {
         if (articleBase is ArticleLocalModel) {
-          await _iArticleLocalRepository.deleteArticleLocal(articleBase);
-          if (articleBase.filePath.isNotEmpty) {
+          await _iArticleLocalRepository
+              .deleteProject(articleBase as ProjectDocumentationModel);
+          /* if (articleBase.filePath.isNotEmpty) {
             final file = File(articleBase.filePath);
             if (file.existsSync()) file.deleteSync();
           }
@@ -126,9 +103,8 @@ class ProjectDocumentationBloC extends BaseBloC
               final file = File(element.filePath);
               if (file.existsSync()) file.deleteSync();
             }
-          });
-        } else
-          await _deleteArticleFitting((articleBase as Fitting));
+          });*/
+        }
       }
     });
     articleBaseList.removeWhere((a) => a.isSelected);
@@ -191,7 +167,7 @@ class ProjectDocumentationBloC extends BaseBloC
           : (articleBase as Fitting).pdfPath
     ];
     final MailModel mailModel =
-        MailModel(subject: name, body: name, attachments: attachments);
+    MailModel(subject: name, body: name, attachments: attachments);
 
     final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {
@@ -214,7 +190,7 @@ class ProjectDocumentationBloC extends BaseBloC
     });
 
     final MailModel mailModel =
-        MailModel(subject: name, body: name, attachments: attachments);
+    MailModel(subject: name, body: name, attachments: attachments);
 
     final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {

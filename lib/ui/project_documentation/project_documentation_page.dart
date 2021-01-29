@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:repairservices/domain/project_documentation/project_documentation.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
+import 'package:repairservices/ui/project_documentation/project_documentation_bloc.dart';
 import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
@@ -29,7 +30,7 @@ class ProjectDocumentationV extends StatefulWidget {
 }
 
 class _ArticleIdentificationState
-    extends StateWithBloC<ProjectDocumentationV, ArticleIdentificationBloC> {
+    extends StateWithBloC<ProjectDocumentationV, ProjectDocumentationBloC> {
   List<Fitting> articleList;
   int selected = 0;
   bool selecting = false;
