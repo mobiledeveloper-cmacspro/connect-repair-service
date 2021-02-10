@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:repairservices/FAQ.dart';
-import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/utils/ISClient.dart';
 import 'package:repairservices/models/User.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:repairservices/ui/Login/LoginIcon.dart';

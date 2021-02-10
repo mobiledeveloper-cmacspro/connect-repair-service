@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:repairservices/Utils/mail_mananger.dart';
+import 'package:repairservices/utils/mail_mananger.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/domain/article_local_model/i_article_local_repository.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';

@@ -13,7 +13,7 @@ import 'package:repairservices/ui/Login/LoginIcon.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_page.dart';
 import 'Login.dart';
-import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/utils/ISClient.dart';
 import 'ArticleDetails.dart';
 import 'package:repairservices/res/R.dart';
 

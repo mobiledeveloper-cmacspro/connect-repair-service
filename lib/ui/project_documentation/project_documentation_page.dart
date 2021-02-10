@@ -1,55 +1,36 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_mailer/flutter_mailer.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:repairservices/ArticleWebPreview.dart';
-import 'package:repairservices/DoorLockData.dart';
+import 'package:repairservices/domain/project_documentation/project_documentation.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
+import 'package:repairservices/ui/project_documentation/project_documentation_bloc.dart';
 import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
-import 'package:repairservices/domain/common_model.dart';
-import 'package:repairservices/models/DoorHinge.dart';
-import 'package:repairservices/models/DoorLock.dart';
-import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
-import 'package:repairservices/ui/1_tx_widgets/cnt_loading_fullscreen.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_cell_check_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
-import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
-import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_loading_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
-import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
-import 'package:repairservices/ui/article_detail/article_detail_page.dart';
 import 'package:repairservices/ui/article_identification/article_identification_bloc.dart';
-import 'package:repairservices/ui/article_identification/article_identification_gallery_page.dart';
-import 'package:repairservices/ui/article_local_detail/article_local_detail_page.dart';
-import 'package:repairservices/ui/fitting_detail/fitting_door_hinge_detail_page.dart';
-import 'package:repairservices/ui/fitting_detail/fitting_door_lock_detail_page.dart';
-import 'package:repairservices/ui/fitting_detail/fitting_sliding_detail_page.dart';
-import 'package:repairservices/ui/fitting_detail/fitting_windows_detail_page.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
-import '../../database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
-import '../../IdentificationType.dart';
 import '../../SettingArticleIdentification.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class ArticleIdentificationV extends StatefulWidget {
+import 'new_project/new_project_documentation_page.dart';
+
+class ProjectDocumentationV extends StatefulWidget {
   @override
   _ArticleIdentificationState createState() =>
       new _ArticleIdentificationState();
 }
 
 class _ArticleIdentificationState
-    extends StateWithBloC<ArticleIdentificationV, ArticleIdentificationBloC> {
+    extends StateWithBloC<ProjectDocumentationV, ProjectDocumentationBloC> {
   List<Fitting> articleList;
   int selected = 0;
   bool selecting = false;
@@ -74,8 +55,7 @@ class _ArticleIdentificationState
       child: CupertinoActionSheet(
         actions: <Widget>[
           CupertinoActionSheetAction(
-            child:
-                new Text(R.string.print,
+            child: new Text(R.string.print,
                 style: Theme.of(context).textTheme.headline4),
             onPressed: () => Navigator.pop(context, 'Print'),
           ),
@@ -127,41 +107,15 @@ class _ArticleIdentificationState
             initialData: bloc.isInSelectionMode,
             builder: (ctx, snapshotMode) {
               return TXMainBarWidget(
-                title: R.string.articleIdentification,
+                title: 'Project Documentation',
                 onLeadingTap: () {
                   Navigator.pop(context);
                 },
-                actions: <Widget>[
-                  TXIconButtonWidget(
-                    onPressed: () async {
-                      final list = await bloc.articlesResult.first ?? [];
-                      if (snapshotMode.data) {
-                        list.forEach((a) => a.isSelected = false);
-                        bloc.setSelectionMode = !bloc.isInSelectionMode;
-                      } else {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) =>
-                                  ArticleIdentificationGalleryPage(
-                                    articles: list,
-                                  )),
-                        );
-                      }
-                    },
-                    icon: snapshotMode.data
-                        ? Image.asset(R.image.checkGreen)
-                        : Icon(
-                            Icons.image,
-                            color: R.color.primary_color,
-                            size: 25,
-                          ),
-                  ),
-                ],
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     TXDividerWidget(),
+                    _orderBar(),
                     Expanded(
                       child: StreamBuilder<List<ArticleBase>>(
                         stream: bloc.articlesResult,
@@ -216,13 +170,16 @@ class _ArticleIdentificationState
                             child: new Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                new Container(
-                                  margin: EdgeInsets.only(bottom: 8),
-                                  child: new Image.asset(
-                                      'assets/articleLookUpWhite.png'),
+                                Icon(
+                                  CupertinoIcons.add_circled,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 new Text(
-                                  R.string.findPart,
+                                  'New Project',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,
@@ -232,7 +189,7 @@ class _ArticleIdentificationState
                             ),
                             onTap: () async {
                               await NavigationUtils.pushCupertino(
-                                  context, IdentificationTypeV());
+                                  context, NewProjectDocumentationPage());
                               bloc.loadArticles();
                             },
                           ),
@@ -280,6 +237,72 @@ class _ArticleIdentificationState
     );
   }
 
+  bool alphabetical = true;
+
+  Widget _orderBar() => Container(
+        height: 50,
+        width: double.maxFinite,
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    alphabetical = true;
+                  });
+                },
+                child: Container(
+                  width: 120,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        bottomLeft: Radius.circular(8)),
+                    border: Border.all(color: R.color.gray, width: 0.5),
+                    color: alphabetical
+                        ? R.color.primary_color
+                        : Colors.transparent,
+                  ),
+                  child: Center(
+                    child: TXTextWidget(
+                      text: 'Alphabetical',
+                      color: alphabetical ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    alphabetical = false;
+                  });
+                },
+                child: Container(
+                  width: 120,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        bottomRight: Radius.circular(8)),
+                    border: Border.all(color: R.color.gray, width: 0.5),
+                    color: !alphabetical
+                        ? R.color.primary_color
+                        : Colors.transparent,
+                  ),
+                  child: Center(
+                    child: TXTextWidget(
+                      text: 'Chronological',
+                      color: !alphabetical ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
   Widget _getArticle(BuildContext context, ArticleBase articleBase) {
     return Container(
         color: R.color.gray_light,
@@ -293,14 +316,9 @@ class _ArticleIdentificationState
                     ? CellCheckMode.check
                     : CellCheckMode.selector,
                 isChecked: articleBase.isSelected,
-                title: articleBase is ArticleLocalModel
-                    ? articleBase.displayName
-                    : (articleBase as Fitting).getNamei18N,
-                subtitle: CalendarUtils.showInFormat(
-                    "dd/MM/yyyy",
-                    articleBase is ArticleLocalModel
-                        ? articleBase.createdOnScreenShoot
-                        : (articleBase as Fitting).created),
+                title: (articleBase as ProjectDocumentationModel).name,
+                subtitle: CalendarUtils.showInFormat("dd/MM/yyyy",
+                    (articleBase as ProjectDocumentationModel).date),
                 leading: Image.asset(
                   'assets/productImage.png',
                   height: 40,
@@ -317,54 +335,13 @@ class _ArticleIdentificationState
                     articleBase.isSelected = !articleBase.isSelected;
                     bloc.refreshList();
                   } else {
-                    if (articleBase is Fitting) {
-                      if (articleBase is Windows) {
-                        await NavigationUtils.pushCupertino(
-                          context,
-                          FittingWindowsDetailPage(
-                            model: articleBase,
-                            typeFitting:
-                                articleBase.systemDepth?.isNotEmpty == true
-                                    ? TypeFitting.windows
-                                    : TypeFitting.sunShading,
-                          ),
-                        );
-                      } else if (articleBase is Sliding) {
-                        await NavigationUtils.pushCupertino(
-                          context,
-                          FittingSlidingDetailPage(
-                            model: articleBase,
-                          ),
-                        );
-                      } else if (articleBase is DoorLock) {
-                        await NavigationUtils.pushCupertino(
-                          context,
-                          FittingDoorLockDetailPage(
-                            model: articleBase,
-                          ),
-                        );
-                      } else if (articleBase is DoorHinge) {
-                        await NavigationUtils.pushCupertino(
-                          context,
-                          FittingDoorHingeDetailPage(
-                            model: articleBase,
-                          ),
-                        );
-                      } else {
-                        Fluttertoast.showToast(
-                            msg: R.string.objectNotRecognized);
-                      }
-                    } else {
-                      await NavigationUtils.pushCupertino(
+                    NavigationUtils.push(
                         context,
-                        ArticleLocalDetailPage(
-                          articleLocalModel: articleBase,
-                          isForMail: true,
-                          navigateFromDetail: true,
-                        ),
-                      );
-                    }
-                    bloc.loadArticles();
+                        NewProjectDocumentationPage(
+                          model: articleBase as ProjectDocumentationModel,
+                        )).then((_) {
+                      bloc.loadArticles();
+                    });
                   }
                 },
               ),
@@ -374,15 +351,6 @@ class _ArticleIdentificationState
           secondaryActions: bloc.isInSelectionMode
               ? []
               : [
-                  IconSlideAction(
-                    caption: R.string.email,
-                    foregroundColor: Colors.white,
-                    color: Theme.of(context).primaryColor,
-                    icon: CupertinoIcons.mail,
-                    onTap: () {
-                      bloc.sendPdfByEmail(articleBase);
-                    },
-                  ),
                   IconSlideAction(
                     caption: R.string.delete,
                     color: Colors.red,
@@ -418,9 +386,7 @@ class _ArticleIdentificationState
                   title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Remove",
-                  title: R.string.remove,
-                  color: Colors.red)
+                  key: "Remove", title: R.string.remove, color: Colors.red)
             ],
           );
         });

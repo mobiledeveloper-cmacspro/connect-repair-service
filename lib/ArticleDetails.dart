@@ -6,7 +6,7 @@ import 'package:repairservices/ArticleBookMarkV.dart';
 import 'package:repairservices/ArticleDetailsBloc.dart';
 import 'package:repairservices/ArticleInCart.dart';
 import 'package:repairservices/NetworkImageSSL.dart';
-import 'package:repairservices/Utils/ISClient.dart';
+import 'package:repairservices/utils/ISClient.dart';
 import 'package:repairservices/all_translations.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';

@@ -5,6 +5,7 @@ import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
+import 'package:repairservices/ui/qr_scan/qr_result/qr_result_page.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_page_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_widget.dart';
 
@@ -21,16 +22,6 @@ class _QRScanState extends StateWithBloC<QRScanPage, QRScanPageBloc> {
   @override
   void initState() {
     super.initState();
-
-    bloc.scanResultStream.listen((result) {
-      if (result == null) {
-        showInSnackBar(R.string.connectionProblems);
-        bloc.initCamera();
-      } else {
-        NavigationUtils.push(context, ArticleDetailsV(result, false)).then((value) => bloc.initCamera());
-      }
-    });
-
     bloc.initCamera();
   }
 
@@ -60,7 +51,11 @@ class _QRScanState extends StateWithBloC<QRScanPage, QRScanPageBloc> {
 
   Future onScan(String value) async {
     print("QR Scan: $value");
-    bloc.getArticleDetails(value);
+    await NavigationUtils.pushReplacement(
+        context,
+        QRResultPage(
+          value: value,
+        ));
   }
 
   Widget _getQRScanTab() {

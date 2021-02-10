@@ -6,13 +6,19 @@ import 'package:repairservices/DoorHingeDimensionBloc.dart';
 import 'package:repairservices/LockDimensionsBlock.dart';
 import 'package:repairservices/data/dao/article_local_dao.dart';
 import 'package:repairservices/data/dao/common_dao.dart';
+import 'package:repairservices/data/dao/project_documentation_local_dao.dart';
 import 'package:repairservices/data/json/article_local_model_converter.dart';
+import 'package:repairservices/data/json/project_document_converter.dart';
 import 'package:repairservices/domain/article_local_model/i_article_local_dao.dart';
 import 'package:repairservices/domain/article_local_model/i_article_local_model_converter.dart';
 import 'package:repairservices/domain/article_local_model/i_article_local_repository.dart';
 import 'package:repairservices/domain/i_common_dao.dart';
+import 'package:repairservices/domain/project_documentation/i_project_document_converter.dart';
+import 'package:repairservices/domain/project_documentation/i_project_documentation_dao.dart';
+import 'package:repairservices/domain/project_documentation/i_project_documentation_repository.dart';
 import 'package:repairservices/local/app_database.dart';
 import 'package:repairservices/repositories/article_local_repository.dart';
+import 'package:repairservices/repositories/project_documentation_repository.dart';
 import 'package:repairservices/ui/Cart/ArticleInCartBloc.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/ui/article_detail/article_detail_bloc.dart';
@@ -29,6 +35,9 @@ import 'package:repairservices/ui/marker_component/drawer_container_bloc.dart';
 import 'package:repairservices/ui/marker_component/drawer_tool_bloc.dart';
 import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
+import 'package:repairservices/ui/project_documentation/new_project/new_project_documentation_bloc.dart';
+import 'package:repairservices/ui/project_documentation/project_documentation_bloc.dart';
+import 'package:repairservices/ui/qr_scan/qr_result/qr_result_page_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_page_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_widget_bloc.dart';
 
@@ -89,12 +98,18 @@ class Injector {
 
     container.registerSingleton<IArticleLocalDao, ArticleLocalDao>(
         (c) => ArticleLocalDao(container.resolve(), container.resolve()));
+    container.registerSingleton<IProjectDocumentationDao,
+            ProjectDocumentationLocalDao>(
+        (c) => ProjectDocumentationLocalDao(c.resolve()));
   }
 
   _registerRepositoryLayer() {
     container
         .registerSingleton<IArticleLocalRepository, ArticleLocalRepository>(
             (c) => ArticleLocalRepository(container.resolve()));
+    container.registerSingleton<IProjectDocumentationRepository,
+            ProjectDocumentationRepository>(
+        (c) => ProjectDocumentationRepository(c.resolve()));
   }
 
   ///Register the blocs here
@@ -103,7 +118,8 @@ class Injector {
     container.registerFactory((c) => DrawerContainerBloC());
     container
         .registerFactory((c) => ArticleIdentificationBloC(container.resolve()));
-    container.registerFactory((c) => ArticleLocalDetailBloC(container.resolve()));
+    container
+        .registerFactory((c) => ArticleLocalDetailBloC(container.resolve()));
     container.registerFactory((c) => ArticleDetailBloC());
     container.registerFactory((c) => PDFViewerBloC());
     container.registerFactory((c) => FittingWindowsBloC());
@@ -120,11 +136,16 @@ class Injector {
     container.registerFactory((c) => ArticleDetailsBloc());
     container.registerFactory((c) => QRScanWidgetBloC());
     container.registerFactory((c) => QRScanPageBloc());
+    container.registerFactory((c) => QRResultPageBloc());
+    container.registerFactory((c) => ProjectDocumentationBloC(c.resolve()));
+    container.registerFactory((c) => NewProjectDocumentationBloC(c.resolve()));
   }
 
   _registerModelConverters() {
     container.registerSingleton<IArticleLocalModelConverter,
         ArticleLocalModelConverter>((c) => ArticleLocalModelConverter());
+    container.registerSingleton<IProjectDocumentConverter,
+        ProjectDocumentationConverter>((c) => ProjectDocumentationConverter());
   }
 
   ///Register common components
