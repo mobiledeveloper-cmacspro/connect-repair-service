@@ -23,7 +23,7 @@ class QRResultPageBloc extends BaseBloC {
   Future<void> getArticleDetails(String url) async {
     _setLoading();
     try {
-      final number = await parseUrl(url: url);
+      final number = parseUrl(url: url);
       if (number != null) {
         Product product =
             await ISClientO.instance.getProductDetails(number, null);
@@ -42,12 +42,17 @@ class QRResultPageBloc extends BaseBloC {
     }
   }
 
-  Future<String> parseUrl({String url}) async {
+  String parseUrl({String url}) {
     try {
       String articleNumber;
       if (url.contains('dc.schueco.com')) {
         List<String> result = url.split('\/');
-        if (result.length > 3) articleNumber = result[2];
+        if (result.length > 3) {
+          articleNumber = result[2];
+          if(articleNumber.contains('dc.schueco.com')) {
+            articleNumber = result[3].split('?').length > 1 ? result[3].split('?')[0] : null;
+          }
+        }
       }
       print("Article number -> $articleNumber");
       return articleNumber;

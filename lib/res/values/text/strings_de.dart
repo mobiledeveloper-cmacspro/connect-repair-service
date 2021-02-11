@@ -396,10 +396,10 @@ class StringsDe implements StringsBase {
   String get weldOnHinge => "Anschweißtürband";
 
   @override
-  String get concealedHinge100 => "100 verdecktes Scharnier";
+  String get concealedHinge100 => "VL-Band 100º";
 
   @override
-  String get concealedHinge180 => "180 verdecktes Scharnier";
+  String get concealedHinge180 => "VL-Band 180º";
 
   @override
   String get part2 => "2-teilig";

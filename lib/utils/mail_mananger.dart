@@ -20,7 +20,6 @@ class MailManager {
   static Future<String> sendEmail(MailModel model) async {
     try {
 
-      model.recipients = [R.string.mailRecipients];
       final bool canSend = await FlutterMailer.canSendMail();
       if(!canSend && Platform.isIOS) {
         return "Mail app unavailable. Please set up default mail app on device.";
@@ -29,7 +28,7 @@ class MailManager {
       final attachments =
           model.attachments.where((a) => a?.isNotEmpty == true).toList();
       final MailOptions options = MailOptions(
-          recipients: model.recipients,
+          recipients: model.recipients ?? [R.string.mailRecipients],
           body: model.body,
           subject: model.subject,
           isHTML: true,

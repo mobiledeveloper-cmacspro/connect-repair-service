@@ -56,7 +56,7 @@ class PDFManager {
         width: double.infinity,
         child: pw
             .Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-          pw.Text("RepairService@Connect Mobile",
+          pw.Text("RepairService@SchuecoSiteConnect",
               style: pw.TextStyle(
                   color: PdfColors.green,
                   fontSize: textFontSize,

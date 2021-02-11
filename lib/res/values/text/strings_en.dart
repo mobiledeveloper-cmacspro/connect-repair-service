@@ -387,10 +387,10 @@ class StringsEn implements StringsBase {
   String get weldOnHinge => "Weld-on hinge";
 
   @override
-  String get concealedHinge100 => "100 concealed hinge";
+  String get concealedHinge100 => "100º concealed hinge";
 
   @override
-  String get concealedHinge180 => "180 concealed hinge";
+  String get concealedHinge180 => "180º concealed hinge";
 
   @override
   String get part2 => "2-part";

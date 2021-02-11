@@ -125,7 +125,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         doorOpeningCtr.text != "" &&
         //fittedCtr.text != "" &&
         hingeTypeCtr.text != "") {
-      if (hingeTypeCtr.text == R.string.surfaceMountedDoorHinge) {
+      if (hingeTypeCtr.text == R.string.surfaceMountedDoorHinge2part || hingeTypeCtr.text == R.string.surfaceMountedDoorHinge3part) {
         if (coverCapsCtr.text != '' &&
             this.doorHinge.doorHingeDetailsIm != null &&
             this.doorHinge.doorHingeDetailsIm != '') {
@@ -141,7 +141,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
             height: 25,
           );
         }
-      } else if (hingeTypeCtr.text == R.string.barrelHinge) {
+      } else if (hingeTypeCtr.text == R.string.barrelHinge2part || hingeTypeCtr.text == R.string.barrelHinge3part) {
         if ( //doorLeafCtr.text != '' &&
             doorFrameCtr.text != '' &&
                 doorHinge.dimensionBarrelIm != null &&
@@ -260,9 +260,9 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
     doorHinge.systemDoorFrame = systemDoorFrameCtr.text;
 
     int type = 0;
-    if (doorHinge.hingeType == R.string.barrelHinge) {
+    if (doorHinge.hingeType == R.string.barrelHinge2part || doorHinge.hingeType == R.string.barrelHinge3part) {
       type = 1;
-    } else if (doorHinge.hingeType == R.string.surfaceMountedDoorHinge) {
+    } else if (doorHinge.hingeType == R.string.surfaceMountedDoorHinge2part || doorHinge.hingeType == R.string.surfaceMountedDoorHinge3part) {
       type = 2;
     }
     doorHinge.intType = type;
@@ -693,8 +693,6 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
                 R.string.weldOnHinge,
                 R.string.concealedHinge100,
                 R.string.concealedHinge180,
-                R.string.part2,
-                R.string.part3
               ],
               hingeTypeCtr,
               R.string.surfaceMountedDoorHinge2part),

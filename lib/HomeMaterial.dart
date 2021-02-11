@@ -178,6 +178,7 @@ class HomeState extends State<HomeM> {
     String buildNumber = packageInfo.buildNumber;
 
     final MailModel model = MailModel(
+      recipients: ['connect_app@schueco.com'],
       subject: 'App feedback',
       body:
           '<h3>Details</h3><br>V.$version($buildNumber)</br><br>$deviceType</br><br>$systemVersion</br><br>$locale</br>',
