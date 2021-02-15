@@ -87,7 +87,7 @@ class StringsDe implements StringsBase {
   String get findPart => "Artikel finden";
 
   @override
-  String get export => "Export";
+  String get export => "Exportieren";
 
   @override
   String get camera => "Kamera";
@@ -1090,5 +1090,89 @@ class StringsDe implements StringsBase {
 
   @override
   String get receivingMailAddressArticleIdentification => "ersatzteile@schueco.com";
+
+  @override
+  String get acceptanceOfConstructionWork => "Annahme von Bauarbeiten";
+
+  @override
+  String get alphabetical => "Alphabetisch";
+
+  @override
+  String get categories => "Kategorien";
+
+  @override
+  String get category => "Kategorie";
+
+  @override
+  String get chronological => "Chronologisch";
+
+  @override
+  String get createNewCategory => "Neue Kategorie erstellen";
+
+  @override
+  String get currentLocationBasedOnLocationData => "Verwenden Sie den aktuellen Standort basierend auf Standortdaten";
+
+  @override
+  String get defectReport => "Fehlerbericht";
+
+  @override
+  String get documentWeather => "Wetter dokumentieren";
+
+  @override
+  String get edit => "Bearbeiten";
+
+  @override
+  String get generalReport => "Allgemeiner Bericht";
+
+  @override
+  String get jobSiteInspection => "Inspektion vor Ort";
+
+  @override
+  String get jobSiteInstruction => "Anleitung auf der Baustelle";
+
+  @override
+  String get maintenanceRepair => "Wartung / Reparaturen";
+
+  @override
+  String get measurementCamera => "Messkamera";
+
+  @override
+  String get newBuild => "Neubau";
+
+  @override
+  String get newProject => "Neues Projekt";
+
+  @override
+  String get newReport => "Neuer Bericht";
+
+  @override
+  String get participants => "Teilnehmer";
+
+  @override
+  String get photo => "Foto";
+
+  @override
+  String get projectInfo => "Infos zum Projekt";
+
+  @override
+  String get projectName => "Projektname";
+
+  @override
+  String get projectNumber => "Projektnummer";
+
+  @override
+  String get projectShortName => "Projektabkürzung";
+
+  @override
+  String get renovation => "Renovierung";
+
+  @override
+  String get reportArchive => "Berichtarchiv";
+
+  @override
+  String get totalCost => "Gesamtkosten";
+
+  @override
+  String get voiceMemo => "Sprachnotiz";
 
 }

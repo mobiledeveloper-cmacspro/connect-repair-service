@@ -119,13 +119,22 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
                 ],
               ),
             ),
-            widget.cellEditMode == CellEditMode.selector
-                ? Icon(
+            Container(
+              width: 25,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  (widget.isMandatory ?? false) ? TXTextWidget(text: "*", color: Colors.red,) : Container(),
+                  widget.cellEditMode == CellEditMode.selector
+                      ? Icon(
                     Icons.keyboard_arrow_right,
                     color: R.color.gray,
                     size: 25,
                   )
-                : Container()
+                      : Container()
+                ],
+              ),
+            ),
           ],
         ),
       ),

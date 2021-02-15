@@ -1091,4 +1091,88 @@ class StringsEn implements StringsBase {
   @override
   String get receivingMailAddressArticleIdentification => "spareparts@schueco.com";
 
+  @override
+  String get acceptanceOfConstructionWork => "Acceptance of construction work";
+
+  @override
+  String get alphabetical => "Alphabetical";
+
+  @override
+  String get categories => "Categories";
+
+  @override
+  String get category => "Category";
+
+  @override
+  String get chronological => "Chronological";
+
+  @override
+  String get createNewCategory => "Create new category";
+
+  @override
+  String get currentLocationBasedOnLocationData => "Use current location based on location data";
+
+  @override
+  String get defectReport => "Defect report";
+
+  @override
+  String get documentWeather => "Document weather";
+
+  @override
+  String get edit => "Edit";
+
+  @override
+  String get generalReport => "General report";
+
+  @override
+  String get jobSiteInspection => "Job site inspection";
+
+  @override
+  String get jobSiteInstruction => "Job site instruction";
+
+  @override
+  String get maintenanceRepair => "Maintenance / repairs";
+
+  @override
+  String get measurementCamera => "Measurement camera";
+
+  @override
+  String get newBuild => "New build";
+
+  @override
+  String get newProject => "New project";
+
+  @override
+  String get newReport => "New report";
+
+  @override
+  String get participants => "Participants";
+
+  @override
+  String get photo => "Photo";
+
+  @override
+  String get projectInfo => "Info about the project";
+
+  @override
+  String get projectName => "Project name";
+
+  @override
+  String get projectNumber => "Project number";
+
+  @override
+  String get projectShortName => "Project abbreviation";
+
+  @override
+  String get renovation => "Renovation";
+
+  @override
+  String get reportArchive => "Archive report";
+
+  @override
+  String get totalCost => "Total cost";
+
+  @override
+  String get voiceMemo => "Voice memo";
+
 }

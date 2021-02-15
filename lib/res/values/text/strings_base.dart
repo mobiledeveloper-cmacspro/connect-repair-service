@@ -723,4 +723,61 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get netValue;
 
   String get receivingMailAddressArticleIdentification;
+
+  String get newProject;
+
+  String get projectName;
+
+  String get projectNumber;
+
+  String get projectShortName;
+
+  String get participants;
+
+  String get totalCost;
+
+  String get photo;
+
+  String get category;
+
+  String get projectInfo;
+
+  String get alphabetical;
+
+  String get chronological;
+
+  String get createNewCategory;
+
+  String get renovation;
+
+  String get newBuild;
+
+  String get maintenanceRepair;
+
+  String get currentLocationBasedOnLocationData;
+
+  String get newReport;
+
+  String get edit;
+
+  String get reportArchive;
+
+  String get categories;
+
+  String get documentWeather;
+
+  String get voiceMemo;
+
+  String get measurementCamera;
+
+  String get generalReport;
+
+  String get jobSiteInstruction;
+
+  String get jobSiteInspection;
+
+  String get defectReport;
+
+  String get acceptanceOfConstructionWork;
+
 }
