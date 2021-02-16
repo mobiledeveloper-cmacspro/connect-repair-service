@@ -1175,4 +1175,10 @@ class StringsEn implements StringsBase {
   @override
   String get voiceMemo => "Voice memo";
 
+  @override
+  String get additions => "Additions";
+
+  @override
+  String get nothingDeposited => "Nothing deposited";
+
 }

@@ -1175,4 +1175,10 @@ class StringsDe implements StringsBase {
   @override
   String get voiceMemo => "Sprachnotiz";
 
+  @override
+  String get additions => "Hinzufügungen";
+
+  @override
+  String get nothingDeposited => "Nichts hinterlegt";
+
 }

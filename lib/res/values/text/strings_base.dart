@@ -780,4 +780,8 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get acceptanceOfConstructionWork;
 
+  String get additions;
+
+  String get nothingDeposited;
+
 }

@@ -5,11 +5,15 @@ import 'package:repairservices/domain/project_documentation/project_documentatio
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_cell_check_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_gesture_hide_key_board.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_textfield_widget.dart';
 import 'package:repairservices/ui/project_documentation/new_project/new_project_documentation_bloc.dart';
 import 'package:repairservices/ui/project_documentation/new_project/project_category_page.dart';
+import 'package:repairservices/ui/project_documentation/new_project/projecto_address_page.dart';
 
 class NewProjectDocumentationPage extends StatefulWidget {
   final ProjectDocumentationModel model;
@@ -85,88 +89,277 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
         ],
       ),
       body: TXGestureHideKeyBoard(
-        child: _body(),
+        child: _body(context),
       ),
     );
   }
 
-  _body() => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-        child: SingleChildScrollView(
-          child: Form(
-            child: Column(
-              children: [
-                Stack(
+  _body(BuildContext context) => Container(
+        child: Column(
+          children: [
+            Expanded(
+                child: SingleChildScrollView(
+              child: Form(
+                child: Column(
                   children: [
-                    TXTextFieldWidget(
-                      placeholder: 'Project name',
-                      fontSize: 18,
+                    // Stack(
+                    //   children: [
+                    //     TXTextFieldWidget(
+                    //       placeholder: 'Project name',
+                    //       fontSize: 18,
+                    //       controller: nameController,
+                    //     ),
+                    //     Align(
+                    //       alignment: Alignment.centerRight,
+                    //       child: TXTextWidget(
+                    //         text: '*',
+                    //         color: Colors.red,
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
+                    // TXDividerWidget(),
+                    TXItemCellEditWidget(
+                      title: R.string.projectName,
+                      isMandatory: true,
                       controller: nameController,
+                      cellEditMode: CellEditMode.input,
+                      placeholder:
+                          "${R.string.projectName} ${R.string.additions.toLowerCase()}",
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TXTextWidget(
-                        text: '*',
-                        color: Colors.red,
-                      ),
-                    )
+                    TXDividerWidget(),
+                    TXItemCellEditWidget(
+                      title: R.string.projectNumber,
+                      controller: numberController,
+                      cellEditMode: CellEditMode.input,
+                      keyboardType: TextInputType.number,
+                      placeholder:
+                          "${R.string.projectNumber} ${R.string.additions.toLowerCase()}",
+                    ),
+                    TXDividerWidget(),
+                    // TXTextFieldWidget(
+                    //   placeholder: 'Project number',
+                    //   fontSize: 18,
+                    //   controller: numberController,
+                    // ),
+                    // _separator(),
+                    TXItemCellEditWidget(
+                      title: R.string.projectShortName,
+                      controller: abbreviationController,
+                      cellEditMode: CellEditMode.input,
+                      placeholder:
+                          "${R.string.projectShortName} ${R.string.additions.toLowerCase()}",
+                    ),
+                    TXDividerWidget(),
+                    // TXTextFieldWidget(
+                    //   placeholder: 'Project abbreviation',
+                    //   fontSize: 18,
+                    //   controller: abbreviationController,
+                    // ),
+                    // _separator(),
+                    TXItemCellEditWidget(
+                      title: R.string.address,
+                      placeholder:
+                          "${R.string.address} ${R.string.additions.toLowerCase()}",
+                      controller: addressController,
+                      value: addressController.text,
+                      cellEditMode: CellEditMode.selector,
+                      onSubmitted: (addresValue) {
+                        NavigationUtils.pushCupertino(
+                                context, ProjectAddressPage())
+                            .then((newAddress) {
+                          setState(() {
+                            addressController.text = newAddress;
+                          });
+                        });
+                      },
+                    ),
+                    TXDividerWidget(),
+                    // TXTextFieldWidget(
+                    //   placeholder: 'Address',
+                    //   fontSize: 18,
+                    //   controller: addressController,
+                    // ),
+                    // _separator(),
+                    TXItemCellEditWidget(
+                      title: R.string.participants,
+                      controller: participantsController,
+                      cellEditMode: CellEditMode.input,
+                      placeholder: R.string.nothingDeposited,
+                    ),
+                    TXDividerWidget(),
+                    // TXTextFieldWidget(
+                    //   placeholder: 'Participants',
+                    //   fontSize: 18,
+                    //   controller: participantsController,
+                    // ),
+                    // _separator(),
+                    TXItemCellEditWidget(
+                      title: R.string.totalCost,
+                      controller: totalCostsController,
+                      cellEditMode: CellEditMode.input,
+                      keyboardType: TextInputType.numberWithOptions(
+                          signed: false, decimal: true),
+                      placeholder: R.string.nothingDeposited,
+                    ),
+                    TXDividerWidget(),
+                    // TXTextFieldWidget(
+                    //   placeholder: 'Total costs',
+                    //   fontSize: 18,
+                    //   controller: totalCostsController,
+                    // ),
+                    // _separator(),
+                    // _selectNavigationItem('Photo', () {
+                    //   Fluttertoast.showToast(msg: 'Under Construction');
+                    // }),
+                    TXItemCellEditWidget(
+                      title: "",
+                      value: R.string.photo,
+                      cellEditMode: CellEditMode.selector,
+                      onSubmitted: (valueSubmitted) {
+                        Fluttertoast.showToast(msg: 'Under Construction');
+                      },
+                    ),
+                    TXDividerWidget(),
+                    TXItemCellEditWidget(
+                      title: "",
+                      value: R.string.categories,
+                      cellEditMode: CellEditMode.selector,
+                      onSubmitted: (valueSubmitted) {
+                        NavigationUtils.pushCupertino(
+                            context,
+                            ProjectCategoryPage(
+                              currentCategory: category,
+                            )).then((value) {
+                          category = value;
+                        });
+                      },
+                    ),
+                    TXDividerWidget(),
+                    // _separator(),
+                    // _selectNavigationItem('Category', () {
+                    //   NavigationUtils.push(
+                    //       context,
+                    //       ProjectCategoryPage(
+                    //         currentCategory: category,
+                    //       )).then((value) {
+                    //     category = value;
+                    //   });
+                    // }),
+                    // _separator(),
+                    TXItemCellEditWidget(
+                      title: R.string.projectInfo,
+                      controller: infoController,
+                      cellEditMode: CellEditMode.input,
+                      placeholder:
+                          "${R.string.projectInfo} ${R.string.additions.toLowerCase()}",
+                      multiLine: true,
+                    ),
+                    TXDividerWidget(),
+                    // TXTextFieldWidget(
+                    //   placeholder: 'Info about the project',
+                    //   fontSize: 18,
+                    //   multiLine: true,
+                    //   controller: infoController,
+                    // ),
+                    // _separator(),
                   ],
                 ),
-                _separator(),
-                TXTextFieldWidget(
-                  placeholder: 'Project number',
-                  fontSize: 18,
-                  controller: numberController,
-                ),
-                _separator(),
-                TXTextFieldWidget(
-                  placeholder: 'Project abbreviation',
-                  fontSize: 18,
-                  controller: abbreviationController,
-                ),
-                _separator(),
-                TXTextFieldWidget(
-                  placeholder: 'Address',
-                  fontSize: 18,
-                  controller: addressController,
-                ),
-                _separator(),
-                TXTextFieldWidget(
-                  placeholder: 'Participants',
-                  fontSize: 18,
-                  controller: participantsController,
-                ),
-                _separator(),
-                TXTextFieldWidget(
-                  placeholder: 'Total costs',
-                  fontSize: 18,
-                  controller: totalCostsController,
-                ),
-                _separator(),
-                _selectNavigationItem('Photo', () {
-                  Fluttertoast.showToast(msg: 'Under Construction');
-                }),
-                _separator(),
-                _selectNavigationItem('Category', () {
-                  NavigationUtils.push(
-                      context,
-                      ProjectCategoryPage(
-                        currentCategory: category,
-                      )).then((value) {
-                    category = value;
-                  });
-                }),
-                _separator(),
-                TXTextFieldWidget(
-                  placeholder: 'Info about the project',
-                  fontSize: 18,
-                  multiLine: true,
-                  controller: infoController,
-                ),
-                _separator(),
-              ],
-            ),
-          ),
+              ),
+            )),
+            Container(
+              margin: EdgeInsets.only(bottom: 0),
+              height: 70,
+              width: MediaQuery.of(context).size.width,
+              color: Theme.of(context).primaryColor,
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  InkWell(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        TXTextWidget(
+                          text: R.string.edit,
+                          maxLines: 1,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                    onTap: () {},
+                  ),
+                  InkWell(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.add_circle_outline,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        TXTextWidget(
+                          text: R.string.newReport,
+                          maxLines: 1,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                    onTap: () async {},
+                  ),
+                  InkWell(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.filter_none,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        TXTextWidget(
+                          text: R.string.reportArchive,
+                          maxLines: 1,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                    onTap: () async {},
+                  ),
+                  InkWell(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(bottom: 12),
+                          child:
+                          new Image.asset('assets/exportWhite.png'),
+                        ),
+                        TXTextWidget(
+                          text: R.string.export,
+                          maxLines: 1,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                    onTap: () async {},
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       );
 
