@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 import 'package:repairservices/domain/project_documentation/project_documentation.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/project_documentation/project_documentation_bloc.dart';
@@ -316,9 +317,9 @@ class _ArticleIdentificationState
                     ? CellCheckMode.check
                     : CellCheckMode.selector,
                 isChecked: articleBase.isSelected,
-                title: (articleBase as ProjectDocumentationModel).name,
+                title: (articleBase as ProjectDocumentModel).name,
                 subtitle: CalendarUtils.showInFormat("dd/MM/yyyy",
-                    (articleBase as ProjectDocumentationModel).date),
+                    (articleBase as ProjectDocumentModel).date),
                 leading: Image.asset(
                   'assets/productImage.png',
                   height: 40,
@@ -338,7 +339,7 @@ class _ArticleIdentificationState
                     NavigationUtils.push(
                         context,
                         NewProjectDocumentationPage(
-                          model: articleBase as ProjectDocumentationModel,
+                          model: articleBase as ProjectDocumentModel,
                         )).then((_) {
                       bloc.loadArticles();
                     });

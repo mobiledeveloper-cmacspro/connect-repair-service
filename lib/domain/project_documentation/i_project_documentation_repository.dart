@@ -1,3 +1,4 @@
+import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 import 'package:repairservices/domain/project_documentation/project_documentation.dart';
 
 abstract class IProjectDocumentationRepository{
@@ -8,4 +9,16 @@ abstract class IProjectDocumentationRepository{
 
   Future<bool> deleteProject(ProjectDocumentationModel project);
 
+
+  Future<List<ProjectDocumentModel>> getProjectsDocuments();
+
+  Future<bool> saveProjectDocument(ProjectDocumentModel project);
+
+  Future<bool> deleteProjectDocument(String id);
+
+  Future<List<ProjectDocumentReportModel>> getProjectDocumentReports();
+
+  Future<bool> saveProjectDocumentReport(ProjectDocumentReportModel report);
+
+  Future<bool> deleteProjectDocumentReport(String id);
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_cell_check_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 
 class ProjectCategoryPage extends StatefulWidget {
@@ -23,7 +26,32 @@ class _ProjectCategoryPageState extends State<ProjectCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return TXMainBarWidget(
+      title: R.string.categories,
+        onLeadingTap: (){
+          NavigationUtils.pop(context, result: selectValue);
+        },
+        actions: [
+          InkWell(
+            onTap: () {
+              NavigationUtils.pop(context, result: selectValue);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset(
+                R.image.checkGreen,
+                width: 25,
+                height: 25,
+              ),
+            ),
+          ),
+        ],
+        body: Column(children: [
+          TXDividerWidget(),
+          _body()
+        ],));
+
+      Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
@@ -57,44 +85,47 @@ class _ProjectCategoryPageState extends State<ProjectCategoryPage> {
         body: _body());
   }
 
-  _body() => ListView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
-      itemCount: categories.length,
-      itemBuilder: (context, index) => item(categories[index]));
+  _body() {
+    final List<String> list = [];
+    list.addAll(
+        [R.string.renovation, R.string.newBuild, R.string.maintenanceRepair]);
+    return Expanded(
+      child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return item(list[index]);
+          }),
+    );
+  }
 
-  item(String category) => InkWell(
-        onTap: () {
-          setState(() {
+  item(String category) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          if(selectValue == category)
+            selectValue = '';
+          else
             selectValue = category;
-          });
-        },
-        child: Stack(
-          children: [
-            Container(
-              height: 50,
-              width: double.maxFinite,
-              alignment: Alignment.centerLeft,
-              child: TXTextWidget(
-                text: category,
-                color: R.color.gray,
-                size: 18,
-              ),
+        });
+      },
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            height: 40,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: TXTextWidget(text: category,), ),
+                Container(
+                  child: selectValue == category ?  Image.asset('assets/check_filled.png', width: 25, height: 25,) : Container(),
+                )
+              ],
             ),
-            if (category?.compareTo(selectValue) == 0)
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Image.asset(
-                    R.image.checkGreen,
-                    width: 25,
-                    height: 25,
-                  ),
-                ),
-              ),
-          ],
-        ),
-      );
+          ),
+          TXDividerWidget()
+        ],
+      ),
+    );
+  }
 }
-
-const categories = ['Renovation', 'New Build', 'Maintenance / Repairs'];

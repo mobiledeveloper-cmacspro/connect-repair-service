@@ -1,6 +1,6 @@
 class DBConstants {
   static final String db_name = 'connect_app_db';
-  static final int db_version = 1;
+  static final int db_version = 2;
 
   ///Common table schema
   static final Map<String, String> table_cols = {
@@ -27,6 +27,8 @@ class DBConstants {
 
   ///table names
   static final String article_image__table = 'article_image__table';
+  static final String project_document_table = 'project_document_table';
+  static final String project_document_report_table = 'project_document_report_table';
 
 
   static final String id = "id";

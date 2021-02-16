@@ -100,7 +100,7 @@ class Injector {
         (c) => ArticleLocalDao(container.resolve(), container.resolve()));
     container.registerSingleton<IProjectDocumentationDao,
             ProjectDocumentationLocalDao>(
-        (c) => ProjectDocumentationLocalDao(c.resolve()));
+        (c) => ProjectDocumentationLocalDao(c.resolve(), c.resolve()));
   }
 
   _registerRepositoryLayer() {

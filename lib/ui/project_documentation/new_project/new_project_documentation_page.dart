@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 import 'package:repairservices/domain/project_documentation/project_documentation.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
@@ -16,7 +17,7 @@ import 'package:repairservices/ui/project_documentation/new_project/project_cate
 import 'package:repairservices/ui/project_documentation/new_project/projecto_address_page.dart';
 
 class NewProjectDocumentationPage extends StatefulWidget {
-  final ProjectDocumentationModel model;
+  final ProjectDocumentModel model;
 
   NewProjectDocumentationPage({this.model});
 
@@ -26,16 +27,9 @@ class NewProjectDocumentationPage extends StatefulWidget {
 }
 
 class _NewProjectDocumentationPageState extends StateWithBloC<
-    NewProjectDocumentationPage, NewProjectDocumentationBloC> {
-  @override
-  void initState() {
-    super.initState();
-    bloc.stream.listen((event) {
-      if (event) NavigationUtils.pop(context);
-    });
-    if (widget.model != null) _initData();
-  }
-
+    NewProjectDocumentationPage,
+    NewProjectDocumentationBloC> {
+  final _keyFormCreateProject = new GlobalKey<FormState>();
   var nameController = TextEditingController();
   var numberController = TextEditingController();
   var abbreviationController = TextEditingController();
@@ -45,37 +39,58 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
   String category;
   var infoController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    bloc.init(widget.model);
+    bloc.stream.listen((event) {
+      if (event) NavigationUtils.pop(context);
+    });
+    if (widget.model != null) _initData();
+  }
+
   _initData() {
     nameController.text = widget.model.name;
-    numberController.text = widget.model.number;
-    abbreviationController.text = widget.model.abbreviation;
-    addressController.text = widget.model.address;
-    participantsController.text = widget.model.participants;
-    totalCostsController.text = widget.model.totalCosts;
-    category = widget.model.category;
-    infoController.text = widget.model.info;
+    numberController.text = widget.model?.number?.toString() ?? "";
+    abbreviationController.text = widget.model?.abbreviation ?? "";
+    addressController.text = widget.model?.address?.addressStr ?? "";
+    participantsController.text = widget.model?.participants?.toString() ?? "";
+    totalCostsController.text = widget.model?.totalCost?.toString() ?? "";
+    category = widget.model?.category ?? "";
+    infoController.text = widget.model?.info ?? "";
   }
 
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        iconTheme: IconThemeData(color: Theme
+            .of(context)
+            .primaryColor),
         backgroundColor: Colors.white,
-        actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        actionsIconTheme: IconThemeData(color: Theme
+            .of(context)
+            .primaryColor),
         title:
-            Text('New Project', style: Theme.of(context).textTheme.bodyText2),
+        Text('New Project', style: Theme
+            .of(context)
+            .textTheme
+            .bodyText2),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.pop(context);
           },
-          color: Theme.of(context).primaryColor,
+          color: Theme
+              .of(context)
+              .primaryColor,
         ),
         actions: [
           InkWell(
             onTap: () {
-              _safeProject();
+              if (_keyFormCreateProject.currentState.validate()) {
+                bloc.save();
+              }
             },
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -94,184 +109,201 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
     );
   }
 
-  _body(BuildContext context) => Container(
+  _body(BuildContext context) =>
+      Container(
         child: Column(
           children: [
             Expanded(
                 child: SingleChildScrollView(
-              child: Form(
-                child: Column(
-                  children: [
-                    // Stack(
-                    //   children: [
-                    //     TXTextFieldWidget(
-                    //       placeholder: 'Project name',
-                    //       fontSize: 18,
-                    //       controller: nameController,
-                    //     ),
-                    //     Align(
-                    //       alignment: Alignment.centerRight,
-                    //       child: TXTextWidget(
-                    //         text: '*',
-                    //         color: Colors.red,
-                    //       ),
-                    //     )
-                    //   ],
-                    // ),
-                    // TXDividerWidget(),
-                    TXItemCellEditWidget(
-                      title: R.string.projectName,
-                      isMandatory: true,
-                      controller: nameController,
-                      cellEditMode: CellEditMode.input,
-                      placeholder:
-                          "${R.string.projectName} ${R.string.additions.toLowerCase()}",
-                    ),
-                    TXDividerWidget(),
-                    TXItemCellEditWidget(
-                      title: R.string.projectNumber,
-                      controller: numberController,
-                      cellEditMode: CellEditMode.input,
-                      keyboardType: TextInputType.number,
-                      placeholder:
-                          "${R.string.projectNumber} ${R.string.additions.toLowerCase()}",
-                    ),
-                    TXDividerWidget(),
-                    // TXTextFieldWidget(
-                    //   placeholder: 'Project number',
-                    //   fontSize: 18,
-                    //   controller: numberController,
-                    // ),
-                    // _separator(),
-                    TXItemCellEditWidget(
-                      title: R.string.projectShortName,
-                      controller: abbreviationController,
-                      cellEditMode: CellEditMode.input,
-                      placeholder:
-                          "${R.string.projectShortName} ${R.string.additions.toLowerCase()}",
-                    ),
-                    TXDividerWidget(),
-                    // TXTextFieldWidget(
-                    //   placeholder: 'Project abbreviation',
-                    //   fontSize: 18,
-                    //   controller: abbreviationController,
-                    // ),
-                    // _separator(),
-                    TXItemCellEditWidget(
-                      title: R.string.address,
-                      placeholder:
-                          "${R.string.address} ${R.string.additions.toLowerCase()}",
-                      controller: addressController,
-                      value: addressController.text,
-                      cellEditMode: CellEditMode.selector,
-                      onSubmitted: (addresValue) {
-                        NavigationUtils.pushCupertino(
-                                context, ProjectAddressPage())
-                            .then((newAddress) {
-                          setState(() {
-                            addressController.text = newAddress;
-                          });
-                        });
-                      },
-                    ),
-                    TXDividerWidget(),
-                    // TXTextFieldWidget(
-                    //   placeholder: 'Address',
-                    //   fontSize: 18,
-                    //   controller: addressController,
-                    // ),
-                    // _separator(),
-                    TXItemCellEditWidget(
-                      title: R.string.participants,
-                      controller: participantsController,
-                      cellEditMode: CellEditMode.input,
-                      placeholder: R.string.nothingDeposited,
-                    ),
-                    TXDividerWidget(),
-                    // TXTextFieldWidget(
-                    //   placeholder: 'Participants',
-                    //   fontSize: 18,
-                    //   controller: participantsController,
-                    // ),
-                    // _separator(),
-                    TXItemCellEditWidget(
-                      title: R.string.totalCost,
-                      controller: totalCostsController,
-                      cellEditMode: CellEditMode.input,
-                      keyboardType: TextInputType.numberWithOptions(
-                          signed: false, decimal: true),
-                      placeholder: R.string.nothingDeposited,
-                    ),
-                    TXDividerWidget(),
-                    // TXTextFieldWidget(
-                    //   placeholder: 'Total costs',
-                    //   fontSize: 18,
-                    //   controller: totalCostsController,
-                    // ),
-                    // _separator(),
-                    // _selectNavigationItem('Photo', () {
-                    //   Fluttertoast.showToast(msg: 'Under Construction');
-                    // }),
-                    TXItemCellEditWidget(
-                      title: "",
-                      value: R.string.photo,
-                      cellEditMode: CellEditMode.selector,
-                      onSubmitted: (valueSubmitted) {
-                        Fluttertoast.showToast(msg: 'Under Construction');
-                      },
-                    ),
-                    TXDividerWidget(),
-                    TXItemCellEditWidget(
-                      title: "",
-                      value: R.string.categories,
-                      cellEditMode: CellEditMode.selector,
-                      onSubmitted: (valueSubmitted) {
-                        NavigationUtils.pushCupertino(
-                            context,
-                            ProjectCategoryPage(
-                              currentCategory: category,
-                            )).then((value) {
-                          category = value;
-                        });
-                      },
-                    ),
-                    TXDividerWidget(),
-                    // _separator(),
-                    // _selectNavigationItem('Category', () {
-                    //   NavigationUtils.push(
-                    //       context,
-                    //       ProjectCategoryPage(
-                    //         currentCategory: category,
-                    //       )).then((value) {
-                    //     category = value;
-                    //   });
-                    // }),
-                    // _separator(),
-                    TXItemCellEditWidget(
-                      title: R.string.projectInfo,
-                      controller: infoController,
-                      cellEditMode: CellEditMode.input,
-                      placeholder:
-                          "${R.string.projectInfo} ${R.string.additions.toLowerCase()}",
-                      multiLine: true,
-                    ),
-                    TXDividerWidget(),
-                    // TXTextFieldWidget(
-                    //   placeholder: 'Info about the project',
-                    //   fontSize: 18,
-                    //   multiLine: true,
-                    //   controller: infoController,
-                    // ),
-                    // _separator(),
-                  ],
-                ),
-              ),
-            )),
+                  child: Form(
+                    key: _keyFormCreateProject,
+                    child: StreamBuilder<ProjectDocumentModel>(
+                        stream: bloc.projectResult,
+                        initialData: bloc.projectDocumentModel,
+                        builder: (context, snapshot) {
+                          final ProjectDocumentModel project = snapshot.data;
+                          final isEditing = project.isEditing;
+                          final CellEditMode cellEditMode =
+                          isEditing ? CellEditMode.input : CellEditMode.detail;
+                          return Column(
+                            children: [
+                              TXItemCellEditWidget(
+                                title: R.string.projectName,
+                                isMandatory: true,
+                                controller: nameController,
+                                cellEditMode: cellEditMode,
+                                placeholder: isEditing
+                                    ? "${R.string.projectName} ${R.string
+                                    .additions.toLowerCase()}"
+                                    : "",
+                                value: nameController.text,
+                                onChanged: (value) {
+                                  nameController.text = value;
+                                  bloc.projectDocumentModel.name = value;
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: R.string.projectNumber,
+                                controller: numberController,
+                                cellEditMode: cellEditMode,
+                                keyboardType: TextInputType.number,
+                                value: numberController.text,
+                                placeholder: isEditing
+                                    ? "${R.string.projectNumber} ${R.string
+                                    .additions.toLowerCase()}"
+                                    : "",
+                                onChanged: (value) {
+                                  numberController.text = value;
+                                  bloc.projectDocumentModel.number =
+                                      int.tryParse(value) ?? 0;
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: R.string.projectShortName,
+                                controller: abbreviationController,
+                                cellEditMode: cellEditMode,
+                                value: abbreviationController.text,
+                                placeholder: isEditing
+                                    ? "${R.string.projectShortName} ${R.string
+                                    .additions.toLowerCase()}"
+                                    : "",
+                                onChanged: (value) {
+                                  abbreviationController.text = value;
+                                  bloc.projectDocumentModel.info = value;
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: R.string.address,
+                                value: addressController.text,
+                                placeholder: isEditing
+                                    ? "${R.string.address} ${R.string.additions
+                                    .toLowerCase()}"
+                                    : "",
+                                controller: addressController,
+                                cellEditMode: project.isEditing
+                                    ? CellEditMode.selector
+                                    : CellEditMode.detail,
+                                onSubmitted: (addresValue) {
+                                  NavigationUtils.pushCupertino(
+                                      context,
+                                      ProjectAddressPage(
+                                        currentAddress:
+                                        bloc.projectDocumentModel.address,
+                                      )).then((newAddress) {
+                                    if (newAddress != null &&
+                                        newAddress is ProjectDocumentAddressModel) {
+                                      addressController.text =
+                                          newAddress.addressStr;
+                                      bloc.projectDocumentModel.address =
+                                          newAddress;
+                                      bloc.refreshData;
+                                    }
+                                  });
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: R.string.participants,
+                                controller: participantsController,
+                                cellEditMode: cellEditMode,
+                                keyboardType: TextInputType.number,
+                                placeholder:
+                                isEditing ? R.string.nothingDeposited : "",
+                                value: participantsController.text,
+                                onChanged: (value) {
+                                  participantsController.text = value;
+                                  bloc.projectDocumentModel.participants =
+                                      int.tryParse(value);
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: R.string.totalCost,
+                                controller: totalCostsController,
+                                value: totalCostsController.text,
+                                cellEditMode: cellEditMode,
+                                keyboardType: TextInputType.numberWithOptions(
+                                    signed: false, decimal: true),
+                                placeholder:
+                                isEditing ? R.string.nothingDeposited : "",
+                                onChanged: (value) {
+                                  totalCostsController.text = value;
+                                  bloc.projectDocumentModel.totalCost =
+                                      double.tryParse(value);
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: "",
+                                value: R.string.photo,
+                                cellEditMode: isEditing
+                                    ? CellEditMode.selector
+                                    : CellEditMode.detail,
+                                onSubmitted: (valueSubmitted) {
+                                  Fluttertoast.showToast(
+                                      msg: 'Under Construction');
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: R.string.category,
+                                value: bloc.projectDocumentModel.category,
+                                placeholder: isEditing ? bloc
+                                    .projectDocumentModel.category
+                                    ?.isNotEmpty == true ? bloc
+                                    .projectDocumentModel.category : R.string
+                                    .category : bloc
+                                    .projectDocumentModel.category,
+                                cellEditMode: isEditing
+                                    ? CellEditMode.selector
+                                    : CellEditMode.detail,
+                                onSubmitted: (valueSubmitted) {
+                                  NavigationUtils.pushCupertino(
+                                      context,
+                                      ProjectCategoryPage(
+                                        currentCategory:
+                                        bloc.projectDocumentModel.category,
+                                      )).then((value) {
+                                    bloc.projectDocumentModel.category = value;
+                                    bloc.refreshData;
+                                  });
+                                },
+                              ),
+                              TXDividerWidget(),
+                              TXItemCellEditWidget(
+                                title: R.string.projectInfo,
+                                controller: infoController,
+                                value: infoController.text,
+                                cellEditMode: cellEditMode,
+                                placeholder: isEditing
+                                    ? "${R.string.projectInfo} ${R.string
+                                    .additions.toLowerCase()}"
+                                    : "",
+                                multiLine: true,
+                                onChanged: (value) {
+                                  infoController.text = value;
+                                  bloc.projectDocumentModel.info = value;
+                                },
+                              ),
+                              TXDividerWidget(),
+                            ],
+                          );
+                        }),
+                  ),
+                )),
             Container(
               margin: EdgeInsets.only(bottom: 0),
               height: 70,
-              width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).primaryColor,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              color: Theme
+                  .of(context)
+                  .primaryColor,
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -294,7 +326,11 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                         )
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      bloc.projectDocumentModel.isEditing =
+                      !bloc.projectDocumentModel.isEditing;
+                      bloc.refreshData;
+                    },
                   ),
                   InkWell(
                     child: new Column(
@@ -344,8 +380,7 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(bottom: 12),
-                          child:
-                          new Image.asset('assets/exportWhite.png'),
+                          child: new Image.asset('assets/exportWhite.png'),
                         ),
                         TXTextWidget(
                           text: R.string.export,
@@ -363,13 +398,15 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
         ),
       );
 
-  _separator() => Padding(
+  _separator() =>
+      Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Container(
             height: 0.7, width: double.maxFinite, color: R.color.gray),
       );
 
-  _selectNavigationItem(String text, Function action) => InkWell(
+  _selectNavigationItem(String text, Function action) =>
+      InkWell(
         onTap: action,
         child: Stack(
           children: [
@@ -393,34 +430,18 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
         ),
       );
 
-  void _safeProject() {
-    if (nameController.text?.isEmpty == true)
-      _showDialog(context, 'Error', 'Project name is required');
-    else
-      bloc.save(ProjectDocumentationModel(
-        name: nameController.text,
-        abbreviation: abbreviationController.text,
-        address: addressController.text,
-        category: category,
-        info: infoController.text,
-        number: numberController.text,
-        participants: participantsController.text,
-        totalCosts: totalCostsController.text,
-        id: widget.model != null ? widget.model.id : null,
-      ));
-  }
-
   _showDialog(BuildContext context, String title, String msg) {
     showCupertinoDialog(
         context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
+        builder: (BuildContext context) =>
+            CupertinoAlertDialog(
               title: Text(title),
               content: msg.isNotEmpty
                   ? Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                      child: Text(msg, style: TextStyle(fontSize: 17)),
-                    )
+                padding:
+                EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                child: Text(msg, style: TextStyle(fontSize: 17)),
+              )
                   : Container(),
               actions: <Widget>[
                 CupertinoDialogAction(

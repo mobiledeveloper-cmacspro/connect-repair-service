@@ -38,6 +38,8 @@ class AppDatabase {
 
   Future _createTables(Database db) async {
     await _createTable(db, DBConstants.article_image__table, DBConstants.table_cols);
+    await _createTable(db, DBConstants.project_document_table, DBConstants.table_cols);
+    await _createTable(db, DBConstants.project_document_report_table, DBConstants.table_cols);
 
   }
 

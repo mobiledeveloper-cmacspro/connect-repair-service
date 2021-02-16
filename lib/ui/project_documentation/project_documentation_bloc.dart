@@ -6,6 +6,7 @@ import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:repairservices/domain/project_documentation/i_project_documentation_repository.dart';
+import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 import 'package:repairservices/domain/project_documentation/project_documentation.dart';
 import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
@@ -37,7 +38,7 @@ class ProjectDocumentationBloC extends BaseBloC
   ProjectDocumentationBloC(this._iArticleLocalRepository);
 
   BehaviorSubject<List<ArticleBase>> _articleLocalController =
-  new BehaviorSubject();
+      new BehaviorSubject();
 
   Stream<List<ArticleBase>> get articlesResult =>
       _articleLocalController.stream;
@@ -58,7 +59,7 @@ class ProjectDocumentationBloC extends BaseBloC
     List<ArticleBase> sortedList = [];
     List<ArticleBase> articles = [];
 
-    final articlesLocal = await _iArticleLocalRepository.getProjects();
+    final articlesLocal = await _iArticleLocalRepository.getProjectsDocuments();
 
     articles.addAll(articlesLocal);
 
@@ -71,7 +72,7 @@ class ProjectDocumentationBloC extends BaseBloC
   void refreshList() async {
     List<ArticleBase> articleBaseList = (await articlesResult.first);
     final ArticleBase article =
-    articleBaseList.firstWhere((a) => a.isSelected, orElse: () {
+        articleBaseList.firstWhere((a) => a.isSelected, orElse: () {
       return null;
     });
     if (article == null) setSelectionMode = false;
@@ -84,9 +85,9 @@ class ProjectDocumentationBloC extends BaseBloC
     await Future.forEach(articleBaseList, (articleBase) async {
       if (articleBase.isSelected) {
         //if (articleBase is ArticleLocalModel) {
-          await _iArticleLocalRepository
-              .deleteProject(articleBase as ProjectDocumentationModel);
-          /* if (articleBase.filePath.isNotEmpty) {
+        await _iArticleLocalRepository
+            .deleteProjectDocument((articleBase as ProjectDocumentModel).id);
+        /* if (articleBase.filePath.isNotEmpty) {
             final file = File(articleBase.filePath);
             if (file.existsSync()) file.deleteSync();
           }
@@ -167,7 +168,7 @@ class ProjectDocumentationBloC extends BaseBloC
           : (articleBase as Fitting).pdfPath
     ];
     final MailModel mailModel =
-    MailModel(subject: name, body: name, attachments: attachments);
+        MailModel(subject: name, body: name, attachments: attachments);
 
     final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {
@@ -190,7 +191,7 @@ class ProjectDocumentationBloC extends BaseBloC
     });
 
     final MailModel mailModel =
-    MailModel(subject: name, body: name, attachments: attachments);
+        MailModel(subject: name, body: name, attachments: attachments);
 
     final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {

@@ -92,7 +92,7 @@ class _TXItemCellEditState extends State<TXItemCellEditWidget> {
                           padding: EdgeInsets.symmetric(
                               vertical: widget.title.isEmpty ? 8 : 0),
                           child: TXTextWidget(
-                            text: widget.value.isEmpty
+                            text: widget.value == null || widget.value.isEmpty
                                 ? widget.placeholder
                                 : widget.value,
                             color: widget.cellEditMode == CellEditMode.detail
