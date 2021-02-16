@@ -1181,4 +1181,7 @@ class StringsDe implements StringsBase {
   @override
   String get nothingDeposited => "Nichts hinterlegt";
 
+  @override
+  String get fieldRequired => "Pflichtfeld";
+
 }

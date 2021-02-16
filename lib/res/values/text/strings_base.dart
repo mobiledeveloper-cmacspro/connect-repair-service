@@ -784,4 +784,6 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get nothingDeposited;
 
+  String get fieldRequired;
+
 }

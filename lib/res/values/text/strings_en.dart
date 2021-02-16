@@ -1181,4 +1181,7 @@ class StringsEn implements StringsBase {
   @override
   String get nothingDeposited => "Nothing deposited";
 
+  @override
+  String get fieldRequired => "Field required";
+
 }
