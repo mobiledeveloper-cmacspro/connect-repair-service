@@ -11,6 +11,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/fitting_dimensions/sliding/fitting_sliding_dimension_bloc.dart';
+import 'dart:io';
 
 class FittingSlidingDimensionPage extends StatefulWidget {
   final Sliding model;
@@ -79,8 +80,8 @@ class _FittingDimensionSlidingState extends StateWithBloC<
   }
 
   Widget _getDimension1() {
-    return Image.asset(
-      R.image.slidingDimension,
+    return Image.file(
+      File(widget.model.dimensionImage1Path),
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.contain,
