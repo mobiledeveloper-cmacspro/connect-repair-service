@@ -60,6 +60,7 @@ dependencies:
   screenshot: ^0.2.0
   swipedetector: ^1.2.0
   package_info: ^0.4.3
+  open_file: ^3.0.3
   uuid: ^2.2.2
 
 

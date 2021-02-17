@@ -122,10 +122,10 @@ class PDFManager {
   static Future<List<pw.Container>> getAttachedImages(
       Document pdf, List<String> filePaths) async {
     List<pw.Container> images = [];
-    await Future.forEach<String>(filePaths, (f) async {
-      if (f?.isNotEmpty == true) {
+    filePaths.forEach((f)  {
+      if (f?.isNotEmpty == true && !(f?.endsWith('.pdf') == true)) {
         File file = File(f);
-        if (await file.exists()) {
+        if (file.existsSync()) {
           PdfImage pdfImage = PdfImage.file(
             pdf.document,
             bytes: file.readAsBytesSync(),

@@ -39,8 +39,10 @@ class PDFManagerWindow {
       List<pw.Column> rows = PDFManager.getRows(cells, ttfRegular);
 
       ///List of associates images
+      List<String> filePaths = [];
+      filePaths.addAll(model.images.map((e) => e.filePath).toList());
       List<pw.Container> associatedImages =
-          await PDFManager.getAttachedImages(pdf, [model.filePath]);
+          await PDFManager.getAttachedImages(pdf, filePaths);
 
       ///Adding all views together in a column
       pw.Container detailsRowSection =
@@ -76,9 +78,9 @@ class PDFManagerWindow {
       if (await pdfFile.exists()) await pdfFile.delete();
     }
 
-    if (windows?.filePath?.isNotEmpty == true) {
-      final imagePath = File(windows.filePath);
-      if (await imagePath.exists()) await imagePath.delete();
-    }
+    (windows?.images ?? []).forEach((element) async {
+      final File f = element.file;
+      if (f.existsSync()) f.deleteSync();
+    });
   }
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:repairservices/WindowsGeneralData.dart';
 import 'package:repairservices/domain/article_base.dart';
 
 //import 'package:path_provider/path_provider.dart';
@@ -20,8 +21,6 @@ final String columnNumber = 'number';
 final String columnSystemDepth = 'systemDepth';
 final String columnProfileSystem = 'profileSystem';
 final String columnDescription = 'description';
-final String columnFilePath = 'file';
-final String columnIsImage = 'isImage';
 final String columnWindowsPDFPath = 'pdfPath';
 
 // data model class
@@ -53,8 +52,7 @@ class Windows extends Fitting {
   String systemDepth;
   String profileSystem;
   String description;
-  String filePath;
-  bool isImage;
+  List<ImageFileModel> images;
 
   Windows();
 
@@ -67,8 +65,7 @@ class Windows extends Fitting {
       String systemDepth,
       String profileSystem,
       String description,
-      String filePath,
-      bool isImage) {
+      List<ImageFileModel> images) {
     this.name = name;
     this.created = created;
     this.year = year;
@@ -76,8 +73,7 @@ class Windows extends Fitting {
     this.systemDepth = systemDepth;
     this.profileSystem = profileSystem;
     this.description = description;
-    this.filePath = filePath;
-    this.isImage = isImage;
+    this.images = images;
   }
 
   Windows.fromMap(Map<String, dynamic> map) {
@@ -90,8 +86,6 @@ class Windows extends Fitting {
     systemDepth = map[columnSystemDepth];
     profileSystem = map[columnProfileSystem];
     description = map[columnDescription];
-    filePath = map[columnFilePath];
-    isImage = map[columnIsImage] == '0' ? false : true;
     pdfPath = map[columnWindowsPDFPath];
   }
 
@@ -105,8 +99,8 @@ class Windows extends Fitting {
       columnSystemDepth: systemDepth,
       columnProfileSystem: profileSystem,
       columnDescription: description,
-      columnFilePath: filePath,
-      columnIsImage: isImage ? '1' : '0',
+      // columnFilePath: filePath,
+      // columnIsImage: isImage ? '1' : '0',
       columnWindowsPDFPath: pdfPath
     };
     if (id != null) {
@@ -117,16 +111,18 @@ class Windows extends Fitting {
 
   Future<String> getHtmlString(String htmlFile) async {
     String htmlStr = htmlFile;
-    if (filePath != null && filePath != '') {
-      if (isImage) {
-        String imageBase64 = base64Encode(File(filePath).readAsBytesSync());
-        htmlStr = htmlStr.replaceAll(
-            '#articleImage#', 'data:image/png;base64, $imageBase64');
-      } else {
-        htmlStr = htmlStr.replaceAll(
-            '<tr class="details"><td> <img src="#articleImage#" style="width:300%; max-width:300px;"></td></tr>',
-            '');
-      }
+    if (images.isNotEmpty) {
+      images.forEach((image) {
+        if (image.isImage) {
+          String imageBase64 = base64Encode(File(image.filePath).readAsBytesSync());
+          htmlStr = htmlStr.replaceAll(
+              '#articleImage#', 'data:image/png;base64, $imageBase64');
+        } else {
+          htmlStr = htmlStr.replaceAll(
+              '<tr class="details"><td> <img src="#articleImage#" style="width:300%; max-width:300px;"></td></tr>',
+              '');
+        }
+      });
     } else {
       htmlStr = htmlStr.replaceAll(
           '<tr class="details"><td> <img src="#articleImage#" style="width:300%; max-width:300px;"></td></tr>',
@@ -189,5 +185,38 @@ class Windows extends Fitting {
     }
     debugPrint('html in windows replaced');
     return htmlStr;
+  }
+}
+
+final String tableImageFile = 'image_file';
+final String columnParentId = 'windowId';
+final String columnFilePath = 'file';
+final String columnIsImage = 'isImage';
+
+class ImageFileModel {
+  bool isImage;
+  String filePath;
+  File file;
+  int id;
+
+  ImageFileModel({
+    @required this.isImage,
+    @required this.filePath,
+    @required this.file
+  });
+
+  ImageFileModel.fromMap(Map<String, dynamic> map) {
+    id = map[columnId];
+    filePath = map[columnFilePath];
+    isImage = map[columnIsImage] == '0' ? false : true;
+    file = File(map[columnFilePath]);
+  }
+
+  Map<String, dynamic> toMap(int parentId) {
+    return <String, dynamic>{
+      columnFilePath: filePath,
+      columnIsImage: isImage ? '1' : '0',
+      columnParentId: parentId,
+    };
   }
 }
