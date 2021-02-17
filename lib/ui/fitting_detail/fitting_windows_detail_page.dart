@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:open_file/open_file.dart';
 import 'package:repairservices/DoorLockData.dart';
 import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
@@ -43,8 +44,13 @@ class _FittingWindowsDetails
     });
   }
 
+  final double _gridElementWidth = 100;
+
   @override
   Widget buildWidget(BuildContext context) {
+    double actualWidth = MediaQuery.of(context).size.width;
+    double availableWidth = actualWidth - 10;
+    final elements = (availableWidth / (_gridElementWidth + 10)).floor();
     return TXMainBarWidget(
       title: widget.model.getNamei18N,
       onLeadingTap: () {
@@ -99,30 +105,36 @@ class _FittingWindowsDetails
                 value: widget.model.description,
               ),
               TXDividerWidget(),
-              Container(
-                padding: EdgeInsets.all(15),
-                alignment: Alignment.topLeft,
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        Fluttertoast.showToast(
-                            msg: R.string.underConstruction);
-                      },
-                      child: Container(
-                        constraints:
-                            BoxConstraints(maxHeight: 150, maxWidth: 150),
-                        child: widget.model.filePath?.isNotEmpty == true
-                            ? Image.file(File(widget.model.filePath))
-                            : Container(),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              GridView.count(
+                crossAxisCount: elements,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  ..._getGridElementsList(widget.model),
+                ],
+              ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _getGridElementsList(Windows w) =>
+      w.images.map((e) => _getGridElement(e)).toList();
+
+  Widget _getGridElement(ImageFileModel f) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+      child: InkWell(
+        onTap: () {
+          OpenFile.open(f.filePath);
+        },
+        child: Container(
+          width: 100,
+          child: f.isImage
+              ? Image.file(f.file, fit: BoxFit.contain)
+              : Image.asset('assets/pdf.png', fit: BoxFit.contain),
         ),
       ),
     );
@@ -135,7 +147,7 @@ class _FittingWindowsDetails
           return TXCupertinoActionSheetWidget(
             onActionTap: (action) async {
               if (action.key == 'Print' || action.key == 'Email') {
-                Future.delayed(Duration(milliseconds: 100), () async{
+                Future.delayed(Duration(milliseconds: 100), () async {
                   final res = await NavigationUtils.pushCupertino(
                       context,
                       FittingPDFViewerPage(
@@ -168,9 +180,7 @@ class _FittingWindowsDetails
                   title: R.string.email,
                   color: R.color.primary_color),
               ActionSheetModel(
-                  key: "Remove",
-                  title: R.string.remove,
-                  color: Colors.red)
+                  key: "Remove", title: R.string.remove, color: Colors.red)
             ],
           );
         });

@@ -53,9 +53,16 @@ class DatabaseHelper {
                 $columnSystemDepth TEXT,
                 $columnProfileSystem TEXT,
                 $columnDescription TEXT,
+                $columnWindowsPDFPath TEXT
+              )
+              ''');
+    await db.execute('''
+              CREATE TABLE $tableImageFile (
+                $columnId INTEGER PRIMARY KEY,
                 $columnFilePath TEXT,
                 $columnIsImage TEXT,
-                $columnWindowsPDFPath TEXT
+                $columnParentId INTEGER NOT NULL,
+                FOREIGN KEY ($columnParentId) REFERENCES $tableWindows ($columnId) ON UPDATE CASCADE ON DELETE CASCADE
               )
               ''');
     await db.execute('''
@@ -199,17 +206,24 @@ class DatabaseHelper {
   Future<int> insert(Windows windows) async {
     Database db = await database;
     int id = await db.insert(tableWindows, windows.toMap());
+    if(id != null) {
+      await Future.forEach(windows.images, (element) async {
+        await db.insert(tableImageFile, element.toMap(id));
+      });
+    }
     return id;
   }
   // Get Article Windows by Id
   Future<Windows> queryWindows(int id) async {
     Database db = await database;
     List<Map> maps = await db.query(tableWindows,
-        columns: [columnId, columnName, columnCreated, columnNumber, columnSystemDepth, columnProfileSystem, columnDescription],
+        columns: [columnId, columnName, columnYear, columnCreated, columnNumber, columnSystemDepth, columnProfileSystem, columnDescription, columnWindowsPDFPath],
         where: '$columnId = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
-      return Windows.fromMap(maps.first);
+      Windows w = Windows.fromMap(maps.first);
+      w.images = await queryWindowImageFile(w.id);
+      return w;
     }
     return null;
   }
@@ -220,11 +234,31 @@ class DatabaseHelper {
     // print the results
     List<Windows> list = new List();
 
-    for(final row in result){
-      list.add(Windows.fromMap(row));
+    await Future.forEach(result, (row) async {
+      Windows w = Windows.fromMap(row);
+      w.images = await queryWindowImageFile(w.id);
+      list.add(w);
+    });
+    return list;
+  }
+
+  //Query Images from Window
+  Future<List<ImageFileModel>> queryWindowImageFile(int windowId) async {
+    Database db = await database;
+    List<Map> maps = await db.query(tableImageFile,columns: [columnId, columnFilePath, columnIsImage],where: '$columnParentId = ?',
+        whereArgs: [windowId]);
+    List<ImageFileModel> list = [];
+    for(final row in maps) {
+      list.add(ImageFileModel.fromMap(row));
     }
     return list;
   }
+
+  Future<int> deleteAssociatedImageFiles(int windowId) async {
+    Database db = await database;
+    return await db.delete(tableImageFile, where: '$columnParentId = ?', whereArgs: [windowId]);
+  }
+
   //Update Windows Fitting
   Future<int> updateWindows(Windows windows) async {
     Database db = await database;
@@ -235,6 +269,7 @@ class DatabaseHelper {
   //Delete Windows
   Future<int> deleteWindows(int id) async {
     Database db = await database;
+    await deleteAssociatedImageFiles(id);
     return await db.delete(tableWindows, where: '$columnId = ?', whereArgs: [id]);
   }
 

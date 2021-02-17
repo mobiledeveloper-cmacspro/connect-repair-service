@@ -47,11 +47,19 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
     final name = (articleBase is Fitting)
         ? articleBase.getNamei18N
         : (articleBase as ArticleLocalModel).displayName;
-    final List<String> attachments = [
-      articleBase is ArticleLocalModel
-          ? articleBase.filePath
-          : (articleBase as Fitting).pdfPath
-    ];
+    final List<String> attachments = [];
+      if(articleBase is ArticleLocalModel) {
+        attachments.add(articleBase.filePath);
+      } else {
+        attachments.add((articleBase as Fitting).pdfPath);
+        if(articleBase is Windows) {
+          articleBase.images.forEach((element) {
+            if(!element.isImage) {
+              attachments.add(element.filePath);
+            }
+          });
+        }
+      }
     final MailModel mailModel = MailModel(recipients: [
       // name.contains(R.string.otherFitting)
       //     ? "ersatzteile@schueco.com"
