@@ -21,15 +21,21 @@ class _ProjectAddressPageState extends State<ProjectAddressPage> {
   var extraController = TextEditingController();
   var postCodeController = TextEditingController();
   var locationController = TextEditingController();
-
+  final ProjectDocumentAddressModel _addressModel = ProjectDocumentAddressModel();
   @override
   void initState() {
     super.initState();
-    streetController.text = widget.currentAddress?.street;
-    numberController.text = widget.currentAddress?.houseNumber?.toString() ?? "";
-    extraController.text = widget.currentAddress?.extraAddressLine;
-    postCodeController.text = widget.currentAddress?.postCode?.toString() ?? "";
-    locationController.text = widget.currentAddress?.location;
+    _addressModel.street = widget.currentAddress?.street ?? "";
+    _addressModel.houseNumber = widget.currentAddress?.houseNumber;
+    _addressModel.extraAddressLine = widget.currentAddress?.extraAddressLine;
+    _addressModel.postCode = widget.currentAddress?.postCode;
+    _addressModel.location = widget.currentAddress?.location;
+
+    streetController.text = _addressModel?.street ?? "";
+    numberController.text = _addressModel?.houseNumber?.toString() ?? "";
+    extraController.text = _addressModel?.extraAddressLine ?? "";
+    postCodeController.text = _addressModel?.postCode?.toString() ?? "";
+    locationController.text = _addressModel?.location ?? "";
   }
   @override
   Widget build(BuildContext context) {
@@ -41,13 +47,7 @@ class _ProjectAddressPageState extends State<ProjectAddressPage> {
         actions: [
           InkWell(
             onTap: () {
-              final newAddress = widget.currentAddress ?? ProjectDocumentAddressModel();
-              newAddress.street = streetController.text;
-              newAddress.houseNumber = int.tryParse(numberController.text);
-              newAddress.extraAddressLine = extraController.text;
-              newAddress.postCode = int.tryParse(postCodeController.text);
-              newAddress.location = locationController.text;
-              NavigationUtils.pop(context, result: newAddress);
+              NavigationUtils.pop(context, result: _addressModel);
             },
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -71,7 +71,7 @@ class _ProjectAddressPageState extends State<ProjectAddressPage> {
                   value: streetController.text,
                   placeholder: "${R.string.street} ${R.string.additions.toLowerCase()}",
                   onChanged: (value){
-                    streetController.text = value;
+                    _addressModel.street = value;
                   },
                 ),
                 TXDividerWidget(),
@@ -83,7 +83,7 @@ class _ProjectAddressPageState extends State<ProjectAddressPage> {
                   cellEditMode: CellEditMode.input,
                   placeholder: "${R.string.houseNumber} ${R.string.additions.toLowerCase()}",
                   onChanged: (value){
-                    numberController.text = value;
+                    _addressModel.houseNumber = int.tryParse(value);
                   },
                 ),
                 TXDividerWidget(),
@@ -95,7 +95,7 @@ class _ProjectAddressPageState extends State<ProjectAddressPage> {
                   cellEditMode: CellEditMode.input,
                   placeholder: "${R.string.extraAddressLine} ${R.string.additions.toLowerCase()}",
                   onChanged: (value){
-                    extraController.text = value;
+                    _addressModel.extraAddressLine = value;
                   },
                 ),
                 TXDividerWidget(),
@@ -107,7 +107,7 @@ class _ProjectAddressPageState extends State<ProjectAddressPage> {
                   value: postCodeController.text,
                   placeholder: "${R.string.postcode} ${R.string.additions.toLowerCase()}",
                   onChanged: (value){
-                    postCodeController.text = value;
+                    _addressModel.postCode = int.tryParse(value);
                   },
                 ),
                 TXDividerWidget(),
@@ -118,7 +118,7 @@ class _ProjectAddressPageState extends State<ProjectAddressPage> {
                   value: locationController.text,
                   placeholder: "${R.string.location} ${R.string.additions.toLowerCase()}",
                   onChanged: (value){
-                    locationController.text = value;
+                    _addressModel.location = value;
                   },
                 ),
                 TXDividerWidget(),

@@ -13,4 +13,7 @@ extension StringExtension on String {
             this.substring(0, 1), this.substring(0, 1).toUpperCase())
         : this;
   }
+
+  bool isNullOrEmpty() => this == null || this.isEmpty;
+
 }

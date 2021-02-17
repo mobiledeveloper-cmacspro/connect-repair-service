@@ -6,10 +6,13 @@ import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 
+enum CategoryType { project, report }
+
 class ProjectCategoryPage extends StatefulWidget {
   final String currentCategory;
+  final CategoryType categoryType;
 
-  ProjectCategoryPage({this.currentCategory});
+  ProjectCategoryPage({this.currentCategory, @required this.categoryType});
 
   @override
   _ProjectCategoryPageState createState() => _ProjectCategoryPageState();
@@ -27,8 +30,8 @@ class _ProjectCategoryPageState extends State<ProjectCategoryPage> {
   @override
   Widget build(BuildContext context) {
     return TXMainBarWidget(
-      title: R.string.categories,
-        onLeadingTap: (){
+        title: R.string.categories,
+        onLeadingTap: () {
           NavigationUtils.pop(context, result: selectValue);
         },
         actions: [
@@ -46,12 +49,11 @@ class _ProjectCategoryPageState extends State<ProjectCategoryPage> {
             ),
           ),
         ],
-        body: Column(children: [
-          TXDividerWidget(),
-          _body()
-        ],));
+        body: Column(
+          children: [TXDividerWidget(), _body()],
+        ));
 
-      Scaffold(
+    Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
           backgroundColor: Colors.white,
@@ -87,8 +89,19 @@ class _ProjectCategoryPageState extends State<ProjectCategoryPage> {
 
   _body() {
     final List<String> list = [];
-    list.addAll(
-        [R.string.renovation, R.string.newBuild, R.string.maintenanceRepair]);
+    widget.categoryType == CategoryType.project
+        ? list.addAll([
+            R.string.renovation,
+            R.string.newBuild,
+            R.string.maintenanceRepair
+          ])
+        : list.addAll([
+            R.string.generalReport,
+            R.string.jobSiteInstruction,
+            R.string.jobSiteInspection,
+            R.string.defectReport,
+            R.string.acceptanceOfConstructionWork
+          ]);
     return Expanded(
       child: ListView.builder(
           itemCount: list.length,
@@ -102,7 +115,7 @@ class _ProjectCategoryPageState extends State<ProjectCategoryPage> {
     return InkWell(
       onTap: () {
         setState(() {
-          if(selectValue == category)
+          if (selectValue == category)
             selectValue = '';
           else
             selectValue = category;
@@ -116,9 +129,19 @@ class _ProjectCategoryPageState extends State<ProjectCategoryPage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(child: TXTextWidget(text: category,), ),
+                Expanded(
+                  child: TXTextWidget(
+                    text: category,
+                  ),
+                ),
                 Container(
-                  child: selectValue == category ?  Image.asset('assets/check_filled.png', width: 25, height: 25,) : Container(),
+                  child: selectValue == category
+                      ? Image.asset(
+                          'assets/check_filled.png',
+                          width: 25,
+                          height: 25,
+                        )
+                      : Container(),
                 )
               ],
             ),
