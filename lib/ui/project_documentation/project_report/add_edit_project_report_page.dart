@@ -193,6 +193,7 @@ class _ProjectReportPageState
                         title: R.string.note,
                         controller: noteController,
                         cellEditMode: cellEditMode,
+                        multiLine: true,
                         placeholder: isEditing
                             ? "${R.string.note} ${R.string.additions.toLowerCase()}"
                             : "",
@@ -251,10 +252,11 @@ class _ProjectReportPageState
                               context,
                               DrawerContainerPage(
                                 imagePath: path,
+                                autoSave: false,
                               ));
-                          if (res is MemoVideoModel) {
+                          if (res != null && res is String) {
                             bloc.projectDocumentReportModel.video =
-                                res.filePath;
+                                res;
                             bloc.refreshData;
                           }
                         },
@@ -296,12 +298,6 @@ class _ProjectReportPageState
                         onSubmitted: (valueSubmitted) async {
                           String path =
                               bloc.projectDocumentReportModel?.voiceMemo ?? "";
-
-                          if (path.isEmpty)
-                            path = await _getImageFromSource(ImageSource.camera,
-                                isImage: false);
-
-                          if (path.isEmpty) return;
 
                           final res = await NavigationUtils.push(
                               context,

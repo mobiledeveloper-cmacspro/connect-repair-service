@@ -35,9 +35,10 @@ import '../../utils/file_utils.dart';
 class DrawerContainerPage extends StatefulWidget {
   final String imagePath;
   final bool isForMail;
+  final bool autoSave;
 
   const DrawerContainerPage(
-      {Key key, @required this.imagePath, this.isForMail = false})
+      {Key key, @required this.imagePath, this.isForMail = false, this.autoSave = true})
       : super(key: key);
 
   @override
@@ -376,24 +377,26 @@ class _DrawerContainerPageState
     Color color = Colors.white,
     Function onTap,
   }) =>
-      InkWell(
-        onTap: onTap,
-        child: Container(
-          width: 100,
-          height: 70,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                color: color,
-              ),
-              Text(
-                text,
-                style: TextStyle(color: color),
-              ),
-            ],
+      Expanded(
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            width: 100,
+            height: 70,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon,
+                  color: color,
+                ),
+                Text(
+                  text,
+                  style: TextStyle(color: color),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -413,18 +416,22 @@ class _DrawerContainerPageState
         pixelRatio: 2,
         file: imgFile);
 
-    await bloc.saveScreeShoot();
+    if(!widget.autoSave ?? true)
+      NavigationUtils.pop(context, result: imgFile.path);
+    else{
+      await bloc.saveScreeShoot();
 
 //    bloc.screenShotFile = screenShotFileName;
-    bloc.savingScreenShot = false;
+      bloc.savingScreenShot = false;
 
-    NavigationUtils.pushCupertino(
-      context,
-      ArticleLocalDetailPage(
-        articleLocalModel: bloc.articleModel,
-        isForMail: widget.isForMail,
-      ),
-    );
+      NavigationUtils.pushCupertino(
+        context,
+        ArticleLocalDetailPage(
+          articleLocalModel: bloc.articleModel,
+          isForMail: widget.isForMail,
+        ),
+      );
+    }
   }
 
 //  saveAndShare(BuildContext context) async {
