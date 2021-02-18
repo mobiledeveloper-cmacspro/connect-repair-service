@@ -105,7 +105,9 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           type: FileType.custom, allowedExtensions: ['PDF']);
       File pdf = File(filePath);
       if (!canAddNewFile(pdf)) {
-        Fluttertoast.showToast(msg: "The size limit has been reached", toastLength: Toast.LENGTH_LONG);
+        Fluttertoast.showToast(
+            msg: "The size limit has been reached",
+            toastLength: Toast.LENGTH_LONG);
         return;
       }
       final path = await FileUtils.getRootFilesDir();
@@ -134,7 +136,9 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
   Future _getImageFromSource(ImageSource source) async {
     final File image = await ImagePicker.pickImage(source: source);
     if (!canAddNewFile(image)) {
-      Fluttertoast.showToast(msg: "The size limit has been reached", toastLength: Toast.LENGTH_LONG);
+      Fluttertoast.showToast(
+          msg: "The size limit has been reached",
+          toastLength: Toast.LENGTH_LONG);
       return;
     }
     final directory = await FileUtils.getRootFilesDir();
@@ -372,6 +376,13 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
       return Container(height: 0);
   }
 
+  void _navBack() {
+    files.forEach((element) {
+      if(element.file.existsSync()) element.file.deleteSync();
+    });
+    Navigator.pop(context);
+  }
+
   final double _gridElementWidth = 150;
 
   @override
@@ -379,156 +390,163 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
     double actualWidth = MediaQuery.of(context).size.width;
     double availableWidth = actualWidth - 10;
     final elements = (availableWidth / (_gridElementWidth + 10)).floor();
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        backgroundColor: Colors.white,
-        actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.generalData,
-            style: Theme.of(context).textTheme.bodyText2),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          color: Theme.of(context).primaryColor,
-        ),
-        actions: <Widget>[
-          GestureDetector(
-            onTap: () {
-              numberNode.unfocus();
-              yearNode.unfocus();
-              profileSystemNode.unfocus();
-              descriptionNode.unfocus();
-              _saveArticle();
-            },
-            child: Image.asset(
-              'assets/checkGreen.png',
-              height: 25,
+    return WillPopScope(
+        onWillPop: () async {
+          _navBack();
+          return false;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+            backgroundColor: Colors.white,
+            actionsIconTheme:
+                IconThemeData(color: Theme.of(context).primaryColor),
+            title: Text(R.string.generalData,
+                style: Theme.of(context).textTheme.bodyText2),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: _navBack,
+              color: Theme.of(context).primaryColor,
             ),
+            actions: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  numberNode.unfocus();
+                  yearNode.unfocus();
+                  profileSystemNode.unfocus();
+                  descriptionNode.unfocus();
+                  _saveArticle();
+                },
+                child: Image.asset(
+                  'assets/checkGreen.png',
+                  height: 25,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: ListView(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 16, top: 8),
-              child: Text(R.string.partNumberDefectiveComponent,
-                  style: Theme.of(context).textTheme.bodyText2,
-                  textAlign: TextAlign.left),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
-              child: new TextField(
-                focusNode: numberNode,
-                textAlign: TextAlign.left,
-                expands: false,
-                style: Theme.of(context).textTheme.bodyText2,
-                maxLines: 1,
-                controller: numberCtr,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.number,
-                onSubmitted: (next) {
-                  _changeFocus(context, numberNode, yearNode);
-                },
-                decoration: InputDecoration.collapsed(
-                    border: InputBorder.none,
-                    hintText: R.string.number,
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+          body: ListView(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left: 16, top: 8),
+                child: Text(R.string.partNumberDefectiveComponent,
+                    style: Theme.of(context).textTheme.bodyText2,
+                    textAlign: TextAlign.left),
               ),
-            ),
-            Divider(height: 1),
-            Padding(
-              padding: EdgeInsets.only(left: 16, top: 8),
-              child: Text(R.string.yearConstruction,
+              Padding(
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
+                child: new TextField(
+                  focusNode: numberNode,
+                  textAlign: TextAlign.left,
+                  expands: false,
                   style: Theme.of(context).textTheme.bodyText2,
-                  textAlign: TextAlign.left),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
-              child: new TextField(
-                focusNode: yearNode,
-                textAlign: TextAlign.left,
-                expands: false,
-                style: Theme.of(context).textTheme.bodyText2,
-                maxLines: 1,
-                controller: yearCtr,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.number,
-                onSubmitted: (next) {
-                  _changeFocus(
-                      context,
-                      yearNode,
-                      typeFitting == TypeFitting.sunShading
-                          ? descriptionNode
-                          : profileSystemNode);
-                },
-                decoration: InputDecoration.collapsed(
-                    border: InputBorder.none,
-                    hintText: 'YYYY',
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
-                onChanged: (value) => _yearChange(),
+                  maxLines: 1,
+                  controller: numberCtr,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.number,
+                  onSubmitted: (next) {
+                    _changeFocus(context, numberNode, yearNode);
+                  },
+                  decoration: InputDecoration.collapsed(
+                      border: InputBorder.none,
+                      hintText: R.string.number,
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                ),
               ),
-            ),
-            Divider(height: 1),
-            _getSystemDepth(),
-            Divider(height: typeFitting == TypeFitting.sunShading ? 0 : 1),
-            _getProfileSystem(),
-            Padding(
-              padding: EdgeInsets.only(left: 16, top: 8),
-              child: Text(R.string.description,
+              Divider(height: 1),
+              Padding(
+                padding: EdgeInsets.only(left: 16, top: 8),
+                child: Text(R.string.yearConstruction,
+                    style: Theme.of(context).textTheme.bodyText2,
+                    textAlign: TextAlign.left),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
+                child: new TextField(
+                  focusNode: yearNode,
+                  textAlign: TextAlign.left,
+                  expands: false,
                   style: Theme.of(context).textTheme.bodyText2,
-                  textAlign: TextAlign.left),
-            ),
-            new Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
-              child: new TextField(
-                focusNode: descriptionNode,
-                textAlign: TextAlign.left,
-                expands: false,
-                style: Theme.of(context).textTheme.bodyText2,
-                maxLines: 1,
-                controller: descriptionCtr,
-                textInputAction: TextInputAction.go,
-                decoration: InputDecoration.collapsed(
-                    border: InputBorder.none,
-                    hintText: R.string.partDetails,
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                  maxLines: 1,
+                  controller: yearCtr,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.number,
+                  onSubmitted: (next) {
+                    _changeFocus(
+                        context,
+                        yearNode,
+                        typeFitting == TypeFitting.sunShading
+                            ? descriptionNode
+                            : profileSystemNode);
+                  },
+                  decoration: InputDecoration.collapsed(
+                      border: InputBorder.none,
+                      hintText: 'YYYY',
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                  onChanged: (value) => _yearChange(),
+                ),
               ),
-            ),
-            Divider(height: 1),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: GestureDetector(
-                  child: Container(
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: Center(
-                        child: Text(
-                          R.string.upload,
-                          style: TextStyle(fontSize: 17, color: Colors.white),
+              Divider(height: 1),
+              _getSystemDepth(),
+              Divider(height: typeFitting == TypeFitting.sunShading ? 0 : 1),
+              _getProfileSystem(),
+              Padding(
+                padding: EdgeInsets.only(left: 16, top: 8),
+                child: Text(R.string.description,
+                    style: Theme.of(context).textTheme.bodyText2,
+                    textAlign: TextAlign.left),
+              ),
+              new Padding(
+                padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 4),
+                child: new TextField(
+                  focusNode: descriptionNode,
+                  textAlign: TextAlign.left,
+                  expands: false,
+                  style: Theme.of(context).textTheme.bodyText2,
+                  maxLines: 1,
+                  controller: descriptionCtr,
+                  textInputAction: TextInputAction.go,
+                  decoration: InputDecoration.collapsed(
+                      border: InputBorder.none,
+                      hintText: R.string.partDetails,
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                ),
+              ),
+              Divider(height: 1),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  child: GestureDetector(
+                    child: Container(
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: Theme.of(context).primaryColor,
                         ),
-                      )),
-                  onTap: () => _onActionSheetPress(context),
-                )),
-            GridView.count(
-              crossAxisCount: elements,
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children: [
-                ..._getListImageOfFile(),
-              ],
-            ),
-          ],
-        ),
-
-    );
+                        child: Center(
+                          child: Text(
+                            R.string.upload,
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
+                        )),
+                    onTap: () => _onActionSheetPress(context),
+                  )),
+              GridView.count(
+                crossAxisCount: elements,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  ..._getListImageOfFile(),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 
-  List<Widget> _getListImageOfFile() => files.map((e) => _getImageOfFile(e)).toList();
+  List<Widget> _getListImageOfFile() =>
+      files.map((e) => _getImageOfFile(e)).toList();
 
   Widget _getImageOfFile(ImageFileModel f) {
     return Container(
@@ -540,8 +558,11 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
             children: [
               Container(
                 child: IconButton(
-                  icon: Icon(CupertinoIcons.clear_circled,
-                      color: Theme.of(context).primaryColor, size: 25,),
+                  icon: Icon(
+                    CupertinoIcons.clear_circled,
+                    color: Theme.of(context).primaryColor,
+                    size: 25,
+                  ),
                   onPressed: () {
                     setState(() {
                       files.remove(f);
