@@ -379,6 +379,13 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
       return Container(height: 0);
   }
 
+  void _navBack() {
+    files.forEach((element) {
+      if(element.file.existsSync()) element.file.deleteSync();
+    });
+    Navigator.pop(context);
+  }
+
   final double _gridElementWidth = 150;
 
   @override
@@ -386,18 +393,22 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
     double actualWidth = MediaQuery.of(context).size.width;
     double availableWidth = actualWidth - 10;
     final elements = (availableWidth / (_gridElementWidth + 10)).floor();
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        backgroundColor: Colors.white,
-        actionsIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(R.string.generalData,
-            style: Theme.of(context).textTheme.bodyText2),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+    return WillPopScope(
+        onWillPop: () async {
+          _navBack();
+          return false;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+            backgroundColor: Colors.white,
+            actionsIconTheme:
+                IconThemeData(color: Theme.of(context).primaryColor),
+            title: Text(R.string.generalData,
+                style: Theme.of(context).textTheme.bodyText2),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: _navBack,
           color: Theme.of(context).primaryColor,
         ),
         actions: <Widget>[
@@ -531,7 +542,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
           ),
         ],
       ),
-    );
+    ));
   }
 
   List<Widget> _getListImageOfFile() =>
