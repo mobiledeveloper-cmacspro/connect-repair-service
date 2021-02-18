@@ -36,9 +36,7 @@ class NewProjectDocumentationBloC extends BaseBloC with FormValidatorBloC {
   void init(ProjectDocumentModel initModel) {
     projectDocumentModel = initModel ??
         ProjectDocumentModel(
-            id: Uuid().v1(),
-            reports: [],
-            address: ProjectDocumentAddressModel());
+            reports: [], address: ProjectDocumentAddressModel());
     projectDocumentModel.isEditing = initModel == null;
     _projectController.sinkAddSafe(projectDocumentModel);
   }
@@ -46,6 +44,9 @@ class NewProjectDocumentationBloC extends BaseBloC with FormValidatorBloC {
   void save() async {
     try {
       projectDocumentModel.date = DateTime.now();
+      if (projectDocumentModel.id.isNullOrEmpty())
+        projectDocumentModel.id = Uuid().v1();
+
       final result =
           await _repository.saveProjectDocument(projectDocumentModel);
       _controller.sinkAddSafe(result);

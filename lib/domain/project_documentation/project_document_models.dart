@@ -104,11 +104,13 @@ class ProjectDocumentReportModel {
   String video;
   String voiceMemo;
   DocumentWeatherModel documentWeather;
+  bool isEditing;
 
   ProjectDocumentReportModel(
       {this.id,
       this.projectId,
       this.category,
+      this.isEditing,
       this.date,
       this.begin,
       this.end,

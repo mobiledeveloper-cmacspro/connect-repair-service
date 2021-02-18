@@ -37,6 +37,8 @@ import 'package:repairservices/ui/0_base/bloc_base.dart';
 import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
 import 'package:repairservices/ui/project_documentation/new_project/new_project_documentation_bloc.dart';
 import 'package:repairservices/ui/project_documentation/project_documentation_bloc.dart';
+import 'package:repairservices/ui/project_documentation/project_report/add_edit_project_report_bloc.dart';
+import 'package:repairservices/ui/project_documentation/project_report/project_report_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_result/qr_result_page_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_page_bloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_widget_bloc.dart';
@@ -139,6 +141,8 @@ class Injector {
     container.registerFactory((c) => QRResultPageBloc());
     container.registerFactory((c) => ProjectDocumentationBloC(c.resolve()));
     container.registerFactory((c) => NewProjectDocumentationBloC(c.resolve()));
+    container.registerFactory((c) => ProjectReportBloC(c.resolve()));
+    container.registerFactory((c) => AddEditProjectReportBloC(c.resolve()));
   }
 
   _registerModelConverters() {

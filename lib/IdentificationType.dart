@@ -34,10 +34,12 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
   }
 
   Future _getImageFromSource(ImageSource source) async {
-    final File image = await ImagePicker.pickImage(source: source);
+    final ImagePicker _picker = ImagePicker();
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    if (pickedFile == null) return;
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
-    final File newImage = await image.copy('$directory/$fileName.png');
+    final File newImage = await File(pickedFile.path).copy('$directory/$fileName.png');
     imagePath = newImage.path;
     _showAlertDialog(context);
   }

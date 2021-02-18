@@ -1184,4 +1184,18 @@ class StringsEn implements StringsBase {
   @override
   String get fieldRequired => "Field required";
 
+  @override
+  String get beginDate => "Begin";
+
+  @override
+  String get endDate => "End";
+
+  @override
+  String get note => "Note";
+
+  @override
+  String get dateFormat1 => "E., MM/dd/yyyy";
+
+  @override
+  String get dateFormat2 => "hh:mm a";
 }

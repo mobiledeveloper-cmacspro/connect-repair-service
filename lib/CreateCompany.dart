@@ -126,22 +126,23 @@ class CreateCompanyState extends State<CreateCompanyV> {
     );
   }
 
-  Future getImageFromCamera() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = image;
-    });
-  }
+  // Future getImageFromCamera() async {
+  //   final File image = await ImagePicker.pickImage(source: ImageSource.camera);
+  //   setState(() {
+  //     _image = image;
+  //   });
+  // }
 
   Future getImageFromGallery() async {
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final ImagePicker _picker = ImagePicker();
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    if (pickedFile == null) return;
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
-    final File newImage = await image.copy('$directory/$fileName.png');
-    debugPrint(newImage.path);
+    final File newImage = await File(pickedFile.path).copy('$directory/$fileName.png');
     company.logoPath = newImage.path;
     setState(() {
-      _image = image;
+      _image = newImage;
 
     });
   }

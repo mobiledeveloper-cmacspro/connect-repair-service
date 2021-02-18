@@ -1184,4 +1184,19 @@ class StringsDe implements StringsBase {
   @override
   String get fieldRequired => "Pflichtfeld";
 
+  @override
+  String get beginDate => "Beginn";
+
+  @override
+  String get endDate => "Ende";
+
+  @override
+  String get note => "Notiz";
+
+  @override
+  String get dateFormat1 => "E., dd.MM.yyyy";
+
+  @override
+  String get dateFormat2 => "hh:mm a";
+
 }

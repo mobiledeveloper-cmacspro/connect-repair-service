@@ -786,4 +786,13 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get fieldRequired;
 
+  String get beginDate;
+
+  String get endDate;
+
+  String get note;
+
+  String get dateFormat1;
+
+  String get dateFormat2;
 }

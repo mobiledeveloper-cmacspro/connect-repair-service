@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
-import 'package:repairservices/res/R.dart';
-import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
+import 'package:repairservices/ui/0_base/bloc_state.dart';
+import 'package:repairservices/ui/project_documentation/project_report/add_edit_project_report_bloc.dart';
+import 'package:repairservices/ui/project_documentation/project_report/project_report_bloc.dart';
 
-class ProjectReportPage extends StatefulWidget {
-
-  const ProjectReportPage({Key key,}) : super(key: key);
+class ProjectReportPage extends StatefulWidget{
   @override
   _ProjectReportPageState createState() => _ProjectReportPageState();
 }
 
-class _ProjectReportPageState extends State<ProjectReportPage> {
+class _ProjectReportPageState extends StateWithBloC<ProjectReportPage, ProjectReportBloC> {
+
 
   @override
-  Widget build(BuildContext context) {
-    return TXMainBarWidget(title: R.string.newReport, body: Container());
+  Widget buildWidget(BuildContext context) {
+    // TODO: implement buildWidget
+    throw UnimplementedError();
   }
 }

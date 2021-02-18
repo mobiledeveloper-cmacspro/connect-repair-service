@@ -18,6 +18,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_textfield_widget.dart';
 import 'package:repairservices/ui/project_documentation/new_project/new_project_documentation_bloc.dart';
 import 'package:repairservices/ui/project_documentation/project_category_page.dart';
 import 'package:repairservices/ui/project_documentation/new_project/projecto_address_page.dart';
+import 'package:repairservices/ui/project_documentation/project_report/add_edit_project_report_page.dart';
 import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/utils/extensions.dart';
@@ -49,7 +50,7 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
     super.initState();
     bloc.init(widget.model);
     bloc.stream.listen((event) {
-      if (event) NavigationUtils.pop(context);
+      if (event ?? false) NavigationUtils.pop(context);
     });
     if (widget.model != null) _initData();
   }
@@ -284,6 +285,7 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                                   ProjectCategoryPage(
                                     currentCategory:
                                         bloc.projectDocumentModel.category,
+                                    categoryType: CategoryType.project,
                                   )).then((value) {
                                 bloc.projectDocumentModel.category = value;
                                 bloc.refreshData;
@@ -362,7 +364,20 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                         )
                       ],
                     ),
-                    onTap: () async {},
+                    onTap: () async {
+                      NavigationUtils.pushCupertino(
+                              context, AddEditProjectReportPage())
+                          .then((value) {
+                        if (value != null &&
+                            value is ProjectDocumentReportModel) {
+                          final index = bloc.projectDocumentModel.reports
+                              .indexWhere((element) => value.id == element.id);
+                          if (index >= 0)
+                            bloc.projectDocumentModel.reports.removeAt(index);
+                          bloc.projectDocumentModel.reports.add(value);
+                        }
+                      });
+                    },
                   ),
                   InkWell(
                     child: new Column(
@@ -452,11 +467,12 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
   }
 
   Future _getImageFromSource(ImageSource source) async {
-    final File image = await ImagePicker.pickImage(source: source);
-    if (image == null) return;
+    final ImagePicker _picker = ImagePicker();
+    final pickedFile = await _picker.getImage(source: source);
+    if (pickedFile == null) return;
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
-    final File newImage = await image.copy('$directory/$fileName.png');
+    final File newImage = await File(pickedFile.path).copy('$directory/$fileName.png');
     bloc.projectDocumentModel.photo = newImage.path;
     bloc.refreshData;
   }
