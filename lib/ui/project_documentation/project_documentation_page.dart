@@ -108,7 +108,7 @@ class _ArticleIdentificationState
             initialData: bloc.isInSelectionMode,
             builder: (ctx, snapshotMode) {
               return TXMainBarWidget(
-                title: 'Project Documentation',
+                title: R.string.projectDoc,
                 onLeadingTap: () {
                   Navigator.pop(context);
                 },
@@ -117,14 +117,27 @@ class _ArticleIdentificationState
                   children: <Widget>[
                     TXDividerWidget(),
                     _orderBar(),
+                    TXDividerWidget(),
                     Expanded(
                       child: StreamBuilder<List<ArticleBase>>(
                         stream: bloc.articlesResult,
                         initialData: [],
                         builder: (context, snapshot) {
+                          final list = snapshot.data ?? [];
+                          if(list.length > 1){
+                            alphabetical
+                                ? list.sort((a, b) => (a
+                            as ProjectDocumentModel)
+                                .name.toLowerCase()
+                                .compareTo((b as ProjectDocumentModel).name.toLowerCase())) :
+                            list.sort((a, b) => (b
+                            as ProjectDocumentModel)
+                                .date.millisecondsSinceEpoch
+                                .compareTo((a as ProjectDocumentModel).date.millisecondsSinceEpoch));
+                          }
                           return ListView.builder(
                               shrinkWrap: true,
-                              itemCount: snapshot.data.length,
+                              itemCount: list.length,
                               itemBuilder: (BuildContext context, int index) {
                                 final articleBaseModel = snapshot.data[index];
                                 return _getArticle(context, articleBaseModel);
@@ -180,7 +193,7 @@ class _ArticleIdentificationState
                                   height: 5,
                                 ),
                                 new Text(
-                                  'New Project',
+                                  R.string.newProject,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,
@@ -267,7 +280,7 @@ class _ArticleIdentificationState
                   ),
                   child: Center(
                     child: TXTextWidget(
-                      text: 'Alphabetical',
+                      text: R.string.alphabetical,
                       color: alphabetical ? Colors.white : Colors.black,
                     ),
                   ),
@@ -293,7 +306,7 @@ class _ArticleIdentificationState
                   ),
                   child: Center(
                     child: TXTextWidget(
-                      text: 'Chronological',
+                      text: R.string.chronological,
                       color: !alphabetical ? Colors.white : Colors.black,
                     ),
                   ),
@@ -318,8 +331,8 @@ class _ArticleIdentificationState
                     : CellCheckMode.selector,
                 isChecked: articleBase.isSelected,
                 title: (articleBase as ProjectDocumentModel).name,
-                subtitle: CalendarUtils.showInFormat("dd/MM/yyyy",
-                    (articleBase as ProjectDocumentModel).date),
+                subtitle: CalendarUtils.showInFormat(
+                    "dd/MM/yyyy", (articleBase as ProjectDocumentModel).date),
                 leading: Image.asset(
                   'assets/productImage.png',
                   height: 40,
