@@ -35,7 +35,7 @@ class IdentificationTypeState extends State<IdentificationTypeV> {
 
   Future _getImageFromSource(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
-    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await _picker.getImage(source: source);
     if (pickedFile == null) return;
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
