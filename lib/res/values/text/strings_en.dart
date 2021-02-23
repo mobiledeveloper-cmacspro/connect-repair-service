@@ -501,7 +501,7 @@ class StringsEn implements StringsBase {
   String get options => "Options";
 
   @override
-  String get availability1 => "Configurable article, can be procured via special transaction!";
+  String get availability1 => "Availability with the next delivery!";
 
   @override
   String get availability2 => "Special processing or not available with the next tour! Please contact our sales department";

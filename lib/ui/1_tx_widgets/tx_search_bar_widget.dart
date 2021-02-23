@@ -52,7 +52,7 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
                 color: R.color.gray_light,
                 borderRadius: BorderRadius.all(Radius.circular(8))),
             child: TXTextFieldWidget(
-              contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+              contentPadding: EdgeInsets.symmetric(vertical: 9, horizontal: 6),
               prefixIcon: Icon(
                 CupertinoIcons.search,
                 color: R.color.gray_darkest,
@@ -73,6 +73,7 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
           child: TXTextWidget(
             text: R.string.cancel,
             color: R.color.primary_color,
+            size: 16,
           ),
         ),
       ],
@@ -105,8 +106,8 @@ class _TXSearchBarState extends State<TXSearchBarWidget> {
               child: Image.asset(
                 R.image.qrCodeGrey,
                 fit: BoxFit.contain,
-                height: 20,
-                width: 20,
+                height: 30,
+                width: 30,
               ),
               onTap: widget.onQRScanTap,
             )
