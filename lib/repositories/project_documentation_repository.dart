@@ -58,9 +58,9 @@ class ProjectDocumentationRepository
   }
 
   @override
-  Future<List<ProjectDocumentReportModel>> getProjectDocumentReports() async {
+  Future<List<ProjectDocumentReportModel>> getProjectDocumentReports(String projectId) async {
     try {
-      return await _dao.getProjectDocumentReports();
+      return await _dao.getProjectDocumentReports(projectId);
     } catch (ex) {
       return [];
     }

@@ -19,6 +19,7 @@ import 'package:repairservices/ui/project_documentation/new_project/new_project_
 import 'package:repairservices/ui/project_documentation/project_category_page.dart';
 import 'package:repairservices/ui/project_documentation/new_project/projecto_address_page.dart';
 import 'package:repairservices/ui/project_documentation/project_report/add_edit_project_report_page.dart';
+import 'package:repairservices/ui/project_documentation/project_report/project_report_page.dart';
 import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/utils/extensions.dart';
@@ -366,15 +367,13 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                     ),
                     onTap: () async {
                       NavigationUtils.pushCupertino(
-                              context, AddEditProjectReportPage())
+                              context, AddEditProjectReportPage(
+                        projectDocumentModel: bloc.projectDocumentModel,
+                      ))
                           .then((value) {
                         if (value != null &&
-                            value is ProjectDocumentReportModel) {
-                          final index = bloc.projectDocumentModel.reports
-                              .indexWhere((element) => value.id == element.id);
-                          if (index >= 0)
-                            bloc.projectDocumentModel.reports.removeAt(index);
-                          bloc.projectDocumentModel.reports.add(value);
+                            value is ProjectDocumentModel) {
+                          bloc.projectDocumentModel = value;
                         }
                       });
                     },
@@ -398,7 +397,17 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                         )
                       ],
                     ),
-                    onTap: () async {},
+                    onTap: () async {
+                      final res = await NavigationUtils.push(
+                          context,
+                          ProjectReportPage(
+                            projectDocumentModel: bloc.projectDocumentModel,
+                          ));
+                      if(res != null && res is ProjectDocumentModel){
+                        bloc.projectDocumentModel = res;
+                        bloc.refreshData;
+                      }
+                    },
                   ),
                   InkWell(
                     child: new Column(
@@ -472,7 +481,8 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
     if (pickedFile == null) return;
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
-    final File newImage = await File(pickedFile.path).copy('$directory/$fileName.png');
+    final File newImage =
+        await File(pickedFile.path).copy('$directory/$fileName.png');
     bloc.projectDocumentModel.photo = newImage.path;
     bloc.refreshData;
   }

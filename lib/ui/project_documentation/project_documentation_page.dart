@@ -128,8 +128,8 @@ class _ArticleIdentificationState
                             alphabetical
                                 ? list.sort((a, b) => (a
                             as ProjectDocumentModel)
-                                .name.toLowerCase()
-                                .compareTo((b as ProjectDocumentModel).name.toLowerCase())) :
+                                .fixedName.toLowerCase()
+                                .compareTo((b as ProjectDocumentModel).fixedName.toLowerCase())) :
                             list.sort((a, b) => (b
                             as ProjectDocumentModel)
                                 .date.millisecondsSinceEpoch
