@@ -1,4 +1,5 @@
 import '../article_base.dart';
+import 'package:repairservices/utils/extensions.dart';
 
 class ProjectDocumentModel extends ArticleBase {
   String id;
@@ -14,6 +15,8 @@ class ProjectDocumentModel extends ArticleBase {
   ProjectDocumentAddressModel address;
   List<ProjectDocumentReportModel> reports;
   bool isEditing;
+
+  String get fixedName => name.isNullOrEmpty() ? "" : name;
 
   ProjectDocumentModel(
       {this.id,
@@ -106,6 +109,8 @@ class ProjectDocumentReportModel {
   DocumentWeatherModel documentWeather;
   bool isEditing;
 
+  DateTime get subTitleFixed => date != null ? date : begin != null ? begin : end != null ? end: null;
+
   ProjectDocumentReportModel(
       {this.id,
       this.projectId,
@@ -139,8 +144,8 @@ class ProjectDocumentReportModel {
         measurementCamera = json['measurementCamera'],
         video = json['video'],
         voiceMemo = json['voiceMemo'],
-        documentWeather =
-            DocumentWeatherModel.fromJson(json['documentWeather']);
+        documentWeather = json['documentWeather'] != null ?
+            DocumentWeatherModel.fromJson(json['documentWeather']) : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -154,7 +159,7 @@ class ProjectDocumentReportModel {
         'measurementCamera': measurementCamera,
         'video': video,
         'voiceMemo': voiceMemo,
-        'documentWeather': documentWeather.toJson(),
+        'documentWeather': documentWeather?.toJson(),
       };
 }
 

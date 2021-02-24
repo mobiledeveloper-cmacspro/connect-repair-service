@@ -25,10 +25,12 @@ import '../project_category_page.dart';
 
 class AddEditProjectReportPage extends StatefulWidget {
   final ProjectDocumentReportModel projectDocumentReportModel;
+  final ProjectDocumentModel projectDocumentModel;
 
   const AddEditProjectReportPage({
     Key key,
     this.projectDocumentReportModel,
+    @required this.projectDocumentModel,
   }) : super(key: key);
 
   @override
@@ -42,8 +44,12 @@ class _ProjectReportPageState
   @override
   void initState() {
     super.initState();
+    bloc.projectDocumentModel = widget.projectDocumentModel;
     noteController.text = widget?.projectDocumentReportModel?.shortInfo ?? "";
     bloc.init(widget.projectDocumentReportModel);
+    bloc.stream.listen((event) {
+      NavigationUtils.pop(context, result: bloc.projectDocumentModel);
+    });
   }
 
   @override
@@ -55,7 +61,7 @@ class _ProjectReportPageState
           final ProjectDocumentReportModel projectReport = snapshot.data;
           final isEditing = projectReport.isEditing;
           final CellEditMode cellEditMode =
-              isEditing ? CellEditMode.input : CellEditMode.detail;
+          isEditing ? CellEditMode.input : CellEditMode.detail;
           return TXMainBarWidget(
               title: R.string.newReport,
               onLeadingTap: () {
@@ -64,32 +70,45 @@ class _ProjectReportPageState
               actions: [
                 InkWell(
                   onTap: () {
-                    NavigationUtils.pop(context,
-                        result: bloc.projectDocumentReportModel);
+                    if (bloc.projectDocumentReportModel.isEditing) {
+                      bloc.saveProjectReport();
+                      bloc.projectDocumentReportModel.isEditing = false;
+                    } else {
+                      bloc.projectDocumentReportModel.isEditing = true;
+                    }
+                    bloc.refreshData;
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Image.asset(
+                    child: bloc.projectDocumentReportModel.isEditing ? Image
+                        .asset(
                       R.image.checkGreen,
                       width: 25,
                       height: 25,
+                    ) : Icon(
+                      Icons.edit,
+                      color: R.color.primary_color,
+                      size: 25,
                     ),
                   ),
                 ),
               ],
               body: Container(
                 child: SingleChildScrollView(
+                  padding: EdgeInsets.only(bottom: 50),
+                  physics: BouncingScrollPhysics(),
                   child: Column(
                     children: [
+                      TXDividerWidget(),
                       TXItemCellEditWidget(
                         title: R.string.category,
                         value: bloc.projectDocumentReportModel?.category ?? "",
                         placeholder: isEditing
                             ? bloc.projectDocumentReportModel.category
-                                        ?.isNotEmpty ==
-                                    true
-                                ? bloc.projectDocumentReportModel.category
-                                : R.string.category
+                            ?.isNotEmpty ==
+                            true
+                            ? bloc.projectDocumentReportModel.category
+                            : R.string.category
                             : bloc.projectDocumentReportModel.category,
                         cellEditMode: isEditing
                             ? CellEditMode.selector
@@ -99,7 +118,7 @@ class _ProjectReportPageState
                               context,
                               ProjectCategoryPage(
                                 currentCategory:
-                                    bloc.projectDocumentReportModel.category,
+                                bloc.projectDocumentReportModel.category,
                                 categoryType: CategoryType.report,
                               )).then((value) {
                             bloc.projectDocumentReportModel.category = value;
@@ -107,25 +126,29 @@ class _ProjectReportPageState
                           });
                         },
                       ),
+                      TXDividerWidget(),
                       TXItemCellEditWidget(
                         title: "",
                         value: CalendarUtils.showInFormat(
                             R.string.dateFormat1,
                             bloc.projectDocumentReportModel.date ??
                                 DateTime.now()),
-                        cellEditMode: CellEditMode.selector,
+                        cellEditMode: isEditing
+                            ? CellEditMode.selector
+                            : CellEditMode.detail,
                         onSubmitted: (valueSubmitted) {
                           _selectDate(context, onDateChange: (date) {
                             bloc.currentDate = date;
                           }, onOK: () {
                             bloc.projectDocumentReportModel.date =
                                 bloc.currentDate;
+                            bloc.refreshData;
                           }, mode: CupertinoDatePickerMode.date);
                         },
                       ),
                       TXDividerWidget(),
                       InkWell(
-                        onTap: () {
+                        onTap: !isEditing ? null : () {
                           _selectDate(context, onDateChange: (date) {
                             bloc.beginDate = date;
                           }, onOK: () {
@@ -142,24 +165,24 @@ class _ProjectReportPageState
                             children: [
                               Expanded(
                                   child:
-                                      TXTextWidget(text: R.string.beginDate)),
+                                  TXTextWidget(text: R.string.beginDate)),
                               TXTextWidget(
                                   color: R.color.primary_color,
                                   fontWeight: FontWeight.bold,
                                   text: bloc.projectDocumentReportModel.begin ==
-                                          null
+                                      null
                                       ? "HH:MM"
                                       : CalendarUtils.showInFormat(
-                                          R.string.dateFormat2,
-                                          bloc.projectDocumentReportModel
-                                              .begin))
+                                      R.string.dateFormat2,
+                                      bloc.projectDocumentReportModel
+                                          .begin))
                             ],
                           ),
                         ),
                       ),
                       TXDividerWidget(),
                       InkWell(
-                        onTap: () {
+                        onTap: !isEditing ? null : () {
                           _selectDate(context, onDateChange: (date) {
                             bloc.endDate = date;
                           }, onOK: () {
@@ -179,11 +202,11 @@ class _ProjectReportPageState
                                   color: R.color.primary_color,
                                   fontWeight: FontWeight.bold,
                                   text: bloc.projectDocumentReportModel.end ==
-                                          null
+                                      null
                                       ? "HH:MM"
                                       : CalendarUtils.showInFormat(
-                                          R.string.dateFormat2,
-                                          bloc.projectDocumentReportModel.end))
+                                      R.string.dateFormat2,
+                                      bloc.projectDocumentReportModel.end))
                             ],
                           ),
                         ),
@@ -195,7 +218,8 @@ class _ProjectReportPageState
                         cellEditMode: cellEditMode,
                         multiLine: true,
                         placeholder: isEditing
-                            ? "${R.string.note} ${R.string.additions.toLowerCase()}"
+                            ? "${R.string.note} ${R.string.additions
+                            .toLowerCase()}"
                             : "",
                         value: bloc.projectDocumentReportModel.shortInfo,
                         onChanged: (value) {
@@ -218,18 +242,18 @@ class _ProjectReportPageState
                       ),
                       (projectReport.photo?.isNotEmpty == true)
                           ? Container(
-                              width: double.infinity,
-                              child: Image.file(
-                                File(
-                                  projectReport.photo,
-                                ),
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.contain,
-                              ),
-                              alignment: Alignment.centerLeft,
-                              margin: EdgeInsets.only(left: 10),
-                            )
+                        width: double.infinity,
+                        child: Image.file(
+                          File(
+                            projectReport.photo,
+                          ),
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(bottom: 10, left: 10),
+                      )
                           : Container(),
                       TXDividerWidget(),
                       TXItemCellEditWidget(
@@ -239,12 +263,12 @@ class _ProjectReportPageState
                             : CellEditMode.detail,
                         onSubmitted: (valueSubmitted) async {
                           String path = bloc.projectDocumentReportModel
-                                  ?.measurementCamera ??
+                              ?.measurementCamera ??
                               "";
 
                           if (path.isEmpty)
                             path =
-                                await _getImageFromSource(ImageSource.camera);
+                            await _getImageFromSource(ImageSource.camera);
 
                           if (path.isEmpty) return;
 
@@ -255,18 +279,36 @@ class _ProjectReportPageState
                                 autoSave: false,
                               ));
                           if (res != null && res is String) {
-                            bloc.projectDocumentReportModel.video =
+                            bloc.projectDocumentReportModel.measurementCamera =
                                 res;
                             bloc.refreshData;
                           }
                         },
                       ),
+                      (projectReport.measurementCamera?.isNotEmpty == true)
+                          ? Container(
+                        width: double.infinity,
+                        child: Image.file(
+                          File(
+                            projectReport.measurementCamera,
+                          ),
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(bottom: 10, left: 10),
+                      )
+                          : Container(),
                       TXDividerWidget(),
                       TXItemCellEditWidget(
                         title: R.string.video,
                         cellEditMode: isEditing
                             ? CellEditMode.selector
                             : CellEditMode.detail,
+                        value: bloc.projectDocumentReportModel?.video
+                            ?.split("/")
+                            ?.last ?? "",
                         onSubmitted: (valueSubmitted) async {
                           String path =
                               bloc.projectDocumentReportModel?.video ?? "";
@@ -295,14 +337,21 @@ class _ProjectReportPageState
                         cellEditMode: isEditing
                             ? CellEditMode.selector
                             : CellEditMode.detail,
+                        value: bloc.projectDocumentReportModel?.voiceMemo
+                            ?.split("/")
+                            ?.last ?? "",
                         onSubmitted: (valueSubmitted) async {
                           String path =
                               bloc.projectDocumentReportModel?.voiceMemo ?? "";
 
+                          final model = MemoAudioModel(
+                              filePath: path);
+                          model.id = CalendarUtils.getTimeIdBasedSeconds();
+
                           final res = await NavigationUtils.push(
                               context,
                               AudioPage(
-                                model: MemoAudioModel(filePath: path),
+                                model: model,
                               ));
                           if (res is MemoAudioModel) {
                             bloc.projectDocumentReportModel.voiceMemo =
@@ -321,8 +370,8 @@ class _ProjectReportPageState
 
   void _selectDate(BuildContext context,
       {CupertinoDatePickerMode mode,
-      ValueChanged<DateTime> onDateChange,
-      Function onOK}) async {
+        ValueChanged<DateTime> onDateChange,
+        Function onOK}) async {
     showModalBottomSheet<DateTime>(
         context: context,
         builder: (context) {
@@ -341,7 +390,10 @@ class _ProjectReportPageState
         actions: <Widget>[
           CupertinoActionSheetAction(
             child: new Text(R.string.camera,
-                style: Theme.of(context).textTheme.headline4),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline4),
             onPressed: () async {
               Navigator.pop(context);
               final path = await _getImageFromSource(ImageSource.camera);
@@ -351,7 +403,10 @@ class _ProjectReportPageState
           ),
           CupertinoActionSheetAction(
             child: new Text(R.string.chooseFromGallery,
-                style: Theme.of(context).textTheme.headline4),
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline4),
             onPressed: () async {
               Navigator.pop(context);
               final path = await _getImageFromSource(ImageSource.gallery);
@@ -363,7 +418,9 @@ class _ProjectReportPageState
         cancelButton: CupertinoActionSheetAction(
           child: new Text(R.string.cancel,
               style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
                   fontSize: 22.0,
                   fontWeight: FontWeight.w700)),
           isDefaultAction: true,
@@ -390,7 +447,7 @@ class _ProjectReportPageState
     final directory = await FileUtils.getRootFilesDir();
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
     final File newImage =
-        await File(pickedFile.path).copy('$directory/$fileName.png');
+    await File(pickedFile.path).copy('$directory/$fileName.png');
     return newImage.path;
   }
 }

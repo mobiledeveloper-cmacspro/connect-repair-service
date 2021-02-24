@@ -16,7 +16,7 @@ abstract class IProjectDocumentationRepository{
 
   Future<bool> deleteProjectDocument(String id);
 
-  Future<List<ProjectDocumentReportModel>> getProjectDocumentReports();
+  Future<List<ProjectDocumentReportModel>> getProjectDocumentReports(String projectId);
 
   Future<bool> saveProjectDocumentReport(ProjectDocumentReportModel report);
 

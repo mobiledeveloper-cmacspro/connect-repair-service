@@ -95,8 +95,9 @@ class ProjectDocumentationLocalDao implements IProjectDocumentationDao {
       final delRows = await db.delete(DBConstants.project_document_table,
           where: '${DBConstants.id_key} = ?', whereArgs: [id]);
       if (delRows > 0) {
-        await db.delete(DBConstants.project_document_report_table,
+        final reportsDeleted = await db.delete(DBConstants.project_document_report_table,
             where: '${DBConstants.parent_key} = ?', whereArgs: [id]);
+        print(reportsDeleted.toString());
       }
       return delRows > 0;
     } catch (ex) {
@@ -117,13 +118,13 @@ class ProjectDocumentationLocalDao implements IProjectDocumentationDao {
   }
 
   @override
-  Future<List<ProjectDocumentReportModel>> getProjectDocumentReports() async {
+  Future<List<ProjectDocumentReportModel>> getProjectDocumentReports(
+      String projectId) async {
     final List<ProjectDocumentReportModel> list = [];
     try {
       Database db = await _appDatabase.db;
-      final data = await db.query(
-        DBConstants.project_document_report_table,
-      );
+      final data = await db.query(DBConstants.project_document_report_table,
+          where: '${DBConstants.parent_key} = ?', whereArgs: [projectId]);
       data.forEach((map) {
         final value = map[DBConstants.data_key];
         final ProjectDocumentReportModel obj =
@@ -168,6 +169,14 @@ class ProjectDocumentationLocalDao implements IProjectDocumentationDao {
       await db.insert(DBConstants.project_document_table, map,
           conflictAlgorithm: ConflictAlgorithm.replace);
 
+      final delRows = await db.delete(DBConstants.project_document_report_table,
+          where: '${DBConstants.parent_key} = ?', whereArgs: [project.id]);
+
+      await Future.forEach<ProjectDocumentReportModel>(project.reports ?? [],
+          (report) async {
+        await saveProjectDocumentReport(report);
+      });
+
       return true;
     } catch (ex) {
       return false;
@@ -178,7 +187,7 @@ class ProjectDocumentationLocalDao implements IProjectDocumentationDao {
   Future<bool> saveProjectDocumentReport(
       ProjectDocumentReportModel report) async {
     try {
-      Database db = await _appDatabase.db;
+      Database db = await (_appDatabase.db);
       final map = {
         DBConstants.id_key: report.id,
         DBConstants.data_key: json.encode(report.toJson()),

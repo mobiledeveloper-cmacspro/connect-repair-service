@@ -35,22 +35,32 @@ class AddEditProjectReportBloC extends BaseBloC {
   DateTime currentDate = DateTime.now();
   DateTime beginDate = DateTime.now();
   DateTime endDate = DateTime.now();
+  ProjectDocumentModel projectDocumentModel;
 
   void init(ProjectDocumentReportModel initModel) {
+    projectDocumentModel.reports = projectDocumentModel.reports ?? [];
     projectDocumentReportModel =
-        initModel ?? ProjectDocumentReportModel(isEditing: false);
+        initModel ?? ProjectDocumentReportModel(isEditing: false, date: DateTime.now());
     projectDocumentReportModel.isEditing = initModel == null;
+    projectDocumentReportModel.projectId = projectDocumentModel.id;
     _projectReportController.sinkAddSafe(projectDocumentReportModel);
   }
 
   void saveProjectReport() async {
-    try{
-      if(projectDocumentReportModel.id.isNullOrEmpty())
+    try {
+      if (projectDocumentReportModel.id.isNullOrEmpty())
         projectDocumentReportModel.id = Uuid().v1();
-      if(!projectDocumentReportModel.projectId.isNullOrEmpty())
-        _documentationRepository.saveProjectDocumentReport(projectDocumentReportModel);
+      if (!projectDocumentReportModel.projectId.isNullOrEmpty())
+        await _documentationRepository
+            .saveProjectDocumentReport(projectDocumentReportModel);
 
-    }catch(ex){
+      final index = projectDocumentModel.reports
+          ?.indexWhere((element) => projectDocumentReportModel.id == element.id);
+      if (index >= 0) projectDocumentModel.reports.removeAt(index);
+      projectDocumentModel.reports.add(projectDocumentReportModel);
+
+      _controller.sinkAddSafe(true);
+    } catch (ex) {
       Fluttertoast.showToast(
           msg: ex.toString(),
           backgroundColor: Colors.black,
