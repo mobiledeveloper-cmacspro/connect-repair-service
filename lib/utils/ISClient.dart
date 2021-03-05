@@ -5,6 +5,7 @@ import 'package:repairservices/models/Company.dart';
 //import 'package:flutter/cupertino.dart' as prefix0;
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/models/User.dart';
+import 'package:repairservices/res/values/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/io_client.dart';
 import 'dart:io';
@@ -69,6 +70,42 @@ class ISClientO {
     }
     else {
       throw Exception('Failed to load Articles');
+    }
+  }
+
+  Future<List<BuyerUser>> getBuyerUsers() async {
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
+    final prefs = await SharedPreferences.getInstance();
+    final logged = await this.isTokenAvailable();
+    if(logged) {
+      final b2bUnit = prefs.getString("b2bUnitId");
+      final url = await baseUrl + "/schuecocommercewebservices/v2/schuecobcp/externService/user/getBuyerUser/$b2bUnit";
+      final header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + prefs.getString("access_token")
+      };
+      debugPrint("GET: $url");
+      debugPrint("HEADERS: $header");
+      final response = await dio.get(url, options: Options(headers: header));
+      debugPrint("STATUS CODE: ${response.statusCode}");
+      debugPrint("RESPONSE: ${response.data}");
+      if(response.statusCode == 200) {
+        final js = response.data;
+        if (js != null && js['errors'] != null) {
+          throw Exception(js["error_description"].toString());
+        } else {
+          return (js['userList'] as List<dynamic>)?.map((e) => BuyerUser.fromJson(e))?.toList() ?? null;
+        }
+      } else {
+        throw 'Failed to load Buyers';
+      }
+    } else {
+      throw "You must be logged in";
     }
   }
 
@@ -227,57 +264,59 @@ class ISClientO {
     }
   }
 
-  Future<bool> createCart(String cardName, List<Product> producList) async {
-    debugPrint('Create cart from ISCLient');
-    final prefs = await SharedPreferences.getInstance();
-    final user = prefs.getString("hybrisId");
-    final b2bUnit = prefs.getString("b2bUnitId") != null ? prefs.getString(
-        "b2bUnitId") : "1844_0001_KU";
-    var serializeProducts = [];
+  Future<bool> createCart(String cartName, List<Product> productList, BuyerUser buyer) async {
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
 
-    for (Product product in producList) {
-      final productJs = {
-        "articleNr": product.number.value,
-        "quantity": {"value": product.quantity.value, "type": "ST"}
+    final logged = await this.isTokenAvailable();
+    if(logged) {
+
+      final prefs = await SharedPreferences.getInstance();
+      //final user = prefs.getString("hybrisId");
+      final b2bUnit = prefs.getString("b2bUnitId") != null ? prefs.getString(
+          "b2bUnitId") : "1844_0001_KU";
+      var serializeProducts = [];
+      for (Product product in productList) {
+        final productJs = {
+          "articleNr": product.number.value,
+          "quantity": {"value": product.quantity.value, "type": product.unitShort?.value ?? "ST", "fixedTo" : ""}
+        };
+        serializeProducts.add(productJs);
+      }
+      final data = {
+        "user": buyer.userId,
+        "wishlistName": cartName,
+        "language": AppConfig.localeCode.toLowerCase(),
+        "b2bUnit": b2bUnit,
+        "products": serializeProducts
       };
-      serializeProducts.add(productJs);
-    }
-    final data = {
-      "user": user,
-      "cardname": cardName,
-      "note": "test",
-      "b2bUnit": b2bUnit,
-      "products": serializeProducts
-    };
-    final dataEncode = jsonEncode(data);
-    debugPrint('dataEncode: $dataEncode');
-    final header = {
-      "Content-Type": "application/json",
-      "Authorization": "bearer" + prefs.getString("access_token")
-    };
-    debugPrint('dataEncode: $header');
+      final dataEncode = jsonEncode(data);
+      final header = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + prefs.getString("access_token")
+      };
 
-    final ioc = new HttpClient();
-    ioc.badCertificateCallback =
-        (X509Certificate cert, String host, int port) => true;
-    final http = new IOClient(ioc);
+      final url = await baseUrl +
+          "/schuecocommercewebservices/v2/schuecobcp/externService/user/transferWishlist";
+      debugPrint('POST: $url');
+      debugPrint('HEADER: $header');
+      debugPrint('BODY: $dataEncode');
+      final response = await dio.post(url, options: Options(headers: header),data: dataEncode);
 
-    final url = await baseUrl +
-        "/schuecocommercewebservices/v2/schuecobcp/externService/user/cartCreateSet";
-    final response = await http.post(url, headers: header,body: dataEncode);
-
-    debugPrint('${response.statusCode}');
-    final js = json.decode(response.body);
-    debugPrint('js: $js');
-    if (response.statusCode == 200) {
-
-      debugPrint(js);
-      return true;
-    }
-    else {
-      return false;
-//      debugPrint('Failed to create cart');
-//      throw Exception('Failed to create cart');
+      debugPrint('STATUS CODE: ${response.statusCode}');
+      debugPrint('RESPONSE: ${response.data}');
+      if (response.statusCode == 200) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    } else {
+      throw 'You must be logged in';
     }
   }
 

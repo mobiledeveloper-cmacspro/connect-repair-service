@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/ArticleDetailsBloc.dart';
@@ -11,14 +12,18 @@ import 'package:repairservices/ShippingAddress.dart';
 import 'package:repairservices/models/Product.dart';
 import 'package:repairservices/NetworkImageSSL.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_bottom_sheet.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_search_bar_widget.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/Cart/CartIcon.dart';
 import 'package:repairservices/ui/Login/LoginIconBloc.dart';
 import 'package:repairservices/ui/qr_scan/qr_scan_page.dart';
 import 'package:repairservices/utils/custom_scrollbar.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ArticleDetails.dart';
+import 'models/User.dart';
 import 'utils/ISClient.dart';
 import 'database_helpers.dart';
 import 'package:repairservices/res/R.dart';
@@ -39,6 +44,7 @@ class ArticleInCartState extends State<ArticleInCart> {
   String baseUrl;
   DatabaseHelper helper = DatabaseHelper.instance;
   List<Product> productList;
+  BuyerUser currentBuyer;
   bool canSeePrice = false;
   bool canBuy = false;
   int selected = 0;
@@ -46,6 +52,14 @@ class ArticleInCartState extends State<ArticleInCart> {
   final _scrollController = ScrollController();
 
   final cardNameController = TextEditingController();
+
+  BehaviorSubject<bool> cartSent = new BehaviorSubject();
+
+  @override
+  void dispose() {
+    cartSent.close();
+    super.dispose();
+  }
 
   _readAllProducts() async {
     this.productList = await helper.queryAllProducts(true);
@@ -73,6 +87,13 @@ class ArticleInCartState extends State<ArticleInCart> {
   @override
   void initState() {
     super.initState();
+    cartSent.listen((value) {
+        _showAlertDialog(context, R.string.cartSent(
+            sent: value ?? false,
+            purchaser: currentBuyer.userId,
+            cartName: cardNameController.text), R.string.ok);
+
+    });
     ISClientO.instance.isTokenAvailable().then((bool loggued) {
       this.loggued = loggued;
       LoginIconBloc.changeLoggedInStatus(loggued);
@@ -96,8 +117,86 @@ class ArticleInCartState extends State<ArticleInCart> {
     setState(() {});
   }
 
-  _requestOrder(BuildContext context) {
-    _showAlertRequestOrder(context);
+  _requestOrder(BuildContext context) async {
+    try {
+      setState(() {
+        _loading = true;
+      });
+      final buyers = await ISClientO.instance.getBuyerUsers();
+      setState(() {
+        _loading = false;
+      });
+      if (buyers == null || (buyers != null && buyers.isEmpty)) {
+        _showAlertDialog(
+            context, R.string.noUserWithPurchasingAuth, R.string.ok);
+      } else {
+        showTXModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Container(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(bottom: 30),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TXTextWidget(
+                        text: "Select a Purchaser",
+                        size: 18,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Divider(height: 1, color: R.color.gray),
+                      ...List.generate(
+                          buyers.length,
+                          (index) => InkWell(
+                                onTap: () {
+                                  NavigationUtils.pop(context);
+                                  _showAlertRequestOrder(
+                                      context, buyers[index]);
+                                },
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        child: TXTextWidget(
+                                          text: buyers[index].name,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        child: TXTextWidget(
+                                          text: buyers[index].userId,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Divider(height: 1, color: R.color.gray),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                    ],
+                  ),
+                ),
+              );
+            });
+      }
+    } catch (ex) {
+      print(ex.toString());
+      setState(() {
+        _loading = false;
+      });
+      _showAlertDialog(context, ex.toString(), R.string.ok);
+    }
   }
 
   _order() {
@@ -266,7 +365,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                   new Text(title, style: Theme.of(context).textTheme.bodyText2),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: new Text("OK"),
+                  child: new Text(textButton),
                   isDestructiveAction: false,
                   onPressed: () {
                     Navigator.pop(context);
@@ -276,32 +375,22 @@ class ArticleInCartState extends State<ArticleInCart> {
             ));
   }
 
-  _sendRequestOrder(BuildContext context) {
-    if (cardNameController.text == "") {
-      _showAlertDialog(context, "Please type the name for the card", 'OK');
-    } else {
-      setState(() {
-        _loading = true;
-      });
-      try {
-        debugPrint('calling create cart');
-        ISClientO.instance
-            .createCart(cardNameController.text, productList)
-            .then((bool created) {
-          if (created) {
-            _showAlertDialog(context, "Cart sended", "OK");
-          } else {
-            _showAlertDialog(context, "The cart could not send", "OK");
-          }
-        });
-      } catch (e) {
-        print('Exception details:\n $e');
-        _showAlertDialog(context, e.toString(), "OK");
-      }
+  Future<bool> _sendRequestOrder(BuyerUser buyer) async {
+    try {
+      debugPrint('calling create cart');
+      final created = await ISClientO.instance
+          .createCart(cardNameController.text, productList, buyer);
+      cardNameController.text = '';
+      return created;
+    } catch (e) {
+      cardNameController.text = '';
+      print('Exception details:\n $e');
+      _showAlertDialog(context, e.toString(), "OK");
+      return false;
     }
   }
 
-  _showAlertRequestOrder(BuildContext context) {
+  _showAlertRequestOrder(BuildContext context, BuyerUser buyer) {
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
@@ -335,8 +424,22 @@ class ArticleInCartState extends State<ArticleInCart> {
                                       fontSize: 17, color: Colors.white),
                                 ),
                               )),
-                          onTap: () {
-                            _sendRequestOrder(context);
+                          onTap: () async {
+                            if (cardNameController.text == "") {
+                              _showAlertDialog(
+                                  context, "Cart name is empty", 'OK');
+                            } else {
+                              NavigationUtils.pop(context);
+                              setState(() {
+                                _loading = true;
+                              });
+                              final sent = await _sendRequestOrder(buyer);
+                              setState(() {
+                                _loading = false;
+                              });
+                              currentBuyer = buyer;
+                              cartSent.sink.add(sent);
+                            }
                           },
                         )),
                     Padding(
@@ -357,6 +460,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                               )),
                           onTap: () {
                             Navigator.pop(context);
+                            cardNameController.text = '';
                           },
                         ))
                   ],
@@ -583,7 +687,8 @@ class ArticleInCartState extends State<ArticleInCart> {
                       context, 'Exception', "Camera permissions required");
               },
               onSearchTap: () async {
-                final res = await NavigationUtils.pushCupertino(context, ArticleListV());
+                final res = await NavigationUtils.pushCupertino(
+                    context, ArticleListV());
                 ISClientO.instance.isTokenAvailable().then((bool loggued) {
                   this.loggued = loggued;
                   //_readAllProductsInCart();
@@ -688,38 +793,43 @@ class ArticleInCartState extends State<ArticleInCart> {
                                                   .primaryColor),
                                           onPressed: () {
                                             if (int.parse(productList[index]
-                                                        .quantity
-                                                        .value) >
-                                                    1) {
-                                              if(loggued) {
+                                                    .quantity
+                                                    .value) >
+                                                1) {
+                                              if (loggued) {
                                                 ISClientO.instance
                                                     .getProductDetails(
-                                                    productList[index]
-                                                        .number
-                                                        .value,
-                                                    int.parse(
                                                         productList[index]
-                                                            .quantity
-                                                            .value) -
-                                                        1)
+                                                            .number
+                                                            .value,
+                                                        int.parse(productList[
+                                                                    index]
+                                                                .quantity
+                                                                .value) -
+                                                            1)
                                                     .then((Product product) {
                                                   setState(() {
                                                     int id = this
                                                         .productList[index]
                                                         .id;
-                                                    productList[index] = product;
+                                                    productList[index] =
+                                                        product;
                                                     productList[index].id = id;
                                                     helper.updateProduct(
-                                                        productList[index], true);
+                                                        productList[index],
+                                                        true);
                                                   });
                                                 });
                                               } else {
                                                 setState(() {
-                                                  productList[index].quantity.value = (int.parse(
-                                                      productList[index]
-                                                          .quantity
-                                                          .value) -
-                                                      1).toString();
+                                                  productList[index]
+                                                      .quantity
+                                                      .value = (int.parse(
+                                                              productList[index]
+                                                                  .quantity
+                                                                  .value) -
+                                                          1)
+                                                      .toString();
                                                   helper.updateProduct(
                                                       productList[index], true);
                                                 });
@@ -777,11 +887,14 @@ class ArticleInCartState extends State<ArticleInCart> {
                                               });
                                             } else {
                                               setState(() {
-                                                productList[index].quantity.value = (int.parse(
-                                                    productList[index]
-                                                        .quantity
-                                                        .value) +
-                                                    1).toString();
+                                                productList[index]
+                                                    .quantity
+                                                    .value = (int.parse(
+                                                            productList[index]
+                                                                .quantity
+                                                                .value) +
+                                                        1)
+                                                    .toString();
                                                 helper.updateProduct(
                                                     productList[index], true);
                                               });

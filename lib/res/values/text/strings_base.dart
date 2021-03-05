@@ -795,4 +795,9 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get dateFormat1;
 
   String get dateFormat2;
+
+  String get noUserWithPurchasingAuth;
+
+  String cartSent({@required bool sent, @required String purchaser, @required String cartName});
+
 }

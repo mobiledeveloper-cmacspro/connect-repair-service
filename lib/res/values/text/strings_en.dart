@@ -2,9 +2,7 @@ import 'dart:ui';
 
 import 'package:repairservices/res/values/text/strings_base.dart';
 
-
 class StringsEn implements StringsBase {
-
   @override
   String get appName => 'Repair Service';
 
@@ -57,10 +55,12 @@ class StringsEn implements StringsBase {
   String get language => "Language";
 
   @override
-  String get legalInformationDetails => "See separate appendix from \nexisting app (e.g \nDocuCenter)";
+  String get legalInformationDetails =>
+      "See separate appendix from \nexisting app (e.g \nDocuCenter)";
 
   @override
-  String get standardTextExportEmail => "Enter the standard text here for the export by e-mail";
+  String get standardTextExportEmail =>
+      "Enter the standard text here for the export by e-mail";
 
   @override
   String get email => "Email";
@@ -144,7 +144,8 @@ class StringsEn implements StringsBase {
   String get generalData => "General data";
 
   @override
-  String get partNumberDefectiveComponent => "Part number of defective component";
+  String get partNumberDefectiveComponent =>
+      "Part number of defective component";
 
   @override
   String get number => "Number";
@@ -174,7 +175,8 @@ class StringsEn implements StringsBase {
   String get dimension => "Dimension";
 
   @override
-  String get zeroNotValueForDimension => "0 is not valid value for this dimension";
+  String get zeroNotValueForDimension =>
+      "0 is not valid value for this dimension";
 
   @override
   String get lockDimensions => "Lock dimensions";
@@ -327,7 +329,8 @@ class StringsEn implements StringsBase {
   String get barrelHinge3part => "Barrel hinge (3-part)";
 
   @override
-  String get surfaceMountedDoorHingeDetails => "Surface-mounted door hinge details";
+  String get surfaceMountedDoorHingeDetails =>
+      "Surface-mounted door hinge details";
 
   @override
   String get coverCapsDoorHinge => "Cover caps of the door hinge";
@@ -426,7 +429,8 @@ class StringsEn implements StringsBase {
   String get withoutEngagementMechanism => "Without engagement mechanism";
 
   @override
-  String get fittingComponentsToBeReplaced => "Fittings components to be replaced";
+  String get fittingComponentsToBeReplaced =>
+      "Fittings components to be replaced";
 
   @override
   String get rollerCarriageFrontRear => "Roller carriage (front/rear)";
@@ -435,7 +439,8 @@ class StringsEn implements StringsBase {
   String get topStaysFrontRear => "Top stays (front/rear)";
 
   @override
-  String get cornerDriveBottomHandleSide => "Corner drive (bottom, handle side)";
+  String get cornerDriveBottomHandleSide =>
+      "Corner drive (bottom, handle side)";
 
   @override
   String get cornerDriveTopHandleSide => "Corner drive (top, handle side)";
@@ -504,16 +509,20 @@ class StringsEn implements StringsBase {
   String get availability1 => "Availability with the next delivery!";
 
   @override
-  String get availability2 => "Special processing or not available with the next tour! Please contact our sales department";
+  String get availability2 =>
+      "Special processing or not available with the next tour! Please contact our sales department";
 
   @override
-  String get availability3 => "Possibly. Available via special processing! Please contact our sales department";
+  String get availability3 =>
+      "Possibly. Available via special processing! Please contact our sales department";
 
   @override
-  String get availability4 => "Product not available! Please contact our sales team for possible alternative items";
+  String get availability4 =>
+      "Product not available! Please contact our sales team for possible alternative items";
 
   @override
-  String get availability5 => "Configurable article, can be procured via special transaction!";
+  String get availability5 =>
+      "Configurable article, can be procured via special transaction!";
 
   @override
   String get addToCart => "Add to Cart";
@@ -522,7 +531,8 @@ class StringsEn implements StringsBase {
   String get availability => "availability";
 
   @override
-  String get toSeePricesAvailabilityLogIn => "To see prices and availability, please log in.";
+  String get toSeePricesAvailabilityLogIn =>
+      "To see prices and availability, please log in.";
 
   @override
   String get articleDetails => "Article Details";
@@ -537,7 +547,8 @@ class StringsEn implements StringsBase {
   String get order => "Order";
 
   @override
-  String get selectedB2BUnitHasNoBuyer => "Your selected B2BUnit has no buyer. Please contact your sales area Manager to confirm your purchase!";
+  String get selectedB2BUnitHasNoBuyer =>
+      "Your selected B2BUnit has no buyer. Please contact your sales area Manager to confirm your purchase!";
 
   @override
   String get articleInCart => "Article In Cart";
@@ -606,7 +617,8 @@ class StringsEn implements StringsBase {
   String get createCompanyProfile => "Create company profile";
 
   @override
-  String get createPersonalCompanyProfileTo => "Create your personal company profile to enter your contact details and company logo in the export document";
+  String get createPersonalCompanyProfileTo =>
+      "Create your personal company profile to enter your contact details and company logo in the export document";
 
   @override
   String get defaultCompany => "Default company";
@@ -654,7 +666,8 @@ class StringsEn implements StringsBase {
   String get service => "Service";
 
   @override
-  String get firstTextFaq => "Schüco offers you a wide variety of spare parts for your construction projects. \nBrowse all components needed to determine the right part.";
+  String get firstTextFaq =>
+      "Schüco offers you a wide variety of spare parts for your construction projects. \nBrowse all components needed to determine the right part.";
 
   @override
   String get toTheSparePartsShop => "to the Spare Parts Shop";
@@ -663,40 +676,51 @@ class StringsEn implements StringsBase {
   String get secTextFaq => "FAQ (technical terms - frequently asked questions)";
 
   @override
-  String get faqQuestion1 => "1. How do I identify the replacement part I am looking for?";
+  String get faqQuestion1 =>
+      "1. How do I identify the replacement part I am looking for?";
 
   @override
   String get faqQuestion2 => "2. How do I identify the fittings in my window?";
 
   @override
-  String get faqQuestion3 => "3. Which DIN opening direction does my window have?";
+  String get faqQuestion3 =>
+      "3. Which DIN opening direction does my window have?";
 
   @override
-  String get faqQuestion4 => "4. How do I identify the lock on my entrance door?";
+  String get faqQuestion4 =>
+      "4. How do I identify the lock on my entrance door?";
 
   @override
-  String get faqQuestion5 => "5. How can I register to use the app's advanced information and services?";
+  String get faqQuestion5 =>
+      "5. How can I register to use the app's advanced information and services?";
 
   @override
-  String get faqAnswer1 => "The following points will help you to identify the right replacement part:\nAre there any signatures (Schüco lettering or the crown) on the product?\n\nWhich kind of opening unit is it? Is it a window/balcony door or an entrance door?\n\nWhat material is the opening unit made of? Aluminium or PVC-U?\n\nWhich product do you need a replacement part for?\n   a) Do you know the article number of the defective component (if unknown, perhaps one of the other components in the opening unit)?\n   b) Do you know the profile system/series? ,, You will find more information on this on your purchase invoice.\n   c) Do you know the year* that the opening unit’s construction was built? Your purchase invoice may help you further here too.\n   d) Do you know the basic depth (in mm) of the fixed frame?";
+  String get faqAnswer1 =>
+      "The following points will help you to identify the right replacement part:\nAre there any signatures (Schüco lettering or the crown) on the product?\n\nWhich kind of opening unit is it? Is it a window/balcony door or an entrance door?\n\nWhat material is the opening unit made of? Aluminium or PVC-U?\n\nWhich product do you need a replacement part for?\n   a) Do you know the article number of the defective component (if unknown, perhaps one of the other components in the opening unit)?\n   b) Do you know the profile system/series? ,, You will find more information on this on your purchase invoice.\n   c) Do you know the year* that the opening unit’s construction was built? Your purchase invoice may help you further here too.\n   d) Do you know the basic depth (in mm) of the fixed frame?";
 
   @override
-  String get faqAnswer2 =>  "The fittings in a window connect the moving part of a window (the vent) with the fixed part (the frame). Depending on the opening type of the window, there are different fittings types, such as side-hung and turn/tilt, tilt-before-turn fittings or shutter fittings. With side-hung fittings, using the handle will move the window from the closed position to the turn position. Turn/tilt fittings move the window first into the turn position and then into the tilt position. Tilt-before-turn window handles are the reverse of the general functions of a turn/tilt fitting (90° tilt / 180° turn). Windows with window shutters have shutter fittings.";
+  String get faqAnswer2 =>
+      "The fittings in a window connect the moving part of a window (the vent) with the fixed part (the frame). Depending on the opening type of the window, there are different fittings types, such as side-hung and turn/tilt, tilt-before-turn fittings or shutter fittings. With side-hung fittings, using the handle will move the window from the closed position to the turn position. Turn/tilt fittings move the window first into the turn position and then into the tilt position. Tilt-before-turn window handles are the reverse of the general functions of a turn/tilt fitting (90° tilt / 180° turn). Windows with window shutters have shutter fittings.";
 
   @override
-  String get faqAnswer3 => "Windows/balcony doors: If the handle is on the right-hand side, it is a DIN left window/balcony door (opening to the left). If the handle is on the left-hand side, the window/balcony door is DIN right (opening to the right).\n\nEntrance door: If the door handle is on the right-hand side, it is a DIN left door (opening to the left). If the door handle is on the left-hand side, the entrance door is DIN right (opening to the right).";
+  String get faqAnswer3 =>
+      "Windows/balcony doors: If the handle is on the right-hand side, it is a DIN left window/balcony door (opening to the left). If the handle is on the left-hand side, the window/balcony door is DIN right (opening to the right).\n\nEntrance door: If the door handle is on the right-hand side, it is a DIN left door (opening to the left). If the door handle is on the left-hand side, the entrance door is DIN right (opening to the right).";
 
   @override
-  String get faqAnswer4 => "If article numbers can be seen on the visible parts of the lock, please share these with us. There may also be stickers, engravings etc. on the inside of the lock (or lock case) which may point to article numbers. Otherwise the dimensions of a lock are required for identification.";
+  String get faqAnswer4 =>
+      "If article numbers can be seen on the visible parts of the lock, please share these with us. There may also be stickers, engravings etc. on the inside of the lock (or lock case) which may point to article numbers. Otherwise the dimensions of a lock are required for identification.";
 
   @override
-  String get faqAnswer5 => "In order to use the extended information and services of the app, a Schüco customer number and a Schüco-Connect user is required. You will receive a customer number with your first order from Schüco. If you already have a Schüco customer number, please contact the sales representative responsible for your customer number.";
+  String get faqAnswer5 =>
+      "In order to use the extended information and services of the app, a Schüco customer number and a Schüco-Connect user is required. You will receive a customer number with your first order from Schüco. If you already have a Schüco customer number, please contact the sales representative responsible for your customer number.";
 
   @override
-  String get shucoServiceAppProvidedBy => "The Schüco Site Connect App is provided by:";
+  String get shucoServiceAppProvidedBy =>
+      "The Schüco Site Connect App is provided by:";
 
   @override
-  String get registeredOfficeCourtOfRecord => "Registered office and court of record:";
+  String get registeredOfficeCourtOfRecord =>
+      "Registered office and court of record:";
 
   @override
   String get limitedPartnership => "Limited partnership";
@@ -783,7 +807,8 @@ class StringsEn implements StringsBase {
   String get justSaveIt => "Just save it";
 
   @override
-  String get sendThisArticle => "Do you want to send this article after adding the measurements and saving it?";
+  String get sendThisArticle =>
+      "Do you want to send this article after adding the measurements and saving it?";
 
   @override
   String get selectAll => "Select all";
@@ -807,16 +832,19 @@ class StringsEn implements StringsBase {
   String get germany => "Germany";
 
   @override
-  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith => "Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV ";
+  String get mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith =>
+      "Mr Andreas Engelhardt, CEO and Managing Partner, is responsible in accordance with § 55 of RStV ";
 
   @override
-  String get germanInterstateBroadcastingTreaty => "(German Interstate Broadcasting Treaty)";
+  String get germanInterstateBroadcastingTreaty =>
+      "(German Interstate Broadcasting Treaty)";
 
   @override
   String get executiveManagementBoard => "Executive Management Board:";
 
   @override
-  String get andreasEngelhardtCEOAndManaging => "Andreas Engelhardt, CEO and Managing";
+  String get andreasEngelhardtCEOAndManaging =>
+      "Andreas Engelhardt, CEO and Managing";
 
   @override
   String get partner => "Partner";
@@ -876,7 +904,8 @@ class StringsEn implements StringsBase {
   String get system => "System";
 
   @override
-  String get schucoLogoVisibleOnFacePlate => "Schüco logo visible on face plate";
+  String get schucoLogoVisibleOnFacePlate =>
+      "Schüco logo visible on face plate";
 
   @override
   String get profileInsulations => "Profile insulations";
@@ -1083,13 +1112,16 @@ class StringsEn implements StringsBase {
   String get netValue => "net value: ";
 
   @override
-  String get surfaceMountedDoorHinge2part => "Surface-mounted door hinge (2-part)";
+  String get surfaceMountedDoorHinge2part =>
+      "Surface-mounted door hinge (2-part)";
 
   @override
-  String get surfaceMountedDoorHinge3part => "Surface-mounted door hinge (3-part)";
+  String get surfaceMountedDoorHinge3part =>
+      "Surface-mounted door hinge (3-part)";
 
   @override
-  String get receivingMailAddressArticleIdentification => "spareparts@schueco.com";
+  String get receivingMailAddressArticleIdentification =>
+      "spareparts@schueco.com";
 
   @override
   String get acceptanceOfConstructionWork => "Acceptance of construction work";
@@ -1110,7 +1142,8 @@ class StringsEn implements StringsBase {
   String get createNewCategory => "Create new category";
 
   @override
-  String get currentLocationBasedOnLocationData => "Use current location based on location data";
+  String get currentLocationBasedOnLocationData =>
+      "Use current location based on location data";
 
   @override
   String get defectReport => "Defect report";
@@ -1198,4 +1231,15 @@ class StringsEn implements StringsBase {
 
   @override
   String get dateFormat2 => "hh:mm a";
+
+  @override
+  String get noUserWithPurchasingAuth =>
+      "No user with purchasing authorization detected. Please talk to your customer administrator for Schüco Connect";
+
+  @override
+  String cartSent({bool sent, String purchaser, String cartName}) {
+    return sent
+        ? "Shopping Cart $cartName has successfully been transferred to $purchaser."
+        : "Watchlist $cartName could not be sent to $purchaser due to technical problems.";
+  }
 }

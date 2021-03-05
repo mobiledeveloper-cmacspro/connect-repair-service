@@ -83,7 +83,7 @@ class ProfileState extends State<Profile> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 8,right: 8),
                   child: Text(
-                      b2bUnit.name + " " + b2bUnit.seePrices.toString(),
+                      b2bUnit.name,
                       style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 17),
                       overflow: TextOverflow.clip
                   ),

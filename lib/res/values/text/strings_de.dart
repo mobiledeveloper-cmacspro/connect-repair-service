@@ -1199,4 +1199,14 @@ class StringsDe implements StringsBase {
   @override
   String get dateFormat2 => "hh:mm a";
 
+  @override
+  String get noUserWithPurchasingAuth => "Für ihre Kundennummer gibt es keinen Connect-Benutzer mit Einkäuferberechtigung. Bitte wenden Sie sich an den zuständigen Connect-Kundenadministrator  in ihrem Unternehmen";
+
+  @override
+  String cartSent({bool sent, String purchaser, String cartName}) {
+    return sent
+        ? "Warenkorb $cartName wurde erfolgreich übergeben an $purchaser."
+        : "Warenkorb $cartName konnte aufgrund technischer Probleme nicht an $purchaser übergeben werden.";
+  }
+
 }
