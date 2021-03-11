@@ -23,6 +23,7 @@ import 'package:repairservices/ui/project_documentation/project_report/project_r
 import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/utils/extensions.dart';
+import 'package:repairservices/utils/extensions.dart';
 
 class NewProjectDocumentationPage extends StatefulWidget {
   final ProjectDocumentModel model;
@@ -51,7 +52,8 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
     super.initState();
     bloc.init(widget.model);
     bloc.stream.listen((event) {
-      if (event ?? false) NavigationUtils.pop(context);
+      if (event ?? false) bloc.projectDocumentModel.isEditing = false;
+      bloc.refreshData;
     });
     if (widget.model != null) _initData();
   }
@@ -313,6 +315,7 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                     }),
               ),
             )),
+            project.isEditing ? Container() :
             Container(
               margin: EdgeInsets.only(bottom: 0),
               height: 70,
@@ -367,12 +370,11 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                     ),
                     onTap: () async {
                       NavigationUtils.pushCupertino(
-                              context, AddEditProjectReportPage(
-                        projectDocumentModel: bloc.projectDocumentModel,
-                      ))
-                          .then((value) {
-                        if (value != null &&
-                            value is ProjectDocumentModel) {
+                          context,
+                          AddEditProjectReportPage(
+                            projectDocumentModel: bloc.projectDocumentModel,
+                          )).then((value) {
+                        if (value != null && value is ProjectDocumentModel) {
                           bloc.projectDocumentModel = value;
                         }
                       });
@@ -403,7 +405,7 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                           ProjectReportPage(
                             projectDocumentModel: bloc.projectDocumentModel,
                           ));
-                      if(res != null && res is ProjectDocumentModel){
+                      if (res != null && res is ProjectDocumentModel) {
                         bloc.projectDocumentModel = res;
                         bloc.refreshData;
                       }
