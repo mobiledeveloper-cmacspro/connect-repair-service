@@ -377,26 +377,24 @@ class _DrawerContainerPageState
     Color color = Colors.white,
     Function onTap,
   }) =>
-      Expanded(
-        child: InkWell(
-          onTap: onTap,
-          child: Container(
-            width: 100,
-            height: 70,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  icon,
-                  color: color,
-                ),
-                Text(
-                  text,
-                  style: TextStyle(color: color),
-                ),
-              ],
-            ),
+      InkWell(
+        onTap: onTap,
+        child: Container(
+          width: 100,
+          height: 70,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                color: color,
+              ),
+              Text(
+                text,
+                style: TextStyle(color: color),
+              ),
+            ],
           ),
         ),
       );

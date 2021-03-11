@@ -256,23 +256,23 @@ class ArticleInCartState extends State<ArticleInCart> {
                   },
                 ),
               ),
-              GestureDetector(
-                child: Container(
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        R.string.order,
-                        style: TextStyle(fontSize: 17, color: Colors.white),
-                      ),
-                    )),
-                onTap: () {
-                  _order();
-                },
-              )
+              // GestureDetector(
+              //   child: Container(
+              //       height: 30,
+              //       decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(5.0),
+              //         color: Theme.of(context).primaryColor,
+              //       ),
+              //       child: Center(
+              //         child: Text(
+              //           R.string.order,
+              //           style: TextStyle(fontSize: 17, color: Colors.white),
+              //         ),
+              //       )),
+              //   onTap: () {
+              //     _order();
+              //   },
+              // )
             ],
           )));
     } else if (loggued && !canBuy) {
@@ -311,7 +311,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                     height: 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0),
-                      color: Theme.of(context).primaryColor,
+                      color: R.color.gray,
                     ),
                     child: Center(
                       child: Text(
@@ -320,7 +320,7 @@ class ArticleInCartState extends State<ArticleInCart> {
                       ),
                     )),
                 onTap: () {
-                  _requestOrder(context);
+                  //_requestOrder(context);
                 },
               )
             ],

@@ -548,7 +548,7 @@ class StringsEn implements StringsBase {
 
   @override
   String get selectedB2BUnitHasNoBuyer =>
-      "Your selected B2BUnit has no buyer. Please contact your sales area Manager to confirm your purchase!";
+      "There is no Connect user with purchaser authorization for your customer number. Please contact the responsible Connect customer administrator in your company.";
 
   @override
   String get articleInCart => "Article In Cart";

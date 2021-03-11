@@ -546,7 +546,7 @@ class StringsDe implements StringsBase {
   String get order => "Bestellung";
 
   @override
-  String get selectedB2BUnitHasNoBuyer => "Ihre ausgewählte B2BUnit hat keinen Käufer. Bitte wenden Sie sich an Ihren Vertriebsleiter, um Ihren Kauf zu bestätigen!";
+  String get selectedB2BUnitHasNoBuyer => "Für ihre Kundennummer gibt es keinen Connect-Benutzer mit Einkäuferberechtigung. Bitte wenden Sie sich an den zuständigen Connect-Kundenadministrator  in ihrem Unternehmen";
 
   @override
   String get articleInCart => "Artikel im Warenkorb";
