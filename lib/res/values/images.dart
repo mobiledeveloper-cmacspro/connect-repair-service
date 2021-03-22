@@ -47,4 +47,14 @@ class AppImage {
   final surfaceType3 = 'lib/res/assets/img/surfaceType3.png';
   final surfaceType4 = 'lib/res/assets/img/surfaceType4.png';
   final surfaceType5 = 'lib/res/assets/img/surfaceType5.png';
+  final tempHigh = 'lib/res/assets/img/temp_high.svg';
+  final tempLow = 'lib/res/assets/img/temp_low.svg';
+  final weatherClouds = 'lib/res/assets/img/weather_clouds.svg';
+  final weatherRain = 'lib/res/assets/img/weather_rain.svg';
+  final weatherSun = 'lib/res/assets/img/weather_sun.svg';
+  final windHigh = 'lib/res/assets/img/wind_high.svg';
+  final windLow = 'lib/res/assets/img/wind_low.svg';
+  final windMedium = 'lib/res/assets/img/wind_medium.svg';
+
+
 }

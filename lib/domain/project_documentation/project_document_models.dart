@@ -109,7 +109,13 @@ class ProjectDocumentReportModel {
   DocumentWeatherModel documentWeather;
   bool isEditing;
 
-  DateTime get subTitleFixed => date != null ? date : begin != null ? begin : end != null ? end: null;
+  DateTime get subTitleFixed => date != null
+      ? date
+      : begin != null
+          ? begin
+          : end != null
+              ? end
+              : null;
 
   ProjectDocumentReportModel(
       {this.id,
@@ -144,8 +150,9 @@ class ProjectDocumentReportModel {
         measurementCamera = json['measurementCamera'],
         video = json['video'],
         voiceMemo = json['voiceMemo'],
-        documentWeather = json['documentWeather'] != null ?
-            DocumentWeatherModel.fromJson(json['documentWeather']) : null;
+        documentWeather = json['documentWeather'] != null
+            ? DocumentWeatherModel.fromJson(json['documentWeather'])
+            : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -168,9 +175,10 @@ class DocumentWeatherModel {
   String recording;
   String video;
   String voiceMemo;
-  int temperature;
-  int generalWeather;
-  int windStrength;
+  double temperature;
+  double generalWeather;
+  double windStrength;
+  bool isActive;
 
   DocumentWeatherModel(
       {this.photo,
@@ -179,7 +187,8 @@ class DocumentWeatherModel {
       this.video,
       this.temperature,
       this.generalWeather,
-      this.windStrength});
+      this.windStrength,
+      this.isActive});
 
   DocumentWeatherModel.fromJson(Map<String, dynamic> json)
       : photo = json['photo'],
@@ -188,7 +197,8 @@ class DocumentWeatherModel {
         voiceMemo = json['voiceMemo'],
         temperature = json['temperature'],
         generalWeather = json['generalWeather'],
-        windStrength = json['windStrength'];
+        windStrength = json['windStrength'],
+        isActive = json['isActive'];
 
   Map<String, dynamic> toJson() => {
         'photo': photo,
@@ -198,5 +208,6 @@ class DocumentWeatherModel {
         'temperature': temperature,
         'generalWeather': generalWeather,
         'windStrength': windStrength,
+        'isActive': isActive
       };
 }

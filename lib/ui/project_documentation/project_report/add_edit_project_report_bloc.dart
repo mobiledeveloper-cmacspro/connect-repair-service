@@ -16,14 +16,19 @@ class AddEditProjectReportBloC extends BaseBloC {
   void dispose() {
     _controller.close();
     _projectReportController.close();
+    _controllerWeather.close();
   }
 
   BehaviorSubject<bool> _controller = BehaviorSubject();
 
   Stream<bool> get stream => _controller.stream;
 
+  BehaviorSubject<bool> _controllerWeather = BehaviorSubject();
+
+  Stream<bool> get streamWeather => _controllerWeather.stream;
+
   BehaviorSubject<ProjectDocumentReportModel> _projectReportController =
-      BehaviorSubject();
+  BehaviorSubject();
 
   Stream<ProjectDocumentReportModel> get projectReportResult =>
       _projectReportController.stream;
@@ -39,11 +44,18 @@ class AddEditProjectReportBloC extends BaseBloC {
 
   void init(ProjectDocumentReportModel initModel) {
     projectDocumentModel.reports = projectDocumentModel.reports ?? [];
-    projectDocumentReportModel =
-        initModel ?? ProjectDocumentReportModel(isEditing: false, date: DateTime.now());
+    projectDocumentReportModel = initModel ??
+        ProjectDocumentReportModel(isEditing: false,
+            date: DateTime.now(),
+            documentWeather: DocumentWeatherModel(
+                isActive: false,
+                temperature: 0,
+                windStrength: -1,
+                generalWeather: 1,
+            ));
     projectDocumentReportModel.isEditing = initModel == null;
     projectDocumentReportModel.projectId = projectDocumentModel.id;
-    _projectReportController.sinkAddSafe(projectDocumentReportModel);
+    refreshData;
   }
 
   void saveProjectReport() async {
@@ -54,8 +66,8 @@ class AddEditProjectReportBloC extends BaseBloC {
         await _documentationRepository
             .saveProjectDocumentReport(projectDocumentReportModel);
 
-      final index = projectDocumentModel.reports
-          ?.indexWhere((element) => projectDocumentReportModel.id == element.id);
+      final index = projectDocumentModel.reports?.indexWhere(
+              (element) => projectDocumentReportModel.id == element.id);
       if (index >= 0) projectDocumentModel.reports.removeAt(index);
       projectDocumentModel.reports.add(projectDocumentReportModel);
 

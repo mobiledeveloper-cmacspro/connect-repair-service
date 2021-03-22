@@ -800,4 +800,6 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String cartSent({@required bool sent, @required String purchaser, @required String cartName});
 
+  String get weatherTitle;
+
 }

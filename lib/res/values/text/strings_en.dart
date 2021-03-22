@@ -1242,4 +1242,7 @@ class StringsEn implements StringsBase {
         ? "Shopping Cart $cartName has successfully been transferred to $purchaser."
         : "Watchlist $cartName could not be sent to $purchaser due to technical problems.";
   }
+
+  @override
+  String get weatherTitle => "Weather information";
 }

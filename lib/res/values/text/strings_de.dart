@@ -1209,4 +1209,7 @@ class StringsDe implements StringsBase {
         : "Warenkorb $cartName konnte aufgrund technischer Probleme nicht an $purchaser übergeben werden.";
   }
 
+  @override
+  String get weatherTitle => "Wetter dokumentieren";
+
 }
