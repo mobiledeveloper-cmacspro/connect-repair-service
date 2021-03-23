@@ -186,7 +186,7 @@ class ProjectDocumentationBloC extends BaseBloC
       if (articleBase.isSelected) {
         attachments.add(articleBase is ArticleLocalModel
             ? articleBase.filePath
-            : (articleBase as Fitting).pdfPath);
+            : (articleBase is ProjectDocumentModel) ? articleBase.pdfPath : (articleBase as Fitting).pdfPath);
       }
     });
 

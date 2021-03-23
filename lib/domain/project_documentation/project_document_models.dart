@@ -15,6 +15,7 @@ class ProjectDocumentModel extends ArticleBase {
   ProjectDocumentAddressModel address;
   List<ProjectDocumentReportModel> reports;
   bool isEditing;
+  String pdfPath;
 
   String get fixedName => name.isNullOrEmpty() ? "" : name;
 
@@ -23,6 +24,7 @@ class ProjectDocumentModel extends ArticleBase {
       this.isEditing = false,
       this.date,
       this.name,
+      this.pdfPath,
       this.number,
       this.abbreviation,
       this.participants,

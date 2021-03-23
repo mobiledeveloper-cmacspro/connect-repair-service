@@ -51,12 +51,12 @@ class PDFManager {
     return pdfLogoImg;
   }
 
-  static pw.Container getHeader(Font ttfBold, PdfImage pdfLogoImg) {
+  static pw.Container getHeader(Font ttfBold, PdfImage pdfLogoImg, {String title = "RepairService@SchuecoSiteConnect"}) {
     return pw.Container(
         width: double.infinity,
         child: pw
             .Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-          pw.Text("RepairService@SchuecoSiteConnect",
+          pw.Text(title,
               style: pw.TextStyle(
                   color: PdfColors.green,
                   fontSize: textFontSize,

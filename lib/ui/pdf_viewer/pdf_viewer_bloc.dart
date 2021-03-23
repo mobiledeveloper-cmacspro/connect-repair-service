@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 import 'package:repairservices/utils/mail_mananger.dart';
 import 'package:repairservices/domain/article_base.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
@@ -27,17 +28,21 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
 
   Stream<MailModel> get sendEmailResult => _sendEmailController.stream;
 
-  void loadPDF(Fitting model) async {
+  void loadPDF(ArticleBase model) async {
     isLoading = true;
     String path = '';
-    if (model is Windows)
-      path = await PDFManagerWindow.getPDFPath(model);
-    else if (model is Sliding)
-      path = await PDFManagerSliding.getPDFPath(model);
-    else if (model is DoorLock)
-      path = await PDFManagerDoorLock.getPDFPath(model);
-    else if (model is DoorHinge)
-      path = await PDFManagerDoorHinge.getPDFPath(model);
+    if(model is Fitting){
+      if (model is Windows)
+        path = await PDFManagerWindow.getPDFPath(model);
+      else if (model is Sliding)
+        path = await PDFManagerSliding.getPDFPath(model);
+      else if (model is DoorLock)
+        path = await PDFManagerDoorLock.getPDFPath(model);
+      else if (model is DoorHinge)
+        path = await PDFManagerDoorHinge.getPDFPath(model);
+    }else if (model is ProjectDocumentModel){
+
+    }
     _pdfPathController.sinkAddSafe(path);
     isLoading = false;
   }
