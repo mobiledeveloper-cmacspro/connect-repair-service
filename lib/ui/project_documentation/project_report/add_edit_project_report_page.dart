@@ -377,8 +377,7 @@ class _ProjectReportPageState
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TXTextWidget(
                                   text: R.string.weatherTitle,
@@ -386,8 +385,7 @@ class _ProjectReportPageState
                                 ),
                                 CupertinoSwitch(
                                   activeColor: R.color.primary_color,
-                                  value:
-                                  projectReport.documentWeather.isActive,
+                                  value: projectReport.documentWeather.isActive,
                                   onChanged: (value) {
                                     bloc.projectDocumentReportModel
                                         .documentWeather.isActive = value;
@@ -399,118 +397,121 @@ class _ProjectReportPageState
                           ),
                           projectReport.documentWeather.isActive
                               ? Column(
-                            children: [
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SvgPicture.asset(
-                                      R.image.tempLow,
-                                      color: R.color.primary_color,
+                                    SizedBox(
+                                      height: 15,
                                     ),
-                                    TXTextWidget(
-                                      text:
-                                      "${projectReport.documentWeather.temperature.ceil()}°",
-                                      fontWeight: FontWeight.bold,
+                                    Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SvgPicture.asset(
+                                            R.image.tempLow,
+                                            color: R.color.primary_color,
+                                          ),
+                                          TXTextWidget(
+                                            text:
+                                                "${projectReport.documentWeather.temperature.ceil()}°",
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          SvgPicture.asset(
+                                            R.image.tempHigh,
+                                            color: R.color.primary_color,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    SvgPicture.asset(
-                                      R.image.tempHigh,
-                                      color: R.color.primary_color,
+                                    TXSliderWidget(
+                                      value: projectReport
+                                          .documentWeather.temperature,
+                                      onChanged: (value) {
+                                        bloc
+                                            .projectDocumentReportModel
+                                            .documentWeather
+                                            .temperature = value;
+                                        bloc.refreshData;
+                                      },
+                                      hasDivisions: false,
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SvgPicture.asset(
+                                            R.image.weatherRain,
+                                            color: R.color.primary_color,
+                                          ),
+                                          SvgPicture.asset(
+                                            R.image.weatherClouds,
+                                            color: R.color.primary_color,
+                                          ),
+                                          SvgPicture.asset(
+                                            R.image.weatherSun,
+                                            color: R.color.primary_color,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TXSliderWidget(
+                                      value: projectReport
+                                          .documentWeather.generalWeather,
+                                      onChanged: (value) {
+                                        bloc
+                                            .projectDocumentReportModel
+                                            .documentWeather
+                                            .generalWeather = value;
+                                        bloc.refreshData;
+                                      },
+                                      hasDivisions: true,
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SvgPicture.asset(
+                                            R.image.windLow,
+                                            color: R.color.primary_color,
+                                          ),
+                                          SvgPicture.asset(
+                                            R.image.windMedium,
+                                            color: R.color.primary_color,
+                                          ),
+                                          SvgPicture.asset(
+                                            R.image.windHigh,
+                                            color: R.color.primary_color,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TXSliderWidget(
+                                      value: projectReport
+                                          .documentWeather.windStrength,
+                                      onChanged: (value) {
+                                        bloc
+                                            .projectDocumentReportModel
+                                            .documentWeather
+                                            .windStrength = value;
+                                        bloc.refreshData;
+                                      },
+                                      hasDivisions: true,
                                     ),
                                   ],
-                                ),
-                              ),
-                              TXSliderWidget(
-                                value: projectReport
-                                    .documentWeather.temperature,
-                                onChanged: (value) {
-                                  bloc
-                                      .projectDocumentReportModel
-                                      .documentWeather
-                                      .temperature = value;
-                                  bloc.refreshData;
-                                },
-                                hasDivisions: false,
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child:Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SvgPicture.asset(
-                                      R.image.weatherRain,
-                                      color: R.color.primary_color,
-                                    ),
-                                    SvgPicture.asset(
-                                      R.image.weatherClouds,
-                                      color: R.color.primary_color,
-                                    ),
-                                    SvgPicture.asset(
-                                      R.image.weatherSun,
-                                      color: R.color.primary_color,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              TXSliderWidget(
-                                value: projectReport
-                                    .documentWeather.generalWeather,
-                                onChanged: (value) {
-                                  bloc
-                                      .projectDocumentReportModel
-                                      .documentWeather
-                                      .generalWeather = value;
-                                  bloc.refreshData;
-                                },
-                                hasDivisions: true,
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child:Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SvgPicture.asset(
-                                      R.image.windLow,
-                                      color: R.color.primary_color,
-                                    ),
-                                    SvgPicture.asset(
-                                      R.image.windMedium,
-                                      color: R.color.primary_color,
-                                    ),
-                                    SvgPicture.asset(
-                                      R.image.windHigh,
-                                      color: R.color.primary_color,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              TXSliderWidget(
-                                value: projectReport
-                                    .documentWeather.windStrength,
-                                onChanged: (value) {
-                                  bloc
-                                      .projectDocumentReportModel
-                                      .documentWeather
-                                      .windStrength = value;
-                                  bloc.refreshData;
-                                },
-                                hasDivisions: true,
-                              ),
-                            ],
-                          )
+                                )
                               : Container()
                         ],
                       )

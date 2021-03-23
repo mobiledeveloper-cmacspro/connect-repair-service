@@ -802,4 +802,11 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get weatherTitle;
 
+  String get dataPrivacyAssetPath;
+
+  String get termsOfUseAssetPath;
+
+  String get  termsOfUse;
+
+  String get  privacyStatement;
 }

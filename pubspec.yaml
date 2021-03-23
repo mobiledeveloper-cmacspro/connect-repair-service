@@ -196,6 +196,12 @@ flutter:
     - assets/htmlArrow.html
     - assets/htmlArrow1.html
     - assets/flutter_i18n/
+    - assets/privacy_statement_en.pdf
+    - assets/privacy_statement_de.pdf
+    - assets/terms_of_use_de.pdf
+    - assets/terms_of_use_en.pdf
+
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

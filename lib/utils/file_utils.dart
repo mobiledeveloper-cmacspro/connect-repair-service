@@ -148,4 +148,17 @@ class FileUtils {
       return '';
     }
   }
+
+  static Future<String> loadAsset(String path) async {
+    return await rootBundle
+        .loadString('lib/res/assets/privacy_statement_de.pdf');
+  }
+
+  static Future<File> pdfAsset(String path) async {
+    Directory tempDir = await getTemporaryDirectory();
+    File tempFile = File('${tempDir.path}/${path.split("/").last}');
+    ByteData bd = await rootBundle.load(path);
+    await tempFile.writeAsBytes(bd.buffer.asUint8List(), flush: true);
+    return tempFile;
+  }
 }

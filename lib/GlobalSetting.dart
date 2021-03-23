@@ -1,13 +1,17 @@
 //import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:repairservices/data/dao/shared_preferences_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:repairservices/res/values/text/custom_localizations_delegate.dart';
 import 'all_translations.dart';
+import 'package:repairservices/utils/file_utils.dart';
+import 'dart:async';
 
+import 'package:open_file/open_file.dart';
 
 class GlobalSettings extends StatelessWidget {
   @override
@@ -77,6 +81,7 @@ class GlobalSettings extends StatelessWidget {
   }
 }
 
+
 class LegalInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -97,16 +102,24 @@ class LegalInformation extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 52),
-            child: Center(
-              child: Text(
-                R.string.legalInformationDetails,
-                style: Theme.of(context).textTheme.bodyText2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          )
+          ListTile(
+              title: Text(R.string.termsOfUse,
+                  style: Theme.of(context).textTheme.bodyText2),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+              trailing: Icon(CupertinoIcons.forward),
+              onTap: () {
+                FileUtils.pdfAsset(R.string.termsOfUseAssetPath).then((file){OpenFile.open(file.path);});
+              }),
+          Divider(height: 1),
+          ListTile(
+              title: Text(R.string.privacyStatement,
+                  style: Theme.of(context).textTheme.bodyText2),
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+              trailing: Icon(CupertinoIcons.forward),
+              onTap: () async {
+                FileUtils.pdfAsset(R.string.dataPrivacyAssetPath).then((file){OpenFile.open(file.path);});
+              }),
+          Divider(height: 1),
         ],
       ),
     );
@@ -223,51 +236,45 @@ class Impressum extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: Text(
-                  R.string.shucoServiceAppProvidedBy,
+              child: Text(R.string.shucoServiceAppProvidedBy,
                   style: Theme.of(context).textTheme.headline3),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
-              child: Text(
-                  R.string.schucoInternational,
+              child: Text(R.string.schucoInternational,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(
-                  R.string.karolinenstrasse,
+              child: Text(R.string.karolinenstrasse,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(
-                  R.string.bielefeld33609,
+              child: Text(R.string.bielefeld33609,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(
-                  R.string.germany,
+              child: Text(R.string.germany,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
               child: Text(
                   R.string.mrAndreasEngelhardtCEOManagingPartnerResponsibleAccordanceWith +
-                  R.string.germanInterstateBroadcastingTreaty+".",
+                      R.string.germanInterstateBroadcastingTreaty +
+                      ".",
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
-              child: Text(
-                  R.string.executiveManagementBoard,
+              child: Text(R.string.executiveManagementBoard,
                   style: Theme.of(context).textTheme.headline3),
             ),
             Padding(
               padding: EdgeInsets.only(top: 12, left: 16, right: 16),
-              child: Text(
-                  R.string.andreasEngelhardtCEOAndManaging,
+              child: Text(R.string.andreasEngelhardtCEOAndManaging,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
@@ -282,8 +289,7 @@ class Impressum extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(
-                  R.string.drWalterStadlbauerCOOandCTO,
+              child: Text(R.string.drWalterStadlbauerCOOandCTO,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
@@ -339,14 +345,12 @@ class Impressum extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 22, left: 16, right: 16),
-              child: Text(
-                  R.string.vatId,
+              child: Text(R.string.vatId,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Text(
-                  R.string.registeredOfficeCourtOfRecord,
+              child: Text(R.string.registeredOfficeCourtOfRecord,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             Padding(
@@ -365,8 +369,7 @@ class Impressum extends StatelessWidget {
                 left: 16,
                 right: 16,
               ),
-              child: Text(
-                  R.string.commercialRegister,
+              child: Text(R.string.commercialRegister,
                   style: Theme.of(context).textTheme.bodyText2),
             ),
             SizedBox(

@@ -1212,4 +1212,16 @@ class StringsDe implements StringsBase {
   @override
   String get weatherTitle => "Wetter dokumentieren";
 
+  @override
+  String get dataPrivacyAssetPath => "assets/privacy_statement_de.pdf";
+
+  @override
+  String get termsOfUseAssetPath => "assets/terms_of_use_de.pdf";
+
+  @override
+  String get termsOfUse => "Nutzungsbedingungen";
+
+  @override
+  String get privacyStatement => "Datenschutzerklärung";
+
 }

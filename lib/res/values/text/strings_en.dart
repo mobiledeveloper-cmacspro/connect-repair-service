@@ -1245,4 +1245,16 @@ class StringsEn implements StringsBase {
 
   @override
   String get weatherTitle => "Weather information";
+
+  @override
+  String get dataPrivacyAssetPath => "assets/privacy_statement_en.pdf";
+
+  @override
+  String get termsOfUseAssetPath => "assets/terms_of_use_en.pdf";
+
+  @override
+  String get termsOfUse => "Terms Of Use";
+
+  @override
+  String get privacyStatement => "Privacy Statement";
 }
