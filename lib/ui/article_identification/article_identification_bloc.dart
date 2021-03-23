@@ -35,7 +35,7 @@ class ArticleIdentificationBloC extends BaseBloC
   ArticleIdentificationBloC(this._iArticleLocalRepository);
 
   BehaviorSubject<List<ArticleBase>> _articleLocalController =
-  new BehaviorSubject();
+      new BehaviorSubject();
 
   Stream<List<ArticleBase>> get articlesResult =>
       _articleLocalController.stream;
@@ -80,11 +80,11 @@ class ArticleIdentificationBloC extends BaseBloC
     articles.addAll(articlesLocal);
 
     articles.sort((a, b) => (a is Fitting
-        ? a.created
-        : (a as ArticleLocalModel).createdOnScreenShoot)
+            ? a.created
+            : (a as ArticleLocalModel).createdOnScreenShoot)
         .compareTo(b is Fitting
-        ? b.created
-        : (b as ArticleLocalModel).createdOnScreenShoot));
+            ? b.created
+            : (b as ArticleLocalModel).createdOnScreenShoot));
     _articleLocalController.sinkAddSafe(articles.reversed.toList());
 
     articles.forEach((a) => a.isSelected = false);
@@ -95,7 +95,7 @@ class ArticleIdentificationBloC extends BaseBloC
   void refreshList() async {
     List<ArticleBase> articleBaseList = (await articlesResult.first);
     final ArticleBase article =
-    articleBaseList.firstWhere((a) => a.isSelected, orElse: () {
+        articleBaseList.firstWhere((a) => a.isSelected, orElse: () {
       return null;
     });
     if (article == null) setSelectionMode = false;
@@ -190,8 +190,11 @@ class ArticleIdentificationBloC extends BaseBloC
           ? articleBase.filePath
           : (articleBase as Fitting).pdfPath
     ];
-    final MailModel mailModel =
-    MailModel(subject: name, body: name, attachments: attachments);
+    final MailModel mailModel = MailModel(
+        recipients: [R.string.receivingMailAddressArticleIdentification],
+        subject: name,
+        body: name,
+        attachments: attachments);
 
     final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {
@@ -213,8 +216,11 @@ class ArticleIdentificationBloC extends BaseBloC
       }
     });
 
-    final MailModel mailModel =
-    MailModel(subject: name, body: name, attachments: attachments);
+    final MailModel mailModel = MailModel(
+        recipients: [R.string.receivingMailAddressArticleIdentification],
+        subject: name,
+        body: name,
+        attachments: attachments);
 
     final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {

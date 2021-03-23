@@ -11,7 +11,7 @@ class MailModel {
 
   MailModel(
       {this.attachments = const [],
-      this.recipients = const ["connect-app@schueco.com"],
+      this.recipients = const [],
       this.subject,
       this.body});
 }

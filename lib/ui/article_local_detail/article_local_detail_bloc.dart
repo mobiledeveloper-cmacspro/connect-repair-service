@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:repairservices/res/R.dart';
 import 'package:repairservices/utils/mail_mananger.dart';
 import 'package:repairservices/domain/article_local_model/article_local_model.dart';
 import 'package:repairservices/domain/article_local_model/i_article_local_repository.dart';
@@ -21,7 +22,7 @@ class ArticleLocalDetailBloC extends BaseBloC
     final List<String> attachments = [articleLocalModel.screenShootFilePath];
 
     final MailModel mailModel =
-        MailModel(subject: name, body: name, attachments: attachments);
+        MailModel(recipients: [R.string.receivingMailAddressArticleIdentification],subject: name, body: name, attachments: attachments);
 
     final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {
