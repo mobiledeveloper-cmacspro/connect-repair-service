@@ -35,7 +35,7 @@ import 'package:repairservices/ui/fitting_detail/fitting_door_hinge_detail_page.
 import 'package:repairservices/ui/fitting_detail/fitting_door_lock_detail_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_sliding_detail_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_detail_page.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 import '../../database_helpers.dart';
 import 'package:repairservices/models/Windows.dart';
 import '../../IdentificationType.dart';

@@ -9,6 +9,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:repairservices/utils/extensions.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/uuid_util.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_project_documentation.dart';
 
 class NewProjectDocumentationBloC extends BaseBloC with FormValidatorBloC {
   final IProjectDocumentationRepository _repository;
@@ -33,10 +34,12 @@ class NewProjectDocumentationBloC extends BaseBloC with FormValidatorBloC {
 
   get refreshData => _projectController.sinkAddSafe(projectDocumentModel);
 
-  void init(ProjectDocumentModel initModel) {
+  void init(ProjectDocumentModel initModel) async {
     projectDocumentModel = initModel ??
         ProjectDocumentModel(
             reports: [], address: ProjectDocumentAddressModel());
+    projectDocumentModel.reports = await _repository
+        .getProjectDocumentReports(projectDocumentModel.id ?? "");
     projectDocumentModel.isEditing = initModel == null;
     _projectController.sinkAddSafe(projectDocumentModel);
   }
@@ -46,9 +49,15 @@ class NewProjectDocumentationBloC extends BaseBloC with FormValidatorBloC {
       projectDocumentModel.date = DateTime.now();
       if (projectDocumentModel.id.isNullOrEmpty())
         projectDocumentModel.id = Uuid().v1();
+      PDFManagerProjectDocumentation.removePDF(projectDocumentModel);
+      projectDocumentModel.pdfPath = "";
+
+      projectDocumentModel.pdfPath =
+          await PDFManagerProjectDocumentation.getPDFPath(projectDocumentModel);
 
       final result =
           await _repository.saveProjectDocument(projectDocumentModel);
+
       _controller.sinkAddSafe(result);
     } catch (ex) {
       Fluttertoast.showToast(
@@ -57,5 +66,10 @@ class NewProjectDocumentationBloC extends BaseBloC with FormValidatorBloC {
           textColor: Colors.white,
           toastLength: Toast.LENGTH_LONG);
     }
+  }
+
+  Future<void> delete() async {
+    await _repository.deleteProjectDocument(projectDocumentModel.id);
+    await PDFManagerProjectDocumentation.removePDF(projectDocumentModel);
   }
 }

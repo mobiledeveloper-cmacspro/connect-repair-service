@@ -1257,4 +1257,22 @@ class StringsEn implements StringsBase {
 
   @override
   String get privacyStatement => "Privacy Statement";
+
+  @override
+  String get projectDocumentation => "ProjectDocumentation@SchuecoSiteConnect";
+
+  @override
+  String get generalProjectInfo => "General Project Information";
+
+  @override
+  String get archiveReport => "Archive report";
+
+  @override
+  String get videoReport => "You have attached one or more videos to this report";
+
+  @override
+  String get voiceMemoReport => "You have added one or more voice notes to this report";
+
+  @override
+  String get date => "Date";
 }

@@ -13,14 +13,16 @@ import 'package:repairservices/ui/1_tx_widgets/tx_loading_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_text_widget.dart';
 import 'package:repairservices/ui/pdf_viewer/pdf_viewer_bloc.dart';
+import 'package:repairservices/domain/article_base.dart';
+import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 
-class FittingPDFViewerPage extends StatefulWidget {
-  final Fitting model;
+class PDFViewerPage extends StatefulWidget {
+  final ArticleBase model;
   final bool navigateFromDetail;
   final bool isForPrint;
   final bool isForMail;
 
-  const FittingPDFViewerPage(
+  const PDFViewerPage(
       {Key key,
       this.model,
       this.navigateFromDetail = false,
@@ -33,7 +35,7 @@ class FittingPDFViewerPage extends StatefulWidget {
 }
 
 class _FittingPDFViewerState
-    extends StateWithBloC<FittingPDFViewerPage, PDFViewerBloC> {
+    extends StateWithBloC<PDFViewerPage, PDFViewerBloC> {
   _navBack() {
     widget.navigateFromDetail
         ? NavigationUtils.pop(context)
@@ -52,6 +54,9 @@ class _FittingPDFViewerState
 
   @override
   Widget buildWidget(BuildContext context) {
+    String name = (widget.model is Fitting)
+        ? (widget.model as Fitting).getNamei18N
+        : (widget.model as ProjectDocumentModel).fixedName ?? R.string.pdfViewer;
     return WillPopScope(
       onWillPop: () async {
         _navBack();
@@ -68,8 +73,7 @@ class _FittingPDFViewerState
                       onLeadingTap: () {
                         _navBack();
                       },
-                      title: widget.model.getNamei18N ??
-                          R.string.pdfViewer,
+                      title: name,
                       body: Container(
                         width: double.infinity,
                         height: double.infinity,
@@ -102,15 +106,16 @@ class _FittingPDFViewerState
                         title: TXTextWidget(
                           size: 18,
                           color: Colors.black,
-                          text: widget.model.getNamei18N ??
-                              R.string.pdfViewer,
+                          text: name,
                         ),
                         actions: <Widget>[
                           widget.isForMail || widget.isForPrint
                               ? InkWell(
                                   child: Container(
                                     child: TXTextWidget(
-                                      text: widget.isForMail ? R.string.send : R.string.print,
+                                      text: widget.isForMail
+                                          ? R.string.send
+                                          : R.string.print,
                                       fontWeight: FontWeight.bold,
                                       color: R.color.primary_color,
                                     ),

@@ -17,7 +17,7 @@ import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 
 import 'database_helpers.dart';
 
@@ -259,7 +259,7 @@ class DoorHingeDimensionState
                 if (id != null) {
                   NavigationUtils.pushCupertino(
                     context,
-                    FittingPDFViewerPage(
+                    PDFViewerPage(
                       model: doorHinge,
                     ),
                   );

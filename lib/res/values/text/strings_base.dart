@@ -796,6 +796,8 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get dateFormat2;
 
+  String get date;
+
   String get noUserWithPurchasingAuth;
 
   String cartSent({@required bool sent, @required String purchaser, @required String cartName});
@@ -809,4 +811,16 @@ abstract class StringsBase implements WidgetsLocalizations {
   String get  termsOfUse;
 
   String get  privacyStatement;
+
+  String get projectDocumentation;
+
+  String get generalProjectInfo;
+
+  String get archiveReport;
+
+  String get videoReport;
+
+  String get voiceMemoReport;
+
+
 }

@@ -12,7 +12,7 @@ import 'package:repairservices/res/R.dart';
 import 'package:repairservices/ui/0_base/bloc_state.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:swipedetector/swipedetector.dart';
 
@@ -235,7 +235,7 @@ class LockDimensionsState extends StateWithBloC<LockDimensions,LockDimensionsBlo
     int id = await helper.insertDoorLock(doorLock);
     print('inserted row: $id');
     if (id != null) {
-      NavigationUtils.pushCupertino(context, FittingPDFViewerPage(model: doorLock,));
+      NavigationUtils.pushCupertino(context, PDFViewerPage(model: doorLock,));
 //      Navigator.push(
 //          context,
 //          CupertinoPageRoute(

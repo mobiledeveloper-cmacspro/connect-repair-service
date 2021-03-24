@@ -18,7 +18,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 import 'package:repairservices/utils/mail_mananger.dart';
 
 class FittingWindowsDetailPage extends StatefulWidget {
@@ -150,7 +150,7 @@ class _FittingWindowsDetails
                 Future.delayed(Duration(milliseconds: 100), () async {
                   final res = await NavigationUtils.pushCupertino(
                       context,
-                      FittingPDFViewerPage(
+                      PDFViewerPage(
                         navigateFromDetail: true,
                         model: widget.model,
                         isForMail: action.key == 'Email',

@@ -12,7 +12,7 @@ import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/Sliding.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 import 'package:repairservices/res/R.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -203,7 +203,7 @@ class SlidingDimensionState extends State<SlidingDimension> {
     if (id != null) {
       NavigationUtils.pushCupertino(
           context,
-          FittingPDFViewerPage(
+          PDFViewerPage(
             model: sliding,
           ));
     }
