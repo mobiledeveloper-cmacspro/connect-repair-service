@@ -14,7 +14,7 @@ import 'package:repairservices/ui/1_tx_widgets/tx_main_bar_widget.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_resource_page.dart';
 import 'package:repairservices/ui/fitting_detail/fitting_windows_bloc.dart';
 import 'package:repairservices/ui/fitting_dimensions/door_hinge/fitting_door_hinge_dimension_page.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 import 'package:repairservices/utils/mail_mananger.dart';
 
 class FittingDoorHingeDetailPage extends StatefulWidget {
@@ -197,7 +197,7 @@ class _FittingDoorHingeDetailState
                 Future.delayed(Duration(milliseconds: 100), () async {
                   final res = await NavigationUtils.pushCupertino(
                       context,
-                      FittingPDFViewerPage(
+                      PDFViewerPage(
                         navigateFromDetail: true,
                         model: widget.model,
                         isForMail: action.key == 'Email',

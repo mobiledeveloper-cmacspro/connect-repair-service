@@ -29,6 +29,7 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:repairservices/utils/extensions.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_project_documentation.dart';
 
 class ProjectDocumentationBloC extends BaseBloC
     with LoadingBloC, ErrorHandlerBloC {
@@ -178,15 +179,16 @@ class ProjectDocumentationBloC extends BaseBloC
     isLoading = false;
   }
 
-  void exportByEmail() async {
+  void export(String action) async {
     isLoading = true;
     final name = 'export';
     final List<String> attachments = [];
-    _articleLocalController.value.forEach((articleBase) async {
-      if (articleBase.isSelected) {
-        attachments.add(articleBase is ArticleLocalModel
-            ? articleBase.filePath
-            : (articleBase is ProjectDocumentModel) ? articleBase.pdfPath : (articleBase as Fitting).pdfPath);
+    final list = _articleLocalController.value ?? [];
+    await Future.forEach(list, (article) async {
+      if (article.isSelected && article is ProjectDocumentModel) {
+        article.pdfPath =
+            await PDFManagerProjectDocumentation.getPDFPath(article);
+        attachments.add(article.pdfPath);
       }
     });
 

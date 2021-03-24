@@ -20,7 +20,7 @@ import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_item_cell_edit_widget.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 
 class WindowsGeneralData extends StatefulWidget {
   final TypeFitting typeFitting;
@@ -254,7 +254,7 @@ class WindowsGeneralDataState extends State<WindowsGeneralData> {
     if (id != null) {
       NavigationUtils.pushCupertino(
         context,
-        FittingPDFViewerPage(
+        PDFViewerPage(
           model: windows,
         ),
       );

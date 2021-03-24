@@ -51,7 +51,8 @@ class PDFManager {
     return pdfLogoImg;
   }
 
-  static pw.Container getHeader(Font ttfBold, PdfImage pdfLogoImg, {String title = "RepairService@SchuecoSiteConnect"}) {
+  static pw.Container getHeader(Font ttfBold, PdfImage pdfLogoImg,
+      {String title = "RepairService@SchuecoSiteConnect"}) {
     return pw.Container(
         width: double.infinity,
         child: pw
@@ -87,7 +88,7 @@ class PDFManager {
       final w =
           pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
         pw.Container(
-            child: pw.Text(cell.title,
+            child: pw.Text(cell?.title ?? "",
                 style: pw.TextStyle(
                     fontSize: textFontSize,
                     font: ttfRegular,
@@ -96,7 +97,7 @@ class PDFManager {
             padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             color: PdfColors.grey200),
         pw.Container(
-            child: pw.Text(cell.value,
+            child: pw.Text(cell?.value ?? "",
                 style: pw.TextStyle(
                     fontSize: textFontSize,
                     font: ttfRegular,
@@ -107,6 +108,30 @@ class PDFManager {
       rows.add(w);
     });
     return rows;
+  }
+
+  static pw.Column getRow(PDFCell pdfCell, Font ttfRegular) {
+    final w =
+        pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
+      pw.Container(
+          child: pw.Text(pdfCell?.title ?? "",
+              style: pw.TextStyle(
+                  fontSize: textFontSize,
+                  font: ttfRegular,
+                  color: PdfColors.black)),
+          width: double.infinity,
+          padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          color: PdfColors.grey200),
+      pw.Container(
+          child: pw.Text(pdfCell?.value ?? "",
+              style: pw.TextStyle(
+                  fontSize: textFontSize,
+                  font: ttfRegular,
+                  color: PdfColors.grey600)),
+          padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          width: double.infinity)
+    ]);
+    return w;
   }
 
   static pw.Container getFooter(pw.Context context) {
@@ -122,7 +147,7 @@ class PDFManager {
   static Future<List<pw.Container>> getAttachedImages(
       Document pdf, List<String> filePaths) async {
     List<pw.Container> images = [];
-    filePaths.forEach((f)  {
+    filePaths.forEach((f) {
       if (f?.isNotEmpty == true && !(f?.endsWith('.pdf') == true)) {
         File file = File(f);
         if (file.existsSync()) {
@@ -141,6 +166,25 @@ class PDFManager {
       }
     });
     return images;
+  }
+
+  static Future<pw.Container> getAttachedImage(
+      Document pdf, String filePath) async {
+    pw.Container image;
+    File file = File(filePath);
+    if (file.existsSync()) {
+      PdfImage pdfImage = PdfImage.file(
+        pdf.document,
+        bytes: file.readAsBytesSync(),
+      );
+      image = pw.Container(
+        constraints:
+            pw.BoxConstraints(maxWidth: double.infinity, maxHeight: 400),
+        child: pw.Image(pdfImage, fit: pw.BoxFit.contain),
+      );
+    }
+
+    return image;
   }
 
   static Future<String> savePDFFile(Document pdf) async {

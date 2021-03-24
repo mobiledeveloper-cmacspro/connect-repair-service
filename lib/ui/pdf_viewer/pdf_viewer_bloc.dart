@@ -16,6 +16,7 @@ import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_lock.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_sliding.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_windows.dart';
+import 'package:repairservices/ui/2_pdf_manager/pdf_manager_project_documentation.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:repairservices/utils/extensions.dart';
 
@@ -41,7 +42,7 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
       else if (model is DoorHinge)
         path = await PDFManagerDoorHinge.getPDFPath(model);
     }else if (model is ProjectDocumentModel){
-
+      path = await PDFManagerProjectDocumentation.getPDFPath(model);
     }
     _pdfPathController.sinkAddSafe(path);
     isLoading = false;

@@ -1224,4 +1224,21 @@ class StringsDe implements StringsBase {
   @override
   String get privacyStatement => "Datenschutzerklärung";
 
+  @override
+  String get projectDocumentation => "ProjektDokumentation@SchuecoSiteConnect";
+
+  @override
+  String get generalProjectInfo => "Allgemeine Projekt Informationen";
+
+  @override
+  String get archiveReport => "Berichtsarchiv";
+
+  @override
+  String get videoReport => "Sie haben dem Report ein oder mehrere Videos angefügt";
+
+  @override
+  String get voiceMemoReport => "Sie haben diesem Report ein oder mehrere Sprachnotizen angefügt";
+
+  @override
+  String get date => "Datum";
 }

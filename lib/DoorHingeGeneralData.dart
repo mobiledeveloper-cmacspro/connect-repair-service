@@ -11,7 +11,7 @@ import 'package:repairservices/database_helpers.dart';
 import 'package:repairservices/models/DoorHinge.dart';
 import 'package:repairservices/ui/0_base/navigation_utils.dart';
 import 'package:repairservices/ui/2_pdf_manager/pdf_manager_door_hinge.dart';
-import 'package:repairservices/ui/pdf_viewer/fitting_pdf_viewer_page.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 import 'package:repairservices/res/R.dart';
 import 'dart:io';
 
@@ -286,7 +286,7 @@ class DoorHingeGeneralDataState extends State<DoorHingeGeneralData> {
         print('inserted row: $id');
         NavigationUtils.pushCupertino(
           context,
-          FittingPDFViewerPage(
+          PDFViewerPage(
             model: doorHinge,
           ),
         );

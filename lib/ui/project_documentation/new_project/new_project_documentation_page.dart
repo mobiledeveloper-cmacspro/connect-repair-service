@@ -24,6 +24,8 @@ import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/utils/extensions.dart';
 import 'package:repairservices/utils/extensions.dart';
+import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.dart';
 
 class NewProjectDocumentationPage extends StatefulWidget {
   final ProjectDocumentModel model;
@@ -76,6 +78,8 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
         initialData: bloc.projectDocumentModel,
         builder: (context, snapshot) {
           final ProjectDocumentModel project = snapshot.data;
+          if(project?.isEditing == null)
+            return Container();
           return Scaffold(
             appBar: AppBar(
               iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
@@ -315,125 +319,168 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                     }),
               ),
             )),
-            project.isEditing ? Container() :
-            Container(
-              margin: EdgeInsets.only(bottom: 0),
-              height: 70,
-              width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).primaryColor,
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  InkWell(
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+            project.isEditing
+                ? Container()
+                : Container(
+                    margin: EdgeInsets.only(bottom: 0),
+                    height: 70,
+                    width: MediaQuery.of(context).size.width,
+                    color: Theme.of(context).primaryColor,
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 25,
+                        InkWell(
+                          child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              TXTextWidget(
+                                text: R.string.edit,
+                                maxLines: 1,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          onTap: () {
+                            bloc.projectDocumentModel.isEditing =
+                                !bloc.projectDocumentModel.isEditing;
+                            bloc.refreshData;
+                          },
                         ),
-                        SizedBox(
-                          height: 5,
+                        InkWell(
+                          child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.add_circle_outline,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              TXTextWidget(
+                                text: R.string.newReport,
+                                maxLines: 1,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          onTap: () async {
+                            NavigationUtils.pushCupertino(
+                                context,
+                                AddEditProjectReportPage(
+                                  projectDocumentModel:
+                                      bloc.projectDocumentModel,
+                                )).then((value) {
+                              if (value != null &&
+                                  value is ProjectDocumentModel) {
+                                bloc.projectDocumentModel = value;
+                              }
+                            });
+                          },
                         ),
-                        TXTextWidget(
-                          text: R.string.edit,
-                          maxLines: 1,
-                          color: Colors.white,
+                        InkWell(
+                          child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.filter_none,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              TXTextWidget(
+                                text: R.string.reportArchive,
+                                maxLines: 1,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          onTap: () async {
+                            final res = await NavigationUtils.push(
+                                context,
+                                ProjectReportPage(
+                                  projectDocumentModel:
+                                      bloc.projectDocumentModel,
+                                ));
+                            if (res != null && res is ProjectDocumentModel) {
+                              bloc.projectDocumentModel = res;
+                              bloc.refreshData;
+                            }
+                          },
+                        ),
+                        InkWell(
+                          child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(bottom: 12),
+                                child:
+                                    new Image.asset('assets/exportWhite.png'),
+                              ),
+                              TXTextWidget(
+                                text: R.string.export,
+                                maxLines: 1,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                          onTap: () async {
+                            launchOptions(context);
+                          },
                         )
                       ],
                     ),
-                    onTap: () {
-                      bloc.projectDocumentModel.isEditing =
-                          !bloc.projectDocumentModel.isEditing;
-                      bloc.refreshData;
-                    },
-                  ),
-                  InkWell(
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.add_circle_outline,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        TXTextWidget(
-                          text: R.string.newReport,
-                          maxLines: 1,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                    onTap: () async {
-                      NavigationUtils.pushCupertino(
-                          context,
-                          AddEditProjectReportPage(
-                            projectDocumentModel: bloc.projectDocumentModel,
-                          )).then((value) {
-                        if (value != null && value is ProjectDocumentModel) {
-                          bloc.projectDocumentModel = value;
-                        }
-                      });
-                    },
-                  ),
-                  InkWell(
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.filter_none,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        TXTextWidget(
-                          text: R.string.reportArchive,
-                          maxLines: 1,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                    onTap: () async {
-                      final res = await NavigationUtils.push(
-                          context,
-                          ProjectReportPage(
-                            projectDocumentModel: bloc.projectDocumentModel,
-                          ));
-                      if (res != null && res is ProjectDocumentModel) {
-                        bloc.projectDocumentModel = res;
-                        bloc.refreshData;
-                      }
-                    },
-                  ),
-                  InkWell(
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(bottom: 12),
-                          child: new Image.asset('assets/exportWhite.png'),
-                        ),
-                        TXTextWidget(
-                          text: R.string.export,
-                          maxLines: 1,
-                          color: Colors.white,
-                        )
-                      ],
-                    ),
-                    onTap: () async {},
                   )
-                ],
-              ),
-            )
           ],
         ),
       );
+
+  void launchOptions(BuildContext context) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (ctx) {
+          return TXCupertinoActionSheetWidget(
+            onActionTap: (action) async {
+              if (action.key == 'Print' || action.key == 'Email') {
+                final res = await NavigationUtils.pushCupertino(
+                    context,
+                    PDFViewerPage(
+                      navigateFromDetail: true,
+                      model: bloc.projectDocumentModel,
+                      isForMail: false,
+                      isForPrint: true,
+                    ));
+              } else if (action.key == 'Remove') {
+                await bloc.delete();
+                NavigationUtils.pop(context);
+              }
+            },
+            actions: [
+              ActionSheetModel(
+                  key: "Print",
+                  title: R.string.print,
+                  color: R.color.primary_color),
+              ActionSheetModel(
+                  key: "Email",
+                  title: R.string.email,
+                  color: R.color.primary_color),
+              ActionSheetModel(
+                  key: "Remove", title: R.string.remove, color: Colors.red)
+            ],
+          );
+        });
+  }
 
   void _onPhotoOfPartPress(BuildContext context) {
     showDemoActionSheet(
