@@ -52,11 +52,15 @@ class PDFManagerProjectDocumentation {
   static List<PDFCell> _getListCells(ProjectDocumentModel model) {
     List<PDFCell> list = [
       PDFCell(title: R.string.projectName, value: model.name),
-      PDFCell(title: R.string.projectNumber, value: model.number ?? ""),
+      PDFCell(
+          title: R.string.projectNumber, value: model.number.toString() ?? ""),
       PDFCell(title: R.string.projectShortName, value: model.abbreviation),
       PDFCell(title: R.string.address, value: model.address.addressStr),
-      PDFCell(title: R.string.participants, value: model.participants ?? ""),
-      PDFCell(title: R.string.totalCost, value: model.totalCost ?? ""),
+      PDFCell(
+          title: R.string.participants,
+          value: model.participants.toString() ?? ""),
+      PDFCell(
+          title: R.string.totalCost, value: model.totalCost.toString() ?? ""),
       PDFCell(title: R.string.categories, value: model.category),
       PDFCell(title: R.string.projectInfo, value: model.info),
       PDFCell(title: R.string.photo, value: ""),
@@ -91,8 +95,10 @@ class PDFManagerProjectDocumentation {
           PDFManager.getRowSection(R.string.archiveReport, ttfBold);
 
       ///List of associates images
-      pw.Container projectPhoto =
-          await PDFManager.getAttachedImage(pdf, model.photo);
+      pw.Container projectPhoto;
+      if (model.photo != null) {
+        projectPhoto = await PDFManager.getAttachedImage(pdf, model.photo);
+      }
 
       List<pw.Widget> children = [];
 
@@ -104,20 +110,23 @@ class PDFManagerProjectDocumentation {
 
       if (projectPhoto != null) children.add(projectPhoto);
 
-      await Future.forEach<ProjectDocumentReportModel>(model.reports, (report) async {
+      await Future.forEach<ProjectDocumentReportModel>(model.reports,
+          (report) async {
         children.add(detailsReportRowSection);
         final reportCells = _getListReportCells(report);
         List<pw.Column> reportRows =
             PDFManager.getRows(reportCells, ttfRegular);
         children.addAll(reportRows);
-        if(report?.photo != null){
+        if (report?.photo != null) {
           final reportPhoto =
-          await PDFManager.getAttachedImage(pdf, report.photo);
-          final reportMeasurementCamera =
-          await PDFManager.getAttachedImage(pdf, report.measurementCamera);
+              await PDFManager.getAttachedImage(pdf, report.photo);
           if (reportPhoto != null) {
             children.add(reportPhoto);
           }
+        }
+        if (report?.measurementCamera != null) {
+          final reportMeasurementCamera =
+              await PDFManager.getAttachedImage(pdf, report.measurementCamera);
           if (reportMeasurementCamera != null) {
             children.add(reportMeasurementCamera);
           }
@@ -141,6 +150,7 @@ class PDFManagerProjectDocumentation {
       final String filePath = await PDFManager.savePDFFile(pdf);
       return filePath;
     } catch (ex) {
+      print(ex.toString());
       return '';
     }
   }
