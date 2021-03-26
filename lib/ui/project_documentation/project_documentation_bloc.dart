@@ -60,9 +60,14 @@ class ProjectDocumentationBloC extends BaseBloC
     List<ArticleBase> sortedList = [];
     List<ArticleBase> articles = [];
 
-    final articlesLocal = await _iArticleLocalRepository.getProjectsDocuments();
+    final projectList = await _iArticleLocalRepository.getProjectsDocuments();
 
-    articles.addAll(articlesLocal);
+    await Future.forEach(projectList, (project) async {
+      project.reports = await _iArticleLocalRepository
+          .getProjectDocumentReports(project.id ?? "");
+    });
+
+    articles.addAll(projectList);
 
     _articleLocalController.sinkAddSafe(articles.reversed.toList());
     articles.forEach((a) => a.isSelected = false);
