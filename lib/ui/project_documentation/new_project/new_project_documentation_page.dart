@@ -458,8 +458,8 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
                     PDFViewerPage(
                       navigateFromDetail: true,
                       model: bloc.projectDocumentModel,
-                      isForMail: false,
-                      isForPrint: true,
+                      isForMail: action.key == 'Email',
+                      isForPrint: action.key == 'Print',
                     ));
               } else if (action.key == 'Remove') {
                 await bloc.delete();

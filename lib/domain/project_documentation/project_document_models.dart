@@ -33,7 +33,7 @@ class ProjectDocumentModel extends ArticleBase {
       this.category,
       this.info,
       this.address,
-      this.reports});
+      this.reports = const []});
 
   ProjectDocumentModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],

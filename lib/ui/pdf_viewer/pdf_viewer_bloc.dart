@@ -32,7 +32,7 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
   void loadPDF(ArticleBase model) async {
     isLoading = true;
     String path = '';
-    if(model is Fitting){
+    if (model is Fitting) {
       if (model is Windows)
         path = await PDFManagerWindow.getPDFPath(model);
       else if (model is Sliding)
@@ -41,7 +41,7 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
         path = await PDFManagerDoorLock.getPDFPath(model);
       else if (model is DoorHinge)
         path = await PDFManagerDoorHinge.getPDFPath(model);
-    }else if (model is ProjectDocumentModel){
+    } else if (model is ProjectDocumentModel) {
       path = await PDFManagerProjectDocumentation.getPDFPath(model);
     }
     _pdfPathController.sinkAddSafe(path);
@@ -52,30 +52,34 @@ class PDFViewerBloC extends BaseBloC with LoadingBloC, ErrorHandlerBloC {
     isLoading = true;
     final name = (articleBase is Fitting)
         ? articleBase.getNamei18N
-        : (articleBase as ArticleLocalModel).displayName;
+        : (articleBase is ProjectDocumentModel)
+            ? articleBase.fixedName
+            : (articleBase as ArticleLocalModel).displayName;
     final List<String> attachments = [];
-      if(articleBase is ArticleLocalModel) {
-        attachments.add(articleBase.filePath);
-      } else {
-        attachments.add((articleBase as Fitting).pdfPath);
-        if(articleBase is Windows) {
-          articleBase.images.forEach((element) {
-            if(!element.isImage) {
-              attachments.add(element.filePath);
-            }
-          });
-        }
+    if (articleBase is ArticleLocalModel) {
+      attachments.add(articleBase.filePath);
+    } else if (articleBase is ProjectDocumentModel) {
+      attachments.add(articleBase.pdfPath);
+    } else {
+      attachments.add((articleBase as Fitting).pdfPath);
+      if (articleBase is Windows) {
+        articleBase.images.forEach((element) {
+          if (!element.isImage) {
+            attachments.add(element.filePath);
+          }
+        });
       }
+    }
     final MailModel mailModel = MailModel(recipients: [
       // name.contains(R.string.otherFitting)
       //     ? "ersatzteile@schueco.com"
       //     : "connect-app@schueco.com"
-      R.string.receivingMailAddressArticleIdentification
+      articleBase is ProjectDocumentModel ? "" : R.string.receivingMailAddressArticleIdentification
     ], subject: name, body: name, attachments: attachments);
 
 //    _sendEmailController.sinkAddSafe(mailModel);
 
-      final res = await MailManager.sendEmail(mailModel);
+    final res = await MailManager.sendEmail(mailModel);
     if (res != 'OK') {
       Fluttertoast.showToast(
           msg: "$res", toastLength: Toast.LENGTH_LONG, textColor: Colors.red);

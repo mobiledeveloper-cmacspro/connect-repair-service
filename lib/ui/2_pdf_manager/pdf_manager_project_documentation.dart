@@ -53,16 +53,16 @@ class PDFManagerProjectDocumentation {
     List<PDFCell> list = [
       PDFCell(title: R.string.projectName, value: model.name),
       PDFCell(
-          title: R.string.projectNumber, value: model.number.toString() ?? ""),
-      PDFCell(title: R.string.projectShortName, value: model.abbreviation),
-      PDFCell(title: R.string.address, value: model.address.addressStr),
+          title: R.string.projectNumber, value: model.number?.toString() ?? ""),
+      PDFCell(title: R.string.projectShortName, value: model.abbreviation ?? ""),
+      PDFCell(title: R.string.address, value: model.address?.addressStr ?? ""),
       PDFCell(
           title: R.string.participants,
-          value: model.participants.toString() ?? ""),
+          value: model.participants?.toString() ?? ""),
       PDFCell(
-          title: R.string.totalCost, value: model.totalCost.toString() ?? ""),
-      PDFCell(title: R.string.categories, value: model.category),
-      PDFCell(title: R.string.projectInfo, value: model.info),
+          title: R.string.totalCost, value: model.totalCost?.toString() ?? ""),
+      PDFCell(title: R.string.categories, value: model.category ?? ""),
+      PDFCell(title: R.string.projectInfo, value: model.info ?? ""),
       PDFCell(title: R.string.photo, value: ""),
     ];
     return list;
@@ -110,7 +110,7 @@ class PDFManagerProjectDocumentation {
 
       if (projectPhoto != null) children.add(projectPhoto);
 
-      await Future.forEach<ProjectDocumentReportModel>(model.reports,
+      await Future.forEach<ProjectDocumentReportModel>(model.reports ?? [],
           (report) async {
         children.add(detailsReportRowSection);
         final reportCells = _getListReportCells(report);
