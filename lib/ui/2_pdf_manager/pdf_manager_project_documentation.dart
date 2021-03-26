@@ -153,6 +153,7 @@ class PDFManagerProjectDocumentation {
       );
 
       final String filePath = await PDFManager.savePDFFile(pdf);
+      model.pdfPath = filePath;
       return filePath;
     } catch (ex) {
       print(ex.toString());
