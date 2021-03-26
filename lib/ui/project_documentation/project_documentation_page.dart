@@ -21,7 +21,7 @@ import 'package:repairservices/ui/article_identification/article_identification_
 import 'package:repairservices/models/Windows.dart';
 import '../../SettingArticleIdentification.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
+import 'package:repairservices/ui/1_tx_widgets/tx_icon_button_widget.dart';
 import 'new_project/new_project_documentation_page.dart';
 
 class ProjectDocumentationV extends StatefulWidget {
@@ -112,6 +112,22 @@ class _ArticleIdentificationState
                 onLeadingTap: () {
                   Navigator.pop(context);
                 },
+                actions: <Widget>[
+                  bloc.isInSelectionMode
+                      ? TXIconButtonWidget(
+                          onPressed: () async {
+                            bloc.cleanSelection();
+                          },
+                          icon: snapshotMode.data
+                              ? Image.asset(R.image.checkGreen)
+                              : Icon(
+                                  Icons.image,
+                                  color: R.color.primary_color,
+                                  size: 25,
+                                ),
+                        )
+                      : Container(),
+                ],
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -124,16 +140,22 @@ class _ArticleIdentificationState
                         initialData: [],
                         builder: (context, snapshot) {
                           final list = snapshot.data ?? [];
-                          if(list.length > 1){
+                          if (list.length > 1) {
                             alphabetical
-                                ? list.sort((a, b) => (a
-                            as ProjectDocumentModel)
-                                .fixedName.toLowerCase()
-                                .compareTo((b as ProjectDocumentModel).fixedName.toLowerCase())) :
-                            list.sort((a, b) => (b
-                            as ProjectDocumentModel)
-                                .date.millisecondsSinceEpoch
-                                .compareTo((a as ProjectDocumentModel).date.millisecondsSinceEpoch));
+                                ? list.sort((a, b) =>
+                                    (a as ProjectDocumentModel)
+                                        .fixedName
+                                        .toLowerCase()
+                                        .compareTo((b as ProjectDocumentModel)
+                                            .fixedName
+                                            .toLowerCase()))
+                                : list.sort((a, b) =>
+                                    (b as ProjectDocumentModel)
+                                        .date
+                                        .millisecondsSinceEpoch
+                                        .compareTo((a as ProjectDocumentModel)
+                                            .date
+                                            .millisecondsSinceEpoch));
                           }
                           return ListView.builder(
                               shrinkWrap: true,

@@ -55,6 +55,14 @@ class ProjectDocumentationBloC extends BaseBloC
     _selectionModeController.sinkAddSafe(isInSelectionMode);
   }
 
+  void cleanSelection() {
+    final list = _articleLocalController.value ?? [];
+    list.forEach((proj) {
+      proj.isSelected = false;
+    });
+    setSelectionMode = !isInSelectionMode;
+  }
+
   void loadArticles() async {
     isLoading = true;
     List<ArticleBase> sortedList = [];
@@ -117,50 +125,6 @@ class ProjectDocumentationBloC extends BaseBloC
     articleBaseList.removeWhere((a) => a.isSelected);
 
     refreshList();
-  }
-
-  Future<void> _deleteArticleFitting(Fitting fitting) async {
-    if (fitting is Windows) {
-      await helper.deleteWindows(fitting.id);
-      await PDFManagerWindow.removePDF(fitting);
-    } else if (fitting is Sliding) {
-      await helper.deleteSliding(fitting.id);
-      await PDFManagerSliding.removePDF(fitting);
-    } else if (fitting is DoorLock) {
-      await helper.deleteDoorLock(fitting.id);
-      await PDFManagerDoorLock.removePDF(fitting);
-    } else if (fitting is DoorHinge) {
-      await helper.deleteDoorHinge(fitting.id);
-      await PDFManagerDoorHinge.removePDF(fitting);
-    }
-    _deleteImages(fitting);
-  }
-
-  Future<void> _deleteImages(Fitting model) async {
-    if (model is DoorHinge) {
-      List<String> files = [
-        model.dimensionSurfaceIm,
-        model.dimensionBarrelIm,
-      ];
-      files.forEach((element) {
-        File f = File(element ?? '');
-        if (f.existsSync()) {
-          f.deleteSync();
-        }
-      });
-    } else if (model is DoorLock) {
-      List<String> files = [
-        model.dimensionImage1Path,
-        model.dimensionImage2Path,
-        model.dimensionImage3Path
-      ];
-      files.forEach((element) {
-        File f = File(element ?? '');
-        if (f.existsSync()) {
-          f.deleteSync();
-        }
-      });
-    }
   }
 
   void sendPdfByEmail(ArticleBase articleBase) async {
