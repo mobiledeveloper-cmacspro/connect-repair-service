@@ -35,13 +35,17 @@ class PDFManagerProjectDocumentation {
       ),
     );
     listCellsReport.add(
-      PDFCell(title: R.string.note, value: report.shortInfo),
+      PDFCell(title: R.string.note, value: report.shortInfo ?? ""),
     );
     listCellsReport.add(
-      PDFCell(title: R.string.video, value: R.string.videoReport),
+      PDFCell(
+          title: R.string.video,
+          value: report.video != null ? R.string.videoReport : ""),
     );
     listCellsReport.add(
-      PDFCell(title: R.string.voiceMemo, value: R.string.voiceMemoReport),
+      PDFCell(
+          title: R.string.voiceMemo,
+          value: report.voiceMemo != null ? R.string.voiceMemoReport : ""),
     );
     listCellsReport.add(
       PDFCell(title: R.string.photo, value: ""),
@@ -54,7 +58,8 @@ class PDFManagerProjectDocumentation {
       PDFCell(title: R.string.projectName, value: model.name),
       PDFCell(
           title: R.string.projectNumber, value: model.number?.toString() ?? ""),
-      PDFCell(title: R.string.projectShortName, value: model.abbreviation ?? ""),
+      PDFCell(
+          title: R.string.projectShortName, value: model.abbreviation ?? ""),
       PDFCell(title: R.string.address, value: model.address?.addressStr ?? ""),
       PDFCell(
           title: R.string.participants,
