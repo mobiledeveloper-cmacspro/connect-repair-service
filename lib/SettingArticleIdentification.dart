@@ -91,33 +91,33 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
               //   ],
               // ),
               // Divider(),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.only(left: 16,top: 4),
-                      child: Text(
-                        R.string.gpsTagsPhotos,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      )
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(right: 16,top: 4),
-                    child: CupertinoSwitch(
-                      value: _gpsPhotos == null ? true : _gpsPhotos,
-                      activeColor: Theme.of(context).primaryColor,
-                      onChanged: (bool value) {
-                        setState(() {
-                          _gpsPhotos = value;
-                          this._saveValue(value, 'gpsPhotos');
-                        });
-                      },
-                    ),
-                  )
-                ],
-              ),
-              Divider(),
+              // new Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: <Widget>[
+              //     Container(
+              //         margin: EdgeInsets.only(left: 16,top: 4),
+              //         child: Text(
+              //           R.string.gpsTagsPhotos,
+              //           style: Theme.of(context).textTheme.bodyText2,
+              //         )
+              //     ),
+              //
+              //     Container(
+              //       margin: EdgeInsets.only(right: 16,top: 4),
+              //       child: CupertinoSwitch(
+              //         value: _gpsPhotos == null ? true : _gpsPhotos,
+              //         activeColor: Theme.of(context).primaryColor,
+              //         onChanged: (bool value) {
+              //           setState(() {
+              //             _gpsPhotos = value;
+              //             this._saveValue(value, 'gpsPhotos');
+              //           });
+              //         },
+              //       ),
+              //     )
+              //   ],
+              // ),
+              // Divider(),
               new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
