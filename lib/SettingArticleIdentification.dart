@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:repairservices/ui/1_tx_widgets/tx_divider_widget.dart';
 
 class SettingsArticleIdentificationV extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
   bool _gpsPhotos;
   bool _savePhotos;
   bool _showTutorial;
+  bool _selOpt;
 
   Future<void> _readValues() async {
 //    SharedPreferences.setMockInitialValues({});
@@ -132,10 +134,16 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
                   Container(
                     margin: EdgeInsets.only(right: 16,top: 4),
                     child: CupertinoSwitch(
-                      value: _savePhotos == null ? true : _savePhotos,
+                      value: _savePhotos == null ? false : _savePhotos,
                       activeColor: Theme.of(context).primaryColor,
-                      onChanged: (bool value) {
+                      onChanged: (bool value) async {
+                        if(value){
+                          await launchAllowOpt();
+                        }else{
+                          _selOpt=false;
+                        }
                         setState(() {
+                          value=_selOpt;
                           _savePhotos = value;
                           this._saveValue(value, 'savePhotos');
                         });
@@ -178,4 +186,42 @@ class SettingsArticleIdentificationState extends State<SettingsArticleIdentifica
     );
   }
 
+  Future<void> launchAllowOpt() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(R.string.settingsPopupTitle),
+          content: Text(R.string.settingsPopupDescription),
+          actions: <Widget>[
+            Column(
+              children: [
+                // CupertinoDialogAction(
+                //   child: Text(R.string.settingsPhotosSelect),
+                //   onPressed: () {
+                //     Navigator.of(context).pop();
+                //   },
+                // ), TXDividerWidget(),
+                CupertinoDialogAction(
+                  child: Text(R.string.settingsAllowAccessPhotos),
+                  onPressed: () {
+                    _selOpt = true;
+                    Navigator.of(context).pop();
+                  },
+                ), TXDividerWidget(),
+                CupertinoDialogAction(
+                  child: Text(R.string.settingsDontAllowAccessPhotos),
+                  onPressed: () {
+                    _selOpt = false;
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
 }

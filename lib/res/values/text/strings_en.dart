@@ -1275,4 +1275,19 @@ class StringsEn implements StringsBase {
 
   @override
   String get date => "Date";
+
+  @override
+  String get settingsAllowAccessPhotos =>"Allow access to all photos";
+
+  @override
+  String get settingsDontAllowAccessPhotos => "Do not allow";
+
+  @override
+  String get settingsPopupDescription => "This allows access to the photo gallery so that images can be opened and saved";
+
+  @override
+  String get settingsPopupTitle => "\"Schüco Site Connect\" would like to access your photos ";
+
+  @override
+  String get settingsPhotosSelect => "Photos select...";
 }

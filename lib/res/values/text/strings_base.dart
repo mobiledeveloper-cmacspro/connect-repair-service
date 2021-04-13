@@ -822,5 +822,16 @@ abstract class StringsBase implements WidgetsLocalizations {
 
   String get voiceMemoReport;
 
+  String get settingsPopupTitle;
+
+  String get settingsPopupDescription;
+
+  String get settingsAllowAccessPhotos;
+
+  String get settingsDontAllowAccessPhotos;
+
+  String get settingsPhotosSelect;
+
+
 
 }

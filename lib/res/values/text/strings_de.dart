@@ -1241,4 +1241,19 @@ class StringsDe implements StringsBase {
 
   @override
   String get date => "Datum";
+
+  @override
+  String get settingsAllowAccessPhotos => "Zugriff auf alle Fotos erlauben";
+
+  @override
+  String get settingsDontAllowAccessPhotos => "Nicht erlauben";
+
+  @override
+  String get settingsPopupDescription => "Hierdurch wird der Zugriff auf die Fotogalerie gewährt, sodass Bilder geöffnet und gespeichert werden können";
+
+  @override
+  String get settingsPopupTitle => "\"Schüco Site Connect\" möchte auf Deine Fotos zugreifen";
+
+  @override
+  String get settingsPhotosSelect => "Fotos wählen...";
 }
