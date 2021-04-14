@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:repairservices/di/injector.dart';
@@ -28,6 +29,7 @@ import 'package:repairservices/ui/marker_component/items/item_angle.dart';
 import 'package:repairservices/ui/marker_component/items/item_line.dart';
 import 'package:repairservices/ui/marker_component/utils/take_screenshoot.dart';
 import 'package:repairservices/utils/calendar_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/file_utils.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -38,7 +40,10 @@ class DrawerContainerPage extends StatefulWidget {
   final bool autoSave;
 
   const DrawerContainerPage(
-      {Key key, @required this.imagePath, this.isForMail = false, this.autoSave = true})
+      {Key key,
+      @required this.imagePath,
+      this.isForMail = false,
+      this.autoSave = true})
       : super(key: key);
 
   @override
@@ -414,10 +419,13 @@ class _DrawerContainerPageState
         pixelRatio: 2,
         file: imgFile);
 
-    if(!widget.autoSave ?? true)
+    if (!widget.autoSave ?? true)
       NavigationUtils.pop(context, result: imgFile.path);
-    else{
+    else {
       await bloc.saveScreeShoot();
+
+      final saveToGallery = (await SharedPreferences.getInstance()).getBool('savePhotos') ?? false;
+      if(saveToGallery) await ImageGallerySaver.saveImage(imgFile.readAsBytesSync());
 
 //    bloc.screenShotFile = screenShotFileName;
       bloc.savingScreenShot = false;
@@ -534,10 +542,11 @@ class _DrawerContainerPageState
 //
 //      });
 
-      if(model.filePath.isEmpty){
-        model.filePath = (await ImagePicker.pickVideo(source: ImageSource.camera)).path;
+      if (model.filePath.isEmpty) {
+        model.filePath =
+            (await ImagePicker.pickVideo(source: ImageSource.camera)).path;
       }
-      if (model.filePath.isNotEmpty){
+      if (model.filePath.isNotEmpty) {
         final res = await NavigationUtils.push(
             context,
             VideoPage(
@@ -545,7 +554,6 @@ class _DrawerContainerPageState
             ));
         bloc.syncMemo(res);
       }
-
     }
   }
 
@@ -562,8 +570,7 @@ class _DrawerContainerPageState
                     color: R.color.primary_color),
                 onPressed: () async {
                   bloc.currentMemoType = MemoType.Note;
-                  _showDialogInfo(
-                      content: R.string.tapImageAddText);
+                  _showDialogInfo(content: R.string.tapImageAddText);
                 },
               )),
           Expanded(
@@ -573,8 +580,7 @@ class _DrawerContainerPageState
                     color: R.color.primary_color),
                 onPressed: () async {
                   bloc.currentMemoType = MemoType.Audio;
-                  _showDialogInfo(
-                      content: R.string.tapImageAddRecord);
+                  _showDialogInfo(content: R.string.tapImageAddRecord);
                 },
               )),
           Expanded(
@@ -586,8 +592,7 @@ class _DrawerContainerPageState
                 ),
                 onPressed: () async {
                   bloc.currentMemoType = MemoType.Video;
-                  _showDialogInfo(
-                      content: R.string.tapImageAddVideo);
+                  _showDialogInfo(content: R.string.tapImageAddVideo);
                 },
               )),
         ],

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 import 'package:repairservices/res/R.dart';
@@ -22,6 +23,7 @@ import 'package:repairservices/utils/calendar_utils.dart';
 import 'package:repairservices/utils/extensions.dart';
 import 'package:repairservices/utils/file_utils.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_slider_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../project_category_page.dart';
 
@@ -547,7 +549,16 @@ class _ProjectReportPageState
                 style: Theme.of(context).textTheme.headline4),
             onPressed: () async {
               Navigator.pop(context);
-              final path = await _getImageFromSource(ImageSource.camera);
+              String path = await _getImageFromSource(ImageSource.camera);
+              path = null;
+              if (path?.isNotEmpty == true) {
+                final saveToGallery = (await SharedPreferences.getInstance())
+                        .getBool('savePhotos') ??
+                    false;
+                if (saveToGallery)
+                  await ImageGallerySaver.saveImage(
+                      File(path).readAsBytesSync());
+              }
               bloc.projectDocumentReportModel.photo = path;
               bloc.refreshData;
             },

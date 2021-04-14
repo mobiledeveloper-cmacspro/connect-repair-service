@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:repairservices/domain/project_documentation/project_document_models.dart';
 import 'package:repairservices/domain/project_documentation/project_documentation.dart';
@@ -26,6 +27,7 @@ import 'package:repairservices/utils/extensions.dart';
 import 'package:repairservices/utils/extensions.dart';
 import 'package:repairservices/ui/pdf_viewer/pdf_viewer_page.dart';
 import 'package:repairservices/ui/1_tx_widgets/tx_cupertino_action_sheet_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NewProjectDocumentationPage extends StatefulWidget {
   final ProjectDocumentModel model;
@@ -532,6 +534,12 @@ class _NewProjectDocumentationPageState extends StateWithBloC<
     final fileName = CalendarUtils.getTimeIdBasedSeconds();
     final File newImage =
         await File(pickedFile.path).copy('$directory/$fileName.png');
+
+    if(source == ImageSource.camera){
+      final saveToGallery = (await SharedPreferences.getInstance()).getBool('savePhotos') ?? false;
+      if(saveToGallery) await ImageGallerySaver.saveImage(newImage.readAsBytesSync());
+    }
+
     bloc.projectDocumentModel.photo = newImage.path;
     bloc.refreshData;
   }

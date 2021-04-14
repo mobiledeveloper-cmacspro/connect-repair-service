@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:repairservices/EditPicture.dart';
 import 'package:repairservices/FittingSelection.dart';
 import 'package:repairservices/utils/DeviceInfo.dart';
@@ -15,6 +17,7 @@ import 'package:repairservices/ui/article_resources/audio/audio_page.dart';
 import 'package:repairservices/ui/article_resources/video/video_page.dart';
 import 'package:repairservices/ui/marker_component/drawer_container_page.dart';
 import 'package:repairservices/res/R.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IdentificationTypeV extends StatefulWidget {
   @override
